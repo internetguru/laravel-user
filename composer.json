@@ -1,0 +1,31 @@
+{
+    "name": "internetguru/laravel-socialite",
+    "description": "Laravel Socialite",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "InternetGuru\\LaravelSocialite\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "livewire/livewire": "^3.0",
+        "laravel/framework": "^9.0 || ^10.0 || ^11.0",
+        "laravel/socialite": "^5.16",
+        "socialiteproviders/manager": "^4.6"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "InternetGuru\\LaravelSocialite\\LaravelSocialiteServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "new_key": "new_value"
+}
