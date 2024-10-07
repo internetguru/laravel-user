@@ -2,16 +2,16 @@
 
 namespace Tests;
 
-use Orchestra\Testbench\TestCase as BaseTestCase;
 use InternetGuru\LaravelSocialite\LaravelSocialiteServiceProvider;
 use Laravel\Socialite\SocialiteServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     /**
      * Get package providers.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -25,7 +25,7 @@ abstract class TestCase extends BaseTestCase
     /**
      * Get package aliases.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      * @return array
      */
     protected function getPackageAliases($app)
@@ -40,17 +40,17 @@ abstract class TestCase extends BaseTestCase
         // Use MySQL testing database
         $app['config']->set('database.default', 'mysql');
         $app['config']->set('database.connections.mysql', [
-            'driver'    => 'mysql',
-            'host'      => 'mysql',
-            'port'      => 3306,
-            'database'  => 'testing',
-            'username'  => 'user',
-            'password'  => 'password',
-            'charset'   => 'utf8mb4',
+            'driver' => 'mysql',
+            'host' => 'mysql',
+            'port' => 3306,
+            'database' => 'testing',
+            'username' => 'user',
+            'password' => 'password',
+            'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix'    => '',
-            'strict'    => true,
-            'engine'    => null,
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
         ]);
     }
 
@@ -59,7 +59,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function setUpDatabase($app)
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     protected function setUp(): void

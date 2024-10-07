@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use InternetGuru\LaravelSocialite\LaravelSocialiteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use InternetGuru\LaravelSocialite\LaravelSocialiteServiceProvider;
 use Tests\TestCase;
 
 class LaravelSocialiteServiceProviderTest extends TestCase

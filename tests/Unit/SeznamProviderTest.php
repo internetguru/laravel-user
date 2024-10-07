@@ -4,12 +4,11 @@ namespace Tests\Unit;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use InternetGuru\LaravelSocialite\SocialiteProviders\SeznamProvider;
 use Mockery;
 use SocialiteProviders\Manager\OAuth2\User;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 
 class SeznamProviderTest extends TestCase
 {

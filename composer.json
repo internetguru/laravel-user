@@ -25,7 +25,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",
-        "orchestra/testbench": "^8.27"
+        "orchestra/testbench": "^8.27",
+        "laravel/pint": "^1.18"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
