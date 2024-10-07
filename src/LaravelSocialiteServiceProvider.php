@@ -17,7 +17,7 @@ class LaravelSocialiteServiceProvider extends ServiceProvider
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'socialite');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'socialite');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'socialite');
         $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
