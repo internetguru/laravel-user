@@ -28,7 +28,7 @@ class SocialiteController extends Controller
                 case ProviderAction::DISCONNECT:
                     // disconnect require logged in user
                     if (! auth()->check()) {
-                        return back()->withErrors(__('socialite.not_logged_in'));
+                        return back()->withErrors(__('socialite::messages.not_logged_in'));
                     }
 
                     return auth()->user()->socialiteDisconnect($provider);
@@ -36,14 +36,14 @@ class SocialiteController extends Controller
                 case ProviderAction::REGISTER:
                     // login and register require guest user
                     if (auth()->check()) {
-                        return back()->withErrors(__('socialite.already_logged_in'));
+                        return back()->withErrors(__('socialite::messages.already_logged_in'));
                     }
                     break;
                 case ProviderAction::CONNECT:
                 case ProviderAction::MERGE:
                     // connect and merge require logged in user
                     if (! auth()->check()) {
-                        return back()->withErrors(__('socialite.not_logged_in'));
+                        return back()->withErrors(__('socialite::messages.not_logged_in'));
                     }
                     break;
                 default:
@@ -66,7 +66,7 @@ class SocialiteController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return back()->withErrors(__('socialite.unexpected'));
+            return back()->withErrors(__('socialite::messages.unexpected'));
         }
     }
 
@@ -97,7 +97,7 @@ class SocialiteController extends Controller
             Log::error($e->getMessage());
             [, $backUrl] = User::getSocialiteSessions();
 
-            return redirect()->to($backUrl)->withErrors(__('socialite.unexpected'));
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.unexpected'));
         }
     }
 }

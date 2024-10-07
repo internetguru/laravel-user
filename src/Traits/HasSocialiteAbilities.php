@@ -38,7 +38,7 @@ trait HasSocialiteAbilities
         // Login user
         auth()->login($user, $remember);
 
-        return redirect()->to($prevUrl ?? $backUrl)->with('success', __('socialite.login.success'));
+        return redirect()->to($prevUrl ?? $backUrl)->with('success', __('socialite::messages.login.success'));
     }
 
     public static function socialiteLoginAndConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
@@ -50,7 +50,7 @@ trait HasSocialiteAbilities
         if (! $user) {
             Log::warning('User not found', ['provider_user' => $providerUser]);
 
-            return redirect()->to($backUrl)->withErrors(__('socialite.login.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.login.notfound'));
         }
 
         // Login user and connect the OAuth provider
@@ -66,7 +66,7 @@ trait HasSocialiteAbilities
         [$prevUrl, $backUrl] = self::getSocialiteSessions();
 
         if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('socialite.connect.already'));
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.connect.already'));
         }
 
         // Connect the user with the OAuth provider
@@ -78,7 +78,7 @@ trait HasSocialiteAbilities
             ->socialites()
             ->save($socialite);
 
-        return redirect()->to($backUrl)->with('success', __('socialite.connect.success'));
+        return redirect()->to($backUrl)->with('success', __('socialite::messages.connect.success'));
     }
 
     public static function socialiteRegister(Provider $provider, SocialiteUser $providerUser): RedirectResponse
@@ -88,7 +88,7 @@ trait HasSocialiteAbilities
         [$prevUrl, $backUrl] = self::getSocialiteSessions();
 
         if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('socialite.register.already'));
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.register.already'));
         }
 
         // Register user
@@ -105,7 +105,7 @@ trait HasSocialiteAbilities
         // Login user
         auth()->login($user);
 
-        return redirect()->to($prevUrl)->with('success', __('socialite.register.success'));
+        return redirect()->to($prevUrl)->with('success', __('socialite::messages.register.success'));
     }
 
     public static function socialiteRegisterUser(SocialiteUser $providerUser): self
@@ -133,7 +133,7 @@ trait HasSocialiteAbilities
         [$prevUrl, $backUrl] = self::getSocialiteSessions();
 
         if (! $mergedUser) {
-            return redirect()->to($backUrl)->withErrors(__('socialite.merge.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.merge.notfound'));
         }
 
         // Move the socialite from merged user to the current user
@@ -142,7 +142,7 @@ trait HasSocialiteAbilities
             ->firstOrFail()
             ->update(['user_id' => $this->id]);
 
-        return redirect()->to($backUrl)->with('success', __('socialite.merge.success'));
+        return redirect()->to($backUrl)->with('success', __('socialite::messages.merge.success'));
     }
 
     public function socialiteDisconnect(Provider $provider): RedirectResponse
@@ -153,6 +153,6 @@ trait HasSocialiteAbilities
             ->firstOrFail()
             ->delete();
 
-        return back()->with('success', __('socialite.disconnect.success'));
+        return back()->with('success', __('socialite::messages.disconnect.success'));
     }
 }
