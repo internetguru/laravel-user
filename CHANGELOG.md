@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.0] - 2024-10-07
+
+_Stable release based on [0.1.0-rc.1]._
+
 ## [0.1.0-rc.1] - 2024-10-07
 
 ## [0.0.0] - 2024-10-07
@@ -15,5 +19,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-socialite/compare/staging...dev
+[0.1.0]: https://https://github.com/internetguru/laravel-socialite/compare/v0.0.0...v0.1.0
 [0.1.0-rc.1]: https://github.com/internetguru/laravel-socialite/releases/tag/v0.0.0
 [0.0.0]: git log v0.0.0
