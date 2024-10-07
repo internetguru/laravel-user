@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "InternetGuru\\LaravelSocialite\\": "src/"
+            "InternetGuru\\LaravelSocialite\\": "src/",
+            "Tests\\": "tests/"
         }
     },
     "require": {
@@ -23,7 +24,8 @@
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0"
+        "phpunit/phpunit": "^9.0",
+        "orchestra/testbench": "^8.27"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
