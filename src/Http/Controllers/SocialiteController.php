@@ -121,7 +121,7 @@ class SocialiteController extends Controller
     public function handleTokenAuthCallback(string $token): RedirectResponse
     {
         try {
-            User::tokenAuthLogin($token);
+            return User::tokenAuthLogin($token);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             [, $backUrl] = User::getSocialiteSessions();
