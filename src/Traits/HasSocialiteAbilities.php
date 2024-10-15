@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use InternetGuru\LaravelSocialite\Enums\Provider;
 use InternetGuru\LaravelSocialite\Models\Socialite;
 use InternetGuru\LaravelSocialite\Models\TokenAuth;
