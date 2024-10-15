@@ -100,4 +100,33 @@ class SocialiteController extends Controller
             return redirect()->to($backUrl)->withErrors(__('socialite::messages.unexpected'));
         }
     }
+
+    /**
+     * Send the token auth link to the user
+     */
+    public function handleTokenAuthSend(User $user, Request $request): RedirectResponse
+    {
+        try {
+            return $user->sendTokenAuthLink();
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+
+            return back()->withErrors(__('socialite::messages.unexpected'));
+        }
+    }
+
+    /**
+     * Handle the token auth callback
+     */
+    public function handleTokenAuthCallback(string $token): RedirectResponse
+    {
+        try {
+            User::tokenAuthLogin($token);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            [, $backUrl] = User::getSocialiteSessions();
+
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.unexpected'));
+        }
+    }
 }

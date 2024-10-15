@@ -4,10 +4,12 @@ namespace InternetGuru\LaravelSocialite\Traits;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use InternetGuru\LaravelSocialite\Enums\Provider;
 use InternetGuru\LaravelSocialite\Models\Socialite;
+use InternetGuru\LaravelSocialite\Models\TokenAuth;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
 trait HasSocialiteAbilities
@@ -15,6 +17,11 @@ trait HasSocialiteAbilities
     public function socialites(): HasMany
     {
         return $this->hasMany(Socialite::class);
+    }
+
+    public function tokenAuth(): HasOne
+    {
+        return $this->hasOne(TokenAuth::class);
     }
 
     public static function getBySocialiteProvider(Provider $provider, string $providerId): ?self
@@ -106,6 +113,7 @@ trait HasSocialiteAbilities
 
         // Login user
         auth()->login($user);
+        self::socialiteAuthenticated($user);
 
         return redirect()->to($prevUrl)->with('success', __('socialite::messages.register.success'));
     }
@@ -161,5 +169,43 @@ trait HasSocialiteAbilities
     public static function socialiteAuthenticated(self $user): void
     {
         // Do something when the user is authenticated
+    }
+
+    public function sendTokenAuthLink(): RedirectResponse
+    {
+        // If token already exists and newer than 5 minutes then throw
+        if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
+            return back()->withErrors(__('socialite::messages.token_auth.wait'));
+        }
+        // Send the token auth link via email
+        $tokenAuth = $this->tokenAuth()->updateOrCreate([
+            'user_id' => $this->id,
+        ], [
+            'token' => Str::random(32),
+            'expires_at' => now()->addHour(),
+        ]);
+
+        $user->notify(new TokenAuthNotification($tokenAuth));
+
+        return back()->with('success', __('socialite::messages.token_auth.sent'));
+    }
+
+    public static function tokenAuthLogin(string $token): RedirectResponse
+    {
+        $tokenAuth = TokenAuth::where('token', $token)->firstOrFail();
+        $user = $tokenAuth->user;
+        [, $backUrl] = self::getSocialiteSessions();
+
+        if ($tokenAuth->expires_at->isPast()) {
+            $tokenAuth->delete();
+
+            return redirect()->to($backUrl)->withErrors(__('socialite::token_auth.invalid'));
+        }
+
+        $tokenAuth->delete();
+        auth()->login($user);
+        self::socialiteAuthenticated($user);
+
+        return redirect()->to($backUrl)->with('success', __('socialite::messages.login.success'));
     }
 }

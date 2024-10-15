@@ -16,4 +16,11 @@ return [
     'disconnect.success' => 'The account has been successfully disconnected.',
     'remember_me' => 'Remember me',
 
+    'token_auth.sent' => 'The one-time login link has been successfully sent.',
+    'token_auth.wait' => 'Please wait before requesting a new one-time login link.',
+    'token_auth.invalid' => 'The one-time login has expired or is invalid',
+    'token_auth.subject' => 'One-time login to :url',
+    'token_auth.action' => 'Log in',
+    'token_auth.expires' => 'Note: The login link will expire in :expires and is for one-time use.',
+
 ];
