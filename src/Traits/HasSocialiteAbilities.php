@@ -37,6 +37,8 @@ trait HasSocialiteAbilities
 
         // Login user
         auth()->login($user, $remember);
+        $request->session()->regenerate();
+        self::socialiteAuthenticated($user);
 
         return redirect()->to($prevUrl ?? $backUrl)->with('success', __('socialite::messages.login.success'));
     }
