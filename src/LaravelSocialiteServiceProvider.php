@@ -21,7 +21,7 @@ class LaravelSocialiteServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
-        ], 'socialite-migrations');
+        ], 'migrations');
 
         // extend socialite with seznam provider
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
