@@ -54,7 +54,10 @@ trait HasSocialiteAbilities
         }
 
         // Login user and connect the OAuth provider
+
         auth()->login($user, $remember);
+        $request->session()->regenerate();
+        $user->authenticatated($request, $user);
 
         return self::socialiteConnect($provider, $providerUser);
     }
