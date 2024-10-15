@@ -54,9 +54,9 @@ trait HasSocialiteAbilities
         }
 
         // Login user and connect the OAuth provider
-
         auth()->login($user, $remember);
         $request->session()->regenerate();
+        self::socialiteAuthenticated($user);
 
         return self::socialiteConnect($provider, $providerUser);
     }
@@ -156,5 +156,10 @@ trait HasSocialiteAbilities
             ->delete();
 
         return back()->with('success', __('socialite::messages.disconnect.success'));
+    }
+
+    public static function socialiteAuthenticated(self $user): void
+    {
+        // Do something when the user is authenticated
     }
 }
