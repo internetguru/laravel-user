@@ -14,5 +14,6 @@ return [
     'merge.notfound' => 'Účet nebyl nalezen.',
     'merge.success' => 'Účet byl úspěšně sloučen.',
     'disconnect.success' => 'Účet byl úspěšně odpojen.',
+    'remember_me' => 'Zapamatovat si přihlášení',
 
 ];

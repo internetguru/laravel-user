@@ -14,5 +14,6 @@ return [
     'merge.notfound' => 'The account was not found.',
     'merge.success' => 'The account has been successfully merged.',
     'disconnect.success' => 'The account has been successfully disconnected.',
+    'remember_me' => 'Remember me',
 
 ];
