@@ -187,7 +187,7 @@ trait HasSocialiteAbilities
             'expires_at' => now()->addHour(),
         ]);
 
-        $user->notify(new TokenAuthNotification($tokenAuth));
+        $tokenAuth->user->notify(new TokenAuthNotification($tokenAuth));
 
         return redirect()->to($backUrl)->with('success', __('socialite::messages.token_auth.sent'));
     }
