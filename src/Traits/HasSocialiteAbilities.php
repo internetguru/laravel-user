@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use InternetGuru\LaravelSocialite\Enums\Provider;
 use InternetGuru\LaravelSocialite\Models\Socialite;
 use InternetGuru\LaravelSocialite\Models\TokenAuth;
+use InternetGuru\LaravelSocialite\Notifications\TokenAuthNotification;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
 trait HasSocialiteAbilities
