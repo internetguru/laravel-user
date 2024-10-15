@@ -57,7 +57,6 @@ trait HasSocialiteAbilities
 
         auth()->login($user, $remember);
         $request->session()->regenerate();
-        $user->authenticatated($request, $user);
 
         return self::socialiteConnect($provider, $providerUser);
     }
