@@ -24,7 +24,7 @@ class TokenAuthNotification extends Notification
         $url = URL::signedRoute('socialite.token-auth.callback', ['token' => $this->tokenAuth->token]);
 
         return (new MailMessage)
-            ->subject(__('socialite::token_auth.subject', ['url' => config('app.url')]))
+            ->subject(__('socialite::token_auth.subject'))
             ->action(__('socialite::token_auth.action'), $url)
             ->line(__('socialite::token_auth.expires', ['expires' => $this->tokenAuth->expires_at->diffForHumans()]));
     }
