@@ -7,6 +7,6 @@ return [
     'invalid' => 'Jednorázové přihlášení již vypršelo nebo není validní',
     'subject' => 'Odkaz na jednorázové přihlášení',
     'action' => 'Přihlásit se',
-    'expires' => 'Poznámka: Přihlášovací odkaz vyprší za :expires a je na jedno použití.',
+    'expires' => 'Poznámka: Přihlášovací odkaz vyprší :expires a je na jedno použití.',
 
 ];
