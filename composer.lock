@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d59f145323e35d2dfb9175f90e936591",
+    "content-hash": "e4bdaa09bfd2df64f42fdea0662b5dcd",
     "packages": [
         {
             "name": "brick/math",
@@ -1112,6 +1112,51 @@
                 }
             ],
             "time": "2023-12-03T19:50:20+00:00"
+        },
+        {
+            "name": "internetguru/laravel-common",
+            "version": "v0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/internetguru/laravel-common.git",
+                "reference": "6dc584eb3954460baa03bcd8abd14edc8bf261d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/6dc584eb3954460baa03bcd8abd14edc8bf261d8",
+                "reference": "6dc584eb3954460baa03bcd8abd14edc8bf261d8",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "^8.26",
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "InternetGuru\\LaravelCommon\\CommonServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tests\\": "tests/",
+                    "InternetGuru\\LaravelCommon\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "petrzpav",
+                    "email": "pavel.petrzela@internetguru.cz"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/internetguru/laravel-common/issues",
+                "source": "https://github.com/internetguru/laravel-common/tree/v0.3.1"
+            },
+            "time": "2024-09-12T12:59:31+00:00"
         },
         {
             "name": "laravel/framework",

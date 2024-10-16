@@ -180,7 +180,7 @@ trait HasSocialiteAbilities
         if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
             return redirect()->to($backUrl)->withErrors(__('socialite::token_auth.wait'));
         }
-        // Send the token auth link via email
+
         $tokenAuth = $this->tokenAuth()->updateOrCreate([
             'user_id' => $this->id,
         ], [
@@ -188,6 +188,7 @@ trait HasSocialiteAbilities
             'expires_at' => now()->addHour(),
         ]);
 
+        // Send the token auth link via email
         self::sendTokenAuthNotification($tokenAuth);
 
         return redirect()->to($backUrl)->with('success', __('socialite::token_auth.sent'));

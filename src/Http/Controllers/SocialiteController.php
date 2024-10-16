@@ -116,6 +116,22 @@ class SocialiteController extends Controller
     }
 
     /**
+     * Send the token auth link to the user based on the form email input
+     */
+    public function handleTokenAuthSendForm(Request $request): RedirectResponse
+    {
+        try {
+            $user = User::where('email', $request->input('email'))->firstOrFail();
+
+            return $this->handleTokenAuthSend($user, $request);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+
+            return back()->withErrors(__('socialite::messages.unexpected'));
+        }
+    }
+
+    /**
      * Handle the token auth callback
      */
     public function handleTokenAuthCallback(string $token): RedirectResponse

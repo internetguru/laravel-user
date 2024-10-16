@@ -7,6 +7,9 @@ Route::controller(SocialiteController::class)
     ->middleware('web')
     ->group(function () {
 
+        Route::post('/send', 'handleTokenAuthSendForm')
+            ->name('socialite.token-auth.form');
+
         Route::get('/send/{user}', 'handleTokenAuthSend')
             ->name('socialite.token-auth.send');
 
