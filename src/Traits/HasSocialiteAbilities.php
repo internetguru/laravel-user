@@ -178,7 +178,7 @@ trait HasSocialiteAbilities
         [, $backUrl] = self::getSocialiteSessions();
         // If token already exists and newer than 5 minutes then throw
         if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes(absolute: true) < 5) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.token_auth.wait'));
+            return redirect()->to($backUrl)->withErrors(__('socialite::token_auth.wait'));
         }
         // Send the token auth link via email
         $tokenAuth = $this->tokenAuth()->updateOrCreate([
@@ -188,9 +188,14 @@ trait HasSocialiteAbilities
             'expires_at' => now()->addHour(),
         ]);
 
-        $tokenAuth->user->notify(new TokenAuthNotification($tokenAuth));
+        self::sendTokenAuthNotification($tokenAuth);
 
-        return redirect()->to($backUrl)->with('success', __('socialite::messages.token_auth.sent'));
+        return redirect()->to($backUrl)->with('success', __('socialite::token_auth.sent'));
+    }
+
+    public static function sendTokenAuthNotification(TokenAuth $tokenAuth): void
+    {
+        $tokenAuth->user->notify(new TokenAuthNotification($tokenAuth));
     }
 
     public static function tokenAuthLogin(string $token): RedirectResponse
