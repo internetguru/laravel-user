@@ -25,6 +25,7 @@ class TokenAuthNotification extends Notification
 
         return (new MailMessage)
             ->subject(__('socialite::token_auth.subject'))
+            ->line(__('socialite::token_auth.intro'))
             ->action(__('socialite::token_auth.action'), $url)
             ->line(__('socialite::token_auth.expires', ['expires' => $this->tokenAuth->expires_at->diffForHumans()]));
     }
