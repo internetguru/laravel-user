@@ -176,10 +176,9 @@ trait HasSocialiteAbilities
 
     public function sendTokenAuthLink(): RedirectResponse
     {
-        [, $backUrl] = self::getSocialiteSessions();
         // If token already exists and newer than 5 minutes then throw
         if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::token_auth.wait'));
+            return back()->withErrors(__('socialite::token_auth.wait'));
         }
 
         $tokenAuth = $this->tokenAuth()->updateOrCreate([
@@ -192,7 +191,7 @@ trait HasSocialiteAbilities
         // Send the token auth link via email
         self::sendTokenAuthNotification($tokenAuth);
 
-        return redirect()->to($backUrl)->with('success', __('socialite::token_auth.sent') . Helpers::getEmailClientLink());
+        return back()->with('success', __('socialite::token_auth.sent') . Helpers::getEmailClientLink());
     }
 
     public static function sendTokenAuthNotification(TokenAuth $tokenAuth): void
