@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use InternetGuru\LaravelCommon\Support\Helpers;
 use InternetGuru\LaravelSocialite\Enums\Provider;
 use InternetGuru\LaravelSocialite\Models\Socialite;
 use InternetGuru\LaravelSocialite\Models\TokenAuth;
@@ -191,7 +192,7 @@ trait HasSocialiteAbilities
         // Send the token auth link via email
         self::sendTokenAuthNotification($tokenAuth);
 
-        return redirect()->to($backUrl)->with('success', __('socialite::token_auth.sent'));
+        return redirect()->to($backUrl)->with('success', __('socialite::token_auth.sent') . Helpers::getEmailClientLink());
     }
 
     public static function sendTokenAuthNotification(TokenAuth $tokenAuth): void
