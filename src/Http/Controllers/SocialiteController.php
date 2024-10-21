@@ -4,6 +4,7 @@ namespace InternetGuru\LaravelSocialite\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -124,6 +125,8 @@ class SocialiteController extends Controller
             $user = User::where('email', $request->input('email'))->firstOrFail();
 
             return $this->handleTokenAuthSend($user, $request);
+        } catch (ModelNotFoundException $e) {
+            return back()->withErrors(__('socialite::messages.login.notfound'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
