@@ -29,7 +29,7 @@ class SocialiteController extends Controller
                 case ProviderAction::DISCONNECT:
                     // disconnect require logged in user
                     if (! auth()->check()) {
-                        return back()->withErrors(__('socialite::messages.not_logged_in'));
+                        return back()->withErrors(__('socialite::messages.login.required'));
                     }
 
                     return auth()->user()->socialiteDisconnect($provider);
@@ -37,14 +37,14 @@ class SocialiteController extends Controller
                 case ProviderAction::REGISTER:
                     // login and register require guest user
                     if (auth()->check()) {
-                        return back()->withErrors(__('socialite::messages.already_logged_in'));
+                        return back()->withErrors(__('socialite::messages.login.forbidden'));
                     }
                     break;
                 case ProviderAction::CONNECT:
                 case ProviderAction::MERGE:
                     // connect and merge require logged in user
                     if (! auth()->check()) {
-                        return back()->withErrors(__('socialite::messages.not_logged_in'));
+                        return back()->withErrors(__('socialite::messages.login.required'));
                     }
                     break;
                 default:

@@ -49,7 +49,7 @@ trait HasSocialiteAbilities
         auth()->login($user, $remember);
         self::socialiteAuthenticated($user);
 
-        return redirect()->to($prevUrl ?? $backUrl)->with('success', __('socialite::messages.login.success'));
+        return redirect()->to($prevUrl ?? $backUrl);
     }
 
     public static function socialiteLoginAndConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
@@ -78,7 +78,7 @@ trait HasSocialiteAbilities
         [$prevUrl, $backUrl] = self::getSocialiteSessions();
 
         if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.connect.already'));
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.connect.exists'));
         }
 
         // Connect the user with the OAuth provider
@@ -215,6 +215,6 @@ trait HasSocialiteAbilities
         auth()->login($user);
         self::socialiteAuthenticated($user);
 
-        return redirect()->to($backUrl)->with('success', __('socialite::messages.login.success'));
+        return redirect()->to($backUrl);
     }
 }
