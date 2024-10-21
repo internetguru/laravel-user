@@ -10,7 +10,7 @@ return [
     'login.title' => 'Přihlásit se',
     'connect.already' => 'Účet je již připojen.',
     'connect.success' => 'Účet byl úspěšně připojen.',
-    'register.already' => 'Účet je již zaregistrován.',
+    'register.exists' => 'Účet nebo email už existuje.',
     'register.success' => 'Účet byl úspěšně zaregistrován.',
     'register.title' => 'Registrace',
     'merge.notfound' => 'Účet nebyl nalezen.',

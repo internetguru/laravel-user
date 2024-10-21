@@ -10,7 +10,7 @@ return [
     'login.title' => 'Login',
     'connect.already' => 'The account is already connected.',
     'connect.success' => 'The account has been successfully connected.',
-    'register.already' => 'The account is already registered.',
+    'register.exists' => 'Account or email already exists.',
     'register.success' => 'The account has been successfully registered.',
     'register.title' => 'Register',
     'merge.notfound' => 'The account was not found.',

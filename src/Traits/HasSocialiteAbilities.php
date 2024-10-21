@@ -42,7 +42,7 @@ trait HasSocialiteAbilities
 
         // User not found, try to connect
         if (! $user) {
-            return self::socialiteLoginAndConnect($provider, $providerUser);
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.login.notfound'));
         }
 
         // Login user
@@ -99,8 +99,8 @@ trait HasSocialiteAbilities
         $user = self::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl] = self::getSocialiteSessions();
 
-        if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.register.already'));
+        if ($user || self::where('email', $providerUser->email)->exists()) {
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.register.exists'));
         }
 
         // Register user
