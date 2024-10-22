@@ -153,7 +153,7 @@ trait HasSocialiteAbilities
         $mergedUser->socialites()
             ->where('provider', $provider)
             ->firstOrFail()
-            ->update(['user_id' => $this->id]);
+            ->update(['user_id' => auth()->id()]);
 
         return redirect()->to($backUrl)->with('success', __('socialite::messages.merge.success'));
     }
