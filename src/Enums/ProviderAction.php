@@ -7,6 +7,6 @@ enum ProviderAction: string
     case LOGIN = 'login';
     case REGISTER = 'register';
     case CONNECT = 'connect';
-    case MERGE = 'merge';
+    case TRANSFER = 'transfer';
     case DISCONNECT = 'disconnect';
 }

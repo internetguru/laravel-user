@@ -139,23 +139,23 @@ trait HasSocialiteAbilities
         ];
     }
 
-    public static function socialiteMerge(Provider $provider, SocialiteUser $providerUser): RedirectResponse
+    public static function socialiteTransfer(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
-        // Check if the merged user exists
-        $mergedUser = self::getBySocialiteProvider($provider, $providerUser->id);
+        // Check if the source user exists
+        $sourceUser = self::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl] = self::getSocialiteSessions();
 
-        if (! $mergedUser) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.merge.notfound'));
+        if (! $sourceUser) {
+            return redirect()->to($backUrl)->withErrors(__('socialite::messages.transfer.notfound'));
         }
 
-        // Move the socialite from merged user to the current user
-        $mergedUser->socialites()
+        // Transfer the socialite from source user to the current user
+        $sourceUser->socialites()
             ->where('provider', $provider)
             ->firstOrFail()
             ->update(['user_id' => auth()->id()]);
 
-        return redirect()->to($backUrl)->with('success', __('socialite::messages.merge.success'));
+        return redirect()->to($backUrl)->with('success', __('socialite::messages.transfer.success'));
     }
 
     public function socialiteDisconnect(Provider $provider): RedirectResponse

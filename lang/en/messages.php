@@ -8,11 +8,11 @@ return [
     'login.forbidden' => 'Unavailable for logged users.',
     'login.notfound' => 'Unable to login: identity not found.',
     'login.required' => 'Login is required.',
-    'merge.notfound' => 'Unable to merge: identity not found.',
-    'merge.success' => 'Identity merged.',
     'register.exists' => 'Unable to register: identity or email already registered.',
     'register.success' => 'Registration successful.',
     'remember_me' => 'Remember me',
+    'transfer.notfound' => 'Unable to transfer: identity not found.',
+    'transfer.success' => 'Identity transferred.',
     'unexpected' => 'Unexpected error occurred. Please try again later.',
 
 ];

@@ -39,7 +39,7 @@ class SocialiteController extends Controller
             $provider = Provider::from($provider);
             $action = ProviderAction::from($action);
 
-            // swich the actions
+            // switch the actions
             switch ($action) {
                 case ProviderAction::DISCONNECT:
                     $this->loginRequired();
@@ -51,7 +51,7 @@ class SocialiteController extends Controller
 
                     break;
                 case ProviderAction::CONNECT:
-                case ProviderAction::MERGE:
+                case ProviderAction::TRANSFER:
                     $this->loginRequired();
 
                     break;
@@ -104,10 +104,10 @@ class SocialiteController extends Controller
                     $this->loginForbidden();
 
                     return User::socialiteRegister($provider, $providerUser);
-                case ProviderAction::MERGE:
+                case ProviderAction::TRANSFER:
                     $this->loginRequired();
 
-                    return User::socialiteMerge($provider, $providerUser);
+                    return User::socialiteTransfer($provider, $providerUser);
                 default:
                     // should not happen
                     abort(404);
