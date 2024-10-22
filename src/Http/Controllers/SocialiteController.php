@@ -11,10 +11,25 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use InternetGuru\LaravelSocialite\Enums\Provider;
 use InternetGuru\LaravelSocialite\Enums\ProviderAction;
+use InternetGuru\LaravelSocialite\Exceptions\AuthCheckException;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteController extends Controller
 {
+    private function loginRequired(): void
+    {
+        if (! auth()->check()) {
+            throw new AuthCheckException(__('socialite::messages.login.required'));
+        }
+    }
+
+    private function loginForbidden(): void
+    {
+        if (auth()->check()) {
+            throw new AuthCheckException(__('socialite::messages.login.forbidden'));
+        }
+    }
+
     /**
      * Handle supported Socialite provider actions
      */
@@ -27,25 +42,18 @@ class SocialiteController extends Controller
             // swich the actions
             switch ($action) {
                 case ProviderAction::DISCONNECT:
-                    // disconnect require logged in user
-                    if (! auth()->check()) {
-                        return back()->withErrors(__('socialite::messages.login.required'));
-                    }
+                    $this->loginRequired();
 
                     return auth()->user()->socialiteDisconnect($provider);
                 case ProviderAction::LOGIN:
                 case ProviderAction::REGISTER:
-                    // login and register require guest user
-                    if (auth()->check()) {
-                        return back()->withErrors(__('socialite::messages.login.forbidden'));
-                    }
+                    $this->loginForbidden();
+
                     break;
                 case ProviderAction::CONNECT:
                 case ProviderAction::MERGE:
-                    // connect and merge require logged in user
-                    if (! auth()->check()) {
-                        return back()->withErrors(__('socialite::messages.login.required'));
-                    }
+                    $this->loginRequired();
+
                     break;
                 default:
                     // should not happen
@@ -64,6 +72,8 @@ class SocialiteController extends Controller
             $encodedBaseUrl = urlencode($baseUrl);
 
             return Socialite::driver($provider->value)->with(['state' => $encodedBaseUrl])->redirect();
+        } catch (AuthCheckException $e) {
+            return back()->withErrors($e->getMessage());
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
@@ -83,17 +93,29 @@ class SocialiteController extends Controller
             $providerUser = Socialite::driver($provider->value)->stateless()->user();
             switch ($action) {
                 case ProviderAction::LOGIN:
+                    $this->loginForbidden();
+
                     return User::socialiteLogin($provider, $providerUser);
                 case ProviderAction::CONNECT:
+                    $this->loginRequired();
+
                     return User::socialiteConnect($provider, $providerUser);
                 case ProviderAction::REGISTER:
+                    $this->loginForbidden();
+
                     return User::socialiteRegister($provider, $providerUser);
                 case ProviderAction::MERGE:
+                    $this->loginRequired();
+
                     return User::socialiteMerge($provider, $providerUser);
                 default:
                     // should not happen
                     abort(404);
             }
+        } catch (AuthCheckException $e) {
+            [, $backUrl] = User::getSocialiteSessions();
+
+            return redirect()->to($backUrl)->withErrors($e->getMessage());
         } catch (\Exception $e) {
             Log::error($e->getMessage());
             [, $backUrl] = User::getSocialiteSessions();

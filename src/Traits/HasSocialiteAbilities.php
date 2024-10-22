@@ -139,7 +139,7 @@ trait HasSocialiteAbilities
         ];
     }
 
-    public function socialiteMerge(Provider $provider, SocialiteUser $providerUser): RedirectResponse
+    public static function socialiteMerge(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         // Check if the merged user exists
         $mergedUser = self::getBySocialiteProvider($provider, $providerUser->id);
