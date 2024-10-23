@@ -1,6 +1,15 @@
 # Internet Guru Laravel Socialite
 
-Internet Guru Laravel Socialite is a library that provides seamless integration with various social authentication providers.
+Internet Guru Laravel Socialite is a library that provides seamless integration with various social authentication providers. It stores the user's social identity in the database and allows the user to link multiple social identities to a single account. It also provides temporary login link to the user's email address.
+
+## Features and terminology
+
+- **Account** – application user account.
+- **Identity** – provider & provider_user_id.
+- **Register** – create a new account with a new identity linked to it.
+- **Connect** – link a new identity to the current account.
+- **Disconnect** – unlink an existing identity from the current account.
+- **Transfer** – unlink an existing identity from one account and link it to the current one.
 
 ## Installation
 
