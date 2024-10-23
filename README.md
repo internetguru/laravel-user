@@ -1,6 +1,6 @@
-# Internetguru Laravel Socialite
+# Internet Guru Laravel Socialite
 
-Internetguru Laravel Socialite is a library that provides seamless integration with various social authentication providers.
+Internet Guru Laravel Socialite is a library that provides seamless integration with various social authentication providers.
 
 ## Installation
 
