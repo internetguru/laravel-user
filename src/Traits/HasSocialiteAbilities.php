@@ -85,6 +85,8 @@ trait HasSocialiteAbilities
         $socialite = new Socialite([
             'provider' => $provider,
             'provider_id' => $providerUser->id,
+            'name' => $providerUser->name,
+            'email' => $providerUser->email,
         ]);
         auth()->user()
             ->socialites()
@@ -111,6 +113,8 @@ trait HasSocialiteAbilities
         $socialite = new Socialite([
             'provider' => $provider,
             'provider_id' => $providerUser->id,
+            'name' => $providerUser->name,
+            'email' => $providerUser->email,
         ]);
         $user->socialites()->save($socialite);
 
