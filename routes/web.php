@@ -8,7 +8,7 @@ Route::controller(TokenAuthController::class)
     ->middleware('web')
     ->group(function () {
 
-        Route::post('/send', 'handleAuthSendForm')
+        Route::post('/send', 'handleTokenAuthSendForm')
             ->name('token-auth.form');
 
         Route::get('/send/{user}', 'handleTokenAuthSend')
