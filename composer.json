@@ -1,6 +1,6 @@
 {
-    "name": "internetguru/laravel-socialite",
-    "description": "Laravel Socialite",
+    "name": "internetguru/laravel-auth",
+    "description": "Laravel Auth",
     "type": "library",
     "license": "MIT",
     "autoload": {
