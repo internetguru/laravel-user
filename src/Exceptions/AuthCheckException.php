@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite\Exceptions;
+namespace InternetGuru\LaravelAuth\Exceptions;
 
 use Exception;
 

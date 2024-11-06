@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite\Models;
+namespace InternetGuru\LaravelAuth\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;

@@ -1,10 +1,10 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite\Models;
+namespace InternetGuru\LaravelAuth\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use InternetGuru\LaravelSocialite\Enums\Provider;
+use InternetGuru\LaravelAuth\Enums\Provider;
 
 class Socialite extends Model
 {

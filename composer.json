@@ -1,11 +1,11 @@
 {
-    "name": "internetguru/laravel-socialite",
-    "description": "Laravel Socialite",
+    "name": "internetguru/laravel-auth",
+    "description": "Interent Guru Laravel Auth",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "InternetGuru\\LaravelSocialite\\": "src/",
+            "InternetGuru\\LaravelAuth\\": "src/",
             "Tests\\": "tests/"
         }
     },
@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "InternetGuru\\LaravelSocialite\\LaravelSocialiteServiceProvider"
+                "InternetGuru\\LaravelAuth\\LaravelAuthServiceProvider"
             ]
         }
     },
@@ -30,6 +30,5 @@
         "laravel/pint": "^1.18"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "new_key": "new_value"
+    "prefer-stable": true
 }

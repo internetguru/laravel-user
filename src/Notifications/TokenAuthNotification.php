@@ -1,12 +1,12 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite\Notifications;
+namespace InternetGuru\LaravelAuth\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
-use InternetGuru\LaravelSocialite\Models\TokenAuth;
+use InternetGuru\LaravelAuth\Models\TokenAuth;
 
 class TokenAuthNotification extends Notification
 {
@@ -21,12 +21,12 @@ class TokenAuthNotification extends Notification
 
     public function toMail(): MailMessage
     {
-        $url = URL::signedRoute('socialite.token-auth.callback', ['token' => $this->tokenAuth->token]);
+        $url = URL::signedRoute('token-auth.callback', ['token' => $this->tokenAuth->token]);
 
         return (new MailMessage)
-            ->subject(__('socialite::token_auth.subject'))
-            ->line(__('socialite::token_auth.intro'))
-            ->action(__('socialite::token_auth.action'), $url)
-            ->line(__('socialite::token_auth.expires', ['expires' => $this->tokenAuth->expires_at->diffForHumans()]));
+            ->subject(__('auth::token_auth.subject'))
+            ->line(__('auth::token_auth.intro'))
+            ->action(__('auth::token_auth.action'), $url)
+            ->line(__('auth::token_auth.expires', ['expires' => $this->tokenAuth->expires_at->diffForHumans()]));
     }
 }

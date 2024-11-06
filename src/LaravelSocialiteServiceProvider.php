@@ -1,12 +1,12 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite;
+namespace InternetGuru\LaravelAuth;
 
 use Illuminate\Support\ServiceProvider;
-use InternetGuru\LaravelSocialite\SocialiteProviders\SeznamProvider;
+use InternetGuru\LaravelAuth\SocialiteProviders\SeznamProvider;
 use Laravel\Socialite\Facades\Socialite;
 
-class LaravelSocialiteServiceProvider extends ServiceProvider
+class LaravelAuthServiceProvider extends ServiceProvider
 {
     public function register()
     {
@@ -15,9 +15,9 @@ class LaravelSocialiteServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'socialite');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'auth');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'socialite');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'auth');
         $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
         $this->publishesMigrations([
             __DIR__ . '/../database/migrations' => database_path('migrations'),

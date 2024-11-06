@@ -1,30 +1,20 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite\Traits;
+namespace InternetGuru\LaravelAuth\Traits;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
-use InternetGuru\LaravelCommon\Support\Helpers;
-use InternetGuru\LaravelSocialite\Enums\Provider;
-use InternetGuru\LaravelSocialite\Models\Socialite;
-use InternetGuru\LaravelSocialite\Models\TokenAuth;
-use InternetGuru\LaravelSocialite\Notifications\TokenAuthNotification;
+use InternetGuru\LaravelAuth\Enums\Provider;
+use InternetGuru\LaravelAuth\Models\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
-trait HasSocialiteAbilities
+trait SocialiteAuth
 {
     public function socialites(): HasMany
     {
         return $this->hasMany(Socialite::class);
-    }
-
-    public function tokenAuth(): HasOne
-    {
-        return $this->hasOne(TokenAuth::class);
     }
 
     public static function getBySocialiteProvider(Provider $provider, string $providerId): ?self
@@ -38,16 +28,16 @@ trait HasSocialiteAbilities
     public static function socialiteLogin(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         $user = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl, $remember] = self::getSocialiteSessions();
+        [$prevUrl, $backUrl, $remember] = self::getAuthSessions();
 
         // User not found, try to connect
         if (! $user) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.login.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('auth::messages.login.notfound'));
         }
 
         // Login user
         auth()->login($user, $remember);
-        self::socialiteAuthenticated($user);
+        self::authenticated($user);
 
         return redirect()->to($prevUrl ?? $backUrl);
     }
@@ -56,17 +46,17 @@ trait HasSocialiteAbilities
     {
         // Try to find the user by email
         $user = self::where('email', $providerUser->email)->first();
-        [$prevUrl, $backUrl, $remember] = self::getSocialiteSessions();
+        [$prevUrl, $backUrl, $remember] = self::getAuthSessions();
 
         if (! $user) {
             Log::warning('User not found', ['provider_user' => $providerUser]);
 
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.login.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('auth::messages.login.notfound'));
         }
 
         // Login user and connect the OAuth provider
         auth()->login($user, $remember);
-        self::socialiteAuthenticated($user);
+        self::authenticated($user);
 
         return self::socialiteConnect($provider, $providerUser);
     }
@@ -75,10 +65,10 @@ trait HasSocialiteAbilities
     {
         // Check if the id is already connected to some user
         $user = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl] = self::getSocialiteSessions();
+        [$prevUrl, $backUrl] = self::getAuthSessions();
 
         if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.connect.exists'));
+            return redirect()->to($backUrl)->withErrors(__('auth::messages.connect.exists'));
         }
 
         // Connect the user with the OAuth provider
@@ -92,17 +82,17 @@ trait HasSocialiteAbilities
             ->socialites()
             ->save($socialite);
 
-        return redirect()->to($backUrl)->with('success', __('socialite::messages.connect.success'));
+        return redirect()->to($backUrl)->with('success', __('auth::messages.connect.success'));
     }
 
     public static function socialiteRegister(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         // Check if the id is already connected to some user
         $user = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl] = self::getSocialiteSessions();
+        [$prevUrl, $backUrl] = self::getAuthSessions();
 
         if ($user || self::where('email', $providerUser->email)->exists()) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.register.exists'));
+            return redirect()->to($backUrl)->withErrors(__('auth::messages.register.exists'));
         }
 
         // Register user
@@ -120,9 +110,9 @@ trait HasSocialiteAbilities
 
         // Login user
         auth()->login($user);
-        self::socialiteAuthenticated($user);
+        self::authenticated($user);
 
-        return redirect()->to($prevUrl)->with('success', __('socialite::messages.register.success'));
+        return redirect()->to($prevUrl)->with('success', __('auth::messages.register.success'));
     }
 
     public static function socialiteRegisterUser(SocialiteUser $providerUser): self
@@ -134,23 +124,14 @@ trait HasSocialiteAbilities
         ]);
     }
 
-    public static function getSocialiteSessions(): array
-    {
-        return [
-            session('socialite_prev', null),
-            session('socialite_back', '/'),
-            session('socialite_remember', false),
-        ];
-    }
-
     public static function socialiteTransfer(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         // Check if the source user exists
         $sourceUser = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl] = self::getSocialiteSessions();
+        [$prevUrl, $backUrl] = self::getAuthSessions();
 
         if (! $sourceUser) {
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.transfer.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('auth::messages.transfer.notfound'));
         }
 
         // Transfer the socialite from source user to the current user
@@ -159,7 +140,7 @@ trait HasSocialiteAbilities
             ->firstOrFail()
             ->update(['user_id' => auth()->id()]);
 
-        return redirect()->to($backUrl)->with('success', __('socialite::messages.transfer.success'));
+        return redirect()->to($backUrl)->with('success', __('auth::messages.transfer.success'));
     }
 
     public function socialiteDisconnect(Provider $provider): RedirectResponse
@@ -170,55 +151,6 @@ trait HasSocialiteAbilities
             ->firstOrFail()
             ->delete();
 
-        return back()->with('success', __('socialite::messages.disconnect.success'));
-    }
-
-    public static function socialiteAuthenticated(self $user): void
-    {
-        // Do something when the user is authenticated
-    }
-
-    public function sendTokenAuthLink(): RedirectResponse
-    {
-        // If token already exists and newer than 5 minutes then throw
-        if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
-            return back()->withErrors(__('socialite::token_auth.wait'));
-        }
-
-        $tokenAuth = $this->tokenAuth()->updateOrCreate([
-            'user_id' => $this->id,
-        ], [
-            'token' => Str::random(32),
-            'expires_at' => now()->addHour(),
-        ]);
-
-        // Send the token auth link via email
-        self::sendTokenAuthNotification($tokenAuth);
-
-        return back()->with('success', __('socialite::token_auth.sent') . Helpers::getEmailClientLink());
-    }
-
-    public static function sendTokenAuthNotification(TokenAuth $tokenAuth): void
-    {
-        $tokenAuth->user->notify(new TokenAuthNotification($tokenAuth));
-    }
-
-    public static function tokenAuthLogin(string $token): RedirectResponse
-    {
-        $tokenAuth = TokenAuth::where('token', $token)->firstOrFail();
-        $user = $tokenAuth->user;
-        [, $backUrl] = self::getSocialiteSessions();
-
-        if ($tokenAuth->expires_at->isPast()) {
-            $tokenAuth->delete();
-
-            return redirect()->to($backUrl)->withErrors(__('socialite::token_auth.invalid'));
-        }
-
-        $tokenAuth->delete();
-        auth()->login($user);
-        self::socialiteAuthenticated($user);
-
-        return redirect()->to($backUrl);
+        return back()->with('success', __('auth::messages.disconnect.success'));
     }
 }

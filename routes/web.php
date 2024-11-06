@@ -1,25 +1,26 @@
 <?php
 
-use InternetGuru\LaravelSocialite\Http\Controllers\SocialiteController;
+use InternetGuru\LaravelAuth\Http\Controllers\SocialiteAuthController;
+use InternetGuru\LaravelAuth\Http\Controllers\TokenAuthController;
 
-Route::controller(SocialiteController::class)
+Route::controller(TokenAuthController::class)
     ->prefix('token-auth')
     ->middleware('web')
     ->group(function () {
 
-        Route::post('/send', 'handleTokenAuthSendForm')
-            ->name('socialite.token-auth.form');
+        Route::post('/send', 'handleAuthSendForm')
+            ->name('token-auth.form');
 
         Route::get('/send/{user}', 'handleTokenAuthSend')
-            ->name('socialite.token-auth.send');
+            ->name('token-auth.send');
 
         Route::get('/callback/{token}', 'handleTokenAuthCallback')
             ->middleware('signed')
-            ->name('socialite.token-auth.callback');
+            ->name('token-auth.callback');
 
     });
 
-Route::controller(SocialiteController::class)
+Route::controller(SocialiteAuthController::class)
     ->prefix('socialite')
     ->middleware('web')
     ->group(function () {

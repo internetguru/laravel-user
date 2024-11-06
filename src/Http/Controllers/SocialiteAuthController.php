@@ -1,32 +1,31 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite\Http\Controllers;
+namespace InternetGuru\LaravelAuth\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
-use InternetGuru\LaravelSocialite\Enums\Provider;
-use InternetGuru\LaravelSocialite\Enums\ProviderAction;
-use InternetGuru\LaravelSocialite\Exceptions\AuthCheckException;
+use InternetGuru\LaravelAuth\Enums\Provider;
+use InternetGuru\LaravelAuth\Enums\ProviderAction;
+use InternetGuru\LaravelAuth\Exceptions\AuthCheckException;
 use Laravel\Socialite\Facades\Socialite;
 
-class SocialiteController extends Controller
+class SocialiteAuthController extends Controller
 {
     private function loginRequired(): void
     {
         if (! auth()->check()) {
-            throw new AuthCheckException(__('socialite::messages.login.required'));
+            throw new AuthCheckException(__('auth::messages.login.required'));
         }
     }
 
     private function loginForbidden(): void
     {
         if (auth()->check()) {
-            throw new AuthCheckException(__('socialite::messages.login.forbidden'));
+            throw new AuthCheckException(__('auth::messages.login.forbidden'));
         }
     }
 
@@ -62,22 +61,22 @@ class SocialiteController extends Controller
 
             // save the previous url and remember option
             session([
-                'socialite_prev' => $request->input('prev_url', null),
-                'socialite_back' => url()->previous(),
-                'socialite_remember' => $request->input('remember') === 'true',
+                'auth_prev' => $request->input('prev_url', null),
+                'auth_back' => url()->previous(),
+                'auth_remember' => $request->input('remember') === 'true',
             ]);
 
             // redirect to the OAuth provider with callback url in state
             $baseUrl = URL::to("/socialite/$provider->value/$action->value/callback");
             $encodedBaseUrl = urlencode($baseUrl);
 
-            return Socialite::driver($provider->value)->with(['state' => $encodedBaseUrl])->redirect();
+            return auth::driver($provider->value)->with(['state' => $encodedBaseUrl])->redirect();
         } catch (AuthCheckException $e) {
             return back()->withErrors($e->getMessage());
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return back()->withErrors(__('socialite::messages.unexpected'));
+            return back()->withErrors(__('auth::messages.unexpected'));
         }
     }
 
@@ -90,7 +89,7 @@ class SocialiteController extends Controller
             $provider = Provider::from($provider);
             $action = ProviderAction::from($action);
 
-            $providerUser = Socialite::driver($provider->value)->stateless()->user();
+            $providerUser = auth::driver($provider->value)->stateless()->user();
             switch ($action) {
                 case ProviderAction::LOGIN:
                     $this->loginForbidden();
@@ -120,54 +119,7 @@ class SocialiteController extends Controller
             Log::error($e->getMessage());
             [, $backUrl] = User::getSocialiteSessions();
 
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.unexpected'));
-        }
-    }
-
-    /**
-     * Send the token auth link to the user
-     */
-    public function handleTokenAuthSend(User $user, Request $request): RedirectResponse
-    {
-        try {
-            return $user->sendTokenAuthLink();
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-
-            return back()->withErrors(__('socialite::messages.unexpected'));
-        }
-    }
-
-    /**
-     * Send the token auth link to the user based on the form email input
-     */
-    public function handleTokenAuthSendForm(Request $request): RedirectResponse
-    {
-        try {
-            $user = User::where('email', $request->input('email'))->firstOrFail();
-
-            return $this->handleTokenAuthSend($user, $request);
-        } catch (ModelNotFoundException $e) {
-            return back()->withErrors(__('socialite::messages.login.notfound'));
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-
-            return back()->withErrors(__('socialite::messages.unexpected'));
-        }
-    }
-
-    /**
-     * Handle the token auth callback
-     */
-    public function handleTokenAuthCallback(string $token): RedirectResponse
-    {
-        try {
-            return User::tokenAuthLogin($token);
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            [, $backUrl] = User::getSocialiteSessions();
-
-            return redirect()->to($backUrl)->withErrors(__('socialite::messages.unexpected'));
+            return redirect()->to($backUrl)->withErrors(__('auth::messages.unexpected'));
         }
     }
 }
