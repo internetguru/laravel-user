@@ -112,12 +112,12 @@ class SocialiteAuthController extends Controller
                     abort(404);
             }
         } catch (AuthCheckException $e) {
-            [, $backUrl] = User::getSocialiteSessions();
+            [, $backUrl] = User::getAuthSessions();
 
             return redirect()->to($backUrl)->withErrors($e->getMessage());
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            [, $backUrl] = User::getSocialiteSessions();
+            [, $backUrl] = User::getAuthSessions();
 
             return redirect()->to($backUrl)->withErrors(__('auth::messages.unexpected'));
         }

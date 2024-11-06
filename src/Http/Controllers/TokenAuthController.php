@@ -52,7 +52,7 @@ class TokenAuthController extends Controller
             return User::tokenAuthLogin($token);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            [, $backUrl] = User::getSocialiteSessions();
+            [, $backUrl] = User::getAuthSessions();
 
             return redirect()->to($backUrl)->withErrors(__('auth::messages.unexpected'));
         }
