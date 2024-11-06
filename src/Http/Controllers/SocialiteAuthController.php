@@ -70,7 +70,7 @@ class SocialiteAuthController extends Controller
             $baseUrl = URL::to("/socialite/$provider->value/$action->value/callback");
             $encodedBaseUrl = urlencode($baseUrl);
 
-            return auth::driver($provider->value)->with(['state' => $encodedBaseUrl])->redirect();
+            return Socialite::driver($provider->value)->with(['state' => $encodedBaseUrl])->redirect();
         } catch (AuthCheckException $e) {
             return back()->withErrors($e->getMessage());
         } catch (\Exception $e) {
@@ -89,7 +89,7 @@ class SocialiteAuthController extends Controller
             $provider = Provider::from($provider);
             $action = ProviderAction::from($action);
 
-            $providerUser = auth::driver($provider->value)->stateless()->user();
+            $providerUser = Socialite::driver($provider->value)->stateless()->user();
             switch ($action) {
                 case ProviderAction::LOGIN:
                     $this->loginForbidden();
