@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.1.1] - 2024-11-06
+
+### Fixed
+
+- Update composer.
+
 ## [0.1.0] - 2024-10-07
 
 _Stable release based on [0.1.0-rc.1]._
@@ -21,4 +27,7 @@ _Stable release based on [0.1.0-rc.1]._
 [Unreleased]: https://https://github.com/internetguru/laravel-auth/compare/staging...dev
 [0.1.0]: https://https://github.com/internetguru/laravel-auth/compare/v0.0.0...v0.1.0
 [0.1.0-rc.1]: https://github.com/internetguru/laravel-auth/releases/tag/v0.0.0
+[0.1.1]: https://https://github.com/internetguru/laravel-auth/compare/v0.1.0...v0.1.1
+[0.1.0]: https://https://github.com/internetguru/laravel-socialite/compare/v0.0.0...v0.1.0
+[0.1.0-rc.1]: https://github.com/internetguru/laravel-socialite/releases/tag/v0.0.0
 [0.0.0]: git log v0.0.0
