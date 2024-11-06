@@ -5,6 +5,8 @@ namespace InternetGuru\LaravelAuth\Traits;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use InternetGuru\LaravelAuth\Models\TokenAuth as TokenAuthModel;
+use InternetGuru\LaravelAuth\Notifications\TokenAuthNotification;
+use Illuminate\Support\Str;
 
 trait TokenAuth
 {
