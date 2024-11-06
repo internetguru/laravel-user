@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use InternetGuru\LaravelAuth\Models\TokenAuth as TokenAuthModel;
 use InternetGuru\LaravelAuth\Notifications\TokenAuthNotification;
 use Illuminate\Support\Str;
+use InternetGuru\LaravelCommon\Support\Helpers;
 
 trait TokenAuth
 {
