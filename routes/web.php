@@ -8,22 +8,22 @@ Route::controller(LoginController::class)
     ->group(function () {
         Route::get('/login', 'showLogin')
             ->middleware('guest')
-            ->name('login');
+            ->name('auth.login');
 
         Route::get('/token_auth', 'showTokenAuth')
             ->middleware('guest')
-            ->name('token_auth');
+            ->name('auth.token_auth');
 
         Route::get('/register', 'showRegister')
             ->middleware('guest')
-            ->name('register');
+            ->name('auth.register');
 
         Route::post('/login', 'authenticate')
             ->middleware('guest')
-            ->name('login.authenticate');
+            ->name('auth.login.authenticate');
 
         Route::get('/logout', 'logout')
-            ->name('logout');
+            ->name('auth.logout');
     });
 
 Route::controller(TokenAuthController::class)
