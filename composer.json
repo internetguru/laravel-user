@@ -1,6 +1,6 @@
 {
-    "name": "internetguru/laravel-auth",
-    "description": "Laravel Auth",
+    "name": "internetguru/laravel-user",
+    "description": "Laravel User",
     "type": "library",
     "license": "MIT",
     "autoload": {
