@@ -1,6 +1,6 @@
 @props([
-    'providers' => InternetGuru\LaravelAuth\Enums\Provider::cases(),
-    'action' => InternetGuru\LaravelAuth\Enums\ProviderAction::LOGIN,
+    'providers' => InternetGuru\LaravelUser\Enums\Provider::cases(),
+    'action' => InternetGuru\LaravelUser\Enums\ProviderAction::LOGIN,
     'prev_url' => url()->previous(),
     'showRemember' => false,
 ])

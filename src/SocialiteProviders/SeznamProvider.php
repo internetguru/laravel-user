@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetGuru\LaravelAuth\SocialiteProviders;
+namespace InternetGuru\LaravelUser\SocialiteProviders;
 
 use GuzzleHttp\RequestOptions;
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;

@@ -1,7 +1,7 @@
 <?php
 
-use InternetGuru\LaravelAuth\Http\Controllers\SocialiteAuthController;
-use InternetGuru\LaravelAuth\Http\Controllers\TokenAuthController;
+use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
+use InternetGuru\LaravelUser\Http\Controllers\TokenAuthController;
 
 Route::controller(TokenAuthController::class)
     ->prefix('token-auth')

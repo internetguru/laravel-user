@@ -1,6 +1,6 @@
-# Internet Guru Laravel Auth
+# Internet Guru Laravel User
 
-Internet Guru Laravel Auth is a library that provides seamless integration with various social authentication providers. It stores the user's social identity in the database and allows the user to link multiple social identities to a single account. It also provides temporary login link to the user's email address.
+Internet Guru Laravel User is a library that provides seamless integration with various social authentication providers. It stores the user's social identity in the database and allows the user to link multiple social identities to a single account. It also provides temporary login link to the user's email address.
 
 ## Features and terminology
 
@@ -16,13 +16,13 @@ Internet Guru Laravel Auth is a library that provides seamless integration with 
 1. Install the package via Composer:
 
     ```sh
-    composer require internetguru/laravel-auth
+    composer require internetguru/laravel-user
     ```
 
 2. Publish the migration files:
 
     ```sh
-    php artisan vendor:publish --provider="InternetGuru\LaravelAuth\LaravelAuthServiceProvider" --tag="migrations"
+    php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServiceProvider" --tag="migrations"
     ```
 
 3. Run the migrations:
@@ -58,8 +58,8 @@ SEZNAM_REDIRECT_URI=your-seznam-redirect-uri
 <x-auth::buttons action="connect"/>
 
 <a href="{{ route('auth.action', [
-    'provider' => InternetGuru\LaravelAuth\Enums\Provider::GOOGLE,
-    'action' => InternetGuru\LaravelAuth\Enums\ProviderAction::DISCONNECT,
+    'provider' => InternetGuru\LaravelUser\Enums\Provider::GOOGLE,
+    'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
 ]) }}">Disconnect Google</a>
 ```
 

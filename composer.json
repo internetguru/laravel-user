@@ -1,11 +1,11 @@
 {
-    "name": "internetguru/laravel-auth",
-    "description": "Interent Guru Laravel Auth",
+    "name": "internetguru/laravel-user",
+    "description": "Interent Guru Laravel User",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "InternetGuru\\LaravelAuth\\": "src/",
+            "InternetGuru\\LaravelUser\\": "src/",
             "Tests\\": "tests/"
         }
     },
@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "InternetGuru\\LaravelAuth\\LaravelAuthServiceProvider"
+                "InternetGuru\\LaravelUser\\LaravelUserServiceProvider"
             ]
         }
     },

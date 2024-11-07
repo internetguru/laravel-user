@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetGuru\LaravelAuth\Http\Controllers;
+namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -8,9 +8,9 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
-use InternetGuru\LaravelAuth\Enums\Provider;
-use InternetGuru\LaravelAuth\Enums\ProviderAction;
-use InternetGuru\LaravelAuth\Exceptions\AuthCheckException;
+use InternetGuru\LaravelUser\Enums\Provider;
+use InternetGuru\LaravelUser\Enums\ProviderAction;
+use InternetGuru\LaravelUser\Exceptions\AuthCheckException;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteAuthController extends Controller

@@ -1,17 +1,19 @@
 <?php
 
-namespace InternetGuru\LaravelAuth\Traits;
+namespace InternetGuru\LaravelUser\Traits;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
-use InternetGuru\LaravelAuth\Enums\Provider;
-use InternetGuru\LaravelAuth\Models\Socialite;
+use InternetGuru\LaravelUser\Enums\Provider;
+use InternetGuru\LaravelUser\Models\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
 trait SocialiteAuth
 {
+    use BaseAuth;
+
     public function socialites(): HasMany
     {
         return $this->hasMany(Socialite::class);

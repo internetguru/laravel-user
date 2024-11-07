@@ -1,16 +1,18 @@
 <?php
 
-namespace InternetGuru\LaravelAuth\Traits;
+namespace InternetGuru\LaravelUser\Traits;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
-use InternetGuru\LaravelAuth\Models\TokenAuth as TokenAuthModel;
-use InternetGuru\LaravelAuth\Notifications\TokenAuthNotification;
+use InternetGuru\LaravelUser\Models\TokenAuth as TokenAuthModel;
+use InternetGuru\LaravelUser\Notifications\TokenAuthNotification;
 use Illuminate\Support\Str;
 use InternetGuru\LaravelCommon\Support\Helpers;
 
 trait TokenAuth
 {
+    use BaseAuth;
+
     public function tokenAuth(): HasOne
     {
         return $this->hasOne(TokenAuthModel::class);

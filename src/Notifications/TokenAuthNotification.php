@@ -1,12 +1,12 @@
 <?php
 
-namespace InternetGuru\LaravelAuth\Notifications;
+namespace InternetGuru\LaravelUser\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
-use InternetGuru\LaravelAuth\Models\TokenAuth;
+use InternetGuru\LaravelUser\Models\TokenAuth;
 
 class TokenAuthNotification extends Notification
 {

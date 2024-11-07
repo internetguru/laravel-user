@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetGuru\LaravelAuth\Http\Controllers;
+namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;

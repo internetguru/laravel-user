@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetGuru\LaravelAuth\Traits;
+namespace InternetGuru\LaravelUser\Traits;
 
 trait BaseAuth
 {

@@ -1,0 +1,85 @@
+<?php
+
+namespace InternetGuru\LaravelUser\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class LoginController extends Controller
+{
+    /**
+     * Display the login form.
+     */
+    public function showLoginForm()
+    {
+        if (config('app.demo')) {
+            $users = User::all()->map(
+                fn ($user) => ['id' => $user->email, 'name' => $user->name]
+            )->toArray();
+
+            return view('auth.login', compact('users'));
+        }
+
+        return view('auth.login');
+    }
+
+    /**
+     * Display the token authentication form.
+     */
+    public function showTokenAuthForm()
+    {
+        return view('auth.token_auth');
+    }
+
+    /**
+     * Display the register form.
+     */
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
+
+    /**
+     * Handle an authentication attempt.
+     */
+    public function authenticate(Request $request)
+    {
+        if (! config('app.demo')) {
+            throw new \Exception('Classic login is not supported');
+        }
+
+        return $this->demoAuthenticate($request);
+    }
+
+    /**
+     * Log the user out of the application.
+     */
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        $lang = session('locale');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        $request->session()->put('locale', $lang);
+
+        return redirect()->route('home');
+    }
+
+    /**
+     * Handle a demo authentication attempt.
+     */
+    protected function demoAuthenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|string|exists:users',
+        ]);
+        $user = auth()->getProvider()->retrieveByCredentials($credentials);
+        auth()->login($user, $request->filled('remember'));
+
+        $request->session()->regenerate();
+
+        return redirect()->intended('/');
+    }
+}

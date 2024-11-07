@@ -1,12 +1,12 @@
 <?php
 
-namespace InternetGuru\LaravelAuth;
+namespace InternetGuru\LaravelUser;
 
 use Illuminate\Support\ServiceProvider;
-use InternetGuru\LaravelAuth\SocialiteProviders\SeznamProvider;
+use InternetGuru\LaravelUser\SocialiteProviders\SeznamProvider;
 use Laravel\Socialite\Facades\Socialite;
 
-class LaravelAuthServiceProvider extends ServiceProvider
+class LaravelUserServiceProvider extends ServiceProvider
 {
     public function register()
     {
