@@ -19,6 +19,7 @@ class LaravelUserServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'auth');
         $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
+        $this->mergeConfigFrom(__DIR__ . '/../config/auth.php', 'auth');
         $this->publishesMigrations([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
         ]);

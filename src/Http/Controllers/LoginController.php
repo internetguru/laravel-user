@@ -9,35 +9,38 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /**
-     * Display the login form.
+     * Display the login page.
      */
-    public function showLoginForm()
+    public function showLogin()
     {
-        if (config('app.demo')) {
+        if (config('auth.demo')) {
             $users = User::all()->map(
                 fn ($user) => ['id' => $user->email, 'name' => $user->name]
             )->toArray();
 
-            return view('auth.login', compact('users'));
+            return view('auth::base', [
+                'view' => 'login',
+                'props' => compact('users'),
+            ]);
         }
 
-        return view('auth.login');
+        return view('auth::base', ['view' => 'login']);
     }
 
     /**
-     * Display the token authentication form.
+     * Display the token authentication page.
      */
-    public function showTokenAuthForm()
+    public function showTokenAuth()
     {
-        return view('auth.token_auth');
+        return view('auth::base', ['view' => 'token-auth']);
     }
 
     /**
-     * Display the register form.
+     * Display the register page.
      */
-    public function showRegisterForm()
+    public function showRegister()
     {
-        return view('auth.register');
+        return view('auth::base', ['view' => 'register']);
     }
 
     /**
@@ -45,7 +48,7 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
-        if (! config('app.demo')) {
+        if (! config('auth.demo')) {
             throw new \Exception('Classic login is not supported');
         }
 
@@ -59,10 +62,10 @@ class LoginController extends Controller
     {
         auth()->logout();
 
-        $lang = session('locale');
+        // $lang = session('locale');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        $request->session()->put('locale', $lang);
+        // $request->session()->put('locale', $lang);
 
         return redirect()->route('home');
     }
