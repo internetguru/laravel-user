@@ -26,7 +26,7 @@ class LaravelUserServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
-            __DIR__ . '/../lang' => resource_path('lang/vendor/ig-user'),
+            __DIR__ . '/../lang' => base_path('lang/vendor/ig-user'),
         ], 'translations');
 
         $this->publishes([
