@@ -67,7 +67,7 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         // $request->session()->put('locale', $lang);
 
-        return redirect()->route('home');
+        return redirect('/');
     }
 
     /**
