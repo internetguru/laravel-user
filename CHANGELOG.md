@@ -30,11 +30,11 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
-[Unreleased]: https://https://github.com/internetguru/laravel-auth/compare/staging...dev
-[0.1.0]: https://https://github.com/internetguru/laravel-auth/compare/v0.0.0...v0.1.0
-[0.1.0-rc.1]: https://github.com/internetguru/laravel-auth/releases/tag/v0.0.0
-[0.1.2]: https://https://github.com/internetguru/laravel-auth/compare/v0.1.1...v0.1.2
-[0.1.1]: https://https://github.com/internetguru/laravel-auth/compare/v0.1.0...v0.1.1
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[0.1.0]: https://https://github.com/internetguru/laravel-user/compare/v0.0.0...v0.1.0
+[0.1.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.0.0
+[0.1.2]: https://https://github.com/internetguru/laravel-user/compare/v0.1.1...v0.1.2
+[0.1.1]: https://https://github.com/internetguru/laravel-user/compare/v0.1.0...v0.1.1
 [0.1.0]: https://https://github.com/internetguru/laravel-socialite/compare/v0.0.0...v0.1.0
 [0.1.0-rc.1]: https://github.com/internetguru/laravel-socialite/releases/tag/v0.0.0
 [0.0.0]: git log v0.0.0
