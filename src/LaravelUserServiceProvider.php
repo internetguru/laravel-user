@@ -15,14 +15,23 @@ class LaravelUserServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'auth');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ig-user');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'auth');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'ig-user');
         $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
-        $this->mergeConfigFrom(__DIR__ . '/../config/auth.php', 'auth');
-        $this->publishesMigrations([
+        $this->mergeConfigFrom(__DIR__ . '/../config/ig-user.php', 'ig-user');
+
+        $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
-        ]);
+        ], 'migrations');
+
+        $this->publishes([
+            __DIR__ . '/../lang' => resource_path('lang/vendor/ig-user'),
+        ], 'translations');
+
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/ig-user'),
+        ], 'views');
 
         // extend socialite with seznam provider
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');

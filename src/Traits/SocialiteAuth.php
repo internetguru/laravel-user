@@ -34,7 +34,7 @@ trait SocialiteAuth
 
         // User not found, try to connect
         if (! $user) {
-            return redirect()->to($backUrl)->withErrors(__('auth::messages.login.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.login.notfound'));
         }
 
         // Login user
@@ -53,7 +53,7 @@ trait SocialiteAuth
         if (! $user) {
             Log::warning('User not found', ['provider_user' => $providerUser]);
 
-            return redirect()->to($backUrl)->withErrors(__('auth::messages.login.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.login.notfound'));
         }
 
         // Login user and connect the OAuth provider
@@ -70,7 +70,7 @@ trait SocialiteAuth
         [$prevUrl, $backUrl] = self::getAuthSessions();
 
         if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('auth::messages.connect.exists'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.connect.exists'));
         }
 
         // Connect the user with the OAuth provider
@@ -84,7 +84,7 @@ trait SocialiteAuth
             ->socialites()
             ->save($socialite);
 
-        return redirect()->to($backUrl)->with('success', __('auth::messages.connect.success'));
+        return redirect()->to($backUrl)->with('success', __('ig-user::messages.connect.success'));
     }
 
     public static function socialiteRegister(Provider $provider, SocialiteUser $providerUser): RedirectResponse
@@ -94,7 +94,7 @@ trait SocialiteAuth
         [$prevUrl, $backUrl] = self::getAuthSessions();
 
         if ($user || self::where('email', $providerUser->email)->exists()) {
-            return redirect()->to($backUrl)->withErrors(__('auth::messages.register.exists'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }
 
         // Register user
@@ -114,7 +114,7 @@ trait SocialiteAuth
         auth()->login($user);
         self::authenticated($user);
 
-        return redirect()->to($prevUrl)->with('success', __('auth::messages.register.success'));
+        return redirect()->to($prevUrl)->with('success', __('ig-user::messages.register.success'));
     }
 
     public static function socialiteRegisterUser(SocialiteUser $providerUser): self
@@ -133,7 +133,7 @@ trait SocialiteAuth
         [$prevUrl, $backUrl] = self::getAuthSessions();
 
         if (! $sourceUser) {
-            return redirect()->to($backUrl)->withErrors(__('auth::messages.transfer.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.transfer.notfound'));
         }
 
         // Transfer the socialite from source user to the current user
@@ -142,7 +142,7 @@ trait SocialiteAuth
             ->firstOrFail()
             ->update(['user_id' => auth()->id()]);
 
-        return redirect()->to($backUrl)->with('success', __('auth::messages.transfer.success'));
+        return redirect()->to($backUrl)->with('success', __('ig-user::messages.transfer.success'));
     }
 
     public function socialiteDisconnect(Provider $provider): RedirectResponse
@@ -153,6 +153,6 @@ trait SocialiteAuth
             ->firstOrFail()
             ->delete();
 
-        return back()->with('success', __('auth::messages.disconnect.success'));
+        return back()->with('success', __('ig-user::messages.disconnect.success'));
     }
 }

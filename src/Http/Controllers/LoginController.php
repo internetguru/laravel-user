@@ -18,13 +18,13 @@ class LoginController extends Controller
                 fn ($user) => ['id' => $user->email, 'name' => $user->name]
             )->toArray();
 
-            return view('auth::base', [
+            return view('ig-user::base', [
                 'view' => 'login',
                 'props' => compact('users'),
             ]);
         }
 
-        return view('auth::base', ['view' => 'login']);
+        return view('ig-user::base', ['view' => 'login']);
     }
 
     /**
@@ -32,7 +32,7 @@ class LoginController extends Controller
      */
     public function showTokenAuth()
     {
-        return view('auth::base', ['view' => 'token-auth']);
+        return view('ig-user::base', ['view' => 'token-auth']);
     }
 
     /**
@@ -40,7 +40,7 @@ class LoginController extends Controller
      */
     public function showRegister()
     {
-        return view('auth::base', ['view' => 'register']);
+        return view('ig-user::base', ['view' => 'register']);
     }
 
     /**

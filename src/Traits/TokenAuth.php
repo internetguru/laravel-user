@@ -22,7 +22,7 @@ trait TokenAuth
     {
         // If token already exists and newer than 5 minutes then throw
         if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
-            return back()->withErrors(__('auth::token_auth.wait'));
+            return back()->withErrors(__('ig-user::token_auth.wait'));
         }
 
         $tokenAuth = $this->tokenAuth()->updateOrCreate([
@@ -35,7 +35,7 @@ trait TokenAuth
         // Send the token auth link via email
         self::sendTokenAuthNotification($tokenAuth);
 
-        return back()->with('success', __('auth::token_auth.sent') . Helpers::getEmailClientLink());
+        return back()->with('success', __('ig-user::token_auth.sent') . Helpers::getEmailClientLink());
     }
 
     public static function sendTokenAuthNotification(TokenAuth $tokenAuth): void
@@ -52,7 +52,7 @@ trait TokenAuth
         if ($tokenAuth->expires_at->isPast()) {
             $tokenAuth->delete();
 
-            return redirect()->to($backUrl)->withErrors(__('auth::token_auth.invalid'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::token_auth.invalid'));
         }
 
         $tokenAuth->delete();

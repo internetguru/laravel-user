@@ -24,9 +24,9 @@ class TokenAuthNotification extends Notification
         $url = URL::signedRoute('token-auth.callback', ['token' => $this->tokenAuth->token]);
 
         return (new MailMessage)
-            ->subject(__('auth::token_auth.subject'))
-            ->line(__('auth::token_auth.intro'))
-            ->action(__('auth::token_auth.action'), $url)
-            ->line(__('auth::token_auth.expires', ['expires' => $this->tokenAuth->expires_at->diffForHumans()]));
+            ->subject(__('ig-user::token_auth.subject'))
+            ->line(__('ig-user::token_auth.intro'))
+            ->action(__('ig-user::token_auth.action'), $url)
+            ->line(__('ig-user::token_auth.expires', ['expires' => $this->tokenAuth->expires_at->diffForHumans()]));
     }
 }

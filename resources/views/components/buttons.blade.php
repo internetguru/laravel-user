@@ -22,6 +22,6 @@
     @if ($showRemember)
         <x-ig::input type="checkbox" name="remember" id="remember"
             x-on:change="remember = !remember"
-        >@lang('auth::messages.remember_me')</x-ig::input>
+        >@lang('ig-user::messages.remember_me')</x-ig::input>
     @endif
 </div>

@@ -3,4 +3,4 @@
     'props' => [],
 ])
 
-@include("auth::$view", $props)
+@include("ig-user::$view", $props)

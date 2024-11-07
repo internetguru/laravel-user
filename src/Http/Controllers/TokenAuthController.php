@@ -21,7 +21,7 @@ class TokenAuthController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return back()->withErrors(__('auth::messages.unexpected'));
+            return back()->withErrors(__('ig-user::messages.unexpected'));
         }
     }
 
@@ -35,11 +35,11 @@ class TokenAuthController extends Controller
 
             return $this->handleTokenAuthSend($user, $request);
         } catch (ModelNotFoundException $e) {
-            return back()->withErrors(__('auth::messages.login.notfound'));
+            return back()->withErrors(__('ig-user::messages.login.notfound'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return back()->withErrors(__('auth::messages.unexpected'));
+            return back()->withErrors(__('ig-user::messages.unexpected'));
         }
     }
 
@@ -54,7 +54,7 @@ class TokenAuthController extends Controller
             Log::error($e->getMessage());
             [, $backUrl] = User::getAuthSessions();
 
-            return redirect()->to($backUrl)->withErrors(__('auth::messages.unexpected'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.unexpected'));
         }
     }
 }

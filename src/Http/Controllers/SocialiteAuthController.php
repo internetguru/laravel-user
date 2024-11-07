@@ -18,14 +18,14 @@ class SocialiteAuthController extends Controller
     private function loginRequired(): void
     {
         if (! auth()->check()) {
-            throw new AuthCheckException(__('auth::messages.login.required'));
+            throw new AuthCheckException(__('ig-user::messages.login.required'));
         }
     }
 
     private function loginForbidden(): void
     {
         if (auth()->check()) {
-            throw new AuthCheckException(__('auth::messages.login.forbidden'));
+            throw new AuthCheckException(__('ig-user::messages.login.forbidden'));
         }
     }
 
@@ -76,7 +76,7 @@ class SocialiteAuthController extends Controller
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return back()->withErrors(__('auth::messages.unexpected'));
+            return back()->withErrors(__('ig-user::messages.unexpected'));
         }
     }
 
@@ -119,7 +119,7 @@ class SocialiteAuthController extends Controller
             Log::error($e->getMessage());
             [, $backUrl] = User::getAuthSessions();
 
-            return redirect()->to($backUrl)->withErrors(__('auth::messages.unexpected'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.unexpected'));
         }
     }
 }
