@@ -2,6 +2,8 @@
 
 return [
 
+    'back' => 'Back to',
+
     'demo' => [
         'title' => 'Login to demo account',
         'email' => 'Select demo account',

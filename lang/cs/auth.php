@@ -2,6 +2,8 @@
 
 return [
 
+    'back' => 'Zpět na',
+
     'demo' => [
         'title' => 'Přihlášení do demo účtu',
         'email' => 'Vyberte demo účet',
@@ -15,7 +17,6 @@ return [
     'register' => [
         'title' => 'Vytvořit nový účet',
         'submit' => 'Zaregistrovat se',
-        'success' => 'Registrace byla úspěšná.',
     ],
 
     'token_auth' => [
