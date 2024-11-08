@@ -38,7 +38,7 @@
                     </x-ig::form>
                 </dd>
                 {{-- email --}}
-                <dt
+                <dt>
                     @lang('ig-user::user.email')
                     @can('administrate', $user)
                         <a @click.prevent="closeEdits(editEmail); editEmail = !editEmail" href="#">
@@ -65,6 +65,7 @@
                             <span x-show="editRole">@lang('ig-user::user.cancel')</span>
                         </a>
                     @endcan
+                >
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editRole }">
                     <span x-show="!editRole">@lang('ig-user::user.roles.' . $user->role->value)</span>
