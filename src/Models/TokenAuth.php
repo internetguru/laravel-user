@@ -2,7 +2,6 @@
 
 namespace InternetGuru\LaravelUser\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class TokenAuth extends Model

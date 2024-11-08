@@ -1,8 +1,33 @@
 <?php
 
+use InternetGuru\LaravelUser\Http\Controllers\LoginController;
 use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
 use InternetGuru\LaravelUser\Http\Controllers\TokenAuthController;
-use InternetGuru\LaravelUser\Http\Controllers\LoginController;
+use InternetGuru\LaravelUser\Http\Controllers\UserController;
+
+Route::controller(UserController::class)
+    ->prefix('users')
+    ->group(function () {
+        Route::get('/{user}', 'show')
+            ->middleware('can:crud,user')
+            ->name('users.show');
+
+        Route::put('/{user}', 'update')
+            ->middleware('can:crud,user')
+            ->name('users.update');
+
+        Route::post('/{user}/disable', 'disable')
+            ->middleware('can:enable-disable,user')
+            ->name('users.disable');
+
+        Route::post('/{user}/enable', 'enable')
+            ->middleware('can:enable-disable,user')
+            ->name('users.enable');
+
+        Route::post('/{user}/set-role/{role}', 'setRole')
+            ->middleware('can:setRole,user,role')
+            ->name('users.set-role');
+    });
 
 Route::controller(LoginController::class)
     ->group(function () {

@@ -3,11 +3,11 @@
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use InternetGuru\LaravelUser\Models\User;
 
 class TokenAuthController extends Controller
 {

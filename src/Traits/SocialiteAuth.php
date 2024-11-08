@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use InternetGuru\LaravelUser\Enums\Provider;
+use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
@@ -123,6 +124,7 @@ trait SocialiteAuth
         return self::factory()->create([
             'name' => $providerUser->name,
             'email' => $providerUser->email,
+            'role' => Role::SPECTATOR,
         ]);
     }
 
