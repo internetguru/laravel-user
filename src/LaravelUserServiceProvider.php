@@ -42,6 +42,11 @@ class LaravelUserServiceProvider extends ServiceProvider
             __DIR__ . '/Policies' => app_path('Policies'),
         ], 'policies');
 
+        // publish scss
+        $this->publishes([
+            __DIR__ . '/../resources/scss' => resource_path('sass'),
+        ], 'sass');
+
         // extend socialite with seznam provider
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
         $socialite->extend(
