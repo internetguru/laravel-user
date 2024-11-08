@@ -65,7 +65,6 @@
                             <span x-show="editRole">@lang('ig-user::user.cancel')</span>
                         </a>
                     @endcan
-                >
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editRole }">
                     <span x-show="!editRole">@lang('ig-user::user.roles.' . $user->role->value)</span>
