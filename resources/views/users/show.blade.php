@@ -86,7 +86,6 @@
         </div>
         <div class="card col col-narrow col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>
-            {{-- TODO list connected providers --}}
             <dl>
                 @foreach($user->socialites as $socialite)
                     @php
@@ -101,8 +100,11 @@
                     </dt>
                     <dd>{{ $socialite->email }}</dd>
                 @endforeach
+                <dt>@lang('ig-user::socialite.add')</dt>
+                <dd>
+                    <x-ig-user::buttons :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT" />
+                </dd>
             </dl>
-            {{-- TODO allow to connect any socialite --}}
         </div>
     </div>
 </section>
