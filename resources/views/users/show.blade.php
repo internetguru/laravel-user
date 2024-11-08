@@ -28,7 +28,7 @@
                         </a>
                     @endcan
                 </dt>
-                <dd>
+                <dd x-bind:class="{ 'user-edit-active': editName }">
                     <span x-show="!editName">{{ $user->name }}</span>
                     <x-ig::form :recaptcha="false" x-show="editName" :action="route('users.update', $user)">
                         <div class="input-group">
@@ -38,7 +38,7 @@
                     </x-ig::form>
                 </dd>
                 {{-- email --}}
-                <dt>
+                <dt
                     @lang('ig-user::user.email')
                     @can('administrate', $user)
                         <a @click.prevent="closeEdits(editEmail); editEmail = !editEmail" href="#">
@@ -47,7 +47,7 @@
                         </a>
                     @endcan
                 </dt>
-                <dd>
+                <dd x-bind:class="{ 'user-edit-active': editEmail }">
                     <span x-show="!editEmail">{{ $user->email }}</span>
                     <x-ig::form :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
                         <div class="input-group">
@@ -66,7 +66,7 @@
                         </a>
                     @endcan
                 </dt>
-                <dd>
+                <dd x-bind:class="{ 'user-edit-active': editRole }">
                     <span x-show="!editRole">@lang('ig-user::user.roles.' . $user->role->value)</span>
                     <x-ig::form :recaptcha="false" x-show="editRole" :action="route('users.update', $user)">
                         <div class="input-group">
