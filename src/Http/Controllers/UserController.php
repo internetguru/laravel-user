@@ -34,7 +34,7 @@ class UserController extends Controller
             $role = Role::from($request->role);
             Gate::authorize('setRole', [$user, $role]);
 
-            return $this->updateRole($user, $role);
+            return $this->updateRole($request, $user, $role);
         }
 
         // unexpected request
@@ -73,7 +73,7 @@ class UserController extends Controller
         return back()->with('success', 'Email updated');
     }
 
-    private function updateRole(User $user, Role $role)
+    private function updateRole(Request $requestm, User $user, Role $role)
     {
         $request->validate([
             'role' => ['required', Rule::enum(Role::class)],

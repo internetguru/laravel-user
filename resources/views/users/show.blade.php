@@ -40,7 +40,7 @@
                 {{-- email --}}
                 <dt>
                     @lang('ig-user::user.email')
-                    @can('crud', $user)
+                    @can('administrate', $user)
                         <a @click.prevent="closeEdits(editEmail); editEmail = !editEmail" href="#">
                             <span x-show="!editEmail">@lang('ig-user::user.edit')</span>
                             <span x-show="editEmail">@lang('ig-user::user.cancel')</span>
@@ -59,7 +59,7 @@
                 {{-- role --}}
                 <dt>
                     @lang('ig-user::user.role')
-                    @can('crud', $user)
+                    @can('administrate', $user)
                         <a @click.prevent="closeEdits(editRole); editRole = !editRole" href="#">
                             <span x-show="!editRole">@lang('ig-user::user.edit')</span>
                             <span x-show="editRole">@lang('ig-user::user.cancel')</span>
