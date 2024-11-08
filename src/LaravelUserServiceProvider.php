@@ -44,7 +44,7 @@ class LaravelUserServiceProvider extends ServiceProvider
 
         // publish scss
         $this->publishes([
-            __DIR__ . '/../resources/scss' => resource_path('sass'),
+            __DIR__ . '/../resources/sass' => resource_path('sass'),
         ], 'sass');
 
         // extend socialite with seznam provider
