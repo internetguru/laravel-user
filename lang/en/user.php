@@ -11,10 +11,6 @@ return [
     'edit' => 'Edit',
     'save' => 'Save',
     'cancel' => 'Cancel',
-    'oauth' => [
-        'link' => 'Link',
-        'unlink' => 'Unlink',
-    ],
     'roles' => [
         'spectator' => 'Spectator',
         'operator' => 'Operator',

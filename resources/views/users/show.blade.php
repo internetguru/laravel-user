@@ -86,8 +86,23 @@
         </div>
         <div class="card col col-narrow col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>
-            {{-- TODO list providers --}}
-            {{-- TODO allow to connect any provider --}}
+            {{-- TODO list connected providers --}}
+            <dl>
+                @foreach($user->socialites as $socialite)
+                    @php
+                        $provider = $socialite->provider->value;
+                    @endphp
+                    <dt>
+                        @lang("ig-user::socialite.$provider")
+                        <a class="ms-1" href="{{ route('socialite.action', [
+                            'provider' => $provider,
+                            'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
+                        ]) }}">@lang('ig-user::socialite.unlink')</a>
+                    </dt>
+                    <dd>{{ $socialite->email }}</dd>
+                @endforeach
+            </dl>
+            {{-- TODO allow to connect any socialite --}}
         </div>
     </div>
 </section>

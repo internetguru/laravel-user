@@ -11,10 +11,6 @@ return [
     'edit' => 'Upravit',
     'save' => 'Uložit',
     'cancel' => 'Zrušit',
-    'oauth' => [
-        'link' => 'Připojit',
-        'unlink' => 'Odpojit',
-    ],
     'roles' => [
         'spectator' => 'Přihlížející',
         'operator' => 'Operátor',
