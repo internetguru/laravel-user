@@ -2,6 +2,7 @@
 
 namespace InternetGuru\LaravelUser;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use InternetGuru\LaravelUser\Models\User;
 use InternetGuru\LaravelUser\Policies\UserPolicy;
@@ -25,7 +26,7 @@ class LaravelUserServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/ig-user.php', 'ig-user');
 
         // register UserPolicy
-        $this->gate()->policy(User::class, UserPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
 
         // publish config, migrations, lang, views, policies
         $this->publishes([
