@@ -3,8 +3,8 @@
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
-use InternetGuru\LaravelUser\Models\User;
 
 class LoginController extends Controller
 {

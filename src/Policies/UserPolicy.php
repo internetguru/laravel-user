@@ -2,8 +2,8 @@
 
 namespace InternetGuru\LaravelUser\Policies;
 
+use App\Models\User;
 use InternetGuru\LaravelUser\Enums\Role;
-use InternetGuru\LaravelUser\Models\User;
 
 class UserPolicy
 {

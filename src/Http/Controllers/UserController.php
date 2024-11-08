@@ -3,9 +3,9 @@
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\LaravelUser\Models\User;
 use Illuminate\Http\Request;
 use InternetGuru\LaravelUser\Enums\Role;
-use InternetGuru\LaravelUser\Models\User;
 
 class UserController extends Controller
 {
