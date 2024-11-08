@@ -28,24 +28,22 @@ class LaravelUserServiceProvider extends ServiceProvider
         // register UserPolicy
         Gate::policy(User::class, UserPolicy::class);
 
-        // publish config, migrations, lang, views, policies
+        // publish config, migrations, lang, views, policies, scss
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
-        ], 'migrations');
+        ], 'ig-user:migrations');
         $this->publishes([
             __DIR__ . '/../lang' => base_path('lang/vendor/ig-user'),
-        ], 'translations');
+        ], 'ig-user:translations');
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/ig-user'),
-        ], 'views');
+        ], 'ig-user:views');
         $this->publishes([
             __DIR__ . '/Policies' => app_path('Policies'),
-        ], 'policies');
-
-        // publish scss
+        ], 'ig-user:policies');
         $this->publishes([
             __DIR__ . '/../resources/sass' => resource_path('sass'),
-        ], 'sass');
+        ], 'ig-user:sass');
 
         // extend socialite with seznam provider
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
