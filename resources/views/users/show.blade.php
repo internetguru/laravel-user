@@ -98,15 +98,15 @@
                             'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
                         ]) }}">@lang('ig-user::socialite.unlink')</a>
                     </dt>
-                    <dd>
-                        {{ $socialite->email }}
-                        @if ($socialite->email != $user->email)
+                    <dd>{{ $socialite->email }}</dd>
+                    @if ($socialite->email != $user->email)
+                        <dd>
                             <x-ig::form :recaptcha="false" :action="route('users.update', $user)">
                                 <input type="hidden" name="email" value="{{ $socialite->email }}" />
-                                <button type="submit" class="btn btn-link">@lang('ig-user::user.set-primary')</button>
+                                <button type="submit" class="btn btn-primary">@lang('ig-user::user.set-primary')</button>
                             </x-ig::form>
-                        @endif
-                    </dd>
+                        </dd>
+                    @endif
                 @endforeach
                 <dt>@lang('ig-user::socialite.add')</dt>
                 <dd>
