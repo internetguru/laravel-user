@@ -5,10 +5,10 @@
     'showRemember' => false,
 ])
 
-<div class="socialite socialite-buttons" x-data="{
+<div class="socialite" x-data="{
     remember: false,
 }">
-    <div class="socialite-{{ $action }}">
+    <div class="socialite-{{ $action }} socialite-buttons">
         @foreach ($providers as $provider)
             <a class="btn btn-primary btn-socialite-{{ $provider->value }}" x-bind:href="`{{
                 route('socialite.action', ['provider' => $provider, 'action' => $action])
