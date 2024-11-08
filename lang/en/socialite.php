@@ -2,8 +2,8 @@
 
 return [
 
-    'link' => 'Link',
-    'unlink' => 'Unlink',
+    'link' => 'connect',
+    'unlink' => 'disconnect',
     'add' => 'Add new identity',
 
     'google' => 'Google',

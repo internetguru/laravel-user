@@ -8,9 +8,10 @@ return [
     'information' => 'Informace',
     'authentication' => 'Identity',
     'logout' => 'Odhlásit se',
-    'edit' => 'Upravit',
+    'edit' => 'upravit',
     'save' => 'Uložit',
-    'cancel' => 'Zrušit',
+    'cancel' => 'zrušit',
+    'set-primary' => 'nastavit jako primární',
     'roles' => [
         'spectator' => 'Přihlížející',
         'operator' => 'Operátor',

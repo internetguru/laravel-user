@@ -8,9 +8,10 @@ return [
     'information' => 'Information',
     'authentication' => 'Identities',
     'logout' => 'Logout',
-    'edit' => 'Edit',
+    'edit' => 'edit',
     'save' => 'Save',
-    'cancel' => 'Cancel',
+    'cancel' => 'cancel',
+    'set-primary' => 'set as primary',
     'roles' => [
         'spectator' => 'Spectator',
         'operator' => 'Operator',

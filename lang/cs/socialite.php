@@ -2,8 +2,8 @@
 
 return [
 
-    'link' => 'Připojit',
-    'unlink' => 'Odpojit',
+    'link' => 'připojit',
+    'unlink' => 'odpojit',
     'add' => 'Přidat novou identitu',
 
     'google' => 'Google',
