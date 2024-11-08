@@ -2,6 +2,7 @@
 
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\User;
