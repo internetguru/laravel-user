@@ -2,9 +2,9 @@
 
 namespace InternetGuru\LaravelUser;
 
-use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use InternetGuru\LaravelUser\Models\User;
 use InternetGuru\LaravelUser\Policies\UserPolicy;
 use InternetGuru\LaravelUser\SocialiteProviders\SeznamProvider;
 use Laravel\Socialite\Facades\Socialite;

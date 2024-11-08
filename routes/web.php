@@ -5,8 +5,32 @@ use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
 use InternetGuru\LaravelUser\Http\Controllers\TokenAuthController;
 use InternetGuru\LaravelUser\Http\Controllers\UserController;
 
+Route::controller(LoginController::class)
+    ->middleware('web')
+    ->group(function () {
+        Route::get('/login', 'showLogin')
+            ->middleware('guest')
+            ->name('login');
+
+        Route::get('/token_auth', 'showTokenAuth')
+            ->middleware('guest')
+            ->name('token_auth');
+
+        Route::get('/register', 'showRegister')
+            ->middleware('guest')
+            ->name('register');
+
+        Route::post('/login', 'authenticate')
+            ->middleware('guest')
+            ->name('login.authenticate');
+
+        Route::get('/logout', 'logout')
+            ->name('logout');
+    });
+
 Route::controller(UserController::class)
     ->prefix('users')
+    ->middleware('web')
     ->group(function () {
         Route::get('/{user}', 'show')
             ->middleware('can:crud,user')
@@ -27,28 +51,6 @@ Route::controller(UserController::class)
         Route::post('/{user}/set-role/{role}', 'setRole')
             ->middleware('can:setRole,user,role')
             ->name('users.set-role');
-    });
-
-Route::controller(LoginController::class)
-    ->group(function () {
-        Route::get('/login', 'showLogin')
-            ->middleware('guest')
-            ->name('login');
-
-        Route::get('/token_auth', 'showTokenAuth')
-            ->middleware('guest')
-            ->name('token_auth');
-
-        Route::get('/register', 'showRegister')
-            ->middleware('guest')
-            ->name('register');
-
-        Route::post('/login', 'authenticate')
-            ->middleware('guest')
-            ->name('login.authenticate');
-
-        Route::get('/logout', 'logout')
-            ->name('logout');
     });
 
 Route::controller(TokenAuthController::class)
