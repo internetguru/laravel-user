@@ -36,8 +36,7 @@ Route::controller(UserController::class)
             ->middleware('can:crud,user')
             ->name('users.show');
 
-        Route::put('/{user}', 'update')
-            ->middleware('can:crud,user')
+        Route::post('/{user}', 'update') // check on controller level based on attribute sent
             ->name('users.update');
 
         Route::post('/{user}/disable', 'disable')
@@ -47,10 +46,6 @@ Route::controller(UserController::class)
         Route::post('/{user}/enable', 'enable')
             ->middleware('can:enable-disable,user')
             ->name('users.enable');
-
-        Route::post('/{user}/set-role/{role}', 'setRole')
-            ->middleware('can:setRole,user,role')
-            ->name('users.set-role');
     });
 
 Route::controller(TokenAuthController::class)

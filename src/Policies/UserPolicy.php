@@ -38,6 +38,14 @@ class UserPolicy
     }
 
     /**
+     * Only admins and managers can administrate user
+     */
+    public function administrate(User $user, User $targetUser): bool
+    {
+        return $user->role->level() >= Role::MANAGER->level();
+    }
+
+    /**
      * Admins can set any role
      * Managers can set lower roles than themselves, max operator
      */
@@ -55,7 +63,7 @@ class UserPolicy
             return false;
         }
 
-        return $targetUser->role->level() < Role::MANAGER->level();
+        return $targetUser->role->level() < Role::MANAGER->level() || $user->id == $targetUser->id;
     }
 
     /**

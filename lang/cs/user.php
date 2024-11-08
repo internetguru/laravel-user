@@ -7,6 +7,10 @@ return [
     'role' => 'Role',
     'information' => 'Informace o uživateli',
     'authentication' => 'Externí identity',
+    'logout' => 'Odhlásit se',
+    'edit' => 'Upravit',
+    'save' => 'Uložit',
+    'cancel' => 'Zrušit',
     'oauth' => [
         'link' => 'Připojit',
         'unlink' => 'Odpojit',
