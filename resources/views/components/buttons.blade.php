@@ -5,7 +5,7 @@
     'showRemember' => false,
 ])
 
-<div class="socialite" x-data="{
+<div class="socialite socialite-buttons" x-data="{
     remember: false,
 }">
     <div class="socialite-{{ $action }}">

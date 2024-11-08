@@ -109,7 +109,7 @@
                     @endif
                 @endforeach
                 <dt>@lang('ig-user::socialite.add')</dt>
-                <dd class="socialite-login">
+                <dd>
                     <x-ig-user::buttons :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT" />
                 </dd>
             </dl>
