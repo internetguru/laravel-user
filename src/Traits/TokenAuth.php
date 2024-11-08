@@ -38,7 +38,7 @@ trait TokenAuth
         return back()->with('success', __('ig-user::token_auth.sent') . Helpers::getEmailClientLink());
     }
 
-    public static function sendTokenAuthNotification(TokenAuth $tokenAuth): void
+    public static function sendTokenAuthNotification(TokenAuthModel $tokenAuth): void
     {
         $tokenAuth->user->notify(new TokenAuthNotification($tokenAuth));
     }
