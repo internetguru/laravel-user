@@ -20,6 +20,14 @@ Route::controller(LoginController::class)
             ->middleware('guest')
             ->name('register');
 
+        Route::get('/register-email', 'showRegisterEmail')
+            ->middleware('guest')
+            ->name('register.email');
+
+        Route::post('/register-email', 'handleRegisterEmail')
+            ->middleware('guest')
+            ->name('register.email.handle');
+
         Route::post('/login', 'authenticate')
             ->middleware('guest')
             ->name('login.authenticate');

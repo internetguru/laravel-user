@@ -5,6 +5,7 @@ namespace InternetGuru\LaravelUser\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use InternetGuru\LaravelUser\Enums\Role;
 
 class LoginController extends Controller
 {
@@ -41,6 +42,33 @@ class LoginController extends Controller
     public function showRegister()
     {
         return view('ig-user::base', ['view' => 'register']);
+    }
+
+    /**
+     * Display the register by email page.
+     */
+    public function showRegisterEmail()
+    {
+        return view('ig-user::base', ['view' => 'register-email']);
+    }
+
+    /**
+     * Handle the register by email form submission.
+     */
+    public function handleRegisterEmail(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email:rfc,dns|max:255|unique:users',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => Role::SPECTATOR,
+        ]);
+
+        return $user->sendTokenAuthLink();
     }
 
     /**

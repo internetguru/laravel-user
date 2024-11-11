@@ -17,7 +17,13 @@ return [
     'register' => [
         'title' => 'Create a new account',
         'submit' => 'Register',
-        'success' => 'Registration was successful.',
+    ],
+
+    'register-email' => [
+        'title' => 'Create account by email',
+        'submit' => 'Register',
+        'name' => 'Name',
+        'email' => 'Email address',
     ],
 
     'token_auth' => [
