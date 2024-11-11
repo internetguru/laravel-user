@@ -20,7 +20,7 @@ return [
     ],
 
     'register-email' => [
-        'title' => 'Create a new account',
+        'title' => 'Create account manually',
         'submit' => 'Submit',
         'name' => 'Name',
         'email' => 'Email address',

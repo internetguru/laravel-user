@@ -20,7 +20,7 @@ return [
     ],
 
     'register-email' => [
-        'title' => 'Vytvořit nový účet',
+        'title' => 'Vytvořit účet ručně',
         'submit' => 'Odeslat',
         'name' => 'Jméno',
         'email' => 'E-mailová adresa',
