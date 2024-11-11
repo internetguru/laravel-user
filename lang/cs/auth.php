@@ -16,12 +16,12 @@ return [
 
     'register' => [
         'title' => 'Vytvořit nový účet',
-        'submit' => 'Zaregistrovat se',
+        'submit' => 'Odeslat',
     ],
 
     'register-email' => [
-        'title' => 'Vytvořit účet pomocí e-mailu',
-        'submit' => 'Zaregistrovat se',
+        'title' => 'Vytvořit nový účet',
+        'submit' => 'Odeslat',
         'name' => 'Jméno',
         'email' => 'E-mailová adresa',
     ],

@@ -16,12 +16,12 @@ return [
 
     'register' => [
         'title' => 'Create a new account',
-        'submit' => 'Register',
+        'submit' => 'Submit',
     ],
 
     'register-email' => [
-        'title' => 'Create account by email',
-        'submit' => 'Register',
+        'title' => 'Create a new account',
+        'submit' => 'Submit',
         'name' => 'Name',
         'email' => 'Email address',
     ],
