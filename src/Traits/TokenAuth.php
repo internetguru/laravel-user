@@ -18,11 +18,12 @@ trait TokenAuth
         return $this->hasOne(TokenAuthModel::class);
     }
 
-    public function sendTokenAuthLink(): RedirectResponse
+    public function sendTokenAuthLink(?string $redirectTo = null): RedirectResponse
     {
+        $redirect = $redirectTo ? redirect()->to($redirectTo) : back();
         // If token already exists and newer than 5 minutes then throw
         if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
-            return back()->withErrors(__('ig-user::token_auth.wait'));
+            return $redirect->withErrors(__('ig-user::token_auth.wait'));
         }
 
         $tokenAuth = $this->tokenAuth()->updateOrCreate([
@@ -35,7 +36,7 @@ trait TokenAuth
         // Send the token auth link via email
         self::sendTokenAuthNotification($tokenAuth);
 
-        return back()->with('success', __('ig-user::token_auth.sent') . Helpers::getEmailClientLink());
+        return $redirect->with('success', __('ig-user::token_auth.sent') . Helpers::getEmailClientLink());
     }
 
     public static function sendTokenAuthNotification(TokenAuthModel $tokenAuth): void
