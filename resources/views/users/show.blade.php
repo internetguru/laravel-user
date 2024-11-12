@@ -14,8 +14,8 @@
         editRole = false;
     }"
 >
-    <div class="row row-basic row-stretched">
-        <div class="card">
+    <div class="row row-stretched">
+        <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.information')</h2>
             <dl class="mb-0">
                 {{-- name --}}
@@ -84,7 +84,7 @@
             </dl>
             <p class="mb-0 mt-3"><a href="{{ route('logout') }}">@lang('ig-user::user.logout')</a></p>
         </div>
-        <div class="card">
+        <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>
             <dl>
                 @foreach($user->socialites as $socialite)
