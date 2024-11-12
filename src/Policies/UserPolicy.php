@@ -38,6 +38,14 @@ class UserPolicy
     }
 
     /**
+     * Only admins and managers can view other users
+     */
+    public function viewAny(User $user): bool
+    {
+        return $user->role->level() >= Role::MANAGER->level();
+    }
+
+    /**
      * Only admins and managers can administrate user
      */
     public function administrate(User $user, User $targetUser): bool

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ac313cac1e788a4918b51cbd4b1f98c",
+    "content-hash": "131fedaa9008fd24a522932321d670cc",
     "packages": [
         {
             "name": "brick/math",
@@ -1168,6 +1168,65 @@
                 "source": "https://github.com/internetguru/laravel-common/tree/dev"
             },
             "time": "2024-10-28T18:15:54+00:00"
+        },
+        {
+            "name": "internetguru/laravel-model-browser",
+            "version": "dev-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/internetguru/laravel-model-browser.git",
+                "reference": "e1fd86d7e1519eae5e3dccc21cbe21cd94888f36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/e1fd86d7e1519eae5e3dccc21cbe21cd94888f36",
+                "reference": "e1fd86d7e1519eae5e3dccc21cbe21cd94888f36",
+                "shasum": ""
+            },
+            "require": {
+                "internetguru/laravel-common": "dev-dev",
+                "laravel/framework": "^9.0 || ^10.0 || ^11.0",
+                "livewire/livewire": "^3.5"
+            },
+            "require-dev": {
+                "internetguru/laravel-common": "dev-dev",
+                "laravel/pint": "^1.17",
+                "livewire/livewire": "^3.5",
+                "orchestra/testbench": "^9.5",
+                "phpunit/php-code-coverage": "^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Internetguru\\ModelBrowser\\ModelBrowserServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Internetguru\\ModelBrowser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "petrzpav",
+                    "email": "pavel.petrzela@internetguru.cz"
+                }
+            ],
+            "description": "A Laravel package to browse models and show them in a table, autocmplete, etc.",
+            "support": {
+                "issues": "https://github.com/internetguru/laravel-model-browser/issues",
+                "source": "https://github.com/internetguru/laravel-model-browser/tree/dev"
+            },
+            "time": "2024-11-12T07:41:17+00:00"
         },
         {
             "name": "laravel/framework",
@@ -9698,7 +9757,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "internetguru/laravel-common": 20
+        "internetguru/laravel-common": 20,
+        "internetguru/laravel-model-browser": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

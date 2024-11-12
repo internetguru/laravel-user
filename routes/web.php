@@ -40,6 +40,10 @@ Route::controller(UserController::class)
     ->prefix('users')
     ->middleware('web')
     ->group(function () {
+        Route::get('/', 'index')
+            ->middleware('can:viewAny,App\User')
+            ->name('users.index');
+
         Route::get('/{user}', 'show')
             ->middleware('can:crud,user')
             ->name('users.show');

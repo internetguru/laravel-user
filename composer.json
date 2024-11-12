@@ -7,7 +7,10 @@
         "psr-4": {
             "InternetGuru\\LaravelUser\\": "src/",
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Support/helpers.php"
+        ]
     },
     "require": {
         "php": "^8.0",
@@ -15,7 +18,8 @@
         "laravel/framework": "^9.0 || ^10.0 || ^11.0",
         "laravel/socialite": "^5.16",
         "socialiteproviders/manager": "^4.6",
-        "internetguru/laravel-common": "dev-dev"
+        "internetguru/laravel-common": "dev-dev",
+        "internetguru/laravel-model-browser": "dev-dev"
     },
     "extra": {
         "laravel": {

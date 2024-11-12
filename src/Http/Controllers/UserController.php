@@ -11,6 +11,16 @@ use InternetGuru\LaravelUser\Enums\Role;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        return view('ig-user::base', [
+            'view' => 'users.index',
+            'props' => [
+                'users' => User::all(),
+            ],
+        ]);
+    }
+
     public function show(User $user)
     {
         return view('ig-user::base', [
