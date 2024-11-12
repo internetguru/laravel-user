@@ -93,10 +93,18 @@
                     @endphp
                     <dt>
                         {{ $socialite->name }}
-                        <a class="ms-1" href="{{ route('socialite.action', [
-                            'provider' => $provider,
-                            'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
-                        ]) }}">@lang('ig-user::socialite.unlink')</a>
+                        <a
+                            @class([
+                                'ms-1',
+                                'disabled' => $user != auth()->user(),
+                            ])
+                            @if ($user == auth()->user())
+                                href="{{ route('socialite.action', [
+                                    'provider' => $provider,
+                                    'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
+                                ]) }}"
+                            @endif
+                        >@lang('ig-user::socialite.unlink')</a>
                     </dt>
                     <dd>{{ $socialite->email }}</dd>
                     @if ($socialite->email != $user->email)
