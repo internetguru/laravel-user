@@ -76,7 +76,10 @@
                             <select name="role" class="form-select" value="{{ $user->role->value }}">
                                 @foreach (\InternetGuru\LaravelUser\Enums\Role::cases() as $role)
                                     @if(auth()->user()->can('setRole', [$user, $role]))
-                                        <option value="{{ $role->value }}">{{ __('ig-user::user.roles.' . $role->value) }}</option>
+                                        <option
+                                            value="{{ $role->value }}"
+                                            @if($role->value == $user->role->value) selected @endif
+                                        >{{ __('ig-user::user.roles.' . $role->value) }}</option>
                                     @endcan
                                 @endforeach
                             </select>
@@ -101,6 +104,7 @@
                         <a
                             @class([
                                 'ms-1',
+                                'text-danger',
                                 'disabled' => ! $ownDetail,
                             ])
                             @if ($ownDetail)
