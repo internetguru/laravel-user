@@ -57,7 +57,7 @@ trait TokenAuth
 
         $tokenAuth->delete();
         auth()->login($user);
-        self::authenticated($user);
+        self::authenticated(auth()->user());
 
         return redirect()->to($backUrl);
     }
