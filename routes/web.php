@@ -41,7 +41,7 @@ Route::controller(UserController::class)
     ->middleware('web')
     ->group(function () {
         Route::get('/', 'index')
-            ->middleware('can:viewAny,App\User')
+            ->middleware('can:view-any,App\Models\User')
             ->name('users.index');
 
         Route::get('/{user}', 'show')
