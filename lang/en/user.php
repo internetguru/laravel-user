@@ -18,5 +18,10 @@ return [
         'manager' => 'Manager',
         'admin' => 'Admin',
     ],
+    'update' => [
+        'name' => 'Name updated.',
+        'email' => 'Email updated.',
+        'role' => 'Role updated.',
+    ],
 
 ];

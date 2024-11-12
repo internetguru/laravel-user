@@ -60,7 +60,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->save();
 
-        return back()->with('success', 'Name updated');
+        return back()->with('success', __('ig-user::user.update.name'));
     }
 
     private function updateEmail(Request $request, User $user)
@@ -71,7 +71,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        return back()->with('success', 'Email updated');
+        return back()->with('success', __('ig-user::user.update.email'));
     }
 
     private function updateRole(Request $request, User $user, Role $role)
@@ -82,6 +82,6 @@ class UserController extends Controller
         $user->role = $role;
         $user->save();
 
-        return back()->with('success', 'Role updated');
+        return back()->with('success', __('ig-user::user.update.role'));
     }
 }

@@ -18,5 +18,10 @@ return [
         'manager' => 'Manažer',
         'admin' => 'Administrátor',
     ],
+    'update' => [
+        'name' => 'Jméno aktualizováno.',
+        'email' => 'Email aktualizován.',
+        'role' => 'Role aktualizována.',
+    ],
 
 ];
