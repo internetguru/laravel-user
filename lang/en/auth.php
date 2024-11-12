@@ -2,7 +2,7 @@
 
 return [
 
-    'back' => 'Back to the login page',
+    'back' => 'Back to login page',
 
     'demo' => [
         'title' => 'Select a demo account',
