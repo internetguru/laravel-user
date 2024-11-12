@@ -109,9 +109,8 @@
                     @endif
                 @endforeach
                 <dt>@lang('ig-user::socialite.add')</dt>
-                <dd>
-                    <x-ig-user::buttons :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT" />
-                </dd>
+                <dd></dd>
+                <x-ig-user::buttons :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT" />
             </dl>
         </div>
     </div>
