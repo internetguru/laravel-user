@@ -92,7 +92,7 @@
                         $provider = $socialite->provider->value;
                     @endphp
                     <dt>
-                        @lang("ig-user::socialite.$provider")
+                        {{ $socialite->name }}
                         <a class="ms-1" href="{{ route('socialite.action', [
                             'provider' => $provider,
                             'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
