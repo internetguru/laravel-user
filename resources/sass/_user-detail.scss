@@ -5,10 +5,9 @@
     }
     dt a {
         font-weight: normal;
-
-        &.text-danger {
-            @include link-color($red);
-        }
+    }
+    .socialite {
+        @include link-color($red);
     }
     .user-edit-active {
         margin-left: 0;

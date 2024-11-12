@@ -99,12 +99,11 @@
                     @php
                         $provider = $socialite->provider->value;
                     @endphp
-                    <dt>
+                    <dt class="socialite">
                         {{ $socialite->name }}
                         <a
                             @class([
                                 'ms-1',
-                                'text-danger',
                                 'disabled' => ! $ownDetail,
                             ])
                             @if ($ownDetail)
