@@ -73,7 +73,7 @@ class UserController extends Controller
         return back()->with('success', 'Email updated');
     }
 
-    private function updateRole(Request $requestm, User $user, Role $role)
+    private function updateRole(Request $request, User $user, Role $role)
     {
         $request->validate([
             'role' => ['required', Rule::enum(Role::class)],
