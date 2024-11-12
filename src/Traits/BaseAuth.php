@@ -2,6 +2,8 @@
 
 namespace InternetGuru\LaravelUser\Traits;
 
+use App\Models\User;
+
 trait BaseAuth
 {
     public static function getAuthSessions(): array
@@ -13,7 +15,7 @@ trait BaseAuth
         ];
     }
 
-    public static function authenticated(self $user): void
+    public static function authenticated(User $user): void
     {
         // Do something when the user is authenticated
     }
