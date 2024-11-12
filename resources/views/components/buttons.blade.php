@@ -11,11 +11,15 @@
 }">
     <div class="socialite-{{ $action }} socialite-buttons">
         @foreach ($providers as $provider)
-            <a class="btn btn-primary btn-socialite-{{ $provider->value }}"
-                @if(!$disabled)
+            <a @class([
+                    'btn',
+                    'btn-primary',
+                    "btn-socialite-{$provider->value}",
+                    'disabled' => $disabled,
+                ])
+                @if(! $disabled)
                     x-bind:href="`{{ route('socialite.action', ['provider' => $provider, 'action' => $action]) }}?remember=${remember}&prev_url={{ $prev_url }}`"
                 @endif
-                @class(['disabled' => $disabled])
             >
                 <i class="{{ config("services.{$provider->value}.icon") }}"></i>
                 {{ ucfirst($provider->value) }}
