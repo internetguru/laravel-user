@@ -14,7 +14,7 @@
                 route('socialite.action', ['provider' => $provider, 'action' => $action])
             }}?remember=${remember}&prev_url={{ $prev_url }}`">
                 <i class="{{ config("services.{$provider->value}.icon") }}"></i>
-                {{ $provider }}
+                {{ ucfirst($provider) }}
             </a>
         @endforeach
     </div>
