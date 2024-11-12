@@ -8,6 +8,7 @@
         ]"
         :formats="[
             'name' => 'formatUserNameLink',
+            'role' => 'formatUserRole',
         ]"
     >
 </section>
