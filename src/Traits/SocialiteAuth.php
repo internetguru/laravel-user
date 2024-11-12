@@ -41,7 +41,7 @@ trait SocialiteAuth
 
         // Login user
         auth()->login($user, $remember);
-        self::authenticated($user);
+        self::authenticated(auth()->user());
 
         return redirect()->to($prevUrl ?? $backUrl);
     }
@@ -60,7 +60,7 @@ trait SocialiteAuth
 
         // Login user and connect the OAuth provider
         auth()->login($user, $remember);
-        self::authenticated($user);
+        self::authenticated(auth()->user());
 
         return self::socialiteConnect($provider, $providerUser);
     }
@@ -114,7 +114,7 @@ trait SocialiteAuth
 
         // Login user
         auth()->login($user);
-        self::authenticated($user);
+        self::authenticated(auth()->user());
 
         return redirect()->to($prevUrl)->with('success', __('ig-user::messages.register.success'));
     }
