@@ -14,6 +14,9 @@
         editRole = false;
     }"
 >
+    @php
+        $ownDetail = $user->id == auth()->user()->id;
+    @endphp
     <div class="row row-stretched">
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.information')</h2>
@@ -82,7 +85,7 @@
                     </x-ig::form>
                 </dd>
             </dl>
-            @if ($user == auth()->user())
+            @if ($ownDetail)
                 <p class="mb-0 mt-3"><a href="{{ route('logout') }}">@lang('ig-user::user.logout')</a></p>
             @endif
         </div>
@@ -98,9 +101,9 @@
                         <a
                             @class([
                                 'ms-1',
-                                'disabled' => $user != auth()->user(),
+                                'disabled' => ! $ownDetail,
                             ])
-                            @if ($user == auth()->user())
+                            @if ($ownDetail)
                                 href="{{ route('socialite.action', [
                                     'provider' => $provider,
                                     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
@@ -122,7 +125,7 @@
                 <dd></dd>
                 <x-ig-user::buttons
                     :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT"
-                    :disabled="$user != auth()->user()"
+                    :disabled="! $ownDetail"
                 />
             </dl>
         </div>
