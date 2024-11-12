@@ -2,6 +2,7 @@
 
 namespace InternetGuru\LaravelUser\Traits;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +21,7 @@ trait SocialiteAuth
         return $this->hasMany(Socialite::class);
     }
 
-    public static function getBySocialiteProvider(Provider $provider, string $providerId): ?self
+    public static function getBySocialiteProvider(Provider $provider, string $providerId): ?User
     {
         return Socialite::where('provider', $provider)
             ->where('provider_id', $providerId)
@@ -118,7 +119,7 @@ trait SocialiteAuth
         return redirect()->to($prevUrl)->with('success', __('ig-user::messages.register.success'));
     }
 
-    public static function socialiteRegisterUser(SocialiteUser $providerUser): self
+    public static function socialiteRegisterUser(SocialiteUser $providerUser): User
     {
         // Create a new user
         return self::factory()->create([
