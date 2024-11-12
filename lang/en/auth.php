@@ -2,33 +2,33 @@
 
 return [
 
-    'back' => 'Back to',
+    'back' => 'Back to the login page',
 
     'demo' => [
-        'title' => 'Login to demo account',
-        'email' => 'Select demo account',
+        'title' => 'Select a demo account',
+        'email' => 'Email',
         'submit' => 'Log in',
     ],
 
     'login' => [
-        'title' => 'Login',
+        'title' => 'Choose login provider',
     ],
 
     'register' => [
-        'title' => 'Create a new account',
+        'title' => 'Choose register provider',
         'submit' => 'Submit',
     ],
 
     'register-email' => [
-        'title' => 'Create account manually',
+        'title' => 'Enter your details',
         'submit' => 'Submit',
         'name' => 'Name',
-        'email' => 'Email address',
+        'email' => 'Email',
     ],
 
     'token_auth' => [
-        'title' => 'One-time login',
-        'email' => 'Email address',
+        'title' => 'Enter your email',
+        'email' => 'Email',
         'submit' => 'Send link',
     ],
 

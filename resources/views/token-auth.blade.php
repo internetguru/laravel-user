@@ -6,7 +6,7 @@
                 <x-ig::input type="email" name="email" required>@lang('ig-user::auth.token_auth.email')</x-ig::input>
                 <x-ig::submit>@lang('ig-user::auth.token_auth.submit')</x-ig::submit>
             </x-ig::form>
-            <p class="mt-3 mb-0 text-end"><a href="{{ route('login') }}">@lang('ig-user::auth.back') {{ strtolower(__('ig-user::auth.login.title')) }}</a></p>
+            <p class="mt-3 mb-0 text-end"><a href="{{ route('login') }}">@lang('ig-user::auth.back')</a></p>
         </div>
     </div>
 </section>

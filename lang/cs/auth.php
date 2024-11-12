@@ -2,33 +2,33 @@
 
 return [
 
-    'back' => 'Zpět na',
+    'back' => 'Zpět na stránku s přihlášením',
 
     'demo' => [
-        'title' => 'Přihlášení do demo účtu',
-        'email' => 'Vyberte demo účet',
+        'title' => 'Vyberte demo účet',
+        'email' => 'E-mail',
         'submit' => 'Přihlásit se',
     ],
 
     'login' => [
-        'title' => 'Přihlášení',
+        'title' => 'Vyberte poskytovatele',
     ],
 
     'register' => [
-        'title' => 'Vytvořit nový účet',
+        'title' => 'Vyberte poskytovatele',
         'submit' => 'Odeslat',
     ],
 
     'register-email' => [
-        'title' => 'Vytvořit účet ručně',
+        'title' => 'Vložte své údaje',
         'submit' => 'Odeslat',
         'name' => 'Jméno',
-        'email' => 'E-mailová adresa',
+        'email' => 'E-mail',
     ],
 
     'token_auth' => [
-        'title' => 'Jednorázové přihlášení',
-        'email' => 'E-mailová adresa',
+        'title' => 'Vložte svůj e-mail',
+        'email' => 'E-mail',
         'submit' => 'Odeslat odkaz',
     ],
 

@@ -7,8 +7,7 @@
                 <x-ig::input type="email" name="email" required>@lang('ig-user::auth.register-email.email')</x-ig::input>
                 <x-ig::submit>@lang('ig-user::auth.register-email.submit')</x-ig::submit>
             </x-ig::form>
-            {{-- <p class="mt-3 mb-1 text-end"><a href="{{ route('register') }}">@lang('ig-user::auth.back') {{ strtolower(__('ig-user::auth.register.title')) }}</a></p> --}}
-            <p class="mt-3 mb-0 text-end"><a href="{{ route('login') }}">@lang('ig-user::auth.back') {{ strtolower(__('ig-user::auth.login.title')) }}</a></p>
+            <p class="mt-3 mb-0 text-end"><a href="{{ route('login') }}">@lang('ig-user::auth.back')</a></p>
         </div>
     </div>
 </div>
