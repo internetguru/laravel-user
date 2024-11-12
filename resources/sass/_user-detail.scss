@@ -5,6 +5,10 @@
     }
     dt a {
         font-weight: normal;
+
+        &.text-danger {
+            color: $red !important;
+        }
     }
     .user-edit-active {
         margin-left: 0;
