@@ -82,7 +82,9 @@
                     </x-ig::form>
                 </dd>
             </dl>
-            <p class="mb-0 mt-3"><a href="{{ route('logout') }}">@lang('ig-user::user.logout')</a></p>
+            @if ($user == auth()->user())
+                <p class="mb-0 mt-3"><a href="{{ route('logout') }}">@lang('ig-user::user.logout')</a></p>
+            @endif
         </div>
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>
