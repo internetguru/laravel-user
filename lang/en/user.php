@@ -23,5 +23,10 @@ return [
         'email' => 'Email updated.',
         'role' => 'Role updated.',
     ],
+    'summary' => [
+        'name' => 'Name',
+        'email' => 'Email',
+        'role' => 'Role',
+    ],
 
 ];

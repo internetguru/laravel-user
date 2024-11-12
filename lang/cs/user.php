@@ -23,5 +23,9 @@ return [
         'email' => 'Email aktualizován.',
         'role' => 'Role aktualizována.',
     ],
-
+    'summary' => [
+        'name' => 'Jméno',
+        'email' => 'E-mail',
+        'role' => 'Role',
+    ],
 ];
