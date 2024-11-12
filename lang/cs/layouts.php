@@ -20,11 +20,11 @@ return [
     'users' => [
         'index' => [
             'title' => 'Seznam uživatelů',
-            'description' => 'Seznam všech dostupných uživatelů a jejich informace.',
+            'description' => 'Seznam existujících uživatelů a jejich základní informace.',
         ],
         'show' => [
             'title' => 'Detail uživatele',
-            'description' => 'Uživatelské informace jsou pouze pro čtení.',
+            'description' => 'Interaktivní informace o uživateli s připojenými identitami.',
         ],
     ],
 ];

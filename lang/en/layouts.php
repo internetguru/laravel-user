@@ -19,12 +19,12 @@ return [
     ],
     'users' => [
         'index' => [
-            'title' => 'List of users',
-            'description' => 'List of all available users and their information.',
+            'title' => 'User summary',
+            'description' => 'List of existing users and their basic information.',
         ],
         'show' => [
             'title' => 'User detail',
-            'description' => 'User information is read-only.',
+            'description' => 'Interactive user information with connected identities.',
         ],
     ],
 ];
