@@ -68,7 +68,7 @@ class LoginController extends Controller
             'role' => Role::SPECTATOR,
         ]);
 
-        return $user->sendTokenAuthLink('/');
+        return $user->sendTokenAuthLink();
     }
 
     /**
