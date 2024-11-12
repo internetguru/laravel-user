@@ -110,7 +110,10 @@
                 @endforeach
                 <dt>@lang('ig-user::socialite.add')</dt>
                 <dd></dd>
-                <x-ig-user::buttons :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT" />
+                <x-ig-user::buttons
+                    :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT"
+                    :disabled="$user != auth()->user()"
+                />
             </dl>
         </div>
     </div>
