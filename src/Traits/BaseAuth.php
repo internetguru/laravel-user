@@ -3,6 +3,7 @@
 namespace InternetGuru\LaravelUser\Traits;
 
 use App\Models\User;
+use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\User as UserModel;
 
 trait BaseAuth
