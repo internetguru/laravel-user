@@ -24,16 +24,16 @@ class SetAppLocale
             return $next($request);
         }
 
-        // use session lang if it is set and supported
-        if (session()->has('locale') && in_array(session('locale'), array_keys($languages))) {
-            app()->setLocale(session('locale'));
+        // use user lang if it is set and supported
+        if (auth()->check() && in_array(auth()->user()->lang, array_keys($languages))) {
+            $this->setLang(auth()->user()->lang, userSave: false);
 
             return $next($request);
         }
 
-        // use user lang if it is set and supported
-        if (auth()->check() && in_array(auth()->user()->lang, array_keys($languages))) {
-            app()->setLocale(auth()->user()->lang);
+        // use session lang if it is set and supported
+        if (session()->has('locale') && in_array(session('locale'), array_keys($languages))) {
+            $this->setLang(session('locale'), userSave: false);
 
             return $next($request);
         }
@@ -52,11 +52,13 @@ class SetAppLocale
         return $next($request);
     }
 
-    public function setLang(string $lang): void
+    public function setLang(string $lang, bool $userSave = true): void
     {
         session(['locale' => $lang]);
-        if (auth()->check()) {
-            auth()->user()->update(['lang' => $lang]);
+        if ($userSave && auth()->check()) {
+            $user = auth()->user();
+            $user->lang = $lang;
+            $user->save();
         }
         app()->setLocale($lang);
     }
