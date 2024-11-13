@@ -31,6 +31,13 @@ class SetAppLocale
             return $next($request);
         }
 
+        // use user lang if it is set and supported
+        if (auth()->check() && in_array(auth()->user()->lang, array_keys($languages))) {
+            app()->setLocale(auth()->user()->lang);
+
+            return $next($request);
+        }
+
         // try to detect the request language
         $lang = $this->detectLang($request);
 
