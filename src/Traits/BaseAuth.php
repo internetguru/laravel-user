@@ -20,4 +20,14 @@ trait BaseAuth
     {
         // Do something when the user is authenticated
     }
+
+    public static function registerUser(string $name, string $email): User
+    {
+        return User::factory()->create([
+            'name' => $name,
+            'email' => $email,
+            'role' => Role::SPECTATOR,
+            'lang' => app()->getLocale(),
+        ]);
+    }
 }

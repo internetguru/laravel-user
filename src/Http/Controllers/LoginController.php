@@ -5,7 +5,6 @@ namespace InternetGuru\LaravelUser\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use InternetGuru\LaravelUser\Enums\Role;
 
 class LoginController extends Controller
 {
@@ -62,11 +61,7 @@ class LoginController extends Controller
             'email' => 'required|email:rfc,dns|max:255|unique:users',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'role' => Role::SPECTATOR,
-        ]);
+        $user = self::registerUser($request->name, $request->email);
 
         return $user->sendTokenAuthLink();
     }

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use InternetGuru\LaravelUser\Enums\Provider;
-use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
@@ -100,7 +99,7 @@ trait SocialiteAuth
         }
 
         // Register user
-        $user = self::socialiteRegisterUser($providerUser);
+        $user = self::registerUser($providerUser->name, $providerUser->email);
         event(new Registered($user));
 
         // Connect the user with the OAuth provider
@@ -117,16 +116,6 @@ trait SocialiteAuth
         self::authenticated(auth()->user());
 
         return redirect()->to($prevUrl)->with('success', __('ig-user::messages.register.success'));
-    }
-
-    public static function socialiteRegisterUser(SocialiteUser $providerUser): User
-    {
-        // Create a new user
-        return self::factory()->create([
-            'name' => $providerUser->name,
-            'email' => $providerUser->email,
-            'role' => Role::SPECTATOR,
-        ]);
     }
 
     public static function socialiteTransfer(Provider $provider, SocialiteUser $providerUser): RedirectResponse
