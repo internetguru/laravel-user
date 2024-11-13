@@ -20,6 +20,8 @@ class SetAppLocale
         // set the language if it is set in request and supported
         if ($lang && in_array($lang, array_keys($languages))) {
             $this->setLang($lang);
+            // remove the lang parameter from the URL
+            $request->query->remove('lang');
 
             return $next($request);
         }
