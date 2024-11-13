@@ -12,20 +12,18 @@ return [
     'save' => 'Uložit',
     'cancel' => 'zrušit',
     'set-primary' => 'nastavit jako primární',
-    'roles' => [
-        'spectator' => 'Přihlížející',
-        'operator' => 'Operátor',
-        'manager' => 'Manažer',
-        'admin' => 'Administrátor',
-    ],
-    'update' => [
-        'name' => 'Jméno aktualizováno.',
-        'email' => 'Email aktualizován.',
-        'role' => 'Role aktualizována.',
-    ],
-    'summary' => [
-        'name' => 'Jméno',
-        'email' => 'E-mail',
-        'role' => 'Role',
-    ],
+
+    'roles.spectator' => 'Přihlížející',
+    'roles.operator' => 'Operátor',
+    'roles.manager' => 'Manažer',
+    'roles.admin' => 'Administrátor',
+
+    'update.name' => 'Jméno aktualizováno.',
+    'update.email' => 'Email aktualizován.',
+    'update.role' => 'Role aktualizována.',
+
+    'summary.name' => 'Jméno',
+    'summary.email' => 'E-mail',
+    'summary.role' => 'Role',
+
 ];

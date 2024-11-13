@@ -12,21 +12,18 @@ return [
     'save' => 'Save',
     'cancel' => 'cancel',
     'set-primary' => 'set as primary',
-    'roles' => [
-        'spectator' => 'Spectator',
-        'operator' => 'Operator',
-        'manager' => 'Manager',
-        'admin' => 'Admin',
-    ],
-    'update' => [
-        'name' => 'Name updated.',
-        'email' => 'Email updated.',
-        'role' => 'Role updated.',
-    ],
-    'summary' => [
-        'name' => 'Name',
-        'email' => 'Email',
-        'role' => 'Role',
-    ],
+
+    'roles.spectator' => 'Spectator',
+    'roles.operator' => 'Operator',
+    'roles.manager' => 'Manager',
+    'roles.admin' => 'Admin',
+
+    'update.name' => 'Name updated.',
+    'update.email' => 'Email updated.',
+    'update.role' => 'Role updated.',
+
+    'summary.name' => 'Name',
+    'summary.email' => 'Email',
+    'summary.role' => 'Role',
 
 ];
