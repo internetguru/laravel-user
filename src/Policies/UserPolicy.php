@@ -90,4 +90,12 @@ class UserPolicy
 
         return $targetUser->role->level() < Role::MANAGER->level();
     }
+
+    /**
+     * User is not pending ~ is SPECTATOR or higher
+     */
+    public function isNotPending(User $user): bool
+    {
+        return $user->role->level() > Role::PENDING->level();
+    }
 }
