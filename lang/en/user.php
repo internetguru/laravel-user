@@ -13,6 +13,7 @@ return [
     'cancel' => 'cancel',
     'set-primary' => 'set as primary',
 
+    'roles.pending' => 'Pending',
     'roles.spectator' => 'Spectator',
     'roles.operator' => 'Operator',
     'roles.manager' => 'Manager',

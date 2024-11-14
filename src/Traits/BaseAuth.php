@@ -27,7 +27,7 @@ trait BaseAuth
         return User::factory()->create([
             'name' => $name,
             'email' => $email,
-            'role' => Role::SPECTATOR,
+            'role' => Role::PENDING,
             'lang' => app()->getLocale(),
         ]);
     }

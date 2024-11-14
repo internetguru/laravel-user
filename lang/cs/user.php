@@ -13,6 +13,7 @@ return [
     'cancel' => 'zrušit',
     'set-primary' => 'nastavit jako primární',
 
+    'roles.pending' => 'Čekající',
     'roles.spectator' => 'Přihlížející',
     'roles.operator' => 'Operátor',
     'roles.manager' => 'Manažer',

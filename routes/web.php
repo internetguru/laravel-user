@@ -38,7 +38,7 @@ Route::controller(LoginController::class)
 
 Route::controller(UserController::class)
     ->prefix('users')
-    ->middleware('web')
+    ->middleware(['web', 'auth'])
     ->group(function () {
         Route::get('/', 'index')
             ->middleware('can:view-any,App\Models\User')
