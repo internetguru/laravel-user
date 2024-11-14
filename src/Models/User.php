@@ -5,6 +5,7 @@ namespace InternetGuru\LaravelUser\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -37,5 +38,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [
             'role' => Role::class,
         ];
+    }
+
+    public static function summary(): Builder
+    {
+        return self::orderBy('name');
     }
 }
