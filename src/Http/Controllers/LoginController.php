@@ -15,7 +15,10 @@ class LoginController extends Controller
     {
         if (config('app.demo')) {
             $users = User::all()->map(
-                fn ($user) => ['id' => $user->email, 'name' => $user->name]
+                fn ($user) => [
+                    'id' => $user->email,
+                    'name' => $user->name . ' (' . @lang('ig-user::user.roles.' . $user->role->value) . ')',
+                ]
             )->toArray();
 
             return view('ig-user::base', [
