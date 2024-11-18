@@ -18,7 +18,7 @@ class UserPolicy
     /**
      * User can crud self
      * Admins can crud all
-     * Managers can crud lower roles
+     * Managers can crud self and lower roles
      */
     public function crud(User $user, User $targetUser): bool
     {
@@ -34,7 +34,7 @@ class UserPolicy
             return false;
         }
 
-        return $targetUser->role->level() < Role::MANAGER->level();
+        return $targetUser->role->level() <= Role::MANAGER->level();
     }
 
     /**
