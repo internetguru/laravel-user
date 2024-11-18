@@ -71,7 +71,7 @@ class UserPolicy
             return false;
         }
 
-        return $targetUser->role->level() < Role::MANAGER->level() || $user->id == $targetUser->id;
+        return true;
     }
 
     /**
