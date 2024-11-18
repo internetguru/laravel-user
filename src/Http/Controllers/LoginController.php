@@ -13,7 +13,7 @@ class LoginController extends Controller
      */
     public function showLogin()
     {
-        if (config('auth.demo')) {
+        if (config('app.demo')) {
             $users = User::all()->map(
                 fn ($user) => ['id' => $user->email, 'name' => $user->name]
             )->toArray();
@@ -71,7 +71,7 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
-        if (! config('auth.demo')) {
+        if (! config('app.demo')) {
             throw new \Exception('Classic login is not supported');
         }
 
