@@ -17,7 +17,7 @@ class LoginController extends Controller
             $users = User::all()->map(
                 fn ($user) => [
                     'id' => $user->email,
-                    'name' => $user->name . ' (' . @lang('ig-user::user.roles.' . $user->role->value) . ')',
+                    'name' => $user->name . ' (' . __('ig-user::user.roles.' . $user->role->value) . ')',
                 ]
             )->toArray();
 
