@@ -2,11 +2,8 @@
 
 namespace Tests\Unit;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use InternetGuru\LaravelSocialite\SocialiteProviders\SeznamProvider;
-use Mockery;
+use InternetGuru\LaravelUser\SocialiteProviders\SeznamProvider;
 use SocialiteProviders\Manager\OAuth2\User;
 use Tests\TestCase;
 
@@ -14,29 +11,40 @@ class SeznamProviderTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_can_get_auth_url()
+    public function test_can_get_token_url()
     {
-        $provider = new SeznamProvider($this->app['request']);
-        $url = $provider->getAuthUrl('state');
-        $this->assertStringContainsString('https://login.szn.cz/api/v1/oauth/auth', $url);
+        $provider = new class($this->app['request'], 'client_id', 'client_secret', 'redirect_url') extends SeznamProvider
+        {
+            public function getPublicTokenUrl()
+            {
+                return $this->getTokenUrl();
+            }
+        };
+        $url = $provider->getPublicTokenUrl();
+        $this->assertEquals('https://login.szn.cz/api/v1/oauth/token', $url);
     }
 
-    public function test_can_get_user_by_token()
+    public function test_can_map_user_to_object()
     {
-        $mockClient = Mockery::mock(Client::class);
-        $mockClient->shouldReceive('get')
-            ->andReturn(new Response(200, [], json_encode([
-                'oauth_user_id' => '12345',
-                'username' => 'testuser',
-                'firstname' => 'Test',
-                'lastname' => 'User',
-                'email' => 'test@example.com',
-            ])));
+        // Create a subclass to expose the protected method
+        $provider = new class($this->app['request'], 'client_id', 'client_secret', 'redirect_url') extends SeznamProvider
+        {
+            public function mapUserToObject(array $user)
+            {
+                return parent::mapUserToObject($user);
+            }
+        };
 
-        $provider = Mockery::mock(SeznamProvider::class)->makePartial();
-        $provider->shouldReceive('getHttpClient')->andReturn($mockClient);
+        $userArray = [
+            'oauth_user_id' => '12345',
+            'username' => 'testuser',
+            'firstname' => 'Test',
+            'lastname' => 'User',
+            'email' => 'test@example.com',
+        ];
 
-        $user = $provider->userFromToken('token');
+        $user = $provider->mapUserToObject($userArray);
+
         $this->assertInstanceOf(User::class, $user);
         $this->assertEquals('12345', $user->getId());
         $this->assertEquals('testuser', $user->getNickname());

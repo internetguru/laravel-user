@@ -2,10 +2,10 @@
 
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use InternetGuru\LaravelUser\Enums\Provider;

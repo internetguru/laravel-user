@@ -11,6 +11,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->required();
             $table->string('lang')->nullable();
+            $table->dropColumn('email_verified_at');
+            $table->dropColumn('password');
         });
     }
 
@@ -19,6 +21,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('role');
             $table->dropColumn('lang');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password')->nullable();
         });
     }
 };

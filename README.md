@@ -2,6 +2,12 @@
 
 Internet Guru Laravel User is a library that provides seamless integration with various social authentication providers. It stores the user's social identity in the database and allows the user to link multiple social identities to a single account. It also provides temporary login link to the user's email address.
 
+| Branch  | Status | Code Coverage |
+| :------------- | :------------- | :------------- |
+| Main | ![tests](https://github.com/internetguru/laravel-user/actions/workflows/test.yml/badge.svg?branch=main) | ![coverage](https://raw.githubusercontent.com/internetguru/laravel-user/refs/heads/badges/main-coverage.svg) |
+| Staging | ![tests](https://github.com/internetguru/laravel-user/actions/workflows/test.yml/badge.svg?branch=staging) | ![coverage](https://raw.githubusercontent.com/internetguru/laravel-user/refs/heads/badges/staging-coverage.svg) |
+| Dev | ![tests](https://github.com/internetguru/laravel-user/actions/workflows/test.yml/badge.svg?branch=dev) | ![coverage](https://raw.githubusercontent.com/internetguru/laravel-user/refs/heads/badges/dev-coverage.svg) |
+
 ## Features and terminology
 
 - **Account** – application user account.

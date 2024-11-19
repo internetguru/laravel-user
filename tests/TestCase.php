@@ -2,69 +2,39 @@
 
 namespace Tests;
 
-use InternetGuru\LaravelSocialite\LaravelSocialiteServiceProvider;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use InternetGuru\LaravelCommon\CommonServiceProvider;
+use InternetGuru\LaravelUser\LaravelUserServiceProvider;
 use Laravel\Socialite\SocialiteServiceProvider;
-use Orchestra\Testbench\TestCase as BaseTestCase;
+use Livewire\LivewireServiceProvider;
+use Orchestra\Testbench\TestCase as Orchestra;
 
-abstract class TestCase extends BaseTestCase
+abstract class TestCase extends Orchestra
 {
-    /**
-     * Get package providers.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return array
-     */
+    use RefreshDatabase;
+
     protected function getPackageProviders($app)
     {
         return [
+            LaravelUserServiceProvider::class,
+            CommonServiceProvider::class,
+            LivewireServiceProvider::class,
             SocialiteServiceProvider::class,
-            LaravelSocialiteServiceProvider::class,
-        ];
-    }
-
-    /**
-     * Get package aliases.
-     *
-     * @param  \Illuminate\Foundation\Application  $app
-     * @return array
-     */
-    protected function getPackageAliases($app)
-    {
-        return [
-            'Socialite' => \Laravel\Socialite\Facades\Socialite::class,
         ];
     }
 
     protected function getEnvironmentSetUp($app)
     {
-        // Use MySQL testing database
-        $app['config']->set('database.default', 'mysql');
-        $app['config']->set('database.connections.mysql', [
-            'driver' => 'mysql',
-            'host' => 'mysql',
-            'port' => 3306,
-            'database' => 'testing',
-            'username' => 'user',
-            'password' => 'password',
-            'charset' => 'utf8mb4',
-            'collation' => 'utf8mb4_unicode_ci',
-            'prefix' => '',
-            'strict' => true,
-            'engine' => null,
-        ]);
-    }
-
-    /**
-     * Load package migrations.
-     */
-    protected function setUpDatabase($app)
-    {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        // Optionally, set up your environment here
     }
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->setUpDatabase($this->app);
+        $this->loadLaravelMigrations(['--database' => 'testing']);
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        // clear all users
+        User::query()->delete();
     }
 }

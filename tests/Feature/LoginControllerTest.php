@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Controllers;
 
-use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use InternetGuru\LaravelUser\Enums\Role;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
@@ -14,15 +14,19 @@ class LoginControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->seed();
         config(['app.demo' => false]);
+        // add machines index route
+        $this->app['router']->middleware('auth')->get('/machines', function () {
+            return 'machines';
+        })->name('machines.index');
     }
 
     public function testShowLoginForm()
     {
         $response = $this->get(route('login'));
         $response->assertStatus(200);
-        $response->assertViewIs('auth.login');
+        $response->assertViewIs('ig-user::base');
+        $response->assertViewHas('view', 'login');
     }
 
     public function testShowLoginFormDemo()
@@ -30,13 +34,13 @@ class LoginControllerTest extends TestCase
         config(['app.demo' => true]);
 
         User::factory()->count(3)->create();
+        $users = User::getDemoUsers();
 
         $response = $this->get(route('login'));
         $response->assertStatus(200);
-        $response->assertViewIs('auth.login');
-
-        $users = $response->viewData('users');
-        $this->assertCount(3, $users);
+        $response->assertViewIs('ig-user::base');
+        $response->assertViewHas('view', 'login');
+        $response->assertViewHas('props', compact('users'));
     }
 
     public function testDemoAuthenticateSuccess()
@@ -54,7 +58,7 @@ class LoginControllerTest extends TestCase
             'email' => 'test@example.com',
         ]);
 
-        $this->assertAuthenticatedAs($user);
+        $this->assertEquals(auth()->user()->id, $user->id);
         $response->assertRedirect(route('machines.index'));
     }
 

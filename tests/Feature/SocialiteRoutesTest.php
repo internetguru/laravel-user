@@ -12,9 +12,9 @@ class SocialiteRoutesTest extends TestCase
     public function test_can_access_socialite_routes()
     {
         $response = $this->get('/socialite/google/login');
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
         $response = $this->get('/socialite/google/login/callback');
-        $response->assertStatus(200);
+        $response->assertStatus(302);
     }
 }

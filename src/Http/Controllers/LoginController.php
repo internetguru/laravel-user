@@ -2,9 +2,9 @@
 
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class LoginController extends Controller
 {
@@ -14,12 +14,7 @@ class LoginController extends Controller
     public function showLogin()
     {
         if (config('app.demo')) {
-            $users = User::all()->map(
-                fn ($user) => [
-                    'id' => $user->email,
-                    'name' => $user->name . ' (' . __('ig-user::user.roles.' . $user->role->value) . ')',
-                ]
-            )->toArray();
+            $users = User::getDemoUsers();
 
             return view('ig-user::base', [
                 'view' => 'login',
