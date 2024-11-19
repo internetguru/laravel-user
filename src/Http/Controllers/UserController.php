@@ -42,6 +42,9 @@ class UserController extends Controller
             return $this->updateEmail($request, $user);
         }
         if ($request->has('role')) {
+            $request->validate([
+                'role' => ['required', Rule::enum(Role::class)],
+            ]);
             $role = Role::from($request->role);
             Gate::authorize('setRole', [$user, $role]);
 
@@ -76,7 +79,7 @@ class UserController extends Controller
     private function updateEmail(Request $request, User $user)
     {
         $request->validate([
-            'email' => 'required|string|email:rfc,dns|max:255',
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email',
         ]);
         $user->email = $request->email;
         $user->save();
@@ -86,9 +89,6 @@ class UserController extends Controller
 
     private function updateRole(Request $request, User $user, Role $role)
     {
-        $request->validate([
-            'role' => ['required', Rule::enum(Role::class)],
-        ]);
         $user->role = $role;
         $user->save();
 

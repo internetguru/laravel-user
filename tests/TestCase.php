@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InternetGuru\LaravelCommon\CommonServiceProvider;
 use InternetGuru\LaravelUser\LaravelUserServiceProvider;
+use Internetguru\ModelBrowser\ModelBrowserServiceProvider;
 use Laravel\Socialite\SocialiteServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -21,6 +22,7 @@ abstract class TestCase extends Orchestra
             CommonServiceProvider::class,
             LivewireServiceProvider::class,
             SocialiteServiceProvider::class,
+            ModelBrowserServiceProvider::class,
         ];
     }
 
