@@ -56,6 +56,7 @@ class UserPolicy
     /**
      * Admins can set any role
      * Managers can set lower roles than themselves, max operator
+     * Managers can set the same role (no change)
      */
     public function setRole(User $user, User $targetUser, Role $role): bool
     {
@@ -65,6 +66,10 @@ class UserPolicy
 
         if ($user->role != Role::MANAGER) {
             return false;
+        }
+
+        if ($role->level() == $targetUser->role->level()) {
+            return true;
         }
 
         if ($role->level() > Role::OPERATOR->level()) {
