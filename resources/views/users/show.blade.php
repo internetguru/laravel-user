@@ -89,7 +89,10 @@
                 </dd>
             </dl>
             @if ($ownDetail)
-                <p class="mb-0 mt-3"><a href="{{ route('logout') }}">@lang('ig-user::user.logout')</a></p>
+                <p class="mb-0 mt-3"><a class="btn btn-ico btn-danger btn-white btn-shadow" href="{{ route('logout') }}">
+                    <i class="fas fa-arrow-right-from-bracket"></i>
+                    @lang('ig-user::user.logout')
+                </a></p>
             @endif
         </div>
         <div class="card col col-centered">

@@ -18,7 +18,7 @@ a[class*="btn-socialite"] {
     border: none !important;
     padding: $spacer;
 
-    @include button-variant(#fff, #fff, #000);
+    @include button-white;
     @include btn-shadow;
     @include btn-ico;
 
