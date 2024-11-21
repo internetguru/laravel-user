@@ -97,6 +97,9 @@
         </div>
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>
+            @if (!$ownDetail)
+                <p>@lang('ig-user::user.authentication-info')</p>
+            @endif
             <dl>
                 @foreach($user->socialites as $socialite)
                     @php

@@ -12,6 +12,7 @@ return [
     'save' => 'Uložit',
     'cancel' => 'zrušit',
     'set-primary' => 'nastavit jako primární',
+    'authentication-info' => 'Identity lze spravovat pouze uživateli :user',
 
     'roles.pending' => 'Čekající',
     'roles.spectator' => 'Přihlížející',

@@ -12,6 +12,7 @@ return [
     'save' => 'Save',
     'cancel' => 'cancel',
     'set-primary' => 'set as primary',
+    'authentication-info' => 'Identities can only be managed for the :user',
 
     'roles.pending' => 'Pending',
     'roles.spectator' => 'Spectator',
