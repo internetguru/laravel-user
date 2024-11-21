@@ -13,6 +13,7 @@ return [
     'cancel' => 'cancel',
     'set-primary' => 'set as primary',
     'authentication-info' => 'Identities can only be managed for the :user',
+    'you' => 'you',
 
     'roles.pending' => 'Pending',
     'roles.spectator' => 'Spectator',

@@ -32,7 +32,7 @@
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editName }">
-                    <span x-show="!editName">{{ $user->name }}</span>
+                    <span x-show="!editName">{{ $user->name . getYouSuffix($user) }}</span>
                     <x-ig::form :recaptcha="false" x-show="editName" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="name" type="text" class="form-control" value="{{ $user->name }}" />
