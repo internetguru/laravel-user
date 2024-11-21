@@ -10,5 +10,6 @@
             'name' => 'formatUserNameLink',
             'role' => 'formatUserRole',
         ]"
+        :enableSort="$enableSort ?? true"
     >
 </section>
