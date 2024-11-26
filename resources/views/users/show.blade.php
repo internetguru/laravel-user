@@ -109,18 +109,15 @@
                     @endphp
                     <dt class="socialite">
                         {{ $socialite->name }}
-                        <a
-                            @class([
-                                'ms-1',
-                                'disabled' => ! $ownDetail,
-                            ])
-                            @if ($ownDetail)
+                        @if ($ownDetail)
+                            <a
+                                class="ms-1"
                                 href="{{ route('socialite.action', [
                                     'provider' => $provider,
                                     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
                                 ]) }}"
-                            @endif
-                        >@lang('ig-user::socialite.unlink')</a>
+                            >@lang('ig-user::socialite.unlink')</a>
+                        @endif
                     </dt>
                     <dd class="d-flex flex-wrap gap-2">
                         {{ $socialite->email }}
