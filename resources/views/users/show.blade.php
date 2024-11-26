@@ -98,7 +98,9 @@
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>
             @if (!$ownDetail)
-                <p>@lang('ig-user::user.authentication-info', ['user' => auth()->user()->name])</p>
+                <p>
+                    {!! Str::inlineMarkdown(__('ig-user::user.authentication-info', ['url' => route('users.show', auth()->user())])) !!}
+                </p>
             @endif
             <dl>
                 @foreach($user->socialites as $socialite)

@@ -12,7 +12,7 @@ return [
     'save' => 'Uložit',
     'cancel' => 'zrušit',
     'set-primary' => 'nastavit jako primární',
-    'authentication-info' => 'Identity lze spravovat pouze uživateli :user',
+    'authentication-info' => 'Správa identity je dostupná pouze pro [vlastní účet](:url).',
     'you' => 'vy',
 
     'roles.pending' => 'Čekající',

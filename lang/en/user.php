@@ -12,7 +12,7 @@ return [
     'save' => 'Save',
     'cancel' => 'cancel',
     'set-primary' => 'set as primary',
-    'authentication-info' => 'Identities can only be managed for the :user',
+    'authentication-info' => 'Identity management is available only for [your own account](:url).',
     'you' => 'you',
 
     'roles.pending' => 'Pending',
