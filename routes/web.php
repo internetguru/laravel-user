@@ -72,7 +72,6 @@ Route::controller(TokenAuthController::class)
             ->name('token-auth.send');
 
         Route::get('/callback/{token}', 'handleTokenAuthCallback')
-            ->middleware('signed')
             ->name('token-auth.callback');
 
     });
