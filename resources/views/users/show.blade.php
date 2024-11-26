@@ -122,15 +122,15 @@
                             @endif
                         >@lang('ig-user::socialite.unlink')</a>
                     </dt>
-                    <dd>{{ $socialite->email }}</dd>
-                    @if ($socialite->email != $user->email)
-                        <dd>
+                    <dd class="d-flex flex-wrap gap-2">
+                        {{ $socialite->email }}
+                        @if ($socialite->email != $user->email)
                             <x-ig::form :recaptcha="false" :action="route('users.update', $user)">
                                 <input type="hidden" name="email" value="{{ $socialite->email }}" />
-                                <button type="submit" class="btn btn-primary">@lang('ig-user::user.set-primary')</button>
+                                <button type="submit" class="btn btn-primary btn-shadow btn-white">@lang('ig-user::user.set-primary')</button>
                             </x-ig::form>
+                        @endif
                         </dd>
-                    @endif
                 @endforeach
                 <dt>@lang('ig-user::socialite.add')</dt>
                 <dd></dd>
