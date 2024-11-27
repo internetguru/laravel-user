@@ -59,7 +59,7 @@ class LoginController extends Controller
             'email' => 'required|email:rfc,dns|max:255|unique:users',
         ]);
 
-        $user = self::registerUser($request->name, $request->email);
+        $user = User::registerUser($request->name, $request->email);
 
         return $user->sendTokenAuthLink();
     }
