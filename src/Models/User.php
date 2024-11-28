@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use InternetGuru\LaravelUser\Enums\Role;
+use InternetGuru\LaravelUser\Traits\BaseAuth;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
 use InternetGuru\LaravelUser\Traits\TokenAuth;
 
@@ -18,6 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable;
     use Authorizable;
+    use BaseAuth;
     use HasFactory;
     use Notifiable;
     use SocialiteAuth;

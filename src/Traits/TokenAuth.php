@@ -2,6 +2,7 @@
 
 namespace InternetGuru\LaravelUser\Traits;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
@@ -11,8 +12,6 @@ use InternetGuru\LaravelUser\Notifications\TokenAuthNotification;
 
 trait TokenAuth
 {
-    use BaseAuth;
-
     public function tokenAuth(): HasOne
     {
         return $this->hasOne(TokenAuthModel::class);
@@ -33,7 +32,7 @@ trait TokenAuth
         ]);
 
         // Send the token auth link via email
-        self::sendTokenAuthNotification($tokenAuth);
+        User::sendTokenAuthNotification($tokenAuth);
 
         return redirect()->to('/')->with('success', __('ig-user::token_auth.sent') . Helpers::getEmailClientLink());
     }
@@ -47,7 +46,7 @@ trait TokenAuth
     {
         $tokenAuth = TokenAuthModel::where('token', $token)->firstOrFail();
         $user = $tokenAuth->user;
-        [, $backUrl] = self::getAuthSessions();
+        [, $backUrl] = User::getAuthSessions();
 
         if ($tokenAuth->expires_at->isPast()) {
             $tokenAuth->delete();
@@ -57,7 +56,7 @@ trait TokenAuth
 
         $tokenAuth->delete();
         auth()->login($user);
-        self::authenticated(auth()->user());
+        User::authenticated(auth()->user());
 
         return redirect()->to($backUrl);
     }

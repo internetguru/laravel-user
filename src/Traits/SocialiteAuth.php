@@ -13,8 +13,6 @@ use Laravel\Socialite\Two\User as SocialiteUser;
 
 trait SocialiteAuth
 {
-    use BaseAuth;
-
     public function socialites(): HasMany
     {
         return $this->hasMany(Socialite::class);
@@ -30,8 +28,8 @@ trait SocialiteAuth
 
     public static function socialiteLogin(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
-        $user = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl, $remember] = self::getAuthSessions();
+        $user = User::getBySocialiteProvider($provider, $providerUser->id);
+        [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
 
         // User not found, try to connect
         if (! $user) {
@@ -40,7 +38,7 @@ trait SocialiteAuth
 
         // Login user
         auth()->login($user, $remember);
-        self::authenticated(auth()->user());
+        User::authenticated(auth()->user());
 
         return redirect()->to($prevUrl ?? $backUrl);
     }
@@ -48,8 +46,8 @@ trait SocialiteAuth
     public static function socialiteLoginAndConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         // Try to find the user by email
-        $user = self::where('email', $providerUser->email)->first();
-        [$prevUrl, $backUrl, $remember] = self::getAuthSessions();
+        $user = User::where('email', $providerUser->email)->first();
+        [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
 
         if (! $user) {
             Log::warning('User not found', ['provider_user' => $providerUser]);
@@ -59,16 +57,16 @@ trait SocialiteAuth
 
         // Login user and connect the OAuth provider
         auth()->login($user, $remember);
-        self::authenticated(auth()->user());
+        User::authenticated(auth()->user());
 
-        return self::socialiteConnect($provider, $providerUser);
+        return User::socialiteConnect($provider, $providerUser);
     }
 
     public static function socialiteConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         // Check if the id is already connected to some user
-        $user = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl] = self::getAuthSessions();
+        $user = User::getBySocialiteProvider($provider, $providerUser->id);
+        [$prevUrl, $backUrl] = User::getAuthSessions();
 
         if ($user) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.connect.exists'));
@@ -91,15 +89,15 @@ trait SocialiteAuth
     public static function socialiteRegister(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         // Check if the id is already connected to some user
-        $user = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl] = self::getAuthSessions();
+        $user = User::getBySocialiteProvider($provider, $providerUser->id);
+        [$prevUrl, $backUrl] = User::getAuthSessions();
 
-        if ($user || self::where('email', $providerUser->email)->exists()) {
+        if ($user || User::where('email', $providerUser->email)->exists()) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }
 
         // Register user
-        $user = self::registerUser($providerUser->name, $providerUser->email);
+        $user = User::registerUser($providerUser->name, $providerUser->email);
         event(new Registered($user));
 
         // Connect the user with the OAuth provider
@@ -113,7 +111,7 @@ trait SocialiteAuth
 
         // Login user
         auth()->login($user);
-        self::authenticated(auth()->user());
+        User::authenticated(auth()->user());
 
         return redirect()->to($prevUrl)->with('success', __('ig-user::messages.register.success'));
     }
@@ -121,8 +119,8 @@ trait SocialiteAuth
     public static function socialiteTransfer(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         // Check if the source user exists
-        $sourceUser = self::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl] = self::getAuthSessions();
+        $sourceUser = User::getBySocialiteProvider($provider, $providerUser->id);
+        [$prevUrl, $backUrl] = User::getAuthSessions();
 
         if (! $sourceUser) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.transfer.notfound'));
