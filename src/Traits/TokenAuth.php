@@ -42,9 +42,13 @@ trait TokenAuth
 
     public static function tokenAuthLogin(string $token): RedirectResponse
     {
-        $tokenAuth = TokenAuthModel::where('token', $token)->firstOrFail();
-        $user = $tokenAuth->user;
         [, $backUrl] = User::getAuthSessions();
+        try {
+            $tokenAuth = TokenAuthModel::where('token', $token)->firstOrFail();
+        } catch (\Exception $e) {
+            return redirect()->to($backUrl)->withErrors(__('ig-user::token_auth.invalid'));
+        }
+        $user = $tokenAuth->user;
 
         if ($tokenAuth->expires_at->isPast()) {
             $tokenAuth->delete();

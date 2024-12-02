@@ -4,7 +4,7 @@ return [
 
     'sent' => 'The one-time login link has been successfully sent.',
     'wait' => 'Please wait before requesting a new one-time login link.',
-    'invalid' => 'The one-time login has expired or is invalid',
+    'invalid' => 'Invalid or expired token.',
     'subject' => 'One-Time Login Link',
     'action' => 'Log in',
     'intro' => 'To log in to your account with a one-time login, click the button below.',
