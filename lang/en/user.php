@@ -11,6 +11,7 @@ return [
     'edit' => 'edit',
     'save' => 'Save',
     'cancel' => 'cancel',
+    'primary' => 'primary',
     'set-primary' => 'set as primary',
     'authentication-info' => 'Identity management is available only for [your own account](:url).',
     'you' => 'you',

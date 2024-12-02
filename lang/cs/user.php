@@ -11,6 +11,7 @@ return [
     'edit' => 'upravit',
     'save' => 'Uložit',
     'cancel' => 'zrušit',
+    'primary' => 'primární',
     'set-primary' => 'nastavit jako primární',
     'authentication-info' => 'Správa identity je dostupná pouze pro [vlastní účet](:url).',
     'you' => 'vy',
