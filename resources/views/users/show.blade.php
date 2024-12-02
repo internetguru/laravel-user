@@ -25,10 +25,10 @@
                 <dt>
                     @lang('ig-user::user.name')
                     @can('crud', $user)
-                        <a @click.prevent="closeEdits(editName); editName = !editName" href="#">
+                        <button class="btn btn-link" @click.prevent="closeEdits(editName); editName = !editName" href="#">
                             <span x-show="!editName">@lang('ig-user::user.edit')</span>
                             <span x-show="editName">@lang('ig-user::user.cancel')</span>
-                        </a>
+                        </button>
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editName }">
@@ -44,10 +44,10 @@
                 <dt>
                     @lang('ig-user::user.email')
                     @can('administrate', $user)
-                        <a @click.prevent="closeEdits(editEmail); editEmail = !editEmail" href="#">
+                        <button class="btn btn-link" @click.prevent="closeEdits(editEmail); editEmail = !editEmail" href="#">
                             <span x-show="!editEmail">@lang('ig-user::user.edit')</span>
                             <span x-show="editEmail">@lang('ig-user::user.cancel')</span>
-                        </a>
+                        </button>
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editEmail }">
@@ -63,10 +63,10 @@
                 <dt>
                     @lang('ig-user::user.role')
                     @can('administrate', $user)
-                        <a @click.prevent="closeEdits(editRole); editRole = !editRole" href="#">
+                        <button class="btn btn-link" @click.prevent="closeEdits(editRole); editRole = !editRole" href="#">
                             <span x-show="!editRole">@lang('ig-user::user.edit')</span>
                             <span x-show="editRole">@lang('ig-user::user.cancel')</span>
-                        </a>
+                        </button>
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editRole }">
@@ -110,21 +110,21 @@
                     <dt class="socialite">
                         {{ $socialite->name }}
                         @if ($ownDetail)
-                            <a
-                                class="ms-1"
+                            <button
+                                class="btn btn-link"
                                 href="{{ route('socialite.action', [
                                     'provider' => $provider,
                                     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
                                 ]) }}"
-                            >@lang('ig-user::socialite.unlink')</a>
+                            >@lang('ig-user::socialite.unlink')</button>
                         @endif
                     </dt>
-                    <dd class="d-flex flex-wrap gap-2">
+                    <dd class="d-flex flex-wrap">
                         {{ $socialite->email }}
                         @if ($socialite->email != $user->email)
                             <x-ig::form :recaptcha="false" :action="route('users.update', $user)">
                                 <input type="hidden" name="email" value="{{ $socialite->email }}" />
-                                <button type="submit" class="btn btn-primary btn-shadow btn-white">@lang('ig-user::user.set-primary')</button>
+                                <button type="submit" class="btn btn-link">@lang('ig-user::user.set-primary')</button>
                             </x-ig::form>
                         @endif
                         </dd>
