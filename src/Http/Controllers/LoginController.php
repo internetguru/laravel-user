@@ -5,6 +5,7 @@ namespace InternetGuru\LaravelUser\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use InternetGuru\LaravelCommon\Support\Helpers;
 
 class LoginController extends Controller
 {
@@ -47,7 +48,8 @@ class LoginController extends Controller
         $user = User::registerUser($request->name, $request->email);
         $user->sendTokenAuthLink();
 
-        return redirect()->to('/')->with('success', __('ig-user::messages.register.token-auth.success'));
+        return redirect()->to('/')->with('success', __('ig-user::messages.register.token-auth.success')
+            . Helpers::getEmailClientLink());
     }
 
     public function authenticate(Request $request)
