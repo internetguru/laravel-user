@@ -108,7 +108,7 @@
                     @php
                         $provider = $socialite->provider->value;
                     @endphp
-                    <dt class="socialite">
+                    <dt>
                         {{ $socialite->name }}
                         @if ($ownDetail)
                             <a
