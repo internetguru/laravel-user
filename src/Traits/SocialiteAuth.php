@@ -82,8 +82,10 @@ trait SocialiteAuth
 
     public static function socialiteRegister(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
+        $user = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl] = User::getAuthSessions();
-        if (User::where('email', $providerUser->email)->exists()) {
+
+        if ($user || User::where('email', $providerUser->email)->exists()) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }
 

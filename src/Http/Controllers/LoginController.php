@@ -8,9 +8,6 @@ use Illuminate\Routing\Controller;
 
 class LoginController extends Controller
 {
-    /**
-     * Display the login page.
-     */
     public function showLogin()
     {
         if (config('app.demo')) {
@@ -25,33 +22,21 @@ class LoginController extends Controller
         return view('ig-user::base', ['view' => 'login']);
     }
 
-    /**
-     * Display the token authentication page.
-     */
     public function showTokenAuth()
     {
         return view('ig-user::base', ['view' => 'token-auth']);
     }
 
-    /**
-     * Display the register page.
-     */
     public function showRegister()
     {
         return view('ig-user::base', ['view' => 'register']);
     }
 
-    /**
-     * Display the register by email page.
-     */
     public function showRegisterEmail()
     {
         return view('ig-user::base', ['view' => 'register-email']);
     }
 
-    /**
-     * Handle the register by email form submission.
-     */
     public function handleRegisterEmail(Request $request)
     {
         $request->validate([
@@ -64,9 +49,6 @@ class LoginController extends Controller
         return $user->sendTokenAuthLink();
     }
 
-    /**
-     * Handle an authentication attempt.
-     */
     public function authenticate(Request $request)
     {
         if (! config('app.demo')) {
@@ -76,9 +58,6 @@ class LoginController extends Controller
         return $this->demoAuthenticate($request);
     }
 
-    /**
-     * Log the user out of the application.
-     */
     public function logout(Request $request)
     {
         auth()->logout();
@@ -91,9 +70,6 @@ class LoginController extends Controller
         return redirect('/');
     }
 
-    /**
-     * Handle a demo authentication attempt.
-     */
     protected function demoAuthenticate(Request $request)
     {
         $credentials = $request->validate([
