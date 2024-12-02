@@ -32,7 +32,14 @@
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editName }">
-                    <span x-show="!editName">{{ $user->name . getYouSuffix($user) }}</span>
+                    <span x-show="!editName">
+                        {{ $user->name . getYouSuffix($user) }}
+                        @if ($ownDetail)
+                            <a class="btn btn-link link-danger" href="{{ route('logout') }}">
+                                @lang('ig-user::user.logout')
+                            </a>
+                        @endif
+                    </span>
                     <x-ig::form :recaptcha="false" x-show="editName" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="name" type="text" class="form-control" value="{{ $user->name }}" />
@@ -88,12 +95,6 @@
                     </x-ig::form>
                 </dd>
             </dl>
-            @if ($ownDetail)
-                <p class="mb-0 mt-3"><a class="btn btn-ico btn-danger btn-white btn-shadow" href="{{ route('logout') }}">
-                    <i class="fas fa-arrow-right-from-bracket"></i>
-                    @lang('ig-user::user.logout')
-                </a></p>
-            @endif
         </div>
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>

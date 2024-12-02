@@ -7,7 +7,7 @@ return [
     'role' => 'Role',
     'information' => 'Information',
     'authentication' => 'Identities',
-    'logout' => 'Logout',
+    'logout' => 'sign out',
     'edit' => 'edit',
     'save' => 'Save',
     'cancel' => 'cancel',
