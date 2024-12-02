@@ -45,8 +45,9 @@ class LoginController extends Controller
         ]);
 
         $user = User::registerUser($request->name, $request->email);
+        $user->sendTokenAuthLink();
 
-        return $user->sendTokenAuthLink();
+        return redirect()->to('/')->with('success', __('ig-user::messages.register.token-auth.success'));
     }
 
     public function authenticate(Request $request)

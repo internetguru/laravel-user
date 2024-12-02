@@ -30,8 +30,6 @@ trait TokenAuth
             'token' => Str::random(32),
             'expires_at' => now()->addHour(),
         ]);
-
-        // Send the token auth link via email
         User::sendTokenAuthNotification($tokenAuth);
 
         return redirect()->to('/')->with('success', __('ig-user::token_auth.sent') . Helpers::getEmailClientLink());
