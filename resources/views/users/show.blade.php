@@ -25,7 +25,7 @@
                 <dt>
                     @lang('ig-user::user.name')
                     @can('crud', $user)
-                        <button class="btn btn-link" @click.prevent="closeEdits(editName); editName = !editName" href="#">
+                        <button class="btn btn-link" @click.prevent="closeEdits(editName); editName = !editName">
                             <span x-show="!editName">@lang('ig-user::user.edit')</span>
                             <span x-show="editName">@lang('ig-user::user.cancel')</span>
                         </button>
@@ -44,7 +44,7 @@
                 <dt>
                     @lang('ig-user::user.email')
                     @can('administrate', $user)
-                        <button class="btn btn-link" @click.prevent="closeEdits(editEmail); editEmail = !editEmail" href="#">
+                        <button class="btn btn-link" @click.prevent="closeEdits(editEmail); editEmail = !editEmail">
                             <span x-show="!editEmail">@lang('ig-user::user.edit')</span>
                             <span x-show="editEmail">@lang('ig-user::user.cancel')</span>
                         </button>
@@ -63,7 +63,7 @@
                 <dt>
                     @lang('ig-user::user.role')
                     @can('administrate', $user)
-                        <button class="btn btn-link" @click.prevent="closeEdits(editRole); editRole = !editRole" href="#">
+                        <button class="btn btn-link" @click.prevent="closeEdits(editRole); editRole = !editRole">
                             <span x-show="!editRole">@lang('ig-user::user.edit')</span>
                             <span x-show="editRole">@lang('ig-user::user.cancel')</span>
                         </button>
@@ -110,16 +110,16 @@
                     <dt class="socialite">
                         {{ $socialite->name }}
                         @if ($ownDetail)
-                            <button
-                                class="btn btn-link"
+                            <a
+                                class="btn btn-link link-danger"
                                 href="{{ route('socialite.action', [
                                     'provider' => $provider,
                                     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
                                 ]) }}"
-                            >@lang('ig-user::socialite.unlink')</button>
+                            >@lang('ig-user::socialite.unlink')</a>
                         @endif
                     </dt>
-                    <dd class="d-flex flex-wrap">
+                    <dd class="d-flex flex-wrap gap-2">
                         {{ $socialite->email }}
                         @if ($socialite->email != $user->email)
                             <x-ig::form :recaptcha="false" :action="route('users.update', $user)">
