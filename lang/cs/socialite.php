@@ -4,7 +4,7 @@ return [
 
     'link' => 'připojit',
     'unlink' => 'odpojit',
-    'add' => 'Přidat novou identitu',
+    'add' => 'Připojit identitu',
 
     'google' => 'Google',
     'facebook' => 'Facebook',

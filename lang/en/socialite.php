@@ -4,7 +4,7 @@ return [
 
     'link' => 'connect',
     'unlink' => 'disconnect',
-    'add' => 'Add new identity',
+    'add' => 'Connect identity',
 
     'google' => 'Google',
     'facebook' => 'Facebook',
