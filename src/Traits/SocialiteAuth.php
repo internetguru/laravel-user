@@ -31,12 +31,10 @@ trait SocialiteAuth
         $user = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
 
-        // User not found, try to connect
         if (! $user) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.login.notfound'));
         }
 
-        // Login user
         auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
@@ -45,7 +43,6 @@ trait SocialiteAuth
 
     public static function socialiteLoginAndConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
-        // Try to find the user by email
         $user = User::where('email', $providerUser->email)->first();
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
 
@@ -55,7 +52,6 @@ trait SocialiteAuth
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.login.notfound'));
         }
 
-        // Login user and connect the OAuth provider
         auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
@@ -64,7 +60,6 @@ trait SocialiteAuth
 
     public static function socialiteConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
-        // Check if the id is already connected to some user
         $user = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl] = User::getAuthSessions();
 
@@ -72,7 +67,6 @@ trait SocialiteAuth
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.connect.exists'));
         }
 
-        // Connect the user with the OAuth provider
         $socialite = new Socialite([
             'provider' => $provider,
             'provider_id' => $providerUser->id,
@@ -88,19 +82,14 @@ trait SocialiteAuth
 
     public static function socialiteRegister(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
-        // Check if the id is already connected to some user
-        $user = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl] = User::getAuthSessions();
-
-        if ($user || User::where('email', $providerUser->email)->exists()) {
+        if (User::where('email', $providerUser->email)->exists()) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }
 
-        // Register user
         $user = User::registerUser($providerUser->name, $providerUser->email);
         event(new Registered($user));
 
-        // Connect the user with the OAuth provider
         $socialite = new Socialite([
             'provider' => $provider,
             'provider_id' => $providerUser->id,
@@ -109,7 +98,6 @@ trait SocialiteAuth
         ]);
         $user->socialites()->save($socialite);
 
-        // Login user
         auth()->login($user);
         User::authenticated(auth()->user());
 
@@ -118,7 +106,6 @@ trait SocialiteAuth
 
     public static function socialiteTransfer(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
-        // Check if the source user exists
         $sourceUser = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl] = User::getAuthSessions();
 
