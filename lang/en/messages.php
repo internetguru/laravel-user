@@ -3,6 +3,7 @@
 return [
 
     'connect.exists' => 'Unable to connect: identity connected to a different account.',
+    'connect.exists.self' => 'Identity already connected.',
     'connect.success' => 'Identity connected.',
 
     'disconnect.success' => 'Identity disconnected.',

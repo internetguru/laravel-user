@@ -3,6 +3,7 @@
 return [
 
     'connect.exists' => 'Nelze připojit: identita připojena k jinému účtu.',
+    'connect.exists.self' => 'Identita je již připojena.',
     'connect.success' => 'Identita připojena.',
 
     'disconnect.success' => 'Identita odpojena.',

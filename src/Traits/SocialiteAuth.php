@@ -64,7 +64,11 @@ trait SocialiteAuth
         [$prevUrl, $backUrl] = User::getAuthSessions();
 
         if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.connect.exists'));
+            $message = $user->email == auth()->user()->email
+                ? __('ig-user::messages.connect.exists.self')
+                : __('ig-user::messages.connect.exists');
+
+            return redirect()->to($backUrl)->withErrors($message);
         }
 
         $socialite = new Socialite([
