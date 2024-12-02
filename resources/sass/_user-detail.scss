@@ -3,9 +3,6 @@
         line-height: 2.35em;
         margin-left: 0.8em;
     }
-    dt a {
-        font-weight: normal;
-    }
     .socialite {
         @include link-color($red);
     }
@@ -15,5 +12,6 @@
     .btn-link {
         padding: 0;
         vertical-align: 0;
+        font-weight: normal;
     }
 }

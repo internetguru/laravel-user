@@ -7,7 +7,7 @@ return [
     'role' => 'Role',
     'information' => 'Informace',
     'authentication' => 'Identity',
-    'logout' => 'Odhlásit se',
+    'logout' => 'odhlásit se',
     'edit' => 'upravit',
     'save' => 'Uložit',
     'cancel' => 'zrušit',
