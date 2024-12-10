@@ -93,8 +93,6 @@ class LoginControllerTest extends TestCase
         $this->post(route('users.update', ['user' => $manager]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $admin]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(403);
-        $this->post(route('users.disable', ['user' => $spectator]))->assertStatus(403);
-        $this->post(route('users.enable', ['user' => $spectator]))->assertStatus(403);
 
         $this->actingAs($spectator);
         $this->get(route('users.show', ['user' => $pender]))->assertStatus(403);
@@ -108,8 +106,6 @@ class LoginControllerTest extends TestCase
         $this->post(route('users.update', ['user' => $manager]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $admin]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(403);
-        $this->post(route('users.disable', ['user' => $spectator]))->assertStatus(403);
-        $this->post(route('users.enable', ['user' => $spectator]))->assertStatus(403);
 
         $this->actingAs($operator);
         $this->get(route('users.show', ['user' => $pender]))->assertStatus(403);
@@ -126,8 +122,6 @@ class LoginControllerTest extends TestCase
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(403);
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::MANAGER]))->assertStatus(403);
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::ADMIN]))->assertStatus(403);
-        $this->post(route('users.disable', ['user' => $spectator]))->assertStatus(403);
-        $this->post(route('users.enable', ['user' => $spectator]))->assertStatus(403);
 
         $this->actingAs($manager);
         $this->get(route('users.show', ['user' => $pender]))->assertStatus(200);
@@ -145,8 +139,6 @@ class LoginControllerTest extends TestCase
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::MANAGER]))->assertStatus(403);
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::ADMIN]))->assertStatus(403);
         $this->post(route('users.update', ['user' => $operator, 'role' => Role::SPECTATOR]))->assertStatus(302);
-        $this->post(route('users.disable', ['user' => $spectator]))->assertStatus(200);
-        $this->post(route('users.enable', ['user' => $spectator]))->assertStatus(200);
 
         $this->actingAs($admin);
         $this->get(route('users.show', ['user' => $spectator]))->assertStatus(200);
@@ -163,7 +155,5 @@ class LoginControllerTest extends TestCase
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::MANAGER]))->assertStatus(302);
         $this->post(route('users.update', ['user' => $spectator, 'role' => Role::ADMIN]))->assertStatus(302);
         $this->post(route('users.update', ['user' => $operator, 'role' => Role::SPECTATOR]))->assertStatus(302);
-        $this->post(route('users.disable', ['user' => $spectator]))->assertStatus(200);
-        $this->post(route('users.enable', ['user' => $spectator]))->assertStatus(200);
     }
 }

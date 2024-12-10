@@ -55,16 +55,6 @@ class UserController extends Controller
         abort(400);
     }
 
-    public function disable(User $user)
-    {
-        return response('OK', 200);
-    }
-
-    public function enable(User $user)
-    {
-        return response('OK', 200);
-    }
-
     private function updateName(Request $request, User $user)
     {
         $request->validate([

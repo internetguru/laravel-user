@@ -80,23 +80,6 @@ class UserPolicy
     }
 
     /**
-     * Admins can enable disable any user
-     * Managers can enable disable users with lower roles than themselves
-     */
-    public function enableDisable(User $user, User $targetUser): bool
-    {
-        if ($user->role == Role::ADMIN) {
-            return true;
-        }
-
-        if ($user->role != Role::MANAGER) {
-            return false;
-        }
-
-        return $targetUser->role->level() < Role::MANAGER->level();
-    }
-
-    /**
      * User is not pending ~ is SPECTATOR or higher
      */
     public function isNotPending(User $user): bool

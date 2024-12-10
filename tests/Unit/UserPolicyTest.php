@@ -138,28 +138,6 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->policy->setRole($spectator, $pending, Role::SPECTATOR));
     }
 
-    public function testEnableDisablePolicy()
-    {
-        $admin = User::factory()->create(['role' => Role::ADMIN]);
-        $manager = User::factory()->create(['role' => Role::MANAGER]);
-        $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $spectator = User::factory()->create(['role' => Role::SPECTATOR]);
-
-        // Admin can enable/disable any user
-        $this->assertTrue($this->policy->enableDisable($admin, $manager));
-        $this->assertTrue($this->policy->enableDisable($admin, $operator));
-        $this->assertTrue($this->policy->enableDisable($admin, $spectator));
-
-        // Manager can enable/disable users with lower roles
-        $this->assertTrue($this->policy->enableDisable($manager, $operator));
-        $this->assertTrue($this->policy->enableDisable($manager, $spectator));
-        $this->assertFalse($this->policy->enableDisable($manager, $admin));
-        $this->assertFalse($this->policy->enableDisable($manager, $manager));
-
-        // Operator cannot enable/disable
-        $this->assertFalse($this->policy->enableDisable($operator, $spectator));
-    }
-
     public function testIsNotPendingPolicy()
     {
         $spectator = User::factory()->create(['role' => Role::SPECTATOR]);
