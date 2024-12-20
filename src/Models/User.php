@@ -49,11 +49,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public static function getDemoUsers(): array
     {
-        return self::all()->map(
-            fn ($user) => [
-                'id' => $user->email,
-                'name' => $user->name . ' (' . __('ig-user::user.roles.' . $user->role->value) . ')',
-            ]
-        )->toArray();
+        return self::all()
+            ->sortBy(fn ($user) => $user->role->level())
+            ->map(
+                fn ($user) => [
+                    'id' => $user->email,
+                    'name' => $user->name . ' (' . __('ig-user::user.roles.' . $user->role->value) . ')',
+                ]
+            )->toArray();
     }
 }
