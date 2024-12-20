@@ -11,6 +11,7 @@ return [
     'login.forbidden' => 'Error: not available for logged users.',
     'login.notfound' => 'Unable to login: identity not found.',
     'login.required' => 'Error: ation requires login.',
+    'login.success' => 'Logged in as :name.',
 
     'register.exists' => 'Unable to register: identity or email already registered.',
     'register.success' => 'Registration successful.',

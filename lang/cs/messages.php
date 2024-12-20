@@ -11,6 +11,7 @@ return [
     'login.forbidden' => 'Chyba: pouze pro nepřihlášené uživatele.',
     'login.notfound' => 'Nelze přihlásit: identita nenalezena.',
     'login.required' => 'Chyba: je vyžadováno přihlášení.',
+    'login.success' => 'Přihlášen jako :name.',
 
     'register.exists' => 'Nelze registrovat: identita nebo email již existuje.',
     'register.success' => 'Registrace byla úspěšná.',
