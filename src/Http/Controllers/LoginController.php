@@ -56,9 +56,8 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         if (! config('app.demo')) {
-            Log::warning('Classic login is not supported');
-
-            return redirect()->back()->setStatusCode(400);
+            Log::warning(sprintf('Invalid login.'));
+            abort(400);
         }
 
         return $this->demoAuthenticate($request);
