@@ -5,6 +5,7 @@ namespace InternetGuru\LaravelUser\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 use InternetGuru\LaravelCommon\Support\Helpers;
 
 class LoginController extends Controller
@@ -55,7 +56,8 @@ class LoginController extends Controller
     public function authenticate(Request $request)
     {
         if (! config('app.demo')) {
-            throw new \Exception('Classic login is not supported');
+            Log::warning('Classic login is not supported');
+            abort(400);
         }
 
         return $this->demoAuthenticate($request);
