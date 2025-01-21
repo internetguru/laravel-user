@@ -33,7 +33,7 @@
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editName }">
                     <span x-show="!editName">
-                        {{ $user->name . getYouSuffix($user) }}
+                        {{ $user->name }}
                         @if ($ownDetail)
                             <a class="btn btn-link link-danger" href="{{ route('logout') }}">
                                 @lang('ig-user::user.logout')
