@@ -34,11 +34,6 @@
                 <dd x-bind:class="{ 'user-edit-active': editName }">
                     <span x-show="!editName">
                         {{ $user->name }}
-                        @if ($ownDetail)
-                            <a class="btn btn-link link-danger" href="{{ route('logout') }}">
-                                @lang('ig-user::user.logout')
-                            </a>
-                        @endif
                     </span>
                     <x-ig::form :recaptcha="false" x-show="editName" :action="route('users.update', $user)">
                         <div class="input-group">
