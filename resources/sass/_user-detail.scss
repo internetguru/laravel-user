@@ -22,6 +22,9 @@ header {
     .dropdown a {
         border: none;
     }
+    .dropdown .logout {
+        @include link-color($red);
+    }
     a > .svg-inline--fa {
         font-size: 1.25em;
         vertical-align: -0.2em;
