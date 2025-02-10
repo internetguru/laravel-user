@@ -46,7 +46,7 @@ class UserController extends Controller
                 'role' => ['required', Rule::enum(Role::class)],
             ]);
             $role = Role::from($request->role);
-            Gate::authorize('setRole', [$user, $role]);
+            Gate::authorize('setRole', [$user, $role->level()]);
 
             return $this->updateRole($request, $user, $role);
         }

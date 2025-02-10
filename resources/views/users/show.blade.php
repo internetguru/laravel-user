@@ -77,7 +77,7 @@
                         <div class="input-group">
                             <select name="role" class="form-select" value="{{ $user->role->value }}">
                                 @foreach (\InternetGuru\LaravelUser\Enums\Role::cases() as $role)
-                                    @if(auth()->user()->can('setRole', [$user, $role]))
+                                    @if(auth()->user()->can('setRole', [$user, $role->level()]))
                                         <option
                                             value="{{ $role->value }}"
                                             @if($role->value == $user->role->value) selected @endif
