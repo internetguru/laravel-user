@@ -8,7 +8,7 @@ use InternetGuru\LaravelUser\Models\User as UserModel;
 
 trait BaseAuth
 {
-    public const int MANAGER_LEVEL = 40;
+    public const MANAGER_LEVEL = 40;
 
     public static function roles(): string
     {
