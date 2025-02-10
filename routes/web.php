@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use InternetGuru\LaravelUser\Http\Controllers\LoginController;
 use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
 use InternetGuru\LaravelUser\Http\Controllers\TokenAuthController;

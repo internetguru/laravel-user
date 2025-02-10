@@ -22,12 +22,12 @@ class UserPolicy
             return true;
         }
 
-        if ($user->level > User::MANAGER_LEVEL) {
+        if ($user->role->level() > User::MANAGER_LEVEL) {
             return true;
         }
 
-        if ($user->level == User::MANAGER_LEVEL) {
-            return $targetUser->level <= User::MANAGER_LEVEL;
+        if ($user->role->level() == User::MANAGER_LEVEL) {
+            return $targetUser->role->level() <= User::MANAGER_LEVEL;
         }
 
         return false;
@@ -38,7 +38,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->level >= User::MANAGER_LEVEL;
+        return $user->role->level() >= User::MANAGER_LEVEL;
     }
 
     /**
@@ -46,7 +46,7 @@ class UserPolicy
      */
     public function administrate(User $user, User $targetUser): bool
     {
-        return $user->level >= User::MANAGER_LEVEL;
+        return $user->role->level() >= User::MANAGER_LEVEL;
     }
 
     /**
@@ -56,15 +56,15 @@ class UserPolicy
      */
     public function setRole(User $user, User $targetUser, int $newLevel): bool
     {
-        if ($user->level > User::MANAGER_LEVEL) {
+        if ($user->role->level() > User::MANAGER_LEVEL) {
             return true;
         }
 
-        if ($user->level != User::MANAGER_LEVEL) {
+        if ($user->role->level() != User::MANAGER_LEVEL) {
             return false;
         }
 
-        if ($newLevel == $targetUser->level) {
+        if ($newLevel == $targetUser->role->level()) {
             return true;
         }
 
