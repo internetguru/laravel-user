@@ -16,9 +16,9 @@ return [
     'authentication-info' => 'Správa identity je dostupná pouze pro [vlastní účet](:url).',
     'you' => 'vy',
 
-    'roles.pending' => 'Čekající',
-    'roles.spectator' => 'Přihlížející',
+    'roles.customer' => 'Zákazník',
     'roles.operator' => 'Operátor',
+    'roles.auditor' => 'Auditor',
     'roles.manager' => 'Manažer',
     'roles.admin' => 'Administrátor',
 

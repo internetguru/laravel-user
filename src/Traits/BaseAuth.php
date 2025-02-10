@@ -8,6 +8,13 @@ use InternetGuru\LaravelUser\Models\User as UserModel;
 
 trait BaseAuth
 {
+    public const int MANAGER_LEVEL = 40;
+
+    public static function roles(): string
+    {
+        return Role::class;
+    }
+
     public static function getAuthSessions(): array
     {
         return [
@@ -27,7 +34,7 @@ trait BaseAuth
         return User::factory()->create([
             'name' => $name,
             'email' => $email,
-            'role' => Role::PENDING,
+            'role' => self::roles()::cases()[0],
             'lang' => app()->getLocale(),
         ]);
     }

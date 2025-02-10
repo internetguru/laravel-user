@@ -2,14 +2,10 @@
 
 namespace InternetGuru\LaravelUser\Policies;
 
-use App\Models\User;
-use InternetGuru\LaravelUser\Enums\Role;
+use InternetGuru\LaravelUser\Models\User;
 
 class UserPolicy
 {
-    /**
-     * Create a new policy instance.
-     */
     public function __construct()
     {
         //
@@ -26,15 +22,15 @@ class UserPolicy
             return true;
         }
 
-        if ($user->role == Role::ADMIN) {
+        if ($user->level > User::MANAGER_LEVEL) {
             return true;
         }
 
-        if ($user->role != Role::MANAGER) {
-            return false;
+        if ($user->level == User::MANAGER_LEVEL) {
+            return $targetUser->level <= User::MANAGER_LEVEL;
         }
 
-        return $targetUser->role->level() <= Role::MANAGER->level();
+        return false;
     }
 
     /**
@@ -42,7 +38,7 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->role->level() >= Role::MANAGER->level();
+        return $user->level >= User::MANAGER_LEVEL;
     }
 
     /**
@@ -50,40 +46,28 @@ class UserPolicy
      */
     public function administrate(User $user, User $targetUser): bool
     {
-        return $user->role->level() >= Role::MANAGER->level();
+        return $user->level >= User::MANAGER_LEVEL;
     }
 
     /**
      * Admins can set any role
-     * Managers can set lower roles than themselves, max operator
+     * Managers can set lower roles than themselves
      * Managers can set the same role (no change)
      */
-    public function setRole(User $user, User $targetUser, Role $role): bool
+    public function setRole(User $user, User $targetUser, int $newLevel): bool
     {
-        if ($user->role == Role::ADMIN) {
+        if ($user->level > User::MANAGER_LEVEL) {
             return true;
         }
 
-        if ($user->role != Role::MANAGER) {
+        if ($user->level != User::MANAGER_LEVEL) {
             return false;
         }
 
-        if ($role->level() == $targetUser->role->level()) {
+        if ($newLevel == $targetUser->level) {
             return true;
         }
 
-        if ($role->level() > Role::OPERATOR->level()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * User is not pending ~ is SPECTATOR or higher
-     */
-    public function isNotPending(User $user): bool
-    {
-        return $user->role->level() > Role::PENDING->level();
+        return $newLevel <= User::MANAGER_LEVEL;
     }
 }

@@ -16,9 +16,9 @@ return [
     'authentication-info' => 'Identity management is available only for [your own account](:url).',
     'you' => 'you',
 
-    'roles.pending' => 'Pending',
-    'roles.spectator' => 'Spectator',
+    'roles.customer' => 'Customer',
     'roles.operator' => 'Operator',
+    'roles.auditor' => 'Auditor',
     'roles.manager' => 'Manager',
     'roles.admin' => 'Admin',
 
