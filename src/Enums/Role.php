@@ -24,8 +24,9 @@ enum Role: string
     public function icon(): string
     {
         return match (true) {
-            $this->level() >= 50 => 'fa-user-shield',
+            $this->level() >= 50 => 'fa-user-gear',
             $this->level() >= 40 => 'fa-user-tie',
+            $this->level() >= 30 => 'fa-user-shield',
             $this->level() >= 20 => 'fa-user-nurse',
             default => 'fa-user',
         };
