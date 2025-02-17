@@ -37,7 +37,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected function casts(): array
     {
         return [
-            'role' => User::roles(),
+            'role' => static::roles(),
         ];
     }
 
