@@ -20,4 +20,6 @@ return [
     'token_auth.title' => 'Enter your email',
     'token_auth.email' => 'Email',
     'token_auth.submit' => 'Send link',
+
+    'login-register' => 'Login / Register',
 ];

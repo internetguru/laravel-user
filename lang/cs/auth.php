@@ -22,4 +22,6 @@ return [
     'token_auth.email' => 'E-mail',
     'token_auth.submit' => 'Odeslat odkaz',
 
+    'login-register' => 'Přihlásit / Registrovat',
+
 ];
