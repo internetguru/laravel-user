@@ -15,6 +15,7 @@ return [
     'set-primary' => 'set as primary',
     'authentication-info' => 'Identity management is available only for [your own account](:url).',
     'you' => 'you',
+    'detail' => 'User detail',
 
     'roles.customer' => 'Customer',
     'roles.operator' => 'Operator',

@@ -15,6 +15,7 @@ return [
     'set-primary' => 'nastavit jako primární',
     'authentication-info' => 'Správa identity je dostupná pouze pro [vlastní účet](:url).',
     'you' => 'vy',
+    'detail' => 'Detail uživatele',
 
     'roles.customer' => 'Zákazník',
     'roles.operator' => 'Operátor',
