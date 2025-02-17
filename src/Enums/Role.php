@@ -31,4 +31,15 @@ enum Role: string
             default => 'fa-user',
         };
     }
+
+    public function translation(): string
+    {
+        return match ($this) {
+            self::CUSTOMER => __('ig-user::roles.customer'),
+            self::OPERATOR => __('ig-user::roles.operator'),
+            self::AUDITOR => __('ig-user::roles.auditor'),
+            self::MANAGER => __('ig-user::roles.manager'),
+            self::ADMIN => __('ig-user::roles.admin'),
+        };
+    }
 }
