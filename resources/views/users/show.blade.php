@@ -72,7 +72,7 @@
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editRole }">
-                    <span x-show="!editRole">@lang('ig-user::user.roles.' . $user->role->value)</span>
+                    <span x-show="!editRole">{{ $user->role->translation() }}</span>
                     <x-ig::form :recaptcha="false" x-show="editRole" :action="route('users.update', $user)">
                         <div class="input-group">
                             <select name="role" class="form-select" value="{{ $user->role->value }}">

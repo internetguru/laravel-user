@@ -53,7 +53,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             ->map(
                 fn ($user) => [
                     'id' => $user->email,
-                    'name' => $user->name . ' (' . __('ig-user::user.roles.' . $user->role->value) . ')',
+                    'name' => $user->name . ' (' . $user->role->translation() . ')',
                 ]
             )->toArray();
     }
