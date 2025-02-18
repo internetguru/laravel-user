@@ -8,6 +8,7 @@
         ]"
         :formats="[
             'name' => 'formatUserNameLink',
+            'email' => 'formatUserEmail',
             'role' => 'formatUserRole',
         ]"
         :enableSort="$enableSort ?? true"

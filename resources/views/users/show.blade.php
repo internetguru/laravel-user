@@ -53,7 +53,7 @@
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editEmail }">
-                    <span x-show="!editEmail">{{ $user->email }} (@lang('ig-user::user.primary'))</span>
+                    <span x-show="!editEmail"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a> (@lang('ig-user::user.primary'))</span>
                     <x-ig::form :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="email" type="email" class="form-control" value="{{ $user->email }}" />
@@ -116,14 +116,14 @@
                         @endif
                     </dt>
                     <dd class="d-flex flex-wrap gap-2">
-                        {{ $socialite->email }}
+                        <a href="mailto:{{ $socialite->email }}">{{ $socialite->email }}</a>
                         @if ($socialite->email != $user->email)
                             <x-ig::form :recaptcha="false" :action="route('users.update', $user)">
                                 <input type="hidden" name="email" value="{{ $socialite->email }}" />
                                 <button type="submit" class="btn btn-link">@lang('ig-user::user.set-primary')</button>
                             </x-ig::form>
                         @endif
-                        </dd>
+                    </dd>
                 @endforeach
                 <dt>@lang('ig-user::socialite.add')</dt>
                 <dd></dd>
