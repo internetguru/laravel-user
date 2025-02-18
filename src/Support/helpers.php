@@ -17,5 +17,5 @@ function formatUserEmail(string $email): string
 
 function formatUserRole($role): string
 {
-    return __('ig-user::user.roles.' . $role->value);
+    return $role->translation();
 }
