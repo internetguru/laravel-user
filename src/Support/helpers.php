@@ -1,7 +1,5 @@
 <?php
 
-use InternetGuru\LaravelUser\Enums\Role;
-
 function getYouSuffix(object $user): string
 {
     return auth()->id() === $user->id ? ' (' . __('ig-user::user.you') . ')' : '';
@@ -17,7 +15,7 @@ function formatUserEmail(string $email): string
     return sprintf('<a href="mailto:%s">%s</a>', $email, $email);
 }
 
-function formatUserRole(Role $role): string
+function formatUserRole($role): string
 {
     return __('ig-user::user.roles.' . $role->value);
 }
