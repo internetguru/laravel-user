@@ -6,6 +6,11 @@
             'email' => __('ig-user::user.summary.email'),
             'role' => __('ig-user::user.summary.role'),
         ]"
+        :filterAttributes="[
+            'name',
+            'email',
+            'role',
+        ]"
         :formats="[
             'name' => 'formatUserNameLink',
             'email' => 'formatUserEmail',
