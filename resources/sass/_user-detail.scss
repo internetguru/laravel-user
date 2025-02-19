@@ -1,0 +1,32 @@
+.section-user-detail {
+    dd {
+        line-height: 2.35em;
+        margin-left: 0.8em;
+    }
+    .socialite {
+        @include link-color($red);
+    }
+    .user-edit-active {
+        margin-left: 0;
+    }
+    .btn-link {
+        padding: 0;
+        vertical-align: 0;
+        font-weight: normal;
+    }
+}
+header {
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .dropdown a {
+        border: none;
+    }
+    .dropdown .logout {
+        @include link-color($red);
+    }
+    a > .svg-inline--fa {
+        font-size: 1.25em;
+        vertical-align: -0.2em;
+    }
+}

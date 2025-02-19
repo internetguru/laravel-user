@@ -8,18 +8,17 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('socialites', function (Blueprint $table) {
+        Schema::create('token_auths', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('provider');
-            $table->string('provider_id');
-            $table->unique(['provider', 'provider_id']);
+            $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
+            $table->string('token');
+            $table->timestamp('expires_at');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('socialites');
+        Schema::dropIfExists('token_auths');
     }
 };
