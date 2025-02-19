@@ -35,11 +35,11 @@ enum Role: string
     public function translation(): string
     {
         return match ($this) {
-            self::CUSTOMER => __('ig-user::roles.customer'),
-            self::OPERATOR => __('ig-user::roles.operator'),
-            self::AUDITOR => __('ig-user::roles.auditor'),
-            self::MANAGER => __('ig-user::roles.manager'),
-            self::ADMIN => __('ig-user::roles.admin'),
+            self::CUSTOMER => __('ig-user::user.roles.customer'),
+            self::OPERATOR => __('ig-user::user.roles.operator'),
+            self::AUDITOR => __('ig-user::user.roles.auditor'),
+            self::MANAGER => __('ig-user::user.roles.manager'),
+            self::ADMIN => __('ig-user::user.roles.admin'),
         };
     }
 }
