@@ -17,5 +17,6 @@
             'role' => 'formatUserRole',
         ]"
         :enableSort="$enableSort ?? true"
+        defaultSortBy="name"
     >
 </section>
