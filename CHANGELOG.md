@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.2.4] - 2025-02-19
+
+### Fixed
+
+- Add missing user filter.
+
 ## [0.2.3] - 2025-02-19
 
 ### Fixed
@@ -55,6 +61,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[0.2.4]: https://https://github.com/internetguru/laravel-user/compare/v0.2.3...v0.2.4
 [0.2.3]: https://https://github.com/internetguru/laravel-user/compare/v0.2.2...v0.2.3
 [0.2.2]: https://https://github.com/internetguru/laravel-user/compare/v0.2.1...v0.2.2
 [0.2.1]: https://https://github.com/internetguru/laravel-user/compare/v0.2.0...v0.2.1
