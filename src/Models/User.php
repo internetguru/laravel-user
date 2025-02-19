@@ -43,7 +43,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public static function summary()
     {
-        return self::orderBy('name');
+        return self::query();
     }
 
     public static function getDemoUsers(): array
