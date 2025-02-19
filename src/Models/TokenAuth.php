@@ -2,24 +2,20 @@
 
 namespace InternetGuru\LaravelUser\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use InternetGuru\LaravelUser\Enums\Provider;
 
-class Socialite extends Model
+class TokenAuth extends Model
 {
     protected $fillable = [
         'user_id',
-        'provider',
-        'provider_id',
-        'name',
-        'email',
+        'token',
+        'expires_at',
     ];
 
     protected function casts(): array
     {
         return [
-            'provider' => Provider::class,
+            'expires_at' => 'datetime',
         ];
     }
 

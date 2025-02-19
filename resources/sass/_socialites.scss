@@ -1,0 +1,34 @@
+.socialite {
+    padding-top: $spacer;
+}
+
+.socialite-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: $spacer * 1.5;
+
+    > * {
+        width: 100%;
+    }
+}
+
+a[class*="btn-socialite"] {
+    font-size: 1.5em;
+    border: none !important;
+    padding: $spacer;
+
+    @include btn-white;
+    @include btn-shadow;
+    @include btn-ico;
+
+    &.btn-socialite-facebook svg {
+        color: $facebook-color;
+    }
+    &.btn-socialite-google svg {
+        color: $google-color;
+    }
+    &.btn-socialite-seznam svg {
+        color: $seznam-color;
+    }
+}

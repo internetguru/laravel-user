@@ -1,6 +1,6 @@
 <?php
 
-namespace InternetGuru\LaravelSocialite\Enums;
+namespace InternetGuru\LaravelUser\Enums;
 
 enum Provider: string
 {
