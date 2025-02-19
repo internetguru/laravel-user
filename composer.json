@@ -44,7 +44,5 @@
                 "InternetGuru\\LaravelUser\\LaravelUserServiceProvider"
             ]
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
