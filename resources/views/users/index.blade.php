@@ -1,6 +1,6 @@
 <section class="section section-user-list">
     <livewire:table-model-browser
-        model="\App\Models\User@summary"
+        model="\App\Models\User"
         :viewAttributes="[
             'name' => __('ig-user::user.summary.name'),
             'email' => __('ig-user::user.summary.email'),
