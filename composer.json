@@ -28,7 +28,7 @@
         "laravel/socialite": "^5.16",
         "socialiteproviders/manager": "^4.6",
         "internetguru/laravel-common": "^0.4",
-        "internetguru/laravel-model-browser": "^0.2"
+        "internetguru/laravel-model-browser": "^0.3"
     },
     "require-dev": {
         "laravel/pint": "^1.17",
@@ -37,8 +37,7 @@
         "phpunit/php-code-coverage": "^11.0",
         "socialiteproviders/manager": "^4.6",
         "livewire/livewire": "^3.5",
-        "internetguru/laravel-common": "^0.4",
-        "internetguru/laravel-model-browser": "^0.2"
+        "internetguru/laravel-common": "^0.4"
     },
     "extra": {
         "laravel": {
