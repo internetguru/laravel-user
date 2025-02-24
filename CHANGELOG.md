@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Update laravel-model-browser version to `0.4`.
+
 ## [0.3.0] - 2025-02-23
 
 _Stable release based on [0.3.0-rc.1]._
@@ -14,7 +18,7 @@ _Stable release based on [0.3.0-rc.1]._
 
 ### Changed
 
-- Update laravel-model-browser version to 0.3.
+- Update laravel-model-browser version to `0.3`.
 
 ## [0.2.5] - 2025-02-19
 
