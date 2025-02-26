@@ -81,7 +81,7 @@
                                         <option
                                             value="{{ $role->value }}"
                                             @if($role->value == $user->role->value) selected @endif
-                                        >{{ __('ig-user::user.roles.' . $role->value) }}</option>
+                                        >{{ $role->translation() }}</option>
                                     @endcan
                                 @endforeach
                             </select>
