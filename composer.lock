@@ -1172,16 +1172,16 @@
         },
         {
             "name": "internetguru/laravel-model-browser",
-            "version": "v0.4.0",
+            "version": "v0.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-model-browser.git",
-                "reference": "30d794dc1f54e539208b6b0477b4d66d3842b01d"
+                "reference": "d10a7dcd339e23fc59e24874d696e8bfa1118444"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/30d794dc1f54e539208b6b0477b4d66d3842b01d",
-                "reference": "30d794dc1f54e539208b6b0477b4d66d3842b01d",
+                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/d10a7dcd339e23fc59e24874d696e8bfa1118444",
+                "reference": "d10a7dcd339e23fc59e24874d696e8bfa1118444",
                 "shasum": ""
             },
             "require": {
@@ -1225,9 +1225,9 @@
             "description": "A Laravel package to browse models and show them in a table, autocmplete, etc.",
             "support": {
                 "issues": "https://github.com/internetguru/laravel-model-browser/issues",
-                "source": "https://github.com/internetguru/laravel-model-browser/tree/v0.4.0"
+                "source": "https://github.com/internetguru/laravel-model-browser/tree/v0.4.5"
             },
-            "time": "2025-02-24T04:28:44+00:00"
+            "time": "2025-02-26T04:06:38+00:00"
         },
         {
             "name": "laravel/framework",

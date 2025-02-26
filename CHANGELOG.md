@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.4.1] - 2025-02-26
+
+### Fixed
+
+- Fix role select to be dynamic.
+
+## [0.4.1] - 2025-02-26
+
 ## [0.4.0] - 2025-02-24
 
 _Stable release based on [0.4.0-rc.1]._
@@ -87,6 +95,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[0.4.1]: https://https://github.com/internetguru/laravel-user/compare/v0.4.0...v0.4.1
 [0.4.0]: https://https://github.com/internetguru/laravel-user/compare/v0.3.0...v0.4.0
 [0.4.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.3.0
 [0.3.0]: https://https://github.com/internetguru/laravel-user/compare/v0.2.5...v0.3.0
