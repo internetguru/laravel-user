@@ -76,7 +76,7 @@
                     <x-ig::form :recaptcha="false" x-show="editRole" :action="route('users.update', $user)">
                         <div class="input-group">
                             <select name="role" class="form-select" value="{{ $user->role->value }}">
-                                @foreach (\InternetGuru\LaravelUser\Enums\Role::cases() as $role)
+                                @foreach ($user::roles()::cases() as $role)
                                     @if(auth()->user()->can('setRole', [$user, $role->level()]))
                                         <option
                                             value="{{ $role->value }}"
