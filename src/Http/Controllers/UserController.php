@@ -43,9 +43,9 @@ class UserController extends Controller
         }
         if ($request->has('role')) {
             $request->validate([
-                'role' => ['required', Rule::enum(Role::class)],
+                'role' => ['required', Rule::enum(User::roles())],
             ]);
-            $role = Role::from($request->role);
+            $role = User::roles()::from($request->role);
             Gate::authorize('setRole', [$user, $role->level()]);
 
             return $this->updateRole($request, $user, $role);
@@ -77,7 +77,7 @@ class UserController extends Controller
         return back()->with('success', __('ig-user::user.update.email'));
     }
 
-    private function updateRole(Request $request, User $user, Role $role)
+    private function updateRole(Request $request, User $user, $role)
     {
         $user->role = $role;
         $user->save();
