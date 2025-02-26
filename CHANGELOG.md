@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.4.1] - 2025-02-26
 
+### Fixed
+
+- Fix role select to be dynamic.
+
+## [0.4.1] - 2025-02-26
+
 ## [0.4.0] - 2025-02-24
 
 _Stable release based on [0.4.0-rc.1]._
