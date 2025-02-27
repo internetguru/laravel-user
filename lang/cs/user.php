@@ -8,7 +8,7 @@ return [
     'information' => 'Informace',
     'authentication' => 'Identity',
     'logout' => 'odhlásit se',
-    'edit' => 'upravit',
+    'edit' => 'změnit',
     'save' => 'Uložit',
     'cancel' => 'zrušit',
     'primary' => 'primární',

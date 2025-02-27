@@ -8,7 +8,7 @@ return [
     'information' => 'Information',
     'authentication' => 'Identities',
     'logout' => 'sign out',
-    'edit' => 'edit',
+    'edit' => 'change',
     'save' => 'Save',
     'cancel' => 'cancel',
     'primary' => 'primary',
