@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
 ## [0.5.0-rc.1] - 2025-02-27
 
 ### Changed
@@ -122,6 +124,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [0.5.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.4.5
 [0.4.5]: https://https://github.com/internetguru/laravel-user/compare/v0.4.4...v0.4.5
 [0.4.4]: https://https://github.com/internetguru/laravel-user/compare/v0.4.3...v0.4.4
