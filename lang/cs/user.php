@@ -13,7 +13,7 @@ return [
     'cancel' => 'zrušit',
     'primary' => 'primární',
     'set-primary' => 'nastavit jako primární',
-    'authentication-info' => 'Správa identity je dostupná pouze pro [vlastní účet](:url).',
+    'authentication-info' => 'Správa identit je dostupná pouze pro [vlastní účet](:url).',
     'you' => 'vy',
     'detail' => 'Detail uživatele',
 
