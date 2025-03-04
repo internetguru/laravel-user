@@ -16,6 +16,10 @@
     }
 }
 header {
+    .dropdown-menu {
+        width: 13em;
+        max-width: 100vw;
+    }
     .dropdown-toggle::after {
         display: none;
     }

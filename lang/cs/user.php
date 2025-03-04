@@ -26,6 +26,7 @@ return [
     'update.name' => 'Jméno aktualizováno.',
     'update.email' => 'Email aktualizován.',
     'update.role' => 'Role aktualizována.',
+    'update.email.unique' => 'Uživatel s tímto primárním e-mailem již existuje.',
 
     'summary.name' => 'Jméno',
     'summary.email' => 'E-mail',
