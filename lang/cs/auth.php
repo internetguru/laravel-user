@@ -24,4 +24,6 @@ return [
 
     'login-register' => 'Přihlásit / Registrovat',
 
+    'error' => 'Autentizace selhala',
+
 ];

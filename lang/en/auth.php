@@ -22,4 +22,6 @@ return [
     'token_auth.submit' => 'Send link',
 
     'login-register' => 'Login / Register',
+
+    'error' => 'Authentication failed',
 ];
