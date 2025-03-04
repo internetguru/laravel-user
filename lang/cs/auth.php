@@ -10,7 +10,7 @@ return [
 
     'login.title' => 'Vyberte poskytovatele',
 
-    'register.title' => 'Vyberte poskytovatele',
+    'register.title' => 'Vyberte poskytovatele pro registraci',
     'register.submit' => 'Odeslat',
 
     'register-email.title' => 'Vložte své údaje',
@@ -23,5 +23,7 @@ return [
     'token_auth.submit' => 'Odeslat odkaz',
 
     'login-register' => 'Přihlásit / Registrovat',
+
+    'error' => 'Autentizace selhala',
 
 ];

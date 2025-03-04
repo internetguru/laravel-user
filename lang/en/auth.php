@@ -9,7 +9,7 @@ return [
 
     'login.title' => 'Choose login provider',
 
-    'register.title' => 'Choose register provider',
+    'register.title' => 'Choose a provider for registration',
     'register.submit' => 'Submit',
 
     'register-email.title' => 'Enter your details',
@@ -22,4 +22,6 @@ return [
     'token_auth.submit' => 'Send link',
 
     'login-register' => 'Login / Register',
+
+    'error' => 'Authentication failed',
 ];

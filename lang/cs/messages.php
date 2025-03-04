@@ -9,7 +9,8 @@ return [
     'disconnect.success' => 'Identita odpojena.',
 
     'login.forbidden' => 'Chyba: pouze pro nepřihlášené uživatele.',
-    'login.notfound' => 'Nelze přihlásit: identita nenalezena.',
+    'login.notfound' => 'Nelze přihlásit: email nenalezen.',
+    'identity.notfound' => 'Nelze přihlásit: identita nenalezena.',
     'login.required' => 'Chyba: je vyžadováno přihlášení.',
     'login.success' => 'Přihlášen jako :name.',
 

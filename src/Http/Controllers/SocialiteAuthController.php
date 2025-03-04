@@ -3,6 +3,7 @@
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -89,7 +90,13 @@ class SocialiteAuthController extends Controller
             $provider = Provider::from($provider);
             $action = ProviderAction::from($action);
 
-            $providerUser = Socialite::driver($provider->value)->stateless()->user();
+            try {
+                $providerUser = Socialite::driver($provider->value)->stateless()->user();
+            } catch (Exception $e) {
+                [, $backUrl] = User::getAuthSessions();
+
+                return redirect()->to($backUrl)->withErrors(__('ig-user::auth.error'));
+            }
             switch ($action) {
                 case ProviderAction::LOGIN:
                     $this->loginForbidden();

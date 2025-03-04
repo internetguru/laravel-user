@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.0] - 2025-03-04
+
+_Stable release based on [0.7.0-rc.1]._
+
+## [0.7.0-rc.1] - 2025-03-04
+
+### Added
+
+- Add custom unique email validation message.
+- Add custom user auth error.
+
+### Changed
+
+- Update translations.
+- Do not show user role next to user name in user dropdown menu.
+- Make user dropdown menu wider with max width.
+
 ## [0.6.0] - 2025-03-04
 
 _Stable release based on [0.6.0-rc.1]._
@@ -136,6 +153,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[0.7.0]: https://https://github.com/internetguru/laravel-user/compare/v0.6.0...v0.7.0
+[0.7.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.6.0
 [0.6.0]: https://https://github.com/internetguru/laravel-user/compare/v0.5.0...v0.6.0
 [0.6.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.5.0
 [0.5.0]: https://https://github.com/internetguru/laravel-user/compare/v0.4.5...v0.5.0

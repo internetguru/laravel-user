@@ -32,7 +32,7 @@ trait SocialiteAuth
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
 
         if (! $user) {
-            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.login.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.identity.notfound'));
         }
 
         auth()->login($user, $remember);
@@ -49,7 +49,7 @@ trait SocialiteAuth
         if (! $user) {
             Log::warning('User not found', ['provider_user' => $providerUser]);
 
-            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.login.notfound'));
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.identity.notfound'));
         }
 
         auth()->login($user, $remember);
