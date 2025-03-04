@@ -69,7 +69,9 @@ class UserController extends Controller
     private function updateEmail(Request $request, User $user)
     {
         $request->validate([
-            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email',
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email,' . $user->id,
+        ], [
+            'email.unique' => __('ig-user::user.update.email.unique'),
         ]);
         $user->email = $request->email;
         $user->save();

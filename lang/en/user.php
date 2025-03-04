@@ -26,6 +26,7 @@ return [
     'update.name' => 'Name updated.',
     'update.email' => 'Email updated.',
     'update.role' => 'Role updated.',
+    'update.email.unique' => 'User with this primary email already exists.',
 
     'summary.name' => 'Name',
     'summary.email' => 'Email',
