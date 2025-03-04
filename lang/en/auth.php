@@ -9,7 +9,7 @@ return [
 
     'login.title' => 'Choose login provider',
 
-    'register.title' => 'Choose register provider',
+    'register.title' => 'Choose a provider for registration',
     'register.submit' => 'Submit',
 
     'register-email.title' => 'Enter your details',

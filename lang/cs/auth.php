@@ -10,7 +10,7 @@ return [
 
     'login.title' => 'Vyberte poskytovatele',
 
-    'register.title' => 'Vyberte poskytovatele',
+    'register.title' => 'Vyberte poskytovatele pro registraci',
     'register.submit' => 'Odeslat',
 
     'register-email.title' => 'Vložte své údaje',
