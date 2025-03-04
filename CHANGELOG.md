@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.7.0-rc.1] - 2025-03-04
 
+### Added
+
+- Add custom unique email validation message.
+- Add custom user auth error.
+
+### Changed
+
+- Update translations.
+- Do not show user role next to user name in user dropdown menu.
+- Make user dropdown menu wider with max width.
+
 ## [0.6.0] - 2025-03-04
 
 _Stable release based on [0.6.0-rc.1]._
