@@ -7,7 +7,7 @@ return [
     'invalid' => 'Invalid or expired token.',
     'subject' => 'One-Time Login Link',
     'action' => 'Log in',
-    'intro' => 'To log in to your account with a one-time login, click the button below.',
+    'intro' => 'To log in to your account, click the button below.',
     'expires' => 'Note: The login link will expire in :expires and is for one-time use.',
 
 ];

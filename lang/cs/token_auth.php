@@ -7,7 +7,7 @@ return [
     'invalid' => 'Token je neplatný nebo vypršel.',
     'subject' => 'Odkaz na jednorázové přihlášení',
     'action' => 'Přihlásit se',
-    'intro' => 'Pro jednorázové přihlášení do Vašeho účtu klikněte na tlačítko níže.',
+    'intro' => 'Pro přihlášení do svého účtu klikněte na tlačítko níže.',
     'expires' => 'Poznámka: Přihlášovací odkaz vyprší :expires a je na jedno použití.',
 
 ];
