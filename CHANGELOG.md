@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.9.0-rc.1] - 2025-03-13
 
+### Changed
+
+- Use email templates from `laravel-common`.
+
 ## [0.8.0] - 2025-03-13
 
 _Stable release based on [0.8.0-rc.1]._
