@@ -27,8 +27,8 @@ class TokenAuthNotification extends Notification
             ->subject(__('ig-user::token_auth.subject'))
             ->view(
                 [
-                    'html' => 'ig-user::emails.token_auth',
-                    'text' => 'ig-user::emails.token_auth_plain',
+                    'html' => 'ig-user::emails.token_auth-html',
+                    'text' => 'ig-user::emails.token_auth-plain',
                 ],
                 [
                     'url' => $url,
