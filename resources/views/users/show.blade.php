@@ -104,7 +104,7 @@
                         $provider = $socialite->provider->value;
                     @endphp
                     <dt>
-                        {{ $socialite->name }}
+                        {{ $socialite->name }} ({{ Str::ucfirst($provider) }})
                         @if ($ownDetail)
                             <a
                                 class="btn btn-link link-danger"
