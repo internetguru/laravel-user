@@ -8,6 +8,6 @@ return [
     'subject' => 'Odkaz na jednorázové přihlášení',
     'action' => 'Přihlásit se',
     'intro' => 'Pro přihlášení do svého účtu klikněte na tlačítko níže.',
-    'expires' => 'Poznámka: Přihlášovací odkaz vyprší :expires a je na jedno použití.',
+    'expires' => 'Poznámka: Odkaz pro přihlášení vyprší za 1 hodinu a lze jej použít pouze jednou.',
 
 ];

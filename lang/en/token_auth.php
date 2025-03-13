@@ -8,6 +8,6 @@ return [
     'subject' => 'One-Time Login Link',
     'action' => 'Log in',
     'intro' => 'To log in to your account, click the button below.',
-    'expires' => 'Note: The login link will expire in :expires and is for one-time use.',
+    'expires' => 'Note: The login link expires in 1 hour and can be used only once.',
 
 ];
