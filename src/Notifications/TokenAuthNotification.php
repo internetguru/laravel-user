@@ -25,8 +25,15 @@ class TokenAuthNotification extends Notification
 
         return (new MailMessage)
             ->subject(__('ig-user::token_auth.subject'))
-            ->line(__('ig-user::token_auth.intro'))
-            ->action(__('ig-user::token_auth.action'), $url)
-            ->line(__('ig-user::token_auth.expires', ['expires' => $this->tokenAuth->expires_at->diffForHumans()]));
+            ->view(
+                [
+                    'html' => 'ig-user::emails.token_auth-html',
+                    'text' => 'ig-user::emails.token_auth-plain',
+                ],
+                [
+                    'url' => $url,
+                    'expires' => $this->tokenAuth->expires_at->diffForHumans(),
+                ]
+            );
     }
 }
