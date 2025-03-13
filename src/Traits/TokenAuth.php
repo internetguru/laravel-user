@@ -21,7 +21,8 @@ trait TokenAuth
     {
         // If token already exists and newer than 5 minutes then throw
         if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
-            return back()->withErrors(__('ig-user::token_auth.wait'));
+            // TODO return
+            // return back()->withErrors(__('ig-user::token_auth.wait'));
         }
 
         $tokenAuth = $this->tokenAuth()->updateOrCreate([

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.9.0] - 2025-03-13
+
+_Stable release based on [0.9.0-rc.1]._
+
+## [0.9.0-rc.1] - 2025-03-13
+
+### Changed
+
+- Use email templates from `laravel-common`.
+
 ## [0.8.0] - 2025-03-13
 
 _Stable release based on [0.8.0-rc.1]._
@@ -176,6 +186,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[0.9.0]: https://https://github.com/internetguru/laravel-user/compare/v0.8.0...v0.9.0
+[0.9.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.8.0
 [0.8.0]: https://https://github.com/internetguru/laravel-user/compare/v0.7.0...v0.8.0
 [0.8.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.7.0
 [0.7.0]: https://https://github.com/internetguru/laravel-user/compare/v0.6.0...v0.7.0
