@@ -53,7 +53,7 @@
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editEmail }">
-                    <span x-show="!editEmail"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a> (@lang('ig-user::user.primary'))</span>
+                    <span x-show="!editEmail"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></span>
                     <x-ig::form :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="email" type="email" class="form-control" value="{{ $user->email }}" />
