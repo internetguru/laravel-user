@@ -6,6 +6,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add `editable-skip` class to user detail forms.
+- Show provider name next to user name in user detail.
+
+### Changed
+
+- Update translations.
+
+### Fixed
+
+- Fix missing registratioín success message.
+
+### Removed
+
+- Remove `primary` after user name in user detail.
+
 ## [0.7.0] - 2025-03-04
 
 _Stable release based on [0.7.0-rc.1]._
