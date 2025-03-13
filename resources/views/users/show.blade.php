@@ -35,7 +35,7 @@
                     <span x-show="!editName">
                         {{ $user->name }}
                     </span>
-                    <x-ig::form :recaptcha="false" x-show="editName" :action="route('users.update', $user)">
+                    <x-ig::form class="editable-skip" :recaptcha="false" x-show="editName" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="name" type="text" class="form-control" value="{{ $user->name }}" />
                             <button type="submit" class="btn btn-primary">@lang('ig-user::user.save')</button>
@@ -54,7 +54,7 @@
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editEmail }">
                     <span x-show="!editEmail"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></span>
-                    <x-ig::form :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
+                    <x-ig::form class="editable-skip" :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="email" type="email" class="form-control" value="{{ $user->email }}" />
                             <button type="submit" class="btn btn-primary">@lang('ig-user::user.save')</button>
@@ -73,7 +73,7 @@
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editRole }">
                     <span x-show="!editRole">{{ $user->role->translation() }}</span>
-                    <x-ig::form :recaptcha="false" x-show="editRole" :action="route('users.update', $user)">
+                    <x-ig::form class="editable-skip" :recaptcha="false" x-show="editRole" :action="route('users.update', $user)">
                         <div class="input-group">
                             <select name="role" class="form-select" value="{{ $user->role->value }}">
                                 @foreach ($user::roles()::cases() as $role)
@@ -118,7 +118,7 @@
                     <dd class="d-flex flex-wrap gap-2">
                         <a href="mailto:{{ $socialite->email }}">{{ $socialite->email }}</a>
                         @if ($socialite->email != $user->email)
-                            <x-ig::form :recaptcha="false" :action="route('users.update', $user)">
+                            <x-ig::form class="editable-skip" :recaptcha="false" :action="route('users.update', $user)">
                                 <input type="hidden" name="email" value="{{ $socialite->email }}" />
                                 <button type="submit" class="btn btn-link">@lang('ig-user::user.set-primary')</button>
                             </x-ig::form>
