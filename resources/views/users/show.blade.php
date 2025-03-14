@@ -125,8 +125,9 @@
                         @endif
                     </dd>
                 @endforeach
-                <dt>@lang('ig-user::socialite.add')</dt>
-                <dd></dd>
+            </dl>
+            <h2 class="h3 mb-3 fw-normal">@lang('ig-user::socialite.add')</h2>
+            <dl>
                 <x-ig-user::buttons
                     :action="InternetGuru\LaravelUser\Enums\ProviderAction::CONNECT"
                     :disabled="! $ownDetail"
