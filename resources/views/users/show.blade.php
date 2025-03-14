@@ -53,7 +53,7 @@
                     @endcan
                 </dt>
                 <dd x-bind:class="{ 'user-edit-active': editEmail }">
-                    <span x-show="!editEmail"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></span>
+                    <span x-show="!editEmail">{{ $user->email }}</span>
                     <x-ig::form class="editable-skip" :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="email" type="email" class="form-control" value="{{ $user->email }}" />
@@ -116,7 +116,7 @@
                         @endif
                     </dt>
                     <dd class="d-flex flex-wrap gap-2">
-                        <a href="mailto:{{ $socialite->email }}">{{ $socialite->email }}</a>
+                        {{ $socialite->email }}
                         @if ($socialite->email != $user->email)
                             <x-ig::form class="editable-skip" :recaptcha="false" :action="route('users.update', $user)">
                                 <input type="hidden" name="email" value="{{ $socialite->email }}" />
