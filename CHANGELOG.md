@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Use laravel-common base view instead of own.
+
 ## [0.9.1] - 2025-03-13
 
 ### Fixed
