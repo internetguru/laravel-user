@@ -13,8 +13,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('ig-user::base', [
+        return view('ig-common::layouts.base', [
             'view' => 'users.index',
+            'prefix' => 'ig-user::',
             'props' => [
                 'users' => User::all(),
             ],
@@ -23,8 +24,9 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('ig-user::base', [
+        return view('ig-common::layouts.base', [
             'view' => 'users.show',
+            'prefix' => 'ig-user::',
             'props' => compact('user'),
         ]);
     }

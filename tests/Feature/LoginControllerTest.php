@@ -25,7 +25,7 @@ class LoginControllerTest extends TestCase
     {
         $response = $this->get(route('login'));
         $response->assertStatus(200);
-        $response->assertViewIs('ig-user::base');
+        $response->assertViewIs('ig-common::layouts.base');
         $response->assertViewHas('view', 'login');
     }
 
@@ -38,7 +38,7 @@ class LoginControllerTest extends TestCase
 
         $response = $this->get(route('login'));
         $response->assertStatus(200);
-        $response->assertViewIs('ig-user::base');
+        $response->assertViewIs('ig-common::layouts.base');
         $response->assertViewHas('view', 'login');
         $response->assertViewHas('props', compact('users'));
     }

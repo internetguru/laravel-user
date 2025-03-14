@@ -15,28 +15,29 @@ class LoginController extends Controller
         if (config('app.demo')) {
             $users = User::getDemoUsers();
 
-            return view('ig-user::base', [
+            return view('ig-common::layouts.base', [
                 'view' => 'login',
+                'prefix' => 'ig-user::',
                 'props' => compact('users'),
             ]);
         }
 
-        return view('ig-user::base', ['view' => 'login']);
+        return view('ig-common::layouts.base', ['view' => 'login', 'prefix' => 'ig-user::']);
     }
 
     public function showTokenAuth()
     {
-        return view('ig-user::base', ['view' => 'token-auth']);
+        return view('ig-common::layouts.base', ['view' => 'token-auth', 'prefix' => 'ig-user::']);
     }
 
     public function showRegister()
     {
-        return view('ig-user::base', ['view' => 'register']);
+        return view('ig-common::layouts.base', ['view' => 'register', 'prefix' => 'ig-user::']);
     }
 
     public function showRegisterEmail()
     {
-        return view('ig-user::base', ['view' => 'register-email']);
+        return view('ig-common::layouts.base', ['view' => 'register-email', 'prefix' => 'ig-user::']);
     }
 
     public function handleRegisterEmail(Request $request)
