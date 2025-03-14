@@ -35,7 +35,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($admin)->get(route('users.index'));
 
         $response->assertStatus(200);
-        $response->assertViewIs('ig-user::base');
+        $response->assertViewIs('ig-common::layouts.base');
         $response->assertViewHas('view', 'users.index');
         $response->assertViewHas('props.users', function ($viewUsers) use ($users, $admin) {
             return $viewUsers->contains($admin) && $viewUsers->intersect($users)->count() === 3;
@@ -50,7 +50,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($admin)->get(route('users.show', $user));
 
         $response->assertStatus(200);
-        $response->assertViewIs('ig-user::base');
+        $response->assertViewIs('ig-common::layouts.base');
         $response->assertViewHas('view', 'users.show');
         $response->assertViewHas('props.user', $user);
     }

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.10.0] - 2025-03-14
+
+_Stable release based on [0.10.0-rc.1]._
+
+## [0.10.0-rc.1] - 2025-03-14
+
+### Changed
+
+- Use laravel-common base view instead of own.
+
 ## [0.9.1] - 2025-03-13
 
 ### Fixed
@@ -192,6 +202,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[0.10.0]: https://https://github.com/internetguru/laravel-user/compare/v0.9.1...v0.10.0
+[0.10.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.9.1
 [0.9.1]: https://https://github.com/internetguru/laravel-user/compare/v0.9.0...v0.9.1
 [0.9.0]: https://https://github.com/internetguru/laravel-user/compare/v0.8.0...v0.9.0
 [0.9.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.8.0
