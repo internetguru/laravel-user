@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.10.3] - 2025-03-24
+
+### Fixed
+
+- Fix getting role in registerUser method.
+
 ## [0.10.2] - 2025-03-14
 
 ### Fixed
@@ -217,6 +223,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[0.10.3]: https://https://github.com/internetguru/laravel-user/compare/v0.10.2...v0.10.3
 [0.10.2]: https://https://github.com/internetguru/laravel-user/compare/v0.10.1...v0.10.2
 [0.10.1]: https://https://github.com/internetguru/laravel-user/compare/v0.10.0...v0.10.1
 [0.10.0]: https://https://github.com/internetguru/laravel-user/compare/v0.9.1...v0.10.0

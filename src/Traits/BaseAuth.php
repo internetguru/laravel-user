@@ -34,7 +34,7 @@ trait BaseAuth
         return User::factory()->create([
             'name' => $name,
             'email' => $email,
-            'role' => self::roles()::cases()[0],
+            'role' => static::roles()::cases()[0],
             'lang' => app()->getLocale(),
         ]);
     }
