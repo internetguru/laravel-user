@@ -1119,16 +1119,16 @@
         },
         {
             "name": "internetguru/laravel-common",
-            "version": "v0.7.0",
+            "version": "v0.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-common.git",
-                "reference": "c748614bea20f42d891ab2b71f3adab7d1a25ef9"
+                "reference": "1cc14c330518c042c18ef122082d15638c0da6ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/c748614bea20f42d891ab2b71f3adab7d1a25ef9",
-                "reference": "c748614bea20f42d891ab2b71f3adab7d1a25ef9",
+                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/1cc14c330518c042c18ef122082d15638c0da6ce",
+                "reference": "1cc14c330518c042c18ef122082d15638c0da6ce",
                 "shasum": ""
             },
             "require": {
@@ -1166,9 +1166,9 @@
             ],
             "support": {
                 "issues": "https://github.com/internetguru/laravel-common/issues",
-                "source": "https://github.com/internetguru/laravel-common/tree/v0.7.0"
+                "source": "https://github.com/internetguru/laravel-common/tree/v0.7.4"
             },
-            "time": "2025-04-01T07:10:24+00:00"
+            "time": "2025-04-03T14:18:21+00:00"
         },
         {
             "name": "internetguru/laravel-model-browser",
