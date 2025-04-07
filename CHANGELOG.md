@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.10.6] - 2025-04-07
+
+### Fixed
+
+- Fix routes are not in web middleware group.
+
 ## [0.10.5] - 2025-04-03
 
 ### Fixed
@@ -235,6 +241,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[0.10.6]: https://https://github.com/internetguru/laravel-user/compare/v0.10.5...v0.10.6
 [0.10.5]: https://https://github.com/internetguru/laravel-user/compare/v0.10.4...v0.10.5
 [0.10.4]: https://https://github.com/internetguru/laravel-user/compare/v0.10.3...v0.10.4
 [0.10.3]: https://https://github.com/internetguru/laravel-user/compare/v0.10.2...v0.10.3
