@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Update laravel-common to `^0.8`.
+
 ## [0.10.6] - 2025-04-07
 
 ### Fixed
