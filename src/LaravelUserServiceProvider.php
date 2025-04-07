@@ -3,11 +3,11 @@
 namespace InternetGuru\LaravelUser;
 
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use InternetGuru\LaravelUser\Models\User;
 use InternetGuru\LaravelUser\Policies\UserPolicy;
 use InternetGuru\LaravelUser\SocialiteProviders\SeznamProvider;
-use Laravel\Socialite\Facades\Socialite;
 
 class LaravelUserServiceProvider extends ServiceProvider
 {
@@ -20,7 +20,7 @@ class LaravelUserServiceProvider extends ServiceProvider
     {
         // load views, routes, translations, config
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ig-user');
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        Route::middleware('web')->group(__DIR__ . '/../routes/web.php');
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'ig-user');
         $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
         $this->mergeConfigFrom(__DIR__ . '/../config/ig-user.php', 'ig-user');
