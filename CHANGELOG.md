@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.12.1] - 2025-04-09
+
+### Fixed
+
+- Update laravel-common version to `^0.9`.
+
 ## [0.12.0] - 2025-04-09
 
 _Stable release based on [0.12.0-rc.1]._
@@ -265,6 +271,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[0.12.1]: https://https://github.com/internetguru/laravel-user/compare/v0.12.0...v0.12.1
 [0.12.0]: https://https://github.com/internetguru/laravel-user/compare/v0.11.0...v0.12.0
 [0.12.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.11.0
 [0.11.0]: https://https://github.com/internetguru/laravel-user/compare/v0.10.6...v0.11.0
