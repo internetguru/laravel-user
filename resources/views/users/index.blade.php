@@ -20,5 +20,10 @@
             'name' => 'asc',
             'email' => 'asc',
         ]"
+        :column-widths="[
+            'name' => 'minmax(7em, 1fr)',
+            'email' => 'minmax(10em, 1fr)',
+        ]"
+
     >
 </section>

@@ -28,7 +28,7 @@
         "laravel/socialite": "^5.16",
         "socialiteproviders/manager": "^4.6",
         "internetguru/laravel-common": "^0.8",
-        "internetguru/laravel-model-browser": "^0.7"
+        "internetguru/laravel-model-browser": "^0.8"
     },
     "require-dev": {
         "laravel/pint": "^1.17",

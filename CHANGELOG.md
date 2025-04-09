@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Configure user list column widths.
+
+### Changed
+
+- Update laravel-model-browser to `^0.8`.
+
 ## [0.11.0] - 2025-04-07
 
 _Stable release based on [0.11.0-rc.1]._
