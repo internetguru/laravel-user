@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.14.1] - 2025-04-16
+
+### Fixed
+
+- Fix model browser version to `^0.12`.
+
 ## [0.14.0] - 2025-04-16
 
 _Stable release based on [0.14.0-rc.1]._
@@ -306,6 +312,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[0.14.1]: https://https://github.com/internetguru/laravel-user/compare/v0.14.0...v0.14.1
 [0.14.0]: https://https://github.com/internetguru/laravel-user/compare/v0.13.0...v0.14.0
 [0.14.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.13.0
 [0.13.0]: https://https://github.com/internetguru/laravel-user/compare/v0.12.3...v0.13.0
