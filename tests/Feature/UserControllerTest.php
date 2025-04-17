@@ -86,7 +86,7 @@ class UserControllerTest extends TestCase
     public function testUpdateRoleSuccessfully()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
-        $user = User::factory()->create(['role' => Role::SPECTATOR]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
 
         $response = $this->actingAs($admin)->post(route('users.update', $user), [
             'role' => Role::OPERATOR->value,
@@ -186,7 +186,7 @@ class UserControllerTest extends TestCase
 
     public function testBasicUserCannotUpdateOthersProfile()
     {
-        $user = User::factory()->withRole(Role::SPECTATOR)->create();
+        $user = User::factory()->withRole(Role::CUSTOMER)->create();
         $otherUser = User::factory()->create(['name' => 'Old Name']);
 
         $response = $this->actingAs($user)->post(route('users.update', $otherUser), [
@@ -201,14 +201,14 @@ class UserControllerTest extends TestCase
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
 
-        // Manager can promote operator to spectator
+        // Manager can promote operator to customer
         $response = $this->actingAs($manager)->post(route('users.update', $operator), [
-            'role' => Role::SPECTATOR->value,
+            'role' => Role::CUSTOMER->value,
         ]);
 
         $response->assertRedirect();
         $response->assertSessionHas('success', __('ig-user::user.update.role'));
-        $this->assertEquals(Role::SPECTATOR, $operator->fresh()->role);
+        $this->assertEquals(Role::CUSTOMER, $operator->fresh()->role);
 
         // Manager cannot promote operator to admin
         $response = $this->actingAs($manager)->post(route('users.update', $operator), [
