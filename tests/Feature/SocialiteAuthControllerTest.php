@@ -148,8 +148,6 @@ class SocialiteAuthControllerTest extends TestCase
 
     public function testHandleProviderCallbackUnexpectedException()
     {
-        Log::shouldReceive('error')->once();
-
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/login/callback', 'GET');
 
@@ -160,6 +158,6 @@ class SocialiteAuthControllerTest extends TestCase
 
         $this->assertEquals(302, $response->status());
         $this->assertTrue(session()->has('errors'));
-        $this->assertEquals(__('ig-user::messages.unexpected'), session('errors')->first());
+        $this->assertEquals(__('ig-user::auth.error'), session('errors')->first());
     }
 }

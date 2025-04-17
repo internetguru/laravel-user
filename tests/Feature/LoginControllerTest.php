@@ -47,7 +47,7 @@ class LoginControllerTest extends TestCase
     {
         config(['app.demo' => true]);
 
-        $user = User::factory()->withRole(Role::SPECTATOR)->create([
+        $user = User::factory()->withRole(Role::CUSTOMER)->create([
             'email' => 'test@example.com',
         ]);
 
@@ -64,7 +64,7 @@ class LoginControllerTest extends TestCase
 
     public function testLogout()
     {
-        $user = User::factory()->withRole(Role::SPECTATOR)->create([
+        $user = User::factory()->withRole(Role::CUSTOMER)->create([
             'email' => 'test@example.com',
         ]);
 
@@ -75,85 +75,61 @@ class LoginControllerTest extends TestCase
 
     public function test_user_crud_routes()
     {
-        $pender = User::factory()->withRole(Role::PENDING)->create();
-        $spectator = User::factory()->withRole(Role::SPECTATOR)->create();
+        $customer = User::factory()->withRole(Role::CUSTOMER)->create();
         $operator = User::factory()->withRole(Role::OPERATOR)->create();
         $manager = User::factory()->withRole(Role::MANAGER)->create();
         $admin = User::factory()->withRole(Role::ADMIN)->create();
 
-        $this->actingAs($pender);
-        $this->get(route('users.show', ['user' => $pender]))->assertStatus(200);
-        $this->get(route('users.show', ['user' => $spectator]))->assertStatus(403);
+        $this->actingAs($customer);
+        $this->get(route('users.show', ['user' => $customer]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $operator]))->assertStatus(403);
         $this->get(route('users.show', ['user' => $manager]))->assertStatus(403);
         $this->get(route('users.show', ['user' => $admin]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $pender]), ['name' => 'Updated Name'])->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator]), ['name' => 'Updated Name'])->assertStatus(403);
+        $this->post(route('users.update', ['user' => $customer]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $operator]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $manager]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $admin]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(403);
-
-        $this->actingAs($spectator);
-        $this->get(route('users.show', ['user' => $pender]))->assertStatus(403);
-        $this->get(route('users.show', ['user' => $spectator]))->assertStatus(200);
-        $this->get(route('users.show', ['user' => $operator]))->assertStatus(403);
-        $this->get(route('users.show', ['user' => $manager]))->assertStatus(403);
-        $this->get(route('users.show', ['user' => $admin]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $pender]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator]), ['name' => 'Updated Name'])->assertStatus(302);
-        $this->post(route('users.update', ['user' => $operator]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $manager]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $admin]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(403);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::OPERATOR]))->assertStatus(403);
 
         $this->actingAs($operator);
-        $this->get(route('users.show', ['user' => $pender]))->assertStatus(403);
-        $this->get(route('users.show', ['user' => $spectator]))->assertStatus(403);
+        $this->get(route('users.show', ['user' => $customer]))->assertStatus(403);
         $this->get(route('users.show', ['user' => $operator]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $manager]))->assertStatus(403);
         $this->get(route('users.show', ['user' => $admin]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $pender]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator]), ['name' => 'Updated Name'])->assertStatus(403);
+        $this->post(route('users.update', ['user' => $customer]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $operator]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $manager]), ['name' => 'Updated Name'])->assertStatus(403);
         $this->post(route('users.update', ['user' => $admin]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::PENDING]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::MANAGER]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::ADMIN]))->assertStatus(403);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::OPERATOR]))->assertStatus(403);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::MANAGER]))->assertStatus(403);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::ADMIN]))->assertStatus(403);
 
         $this->actingAs($manager);
-        $this->get(route('users.show', ['user' => $pender]))->assertStatus(200);
-        $this->get(route('users.show', ['user' => $spectator]))->assertStatus(200);
+        $this->get(route('users.show', ['user' => $customer]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $operator]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $manager]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $admin]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $pender]), ['name' => 'Updated Name'])->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator]), ['name' => 'Updated Name'])->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $operator]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $manager]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $admin]), ['name' => 'Updated Name'])->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::PENDING]))->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::MANAGER]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::ADMIN]))->assertStatus(403);
-        $this->post(route('users.update', ['user' => $operator, 'role' => Role::SPECTATOR]))->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::OPERATOR]))->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::MANAGER]))->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::ADMIN]))->assertStatus(403);
+        $this->post(route('users.update', ['user' => $operator, 'role' => Role::CUSTOMER]))->assertStatus(302);
 
         $this->actingAs($admin);
-        $this->get(route('users.show', ['user' => $spectator]))->assertStatus(200);
+        $this->get(route('users.show', ['user' => $customer]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $operator]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $manager]))->assertStatus(200);
         $this->get(route('users.show', ['user' => $admin]))->assertStatus(200);
-        $this->post(route('users.update', ['user' => $pender]), ['name' => 'Updated Name'])->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator]), ['name' => 'Updated Name'])->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $operator]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $manager]), ['name' => 'Updated Name'])->assertStatus(302);
         $this->post(route('users.update', ['user' => $admin]), ['name' => 'Updated Name'])->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::PENDING]))->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::OPERATOR]))->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::MANAGER]))->assertStatus(302);
-        $this->post(route('users.update', ['user' => $spectator, 'role' => Role::ADMIN]))->assertStatus(302);
-        $this->post(route('users.update', ['user' => $operator, 'role' => Role::SPECTATOR]))->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::OPERATOR]))->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::MANAGER]))->assertStatus(302);
+        $this->post(route('users.update', ['user' => $customer, 'role' => Role::ADMIN]))->assertStatus(302);
+        $this->post(route('users.update', ['user' => $operator, 'role' => Role::CUSTOMER]))->assertStatus(302);
     }
 }

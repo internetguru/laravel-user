@@ -25,43 +25,31 @@ class UserPolicyTest extends TestCase
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $spectator = User::factory()->create(['role' => Role::SPECTATOR]);
-        $pending = User::factory()->create(['role' => Role::PENDING]);
+        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
 
         // Admin can CRUD any user
         $this->assertTrue($this->policy->crud($admin, $admin));
         $this->assertTrue($this->policy->crud($admin, $manager));
         $this->assertTrue($this->policy->crud($admin, $operator));
-        $this->assertTrue($this->policy->crud($admin, $spectator));
-        $this->assertTrue($this->policy->crud($admin, $pending));
+        $this->assertTrue($this->policy->crud($admin, $customer));
 
         // Manager can CRUD self and users with roles lower than or equal to MANAGER
         $this->assertTrue($this->policy->crud($manager, $manager));
         $this->assertTrue($this->policy->crud($manager, $operator));
-        $this->assertTrue($this->policy->crud($manager, $spectator));
-        $this->assertTrue($this->policy->crud($manager, $pending));
+        $this->assertTrue($this->policy->crud($manager, $customer));
         $this->assertFalse($this->policy->crud($manager, $admin));
 
         // Operator can only CRUD self
         $this->assertTrue($this->policy->crud($operator, $operator));
         $this->assertFalse($this->policy->crud($operator, $manager));
-        $this->assertFalse($this->policy->crud($operator, $spectator));
-        $this->assertFalse($this->policy->crud($operator, $pending));
+        $this->assertFalse($this->policy->crud($operator, $customer));
         $this->assertFalse($this->policy->crud($operator, $admin));
 
-        // Spectator can only CRUD self
-        $this->assertTrue($this->policy->crud($spectator, $spectator));
-        $this->assertFalse($this->policy->crud($spectator, $operator));
-        $this->assertFalse($this->policy->crud($spectator, $manager));
-        $this->assertFalse($this->policy->crud($spectator, $pending));
-        $this->assertFalse($this->policy->crud($spectator, $admin));
-
-        // Pending user can only CRUD self
-        $this->assertTrue($this->policy->crud($pending, $pending));
-        $this->assertFalse($this->policy->crud($pending, $operator));
-        $this->assertFalse($this->policy->crud($pending, $spectator));
-        $this->assertFalse($this->policy->crud($pending, $manager));
-        $this->assertFalse($this->policy->crud($pending, $admin));
+        // Customer can only CRUD self
+        $this->assertTrue($this->policy->crud($customer, $customer));
+        $this->assertFalse($this->policy->crud($customer, $operator));
+        $this->assertFalse($this->policy->crud($customer, $manager));
+        $this->assertFalse($this->policy->crud($customer, $admin));
     }
 
     public function testViewAnyPolicy()
@@ -69,14 +57,12 @@ class UserPolicyTest extends TestCase
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $spectator = User::factory()->create(['role' => Role::SPECTATOR]);
-        $pending = User::factory()->create(['role' => Role::PENDING]);
+        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
 
         $this->assertTrue($this->policy->viewAny($admin));
         $this->assertTrue($this->policy->viewAny($manager));
         $this->assertFalse($this->policy->viewAny($operator));
-        $this->assertFalse($this->policy->viewAny($spectator));
-        $this->assertFalse($this->policy->viewAny($pending));
+        $this->assertFalse($this->policy->viewAny($customer));
     }
 
     public function testAdministratePolicy()
@@ -84,28 +70,24 @@ class UserPolicyTest extends TestCase
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $spectator = User::factory()->create(['role' => Role::SPECTATOR]);
-        $pending = User::factory()->create(['role' => Role::PENDING]);
+        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
 
         // Admin can administrate any user
         $this->assertTrue($this->policy->administrate($admin, $admin));
         $this->assertTrue($this->policy->administrate($admin, $manager));
         $this->assertTrue($this->policy->administrate($admin, $operator));
-        $this->assertTrue($this->policy->administrate($admin, $spectator));
-        $this->assertTrue($this->policy->administrate($admin, $pending));
+        $this->assertTrue($this->policy->administrate($admin, $customer));
 
         // Manager can administrate users
         $this->assertTrue($this->policy->administrate($manager, $manager));
         $this->assertTrue($this->policy->administrate($manager, $operator));
-        $this->assertTrue($this->policy->administrate($manager, $spectator));
-        $this->assertTrue($this->policy->administrate($manager, $pending));
+        $this->assertTrue($this->policy->administrate($manager, $customer));
         $this->assertTrue($this->policy->administrate($manager, $admin));
 
         // Operator cannot administrate
         $this->assertFalse($this->policy->administrate($operator, $operator));
         $this->assertFalse($this->policy->administrate($operator, $manager));
-        $this->assertFalse($this->policy->administrate($operator, $spectator));
-        $this->assertFalse($this->policy->administrate($operator, $pending));
+        $this->assertFalse($this->policy->administrate($operator, $customer));
         $this->assertFalse($this->policy->administrate($operator, $admin));
     }
 
@@ -114,38 +96,21 @@ class UserPolicyTest extends TestCase
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $spectator = User::factory()->create(['role' => Role::SPECTATOR]);
-        $pending = User::factory()->create(['role' => Role::PENDING]);
+        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
 
         // Admin can set any role
-        $this->assertTrue($this->policy->setRole($admin, $operator, Role::ADMIN));
-        $this->assertTrue($this->policy->setRole($admin, $operator, Role::MANAGER));
-        $this->assertTrue($this->policy->setRole($admin, $operator, Role::OPERATOR));
-        $this->assertTrue($this->policy->setRole($admin, $operator, Role::SPECTATOR));
-        $this->assertTrue($this->policy->setRole($admin, $operator, Role::PENDING));
+        $this->assertTrue($this->policy->setRole($admin, $operator, Role::ADMIN->level()));
+        $this->assertTrue($this->policy->setRole($admin, $operator, Role::MANAGER->level()));
+        $this->assertTrue($this->policy->setRole($admin, $operator, Role::OPERATOR->level()));
+        $this->assertTrue($this->policy->setRole($admin, $operator, Role::CUSTOMER->level()));
 
-        // Manager can set roles up to OPERATOR
-        $this->assertTrue($this->policy->setRole($manager, $operator, Role::OPERATOR));
-        $this->assertTrue($this->policy->setRole($manager, $operator, Role::SPECTATOR));
-        $this->assertTrue($this->policy->setRole($manager, $operator, Role::PENDING));
-        $this->assertFalse($this->policy->setRole($manager, $operator, Role::MANAGER));
-        $this->assertFalse($this->policy->setRole($manager, $operator, Role::ADMIN));
+        // Manager can set roles up to MANAGER
+        $this->assertTrue($this->policy->setRole($manager, $operator, Role::OPERATOR->level()));
+        $this->assertTrue($this->policy->setRole($manager, $operator, Role::CUSTOMER->level()));
+        $this->assertTrue($this->policy->setRole($manager, $operator, Role::MANAGER->level()));
+        $this->assertFalse($this->policy->setRole($manager, $operator, Role::ADMIN->level()));
 
         // Operator cannot set roles
-        $this->assertFalse($this->policy->setRole($operator, $spectator, Role::OPERATOR));
-
-        // Spectator cannot set roles
-        $this->assertFalse($this->policy->setRole($spectator, $pending, Role::SPECTATOR));
-    }
-
-    public function testIsNotPendingPolicy()
-    {
-        $spectator = User::factory()->create(['role' => Role::SPECTATOR]);
-        $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $pending = User::factory()->create(['role' => Role::PENDING]);
-
-        $this->assertTrue($this->policy->isNotPending($spectator));
-        $this->assertTrue($this->policy->isNotPending($operator));
-        $this->assertFalse($this->policy->isNotPending($pending));
+        $this->assertFalse($this->policy->setRole($operator, $customer, Role::OPERATOR->level()));
     }
 }
