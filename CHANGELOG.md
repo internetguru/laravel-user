@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## Added
+
+- Allow disabling a provider in the configuration by setting `enabled` to `false`.
+
 ## [0.15.1] - 2025-04-25
 
 ### Fixed
