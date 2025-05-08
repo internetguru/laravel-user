@@ -1,5 +1,5 @@
 @props([
-    'providers' => InternetGuru\LaravelUser\Enums\Provider::cases(),
+    'providers' => InternetGuru\LaravelUser\Enums\Provider::enabledCases(),
     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::LOGIN,
     'prev_url' => (session('prevPage') ?? url()->previous()) === url()
         ? url()->previous()
