@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Use `internetguru/laravel-common` recaptcha.
+
+### Changed
+
+- Change `laravel-common` version to `^1`.
+- Change `laravel-model-browser` version to `^1`.
+
 ## [0.16.1] - 2025-05-08
 
 ### Fixed
