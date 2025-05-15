@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-05-15
+
+_Stable release based on [2.0.0-rc.1]._
+
 ## [2.0.0-rc.1] - 2025-05-15
 
 ### Changed
@@ -366,6 +370,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.0.0]: https://https://github.com/internetguru/laravel-user/compare/v1.0.0...v2.0.0
 [2.0.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v1.0.0
 [1.0.0]: https://https://github.com/internetguru/laravel-user/compare/v0.16.1...v1.0.0
 [1.0.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v0.16.1
