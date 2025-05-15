@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Update `laravel-common` version to `^2`.
+- Use `IgMailMessage` in notifications.
+
 ## [1.0.0] - 2025-05-09
 
 _Stable release based on [1.0.0-rc.1]._
