@@ -13,5 +13,6 @@ $buttonText = __('ig-user::token_auth.action');
 @endsection
 
 @section('footer')
+@parent
 <x-ig-common::emails.subcopy-html :link="$url" :text="$buttonText" />
 @endsection
