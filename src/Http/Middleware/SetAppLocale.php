@@ -56,7 +56,7 @@ class SetAppLocale
     public function setLang(string $lang, bool $userSave = true): void
     {
         session(['locale' => $lang]);
-        if ($userSave && auth()->check()) {
+        if ($userSave && auth()->check() && ! config('app.readonly', false)) {
             $user = auth()->user();
             $user->lang = $lang;
             $user->save();
