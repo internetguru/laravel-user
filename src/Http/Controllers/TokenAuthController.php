@@ -40,11 +40,11 @@ class TokenAuthController extends Controller
 
             return $this->handleTokenAuthSend($user, $request);
         } catch (ModelNotFoundException $e) {
-            return back()->withErrors(__('ig-user::messages.login.notfound'));
+            return back()->withInput()->withErrors(__('ig-user::messages.login.notfound'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
-            return back()->withErrors(__('ig-user::messages.unexpected'));
+            return back()->withInput()->withErrors(__('ig-user::messages.unexpected'));
         }
     }
 
