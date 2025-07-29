@@ -30,7 +30,7 @@ trait BaseAuth
         // Do something when the user is authenticated
     }
 
-    public static function successLoginRedirect(User $user): RedirectResponse
+    public static function successLoginRedirect(User|UserModel $user): RedirectResponse
     {
         [$prevUrl, $backUrl, ] = User::getAuthSessions();
         return redirect()->to($prevUrl ?? $backUrl)->with('success', __('ig-user::messages.login.success', ['name' => $user->name]));
