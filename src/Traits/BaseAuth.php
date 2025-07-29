@@ -3,6 +3,7 @@
 namespace InternetGuru\LaravelUser\Traits;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\User as UserModel;
 
@@ -27,6 +28,12 @@ trait BaseAuth
     public static function authenticated(User|UserModel $user): void
     {
         // Do something when the user is authenticated
+    }
+
+    public static function successLoginRedirect(User $user): RedirectResponse
+    {
+        [$prevUrl, $backUrl, ] = User::getAuthSessions();
+        return redirect()->to($prevUrl ?? $backUrl)->with('success', __('ig-user::messages.login.success', ['name' => $user->name]));
     }
 
     public static function registerUser(string $name, string $email): User

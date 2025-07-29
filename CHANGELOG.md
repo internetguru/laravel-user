@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0] - 2025-07-29
+
+_Stable release based on [2.1.0-rc.1]._
+
+## [2.1.0-rc.1] - 2025-07-29
+
+### Changed
+
+- Separate `successLoginRedirect` to be customizable in `User` model.
+
 ## [2.0.6] - 2025-07-24
 
 ### Fixed
@@ -403,6 +413,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[2.1.0]: https://https://github.com/internetguru/laravel-user/compare/v2.0.6...v2.1.0
+[2.1.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.0.6
 [2.0.6]: https://https://github.com/internetguru/laravel-user/compare/v2.0.5...v2.0.6
 [2.0.5]: https://https://github.com/internetguru/laravel-user/compare/v2.0.4...v2.0.5
 [2.0.4]: https://https://github.com/internetguru/laravel-user/compare/v2.0.3...v2.0.4
