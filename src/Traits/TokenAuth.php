@@ -60,6 +60,6 @@ trait TokenAuth
         auth()->login($user);
         User::authenticated(auth()->user());
 
-        return redirect()->to($backUrl)->with('success', __('ig-user::messages.login.success', ['name' => $user->name]));
+        return User::successLoginRedirect($user);
     }
 }
