@@ -38,7 +38,7 @@ trait SocialiteAuth
         auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
-        return redirect()->to($prevUrl ?? $backUrl)->with('success', __('ig-user::messages.login.success', ['name' => $user->name]));
+        return User::successLoginRedirect($user);
     }
 
     public static function socialiteLoginAndConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
