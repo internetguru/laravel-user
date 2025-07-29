@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Separate `successLoginRedirect` to be customizable in `User` model.
+
 ## [2.0.6] - 2025-07-24
 
 ### Fixed
