@@ -55,7 +55,10 @@ trait SocialiteAuth
         auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
-        User::socialiteConnect($provider, $providerUser);
+        $connectedUser = User::getBySocialiteProvider($provider, $providerUser->id);
+        if (! $connectedUser) {
+            User::socialiteConnect($provider, $providerUser);
+        }
         return User::successLoginRedirect($user);
     }
 
