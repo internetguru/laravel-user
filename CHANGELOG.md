@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Change socialite `login` to `loginAndConnect`.
+
 ## [2.1.1] - 2025-07-29
 
 ### Fixed
