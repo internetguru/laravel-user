@@ -101,7 +101,7 @@ class SocialiteAuthController extends Controller
                 case ProviderAction::LOGIN:
                     $this->loginForbidden();
 
-                    return User::socialiteLogin($provider, $providerUser);
+                    return User::socialiteLoginAndConnect($provider, $providerUser);
                 case ProviderAction::CONNECT:
                     $this->loginRequired();
 
