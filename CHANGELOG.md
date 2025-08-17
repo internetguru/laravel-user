@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.2.3] - 2025-08-17
+
+### Fixed
+
+- Do not show error when already connected on login.
+
 ## [2.2.2] - 2025-08-17
 
 ### Changed
@@ -444,6 +450,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.2.3]: https://https://github.com/internetguru/laravel-user/compare/v2.2.2...v2.2.3
 [2.2.2]: https://https://github.com/internetguru/laravel-user/compare/v2.2.1...v2.2.2
 [2.2.1]: https://https://github.com/internetguru/laravel-user/compare/v2.2.0...v2.2.1
 [2.2.0]: https://https://github.com/internetguru/laravel-user/compare/v2.1.1...v2.2.0
