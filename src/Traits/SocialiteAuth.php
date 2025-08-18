@@ -44,9 +44,10 @@ trait SocialiteAuth
     public static function socialiteLoginAndConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
     {
         $user = User::where('email', $providerUser->email)->first();
+        $connectedUser = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
 
-        if (! $user) {
+        if (! $user && ! $connectedUser) {
             Log::warning('User not found', ['provider_user' => $providerUser]);
 
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.identity.notfound'));
@@ -55,7 +56,6 @@ trait SocialiteAuth
         auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
-        $connectedUser = User::getBySocialiteProvider($provider, $providerUser->id);
         if (! $connectedUser) {
             User::socialiteConnect($provider, $providerUser);
         }
