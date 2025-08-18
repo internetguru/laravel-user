@@ -53,13 +53,13 @@ trait SocialiteAuth
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.identity.notfound'));
         }
 
-        auth()->login($user, $remember);
+        auth()->login($user ?? $connectedUser, $remember);
         User::authenticated(auth()->user());
 
         if (! $connectedUser) {
             User::socialiteConnect($provider, $providerUser);
         }
-        return User::successLoginRedirect($user);
+        return User::successLoginRedirect($user ?? $connectedUser);
     }
 
     public static function socialiteConnect(Provider $provider, SocialiteUser $providerUser): RedirectResponse
