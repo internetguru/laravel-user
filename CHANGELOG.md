@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add danish translation.
+
 ## [2.2.5] - 2025-08-18
 
 ### Fixed
