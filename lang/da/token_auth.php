@@ -2,7 +2,7 @@
 
 return [
 
-    'sent' => 'Engangsloginlinket er blevet sendt.',
+    'sent' => 'Loginlink blev sendt til den angivne email.',
     'wait' => 'Vent venligst før du anmoder om et nyt engangsloginlink.',
     'invalid' => 'Ugyldigt eller udløbet token.',
     'subject' => 'Engangsbrug',
