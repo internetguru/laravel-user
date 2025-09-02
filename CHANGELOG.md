@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.3.4] - 2025-09-02
+
+### Fixed
+
+- Update one time login success message.
+
 ## [2.3.3] - 2025-09-02
 
 ### Fixed
@@ -490,6 +496,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.3.4]: https://https://github.com/internetguru/laravel-user/compare/v2.3.3...v2.3.4
 [2.3.3]: https://https://github.com/internetguru/laravel-user/compare/v2.3.2...v2.3.3
 [2.3.2]: https://https://github.com/internetguru/laravel-user/compare/v2.3.1...v2.3.2
 [2.3.1]: https://https://github.com/internetguru/laravel-user/compare/v2.3.0...v2.3.1

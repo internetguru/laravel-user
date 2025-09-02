@@ -2,7 +2,7 @@
 
 return [
 
-    'sent' => 'The one-time login link has been successfully sent.',
+    'sent' => 'Login link was sent to given email.',
     'wait' => 'Please wait before requesting a new one-time login link.',
     'invalid' => 'Invalid or expired token.',
     'subject' => 'One-Time Login',
