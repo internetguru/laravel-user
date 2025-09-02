@@ -15,7 +15,7 @@ return [
     'login.success' => 'Logged in as :name.',
 
     'register.exists' => 'Unable to register: identity or email already registered.',
-    'register.success' => 'Registration successful.',
+    'register.success' => 'Registered as :name.',
     'register.token-auth.success' => 'New account created. Login link sent to email.',
 
     'remember_me' => 'Remember me',

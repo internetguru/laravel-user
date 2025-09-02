@@ -111,7 +111,7 @@ trait SocialiteAuth
         auth()->login($user);
         User::authenticated(auth()->user());
 
-        return redirect()->to('/')->with('success', __('ig-user::messages.register.success'));
+        return redirect()->to('/')->with('success', __('ig-user::messages.register.success', ['name' => $user->name]));
     }
 
     public static function socialiteTransfer(Provider $provider, SocialiteUser $providerUser): RedirectResponse
