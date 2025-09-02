@@ -15,7 +15,7 @@ return [
     'login.success' => 'Přihlášen jako :name.',
 
     'register.exists' => 'Nelze registrovat: identita nebo email již existuje.',
-    'register.success' => 'Registrace byla úspěšná.',
+    'register.success' => 'Registrován jako :name.',
     'register.token-auth.success' => 'Nový účet byl vytvořen. Odkaz pro přihlášení byl odeslán na email.',
 
     'remember_me' => 'Pamatovat si přihlášení',
