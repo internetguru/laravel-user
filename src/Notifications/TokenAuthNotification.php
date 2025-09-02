@@ -5,13 +5,17 @@ namespace InternetGuru\LaravelUser\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\URL;
 use InternetGuru\LaravelCommon\Mail\MailMessage as IgMailMessage;
 use InternetGuru\LaravelUser\Models\TokenAuth;
 
 class TokenAuthNotification extends Notification
 {
+    use InteractsWithQueue;
     use Queueable;
+    use SerializesModels;
 
     public function __construct(public TokenAuth $tokenAuth) {}
 
