@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.2] - 2025-09-02
+
+### Fixed
+
+- Fix login and connect to first check connected user fallback to email user.
+
 ## [2.3.1] - 2025-09-02
 
 ### Fixed
@@ -475,6 +481,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[2.3.2]: https://https://github.com/internetguru/laravel-user/compare/v2.3.1...v2.3.2
 [2.3.1]: https://https://github.com/internetguru/laravel-user/compare/v2.3.0...v2.3.1
 [2.3.0]: https://https://github.com/internetguru/laravel-user/compare/v2.2.5...v2.3.0
 [2.3.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.2.5
