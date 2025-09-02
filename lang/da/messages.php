@@ -15,7 +15,7 @@ return [
     'login.success' => 'Logget ind som :name.',
 
     'register.exists' => 'Kan ikke registrere: identitet eller email allerede registreret.',
-    'register.success' => 'Registrering gennemført.',
+    'register.success' => 'Registreret som :name.',
     'register.token-auth.success' => 'Ny konto oprettet. Loginlink sendt til email.',
 
     'remember_me' => 'Husk mig',
