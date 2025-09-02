@@ -2,7 +2,7 @@
 
 return [
 
-    'sent' => 'Odkaz pro jednorázové přihlášení byl úspěšně odeslán.',
+    'sent' => 'Přihlašovací odkaz byl odeslán na zadaný email.',
     'wait' => 'Počkejte chvíli, než požádáte o nový jednorázový přihlašovací odkaz.',
     'invalid' => 'Token je neplatný nebo vypršel.',
     'subject' => 'Jednorázové přihlášení',
