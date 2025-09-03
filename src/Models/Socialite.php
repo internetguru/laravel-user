@@ -27,4 +27,9 @@ class Socialite extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public static function providers(): string
+    {
+        return Provider::class;
+    }
 }
