@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Make Provider enum customizable.
+
 ## [2.3.4] - 2025-09-02
 
 ### Fixed
