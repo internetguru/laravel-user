@@ -4,7 +4,6 @@ namespace InternetGuru\LaravelUser\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use InternetGuru\LaravelUser\Enums\Provider;
 
 class Socialite extends Model
 {
@@ -19,17 +18,12 @@ class Socialite extends Model
     protected function casts(): array
     {
         return [
-            'provider' => Provider::class,
+            'provider' => User::providers(),
         ];
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public static function providers(): string
-    {
-        return Provider::class;
     }
 }

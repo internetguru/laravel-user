@@ -12,6 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use InternetGuru\LaravelUser\Traits\BaseAuth;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
 use InternetGuru\LaravelUser\Traits\TokenAuth;
+use InternetGuru\LaravelUser\Enums\Provider;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -39,6 +40,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [
             'role' => static::roles(),
         ];
+    }
+
+    public static function providers(): string
+    {
+        return Provider::class;
     }
 
     public static function getDemoUsers(): array
