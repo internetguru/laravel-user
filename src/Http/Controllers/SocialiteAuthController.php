@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\URL;
 use InternetGuru\LaravelUser\Enums\ProviderAction;
 use InternetGuru\LaravelUser\Exceptions\AuthCheckException;
 use Laravel\Socialite\Facades\Socialite;
-use InternetGuru\LaravelUser\Models\Socialite as SocialiteModel;
 
 class SocialiteAuthController extends Controller
 {
@@ -36,7 +35,7 @@ class SocialiteAuthController extends Controller
     public function handleProviderAction(string $provider, string $action, Request $request): RedirectResponse
     {
         try {
-            $provider = SocialiteModel::providers()::from($provider);
+            $provider = User::providers()::from($provider);
             $action = ProviderAction::from($action);
 
             // switch the actions
@@ -87,7 +86,7 @@ class SocialiteAuthController extends Controller
     public function handleProviderCallback(string $provider, string $action): RedirectResponse
     {
         try {
-            $provider = SocialiteModel::providers()::from($provider);
+            $provider = User::providers()::from($provider);
             $action = ProviderAction::from($action);
 
             try {
