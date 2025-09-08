@@ -13,7 +13,7 @@ return [
     'register-email.title' => 'Opret en ny konto manuelt',
     'register-email.description' => 'Registrer dig med kun dit navn og email.',
 
-    'users.index.title' => 'Brugeroversigt',
+    'users.index.title' => 'Brugerliste',
     'users.index.description' => 'Liste over eksisterende brugere og deres grundlæggende oplysninger.',
 
     'users.show.title' => 'Brugerdetalje',
