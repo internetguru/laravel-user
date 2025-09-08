@@ -13,7 +13,7 @@ return [
     'register-email.title' => 'Create a new account manually',
     'register-email.description' => 'Register with just your name and email.',
 
-    'users.index.title' => 'User summary',
+    'users.index.title' => 'User List',
     'users.index.description' => 'List of existing users and their basic information.',
 
     'users.show.title' => 'User detail',
