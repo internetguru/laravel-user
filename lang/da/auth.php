@@ -2,20 +2,20 @@
 
 return [
 
-    'back' => 'Tilbage til loginside',
-    'demo.email' => 'Email',
+    'back' => 'Tilbage til login',
+    'demo.email' => 'E-mail',
     'demo.submit' => 'Log ind',
     'demo.title' => 'Vælg en demokonto',
-    'error' => 'Godkendelse mislykkedes',
-    'login-register' => 'Login / Registrer',
-    'login.title' => 'Vælg loginudbyder',
-    'register-email.email' => 'Email',
-    'register-email.name' => 'Navn',
-    'register-email.submit' => 'Indsend',
-    'register-email.title' => 'Indtast dine oplysninger',
-    'register.title' => 'Vælg en udbyder til registrering',
-    'token_auth.email' => 'Email',
+    'error' => 'Login mislykkedes',
+    'login-register' => 'Log ind / Opret konto',
+    'login.title' => 'Log ind med en tjeneste',
+    'register-email.email' => 'Din e-mail',
+    'register-email.name' => 'Fulde navn',
+    'register-email.submit' => 'Opret konto',
+    'register-email.title' => 'Personlige oplysninger',
+    'register.title' => 'Opret konto med en tjeneste',
+    'token_auth.email' => 'Din e-mail',
     'token_auth.submit' => 'Send link',
-    'token_auth.title' => 'Indtast din email',
+    'token_auth.title' => 'Indtast din e-mail',
 
 ];
