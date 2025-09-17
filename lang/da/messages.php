@@ -8,7 +8,7 @@ return [
     'disconnect.success' => 'Identitet fjernet fra din konto.',
     'identity.notfound' => 'Login mislykkedes: identitet eller e-mail blev ikke fundet.',
     'login.forbidden' => 'Denne handling er ikke tilgængelig, når du er logget ind.',
-    'login.notfound' => 'Login mislykkedes: e-mail blev ikke fundet.',
+    'login.notfound' => 'E-mail blev ikke fundet.',
     'login.required' => 'Du skal være logget ind for at udføre denne handling.',
     'login.success' => 'Logget ind som :name.',
     'register.exists' => 'Registrering mislykkedes: identitet eller e-mail findes allerede.',

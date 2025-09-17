@@ -8,7 +8,7 @@ return [
     'disconnect.success' => 'Identita odpojena od vašeho účtu.',
     'identity.notfound' => 'Nepodařilo se přihlásit: identita ani její email nenalezeny.',
     'login.forbidden' => 'Tato akce je pouze pro nepřihlášené uživatele.',
-    'login.notfound' => 'Nepodařilo se přihlásit: email nenalezen.',
+    'login.notfound' => 'Email nenalezen.',
     'login.required' => 'Tato akce vyžaduje přihlášení.',
     'login.success' => 'Přihlášen jako :name.',
     'register.exists' => 'Nelze registrovat: identita nebo její email již existují.',

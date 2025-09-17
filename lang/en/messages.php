@@ -8,7 +8,7 @@ return [
     'disconnect.success' => 'Identity unlinked from your account.',
     'identity.notfound' => 'Log in failed: identity or its email not found.',
     'login.forbidden' => 'This ation is not available for logged-in users.',
-    'login.notfound' => 'Log in failed: email not found.',
+    'login.notfound' => 'Email not found.',
     'login.required' => 'This action requires you to log in.',
     'login.success' => 'Logged in as :name.',
     'register.exists' => 'Registration failed: identity or its email already exist.',
