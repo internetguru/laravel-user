@@ -2,9 +2,9 @@
 
 return [
 
-    'link' => 'connect',
-    'unlink' => 'disconnect',
-    'add' => 'Connect identity',
+    'link' => 'link',
+    'unlink' => 'unlink',
+    'add' => 'Link identity',
 
     'google' => 'Google',
     'facebook' => 'Facebook',

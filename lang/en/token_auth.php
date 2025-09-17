@@ -2,12 +2,12 @@
 
 return [
 
-    'sent' => 'Login link was sent to given email.',
+    'sent' => 'Login link sent to given email.',
     'wait' => 'Please wait before requesting a new one-time login link.',
     'invalid' => 'Invalid or expired token.',
-    'subject' => 'One-Time Login',
-    'action' => 'Log in',
-    'intro' => 'To log in to your account, click the button below.',
-    'expires' => 'Note: The login link expires in 1 hour and can be used only once.',
+    'subject' => 'Your One-Time Login',
+    'action' => 'Log In Now',
+    'intro' => 'Click below to securely log in with your one-time link.',
+    'expires' => 'This link will expire soon. If you didn’t request it, you can safely ignore this email.',
 
 ];

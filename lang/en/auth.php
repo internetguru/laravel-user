@@ -7,21 +7,21 @@ return [
     'demo.email' => 'Email',
     'demo.submit' => 'Log in',
 
-    'login.title' => 'Choose login provider',
+    'login.title' => 'Log in with a provider',
 
-    'register.title' => 'Choose a provider for registration',
+    'register.title' => 'Register with a provider',
     'register.submit' => 'Submit',
 
-    'register-email.title' => 'Enter your details',
-    'register-email.submit' => 'Submit',
-    'register-email.name' => 'Name',
-    'register-email.email' => 'Email',
+    'register-email.title' => 'Personal details',
+    'register-email.submit' => 'Create account',
+    'register-email.name' => 'Your name',
+    'register-email.email' => 'Your email',
 
     'token_auth.title' => 'Enter your email',
     'token_auth.email' => 'Email',
     'token_auth.submit' => 'Send link',
 
-    'login-register' => 'Login / Register',
+    'login-register' => 'Log in / Register',
 
     'error' => 'Authentication failed',
 ];
