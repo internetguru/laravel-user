@@ -15,8 +15,6 @@ return [
     'register.success' => 'Registrován jako :name.',
     'register.token-auth.success' => 'Účet vytvořen. Odkaz pro přihlášení odeslán na váš email.',
     'remember_me' => 'Zapamatovat si mě',
-    'transfer.notfound' => 'Identitu nelze přenést: identita nenalezena.',
-    'transfer.success' => 'Identita přenesena.',
     'unexpected' => 'Došlo k neočekávané chybě. Zkuste to prosím později.',
 
 ];

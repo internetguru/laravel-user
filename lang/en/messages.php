@@ -15,8 +15,6 @@ return [
     'register.success' => 'Registered as :name.',
     'register.token-auth.success' => 'Account created. Login link sent to your email.',
     'remember_me' => 'Remember me',
-    'transfer.notfound' => 'Unable to transfer: identity not found.',
-    'transfer.success' => 'Identity transferred.',
     'unexpected' => 'An unexpected error occurred. Please try again later.',
 
 ];

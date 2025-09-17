@@ -15,8 +15,6 @@ return [
     'register.success' => 'Registreret som :name.',
     'register.token-auth.success' => 'Konto oprettet. Loginlink er sendt til din e-mail.',
     'remember_me' => 'Husk mig',
-    'transfer.notfound' => 'Kunne ikke overføre: identitet blev ikke fundet.',
-    'transfer.success' => 'Identitet overført.',
     'unexpected' => 'Der opstod en uventet fejl. Prøv igen senere.',
 
 ];

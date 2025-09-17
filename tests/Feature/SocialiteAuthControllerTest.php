@@ -129,23 +129,6 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals(__('ig-user::messages.login.required'), session('errors')->first());
     }
 
-    public function testHandleProviderCallbackTransfer()
-    {
-        $controller = new SocialiteAuthController;
-        $request = Request::create('/socialite/google/transfer/callback', 'GET');
-
-        $providerUser = Mockery::mock(SocialiteUser::class);
-        $providerUser->shouldReceive('getId')->andReturn('12345');
-        $providerUser->shouldReceive('getEmail')->andReturn('test@example.com');
-        $providerMock = Mockery::mock('overload:' . Socialite::class);
-        $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
-
-        $response = $controller->handleProviderCallback('google', 'transfer');
-
-        $this->assertTrue(session()->has('errors'));
-        $this->assertEquals(__('ig-user::messages.login.required'), session('errors')->first());
-    }
-
     public function testHandleProviderCallbackUnexpectedException()
     {
         $controller = new SocialiteAuthController;

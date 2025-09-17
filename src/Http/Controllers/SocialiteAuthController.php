@@ -50,7 +50,6 @@ class SocialiteAuthController extends Controller
 
                     break;
                 case ProviderAction::CONNECT:
-                case ProviderAction::TRANSFER:
                     $this->loginRequired();
 
                     break;
@@ -109,10 +108,6 @@ class SocialiteAuthController extends Controller
                     $this->loginForbidden();
 
                     return User::socialiteRegister($provider, $providerUser);
-                case ProviderAction::TRANSFER:
-                    $this->loginRequired();
-
-                    return User::socialiteTransfer($provider, $providerUser);
                 default:
                     // should not happen
                     abort(404);
