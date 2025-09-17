@@ -2,12 +2,10 @@
 
 return [
 
-    'link' => 'link',
-    'unlink' => 'unlink',
     'add' => 'Link identity',
-
-    'google' => 'Google',
     'facebook' => 'Facebook',
+    'google' => 'Google',
     'seznam' => 'Seznam',
+    'unlink' => 'Unlink',
 
 ];
