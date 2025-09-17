@@ -8,6 +8,6 @@ return [
     'subject' => 'Jednorázové přihlášení',
     'action' => 'Přihlásit se',
     'intro' => 'Pro přihlášení do svého účtu klikněte na tlačítko níže.',
-    'expires' => 'Poznámka: Odkaz pro přihlášení vyprší za 1 hodinu a lze jej použít pouze jednou.',
+    'expires' => 'Tento odkaz brzy vyprší. Pokud jste ho nepožadovali, můžete tento e-mail bezpečně ignorovat.',
 
 ];

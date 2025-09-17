@@ -14,7 +14,7 @@ return [
     'register.submit' => 'Odeslat',
 
     'register-email.title' => 'Vložte své údaje',
-    'register-email.submit' => 'Odeslat',
+    'register-email.submit' => 'Vytvořit účet',
     'register-email.name' => 'Jméno',
     'register-email.email' => 'E-mail',
 
