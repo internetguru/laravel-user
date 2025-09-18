@@ -2,12 +2,10 @@
 
 return [
 
-    'link' => 'tilknyт',
-    'unlink' => 'frakobl',
-    'add' => 'Tilknyт identitet',
-
-    'google' => 'Google',
+    'add' => 'Tilknyt identitet',
     'facebook' => 'Facebook',
+    'google' => 'Google',
     'seznam' => 'Seznam',
+    'unlink' => 'Frakobl',
 
 ];

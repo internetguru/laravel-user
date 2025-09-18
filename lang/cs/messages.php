@@ -2,27 +2,19 @@
 
 return [
 
-    'connect.exists' => 'Nelze připojit: identita připojena k jinému účtu.',
-    'connect.exists.self' => 'Identita je již připojena.',
-    'connect.success' => 'Identita připojena.',
-
-    'disconnect.success' => 'Identita odpojena.',
-
-    'login.forbidden' => 'Chyba: pouze pro nepřihlášené uživatele.',
-    'login.notfound' => 'Nelze přihlásit: email nenalezen.',
-    'identity.notfound' => 'Nelze přihlásit: identita nenalezena.',
-    'login.required' => 'Chyba: je vyžadováno přihlášení.',
+    'connect.exists.self' => 'Identita je již připojena k vašemu účtu.',
+    'connect.exists' => 'Identitu nelze připojit: je již připojena k jinému účtu.',
+    'connect.success' => 'Identita připojena k vašemu účtu.',
+    'disconnect.success' => 'Identita odpojena od vašeho účtu.',
+    'identity.notfound' => 'Nepodařilo se přihlásit: identita ani její email nenalezeny.',
+    'login.forbidden' => 'Tato akce je pouze pro nepřihlášené uživatele.',
+    'login.notfound' => 'Email nenalezen.',
+    'login.required' => 'Tato akce vyžaduje přihlášení.',
     'login.success' => 'Přihlášen jako :name.',
-
-    'register.exists' => 'Nelze registrovat: identita nebo email již existuje.',
+    'register.exists' => 'Nelze registrovat: identita nebo její email již existují.',
     'register.success' => 'Registrován jako :name.',
-    'register.token-auth.success' => 'Nový účet byl vytvořen. Odkaz pro přihlášení byl odeslán na email.',
-
-    'remember_me' => 'Pamatovat si přihlášení',
-
-    'transfer.notfound' => 'Nelze přenést: identita nenalezena.',
-    'transfer.success' => 'Identita přenesena.',
-
+    'register.token-auth.success' => 'Účet vytvořen. Odkaz pro přihlášení odeslán na váš email.',
+    'remember_me' => 'Zapamatovat si mě',
     'unexpected' => 'Došlo k neočekávané chybě. Zkuste to prosím později.',
 
 ];

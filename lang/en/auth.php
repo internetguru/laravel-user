@@ -1,27 +1,21 @@
 <?php
 
 return [
-    'back' => 'Back to login page',
 
-    'demo.title' => 'Select a demo account',
+    'back' => 'Back to login page',
     'demo.email' => 'Email',
     'demo.submit' => 'Log in',
-
-    'login.title' => 'Choose login provider',
-
-    'register.title' => 'Choose a provider for registration',
-    'register.submit' => 'Submit',
-
-    'register-email.title' => 'Enter your details',
-    'register-email.submit' => 'Submit',
-    'register-email.name' => 'Name',
-    'register-email.email' => 'Email',
-
-    'token_auth.title' => 'Enter your email',
-    'token_auth.email' => 'Email',
-    'token_auth.submit' => 'Send link',
-
-    'login-register' => 'Login / Register',
-
+    'demo.title' => 'Select a demo account',
     'error' => 'Authentication failed',
+    'login-register' => 'Log in / Register',
+    'login.title' => 'Log in with a provider',
+    'register-email.email' => 'Your email',
+    'register-email.name' => 'Full name',
+    'register-email.submit' => 'Create account',
+    'register-email.title' => 'Personal information',
+    'register.title' => 'Register with a provider',
+    'token_auth.email' => 'Your email',
+    'token_auth.submit' => 'Send link',
+    'token_auth.title' => 'Enter your email',
+
 ];

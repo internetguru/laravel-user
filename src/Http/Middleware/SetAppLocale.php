@@ -70,6 +70,10 @@ class SetAppLocale
 
         foreach ($request->getLanguages() as $fullLang) {
             $lang = explode('_', $fullLang)[0];
+            // Special case: fallback Slovak to Czech if Slovak is not supported
+            if ($lang === 'sk' && !in_array('sk', array_keys($languages)) && in_array('cs', array_keys($languages))) {
+                return 'cs';
+            }
             if (in_array($lang, array_keys($languages))) {
                 return $lang;
             }
