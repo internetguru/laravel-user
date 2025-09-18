@@ -2,27 +2,19 @@
 
 return [
 
-    'connect.exists' => 'Kan ikke tilknytte: identitet tilknyttet en anden konto.',
-    'connect.exists.self' => 'Identitet allerede tilknyttet.',
-    'connect.success' => 'Identitet tilknyttet.',
-
-    'disconnect.success' => 'Identitet frakoblet.',
-
-    'login.forbidden' => 'Fejl: ikke tilgængelig for loggede brugere.',
-    'login.notfound' => 'Kan ikke logge ind: email ikke fundet.',
-    'identity.notfound' => 'Kan ikke logge ind: identitet ikke fundet.',
-    'login.required' => 'Fejl: handling kræver login.',
+    'connect.exists.self' => 'Identitet er allerede tilknyttet din konto.',
+    'connect.exists' => 'Kunne ikke tilknytte: identitet er allerede knyttet til en anden konto.',
+    'connect.success' => 'Identitet tilknyttet din konto.',
+    'disconnect.success' => 'Identitet fjernet fra din konto.',
+    'identity.notfound' => 'Login mislykkedes: identitet eller e-mail blev ikke fundet.',
+    'login.forbidden' => 'Denne handling er ikke tilgængelig, når du er logget ind.',
+    'login.notfound' => 'E-mail blev ikke fundet.',
+    'login.required' => 'Du skal være logget ind for at udføre denne handling.',
     'login.success' => 'Logget ind som :name.',
-
-    'register.exists' => 'Kan ikke registrere: identitet eller email allerede registreret.',
+    'register.exists' => 'Registrering mislykkedes: identitet eller e-mail findes allerede.',
     'register.success' => 'Registreret som :name.',
-    'register.token-auth.success' => 'Ny konto oprettet. Loginlink sendt til email.',
-
+    'register.token-auth.success' => 'Konto oprettet. Loginlink er sendt til din e-mail.',
     'remember_me' => 'Husk mig',
-
-    'transfer.notfound' => 'Kan ikke overføre: identitet ikke fundet.',
-    'transfer.success' => 'Identitet overført.',
-
-    'unexpected' => 'Uventet fejl opstod. Prøv igen senere.',
+    'unexpected' => 'Der opstod en uventet fejl. Prøv igen senere.',
 
 ];
