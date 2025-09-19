@@ -11,7 +11,7 @@ return [
     'login.notfound' => 'E-mail blev ikke fundet.',
     'login.required' => 'Du skal være logget ind for at udføre denne handling.',
     'login.success' => 'Logget ind som :name.',
-    'register.exists' => 'Registrering mislykkedes: identitet eller e-mail findes allerede.',
+    'register.exists' => 'Denne identitet er allerede registreret.',
     'register.success' => 'Registreret som :name.',
     'register.token-auth.success' => 'Konto oprettet. Loginlink er sendt til din e-mail.',
     'remember_me' => 'Husk mig',

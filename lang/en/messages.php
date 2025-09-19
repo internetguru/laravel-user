@@ -11,7 +11,7 @@ return [
     'login.notfound' => 'Email not found.',
     'login.required' => 'This action requires you to log in.',
     'login.success' => 'Logged in as :name.',
-    'register.exists' => 'Registration failed: identity or its email already exist.',
+    'register.exists' => 'This identity is already registered.',
     'register.success' => 'Registered as :name.',
     'register.token-auth.success' => 'Account created. Login link sent to your email.',
     'remember_me' => 'Remember me',
