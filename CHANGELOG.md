@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.5.3] - 2025-09-19
+
+### Added
+
+- Add signature to emails
+
 ## [2.5.2] - 2025-09-19
 
 ### Fixed
@@ -554,6 +560,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.5.3]: https://https://github.com/internetguru/laravel-user/compare/v2.5.2...v2.5.3
 [2.5.2]: https://https://github.com/internetguru/laravel-user/compare/v2.5.1...v2.5.2
 [2.5.1]: https://https://github.com/internetguru/laravel-user/compare/v2.5.0...v2.5.1
 [2.5.0]: https://https://github.com/internetguru/laravel-user/compare/v2.4.5...v2.5.0
