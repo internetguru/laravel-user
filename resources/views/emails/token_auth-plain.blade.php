@@ -8,5 +8,6 @@
 
 @lang('ig-user::token_auth.expires')
 
+
 @parent
 @endsection
