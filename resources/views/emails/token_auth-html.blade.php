@@ -9,6 +9,8 @@
 <x-ig-common::emails.button-html :link="$url">{{ $buttonText }}</x-ig-common::emails.button-html>
 
 <p>@lang('ig-user::token_auth.expires')</p>
+
+@parent
 @endsection
 
 @section('footer')
