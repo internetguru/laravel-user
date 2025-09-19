@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.5] - 2025-09-19
+
+### Fixed
+
+- Fix plain text email newlines
+
 ## [2.5.4] - 2025-09-19
 
 ### Fixed
@@ -563,6 +569,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[2.5.5]: https://https://github.com/internetguru/laravel-user/compare/v2.5.4...v2.5.5
 [2.5.4]: https://https://github.com/internetguru/laravel-user/compare/v2.5.3...v2.5.4
 [2.5.3]: https://https://github.com/internetguru/laravel-user/compare/v2.5.2...v2.5.3
 [2.5.2]: https://https://github.com/internetguru/laravel-user/compare/v2.5.1...v2.5.2
