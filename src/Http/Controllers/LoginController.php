@@ -13,8 +13,6 @@ class LoginController extends Controller
 {
     public function showLogin(Request $request)
     {
-        User::setAuthSessions($request);
-
         if (config('app.demo')) {
             $users = User::getDemoUsers();
 
@@ -60,6 +58,8 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
+        User::setAuthSessions($request);
+
         if (! config('app.demo')) {
             Log::warning(sprintf('Invalid login.'));
             abort(400);
