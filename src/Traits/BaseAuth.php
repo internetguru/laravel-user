@@ -17,7 +17,7 @@ trait BaseAuth
         return Role::class;
     }
 
-    public static function setAuthSessions(Request $request): array
+    public static function setAuthSessions(Request $request): void
     {
         session([
             'auth_prev' => $request->input('prev_url', null),
