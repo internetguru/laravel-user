@@ -58,13 +58,6 @@ class SocialiteAuthController extends Controller
                     abort(404);
             }
 
-            // save the previous url and remember option
-            session([
-                'auth_prev' => $request->input('prev_url', null),
-                'auth_back' => url()->previous(),
-                'auth_remember' => $request->input('remember') === 'true',
-            ]);
-
             // redirect to the OAuth provider with callback url in state
             $baseUrl = URL::to("/socialite/$provider->value/$action->value/callback");
             $encodedBaseUrl = urlencode($baseUrl);

@@ -4,6 +4,7 @@ namespace InternetGuru\LaravelUser\Traits;
 
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\User as UserModel;
 
@@ -14,6 +15,15 @@ trait BaseAuth
     public static function roles(): string
     {
         return Role::class;
+    }
+
+    public static function setAuthSessions(Request $request): array
+    {
+        session([
+            'auth_prev' => $request->input('prev_url', null),
+            'auth_back' => url()->previous(),
+            'auth_remember' => $request->input('remember') === 'true',
+        ]);
     }
 
     public static function getAuthSessions(): array
