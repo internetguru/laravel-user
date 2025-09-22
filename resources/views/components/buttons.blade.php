@@ -1,9 +1,7 @@
 @props([
     'providers' => App\Models\User::providers()::enabledCases(),
     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::LOGIN,
-    'prev_url' => (session('prevPage') ?? url()->previous()) === url()
-        ? url()->previous()
-        : (session('prevPage') ?? url()->previous()),
+    'prev_url' => App\Models\User::getPreviousUrl(),
     'showRemember' => false,
     'disabled' => false,
 ])
