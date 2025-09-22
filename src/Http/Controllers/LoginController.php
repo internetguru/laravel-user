@@ -11,8 +11,10 @@ use InternetGuru\LaravelCommon\Contracts\ReCaptchaInterface;
 
 class LoginController extends Controller
 {
-    public function showLogin()
+    public function showLogin(Request $request)
     {
+        User::setAuthSessions($request);
+
         if (config('app.demo')) {
             $users = User::getDemoUsers();
 
@@ -86,7 +88,7 @@ class LoginController extends Controller
         $user = auth()->getProvider()->retrieveByCredentials($credentials);
         auth()->login($user, $request->filled('remember'));
 
-        $request->session()->regenerate();
+        // $request->session()->regenerate(); // reason?
 
         return User::successLoginRedirect($user);
     }

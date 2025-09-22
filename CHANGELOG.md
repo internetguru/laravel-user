@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.5.6] - 2025-09-22
+
+### Fixed
+
+- Fix login redirect in demo.
+
 ## [2.5.5] - 2025-09-19
 
 ### Fixed
@@ -572,6 +578,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.5.6]: https://https://github.com/internetguru/laravel-user/compare/v2.5.5...v2.5.6
 [2.5.5]: https://https://github.com/internetguru/laravel-user/compare/v2.5.4...v2.5.5
 [2.5.4]: https://https://github.com/internetguru/laravel-user/compare/v2.5.3...v2.5.4
 [2.5.3]: https://https://github.com/internetguru/laravel-user/compare/v2.5.2...v2.5.3
