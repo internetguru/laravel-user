@@ -58,6 +58,8 @@ class SocialiteAuthController extends Controller
                     abort(404);
             }
 
+            User::setAuthSessions($request);
+
             // redirect to the OAuth provider with callback url in state
             $baseUrl = URL::to("/socialite/$provider->value/$action->value/callback");
             $encodedBaseUrl = urlencode($baseUrl);

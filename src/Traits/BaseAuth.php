@@ -17,6 +17,13 @@ trait BaseAuth
         return Role::class;
     }
 
+    public static function getPreviousUrl(): string
+    {
+        $prev = session('prevPage') ?? url()->previous();
+
+        return $prev === url() ? url()->previous() : $prev;
+    }
+
     public static function setAuthSessions(Request $request): void
     {
         session([
