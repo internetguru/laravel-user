@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.5.9] - 2025-09-24
+
+### Added
+
+- Add title to user menu icon.
+
 ## [2.5.8] - 2025-09-22
 
 ### Fixed
@@ -587,6 +593,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[2.5.9]: https://https://github.com/internetguru/laravel-user/compare/v2.5.8...v2.5.9
 [2.5.8]: https://https://github.com/internetguru/laravel-user/compare/v2.5.7...v2.5.8
 [2.5.7]: https://https://github.com/internetguru/laravel-user/compare/v2.5.6...v2.5.7
 [2.5.6]: https://https://github.com/internetguru/laravel-user/compare/v2.5.5...v2.5.6
