@@ -1,6 +1,7 @@
 @auth
     <div class="dropdown">
-        <a class="dropdown-toggle text-white" href="{{ route('users.show', auth()->user()) }}" role="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="dropdown-toggle text-white" href="{{ route('users.show', auth()->user()) }}" role="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false"
+            title="@lang('ig-user::user.detail')">
             <i class="fas fa-fw {{ auth()->user()->role->icon() }}"></i>
         </a>
         <ul class="dropdown-menu" aria-labelledby="userMenu">
