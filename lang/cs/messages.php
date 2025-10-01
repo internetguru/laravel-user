@@ -11,7 +11,7 @@ return [
     'login.notfound' => 'Email nenalezen.',
     'login.required' => 'Tato akce vyžaduje přihlášení.',
     'login.success' => 'Přihlášen jako :name.',
-    'register.exists' => 'Tato identita je již registrovaná.',
+    'register.exists' => 'Tato identita nebo její e-mailová adresa je již registrovaná.',
     'register.success' => 'Registrován jako :name.',
     'register.token-auth.success' => 'Účet vytvořen. Odkaz pro přihlášení odeslán na váš email.',
     'remember_me' => 'Zapamatovat si mě',
