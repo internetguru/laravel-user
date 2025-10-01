@@ -2,7 +2,9 @@
 
 namespace InternetGuru\LaravelUser;
 
+use Exception;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use InternetGuru\LaravelUser\Models\User;
@@ -18,6 +20,16 @@ class LaravelUserServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        // test session.expire_on_close is set to true and lifetime is set to 2 hours
+        if (config('session.expire_on_close') !== true || config('session.lifetime') != 120) {
+            $message = 'Set session.expire_on_close to true and session.lifetime to 120 (2 hours) in your config/session.php file.';
+            if (app()->hasDebugModeEnabled()) {
+                throw new Exception($message);
+            }
+
+            Log::warning($message);
+        }
+
         // load views, routes, translations, config
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ig-user');
         Route::middleware('web')->group(__DIR__ . '/../routes/web.php');

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Check `session.expire_on_close` and `session.lifetime` in `LaravelUserServiceProvider`.
+
 ## [2.5.10] - 2025-10-01
 
 ### Changed
