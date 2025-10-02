@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.7.0] - 2025-10-02
+
+_Stable release based on [2.7.0-rc.1]._
+
+## [2.7.0-rc.1] - 2025-10-02
+
+### Changed
+
+- Login and logout preserving current language.
+
 ## [2.6.0] - 2025-10-01
 
 _Stable release based on [2.6.0-rc.1]._
@@ -609,6 +619,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[2.7.0]: https://https://github.com/internetguru/laravel-user/compare/v2.6.0...v2.7.0
+[2.7.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.6.0
 [2.6.0]: https://https://github.com/internetguru/laravel-user/compare/v2.5.10...v2.6.0
 [2.6.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.5.10
 [2.5.10]: https://https://github.com/internetguru/laravel-user/compare/v2.5.9...v2.5.10

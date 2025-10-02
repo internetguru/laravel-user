@@ -72,10 +72,10 @@ class LoginController extends Controller
     {
         auth()->logout();
 
-        // $lang = session('locale');
+        $lang = session('locale');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        // $request->session()->put('locale', $lang);
+        $request->session()->put('locale', $lang);
 
         return redirect('/');
     }
@@ -86,10 +86,11 @@ class LoginController extends Controller
             'email' => 'required|string|exists:users',
         ]);
         $user = auth()->getProvider()->retrieveByCredentials($credentials);
+        $lang = app()->getLocale();
         auth()->login($user, $request->filled('remember'));
 
         // $request->session()->regenerate(); // reason?
 
-        return User::successLoginRedirect($user);
+        return User::successLoginRedirect($user, $lang);
     }
 }
