@@ -86,10 +86,11 @@ class LoginController extends Controller
             'email' => 'required|string|exists:users',
         ]);
         $user = auth()->getProvider()->retrieveByCredentials($credentials);
+        $lang = app()->getLocale();
         auth()->login($user, $request->filled('remember'));
 
         // $request->session()->regenerate(); // reason?
 
-        return User::successLoginRedirect($user);
+        return User::successLoginRedirect($user, $lang);
     }
 }
