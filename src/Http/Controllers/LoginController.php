@@ -72,10 +72,10 @@ class LoginController extends Controller
     {
         auth()->logout();
 
-        // $lang = session('locale');
+        $lang = session('locale');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        // $request->session()->put('locale', $lang);
+        $request->session()->put('locale', $lang);
 
         return redirect('/');
     }
