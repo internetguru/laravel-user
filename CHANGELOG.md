@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Separate login and demo-login views and add demo-login title and description translations.
+
 ## [2.7.0] - 2025-10-02
 
 _Stable release based on [2.7.0-rc.1]._

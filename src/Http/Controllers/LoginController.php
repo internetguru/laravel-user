@@ -17,7 +17,7 @@ class LoginController extends Controller
             $users = User::getDemoUsers();
 
             return view('ig-common::layouts.base', [
-                'view' => 'login',
+                'view' => 'login-demo',
                 'prefix' => 'ig-user::',
                 'props' => compact('users'),
             ]);
