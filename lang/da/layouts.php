@@ -4,6 +4,8 @@ return [
 
     'login.description' => 'Log ind med en udbyder eller få tilsendt et login-link.',
     'login.title' => 'Log ind med en udbyder',
+    'login-demo.title' => 'Demo login',
+    'login-demo.description' => 'Demo login med forudindstillede brugere.',
     'register-email.description' => 'Opret dig med dit navn og din e-mail.',
     'register-email.title' => 'Opret en ny konto manuelt',
     'register.description' => 'Opret dig via en udbyder eller manuelt.',

@@ -4,6 +4,8 @@ return [
 
     'login.description' => 'Přihlaste se pomocí poskytovatele nebo jednorázovým odkazem.',
     'login.title' => 'Přihlášení identitou',
+    'login-demo.title' => 'Demo přihlášení',
+    'login-demo.description' => 'Demo přihlášení pomocí přednastavených uživatelů.',
     'register-email.description' => 'Zaregistrujte se pouze pomocí vašeho jména a emailu.',
     'register-email.title' => 'Vytvořit nový účet ručně',
     'register.description' => 'Zaregistrujte se pomocí poskytovatele nebo ručně.',
