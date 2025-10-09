@@ -4,6 +4,8 @@ return [
 
     'login.description' => 'Log in with a provider or request a login link.',
     'login.title' => 'Log in with a provider',
+    'login-demo.title' => 'Demo login',
+    'login-demo.description' => 'Demo login with pre-set users.',
     'register-email.description' => 'Register with just your name and email.',
     'register-email.title' => 'Create a new account manually',
     'register.description' => 'Register with a provider or manually.',
