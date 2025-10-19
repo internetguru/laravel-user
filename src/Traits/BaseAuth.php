@@ -54,7 +54,7 @@ trait BaseAuth
         if ($lang) {
             $to .= (str_contains($to, '?') ? '&' : '?') . "lang=$lang";
         }
-        return redirect()->to($to)->with('success', __('ig-user::messages.login.success', ['name' => $user->name]));
+        return redirect()->to($to)->with('success', __('ig-user::messages.login.success', ['name' => $user->name], $lang));
     }
 
     public static function registerUser(string $name, string $email): User

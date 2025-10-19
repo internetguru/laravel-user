@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.8.1] - 2025-10-19
+
+### Fixed
+
+- Fix success login redirect message lang.
+
 ## [2.8.0] - 2025-10-09
 
 _Stable release based on [2.8.0-rc.1]._
@@ -632,6 +638,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.8.1]: https://https://github.com/internetguru/laravel-user/compare/v2.8.0...v2.8.1
 [2.8.0]: https://https://github.com/internetguru/laravel-user/compare/v2.7.0...v2.8.0
 [2.8.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.7.0
 [2.7.0]: https://https://github.com/internetguru/laravel-user/compare/v2.6.0...v2.7.0
