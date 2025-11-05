@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Add IgUserSeeder.
+
 ## [2.8.1] - 2025-10-19
 
 ### Fixed
@@ -635,6 +641,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [2.8.1]: https://https://github.com/internetguru/laravel-user/compare/v2.8.0...v2.8.1
 [2.8.0]: https://https://github.com/internetguru/laravel-user/compare/v2.7.0...v2.8.0
 [2.8.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.7.0
