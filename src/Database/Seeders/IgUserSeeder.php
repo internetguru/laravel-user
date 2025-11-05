@@ -3,7 +3,7 @@
 namespace InternetGuru\LaravelUser\Database\Seeders;
 
 use InternetGuru\LaravelUser\Enums\Provider;
-use InternetGuru\LaravelUser\Models\User;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class IgUserSeeder extends Seeder
