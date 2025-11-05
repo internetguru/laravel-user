@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.9.1] - 2025-11-05
+
+### Fixed
+
+- Fix user seeder use.
+
 ## [2.9.0] - 2025-11-05
 
 _Stable release based on [2.9.0-rc.1]._
@@ -648,6 +654,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.9.1]: https://https://github.com/internetguru/laravel-user/compare/v2.9.0...v2.9.1
 [2.9.0]: https://https://github.com/internetguru/laravel-user/compare/v2.8.1...v2.9.0
 [2.9.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.8.1
 [2.8.1]: https://https://github.com/internetguru/laravel-user/compare/v2.8.0...v2.8.1
