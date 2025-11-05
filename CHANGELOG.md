@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.9.2] - 2025-11-05
+
+### Fixed
+
+- Add missing WithSocialite trait.
+
 ## [2.9.1] - 2025-11-05
 
 ### Fixed
@@ -651,6 +657,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[2.9.2]: https://https://github.com/internetguru/laravel-user/compare/v2.9.1...v2.9.2
 [2.9.1]: https://https://github.com/internetguru/laravel-user/compare/v2.9.0...v2.9.1
 [2.9.0]: https://https://github.com/internetguru/laravel-user/compare/v2.8.1...v2.9.0
 [2.9.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v2.8.1
