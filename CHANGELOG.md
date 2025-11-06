@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.9.3] - 2025-11-06
+
+### Fixed
+
+- Fix missing To name when sending User notification.
+
 ## [2.9.2] - 2025-11-05
 
 ### Fixed
@@ -660,6 +666,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.9.3]: https://https://github.com/internetguru/laravel-user/compare/v2.9.2...v2.9.3
 [2.9.2]: https://https://github.com/internetguru/laravel-user/compare/v2.9.1...v2.9.2
 [2.9.1]: https://https://github.com/internetguru/laravel-user/compare/v2.9.0...v2.9.1
 [2.9.0]: https://https://github.com/internetguru/laravel-user/compare/v2.8.1...v2.9.0
