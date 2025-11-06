@@ -13,6 +13,7 @@ use InternetGuru\LaravelUser\Traits\BaseAuth;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
 use InternetGuru\LaravelUser\Traits\TokenAuth;
 use InternetGuru\LaravelUser\Enums\Provider;
+use Symfony\Component\Mime\Address;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -58,4 +59,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                 ]
             )->toArray();
     }
+
+    public function routeNotificationForMail($notification)
+    {
+        return [$this->email => $this->name];
+    }
+
 }
