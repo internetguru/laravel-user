@@ -85,7 +85,7 @@ class LoginController extends Controller
         $credentials = $request->validate([
             'email' => 'required|string|exists:users',
         ]);
-        $user = auth()->getProvider()->retrieveByCredentials($credentials);
+        $user = User::where('email', $credentials['email'])->first();
         $lang = app()->getLocale();
         auth()->login($user, $request->filled('remember'));
 

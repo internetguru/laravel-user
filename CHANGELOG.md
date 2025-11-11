@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.9.6] - 2025-11-11
+
+### Fixed
+
+- Fix tests.
+
 ## [2.9.5] - 2025-11-11
 
 ### Fixed
@@ -675,6 +681,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[2.9.6]: https://https://github.com/internetguru/laravel-user/compare/v2.9.5...v2.9.6
 [2.9.5]: https://https://github.com/internetguru/laravel-user/compare/v2.9.4...v2.9.5
 [2.9.4]: https://https://github.com/internetguru/laravel-user/compare/v2.9.3...v2.9.4
 [2.9.3]: https://https://github.com/internetguru/laravel-user/compare/v2.9.2...v2.9.3

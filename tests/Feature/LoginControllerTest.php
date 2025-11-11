@@ -39,7 +39,7 @@ class LoginControllerTest extends TestCase
         $response = $this->get(route('login'));
         $response->assertStatus(200);
         $response->assertViewIs('ig-common::layouts.base');
-        $response->assertViewHas('view', 'login');
+        $response->assertViewHas('view', 'login-demo');
         $response->assertViewHas('props', compact('users'));
     }
 
@@ -56,10 +56,11 @@ class LoginControllerTest extends TestCase
 
         $response = $this->post(route('login.authenticate'), [
             'email' => 'test@example.com',
+            'prev_url' => route('machines.index'),
         ]);
 
         $this->assertEquals(auth()->user()->id, $user->id);
-        $response->assertRedirect(route('machines.index'));
+        $response->assertRedirect(route('machines.index') . '?lang=en');
     }
 
     public function testLogout()
