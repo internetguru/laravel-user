@@ -104,7 +104,7 @@
                         $provider = $socialite->provider->value;
                     @endphp
                     <dt>
-                        {{ $socialite->name }} ({{ Str::ucfirst($provider) }})
+                        {{ strlen($socialite->name) ? $socialite->name : __('ig-user::user.no-name') }} ({{ Str::ucfirst($provider) }})
                         @if ($ownDetail)
                             <a
                                 class="btn btn-link link-danger"
