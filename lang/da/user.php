@@ -11,6 +11,7 @@ return [
     'information' => 'Brugerinformation',
     'logout' => 'Log ud',
     'name' => 'Navn',
+    'no-name' => 'Intet navn',
     'primary' => 'Primær',
     'role' => 'Rolle',
     'roles.admin' => 'Admin',

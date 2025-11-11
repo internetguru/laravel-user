@@ -11,6 +11,7 @@ return [
     'information' => 'User information',
     'logout' => 'Log out',
     'name' => 'Name',
+    'no-name' => 'No name',
     'primary' => 'Primary',
     'role' => 'Role',
     'roles.admin' => 'Admin',

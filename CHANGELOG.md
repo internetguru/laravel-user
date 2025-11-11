@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [2.9.5] - 2025-11-11
+
+### Fixed
+
+- Fallback socialite user missing name to No name.
+
 ## [2.9.4] - 2025-11-11
 
 ### Fixed
@@ -672,6 +678,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[2.9.5]: https://https://github.com/internetguru/laravel-user/compare/v2.9.4...v2.9.5
 [2.9.4]: https://https://github.com/internetguru/laravel-user/compare/v2.9.3...v2.9.4
 [2.9.3]: https://https://github.com/internetguru/laravel-user/compare/v2.9.2...v2.9.3
 [2.9.2]: https://https://github.com/internetguru/laravel-user/compare/v2.9.1...v2.9.2
