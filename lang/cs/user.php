@@ -11,6 +11,7 @@ return [
     'information' => 'Informace o uživateli',
     'logout' => 'Odhlásit se',
     'name' => 'Jméno',
+    'no-name' => 'Bez jména',
     'primary' => 'Primární',
     'role' => 'Role',
     'roles.admin' => 'Administrátor',
