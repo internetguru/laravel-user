@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Use laravel-common v3 notifications.
+
 ## [2.9.6] - 2025-11-11
 
 ### Fixed
