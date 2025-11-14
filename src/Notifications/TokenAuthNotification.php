@@ -2,33 +2,24 @@
 
 namespace InternetGuru\LaravelUser\Notifications;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\URL;
-use InternetGuru\LaravelCommon\Mail\MailMessage as IgMailMessage;
+use InternetGuru\LaravelCommon\Notifications\BaseNotification;
 use InternetGuru\LaravelUser\Models\TokenAuth;
 
-class TokenAuthNotification extends Notification
+class TokenAuthNotification extends BaseNotification
 {
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
-
-    public function __construct(public TokenAuth $tokenAuth) {}
-
-    public function via(): array
-    {
-        return ['mail'];
+    public function __construct(
+        public TokenAuth $tokenAuth
+    ) {
+        parent::__construct();
     }
 
-    public function toMail(): MailMessage
+    public function toMail(object $notifiable): MailMessage
     {
         $url = URL::signedRoute('token-auth.callback', ['token' => $this->tokenAuth->token]);
 
-        return (new IgMailMessage)
+        return parent::toMail($notifiable)
             ->subject(__('ig-user::token_auth.subject'))
             ->view(
                 [
@@ -36,7 +27,7 @@ class TokenAuthNotification extends Notification
                     'text' => 'ig-user::emails.token_auth-plain',
                 ],
                 [
-                    'url' => $url,
+                    'loginUrl' => $url,
                     'expires' => $this->tokenAuth->expires_at->diffForHumans(),
                 ]
             );
