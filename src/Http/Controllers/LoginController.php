@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use InternetGuru\LaravelCommon\Support\Helpers;
-use InternetGuru\LaravelCommon\Contracts\ReCaptchaInterface;
 
 class LoginController extends Controller
 {
@@ -41,10 +40,10 @@ class LoginController extends Controller
         return view('ig-common::layouts.base', ['view' => 'register-email', 'prefix' => 'ig-user::']);
     }
 
-    public function handleRegisterEmail(Request $request, ReCaptchaInterface $recaptcha)
+    public function handleRegisterEmail(Request $request)
     {
-        $recaptcha->validate($request);
         $request->validate([
+            'g-recaptcha-response' => 'recaptchav3',
             'name' => 'required|string|max:255',
             'email' => 'required|email:rfc,dns|max:255|unique:users',
         ]);
