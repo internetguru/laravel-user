@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [4.0.0-rc.1] - 2025-12-02
 
+### Changed
+
+- Use laravel-common v4 recaptcha.
+- Update PHP requirement to ^8.4.
+
 ## [3.0.0] - 2025-11-14
 
 _Stable release based on [3.0.0-rc.1]._
