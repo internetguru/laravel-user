@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use InternetGuru\LaravelCommon\Contracts\ReCaptchaInterface;
 
 class TokenAuthController extends Controller
 {
@@ -29,10 +28,10 @@ class TokenAuthController extends Controller
     /**
      * Send the token auth link to the user based on the form email input
      */
-    public function handleTokenAuthSendForm(Request $request, ReCaptchaInterface $recaptcha): RedirectResponse
+    public function handleTokenAuthSendForm(Request $request): RedirectResponse
     {
-        $recaptcha->validate($request);
         $request->validate([
+            'g-recaptcha-response' => 'recaptchav3',
             'email' => 'required|email|max:255',
         ]);
         try {
