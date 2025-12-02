@@ -20,6 +20,7 @@ abstract class TestCase extends Orchestra
         return [
             LaravelUserServiceProvider::class,
             CommonServiceProvider::class,
+            RecaptchaV3ServiceProvider::class,
             LivewireServiceProvider::class,
             SocialiteServiceProvider::class,
             ModelBrowserServiceProvider::class,
