@@ -65,4 +65,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return [$this->email => $this->name];
     }
 
+    public static function summary()
+    {
+        return static::query()->when(
+            auth()?->user()->role !== static::roles()::ADMIN,
+            fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)
+        )->get();
+    }
 }
