@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Only admin can see other admins in user list.
+
 ## [4.0.0] - 2025-12-02
 
 _Stable release based on [4.0.0-rc.1]._
