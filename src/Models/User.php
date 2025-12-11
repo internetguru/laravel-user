@@ -48,6 +48,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return Provider::class;
     }
 
+    public static function publicRolesArray(): array
+    {
+        return array_filter(
+            static::roles()::cases(),
+            fn ($role) => $role !== static::roles()::ADMIN
+        );
+    }
+
     public static function getDemoUsers(): array
     {
         return self::all()
