@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.1.5] - 2025-12-16
+
+### Fixed
+
+- Fix registration email language.
+
 ## [4.1.4] - 2025-12-15
 
 ### Added
@@ -739,6 +745,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[4.1.5]: https://https://github.com/internetguru/laravel-user/compare/v4.1.4...v4.1.5
 [4.1.4]: https://https://github.com/internetguru/laravel-user/compare/v4.1.3...v4.1.4
 [4.1.3]: https://https://github.com/internetguru/laravel-user/compare/v4.1.2...v4.1.3
 [4.1.2]: https://https://github.com/internetguru/laravel-user/compare/v4.1.1...v4.1.2

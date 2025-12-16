@@ -48,6 +48,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return Provider::class;
     }
 
+    public function preferredLocale(): string
+    {
+        return $this->lang;
+    }
+
     public static function publicRolesArray(): array
     {
         return array_filter(
