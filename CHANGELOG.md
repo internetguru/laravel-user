@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.1.4] - 2025-12-15
+
+### Added
+
+- Add autocomplete to inputs.
+
 ## [4.1.3] - 2025-12-11
 
 ### Added
@@ -733,6 +739,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[4.1.4]: https://https://github.com/internetguru/laravel-user/compare/v4.1.3...v4.1.4
 [4.1.3]: https://https://github.com/internetguru/laravel-user/compare/v4.1.2...v4.1.3
 [4.1.2]: https://https://github.com/internetguru/laravel-user/compare/v4.1.1...v4.1.2
 [4.1.1]: https://https://github.com/internetguru/laravel-user/compare/v4.1.0...v4.1.1
