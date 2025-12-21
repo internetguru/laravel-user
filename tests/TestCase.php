@@ -5,6 +5,7 @@ namespace Tests;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use InternetGuru\LaravelCommon\CommonServiceProvider;
+use InternetGuru\LaravelRecaptchaV3\RecaptchaV3ServiceProvider;
 use InternetGuru\LaravelUser\LaravelUserServiceProvider;
 use Internetguru\ModelBrowser\ModelBrowserServiceProvider;
 use Laravel\Socialite\SocialiteServiceProvider;
