@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.1.7] - 2025-12-21
+
+### Fixed
+
+- Fix test import for recaptcha, fix local tests php version.
+
 ## [4.1.6] - 2025-12-21
 
 ### Fixed
@@ -748,6 +754,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[4.1.7]: https://https://github.com/internetguru/laravel-user/compare/v4.1.6...v4.1.7
 [4.1.6]: https://https://github.com/internetguru/laravel-user/compare/v4.1.5...v4.1.6
 [4.1.5]: https://https://github.com/internetguru/laravel-user/compare/v4.1.4...v4.1.5
 [4.1.4]: https://https://github.com/internetguru/laravel-user/compare/v4.1.3...v4.1.4
