@@ -60,7 +60,7 @@ class LoginController extends Controller
         User::setAuthSessions($request);
 
         if (! config('app.demo')) {
-            Log::warning(sprintf('Invalid login.'));
+            Log::info(sprintf('Invalid login.'));
             abort(400);
         }
 
