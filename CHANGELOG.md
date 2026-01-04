@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.1.8] - 2026-01-04
+
+### Fixed
+
+- Update the log level for failed logins to info instead of warning.
+
 ## [4.1.7] - 2025-12-21
 
 ### Fixed
@@ -757,6 +763,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[4.1.8]: https://https://github.com/internetguru/laravel-user/compare/v4.1.7...v4.1.8
 [4.1.7]: https://https://github.com/internetguru/laravel-user/compare/v4.1.6...v4.1.7
 [4.1.6]: https://https://github.com/internetguru/laravel-user/compare/v4.1.5...v4.1.6
 [4.1.5]: https://https://github.com/internetguru/laravel-user/compare/v4.1.4...v4.1.5
