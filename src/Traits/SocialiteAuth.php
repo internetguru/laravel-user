@@ -25,7 +25,7 @@ trait SocialiteAuth
             ->user ?? null;
     }
 
-    public static function getByEmail(string $email): ?User
+    public static function getByEmail(?string $email): ?User
     {
         // User email may be missing if permission was declined by the user
         if (! $email) {
