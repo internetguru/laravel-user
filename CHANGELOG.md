@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Restrict Socialite email usage to register/connect actions and ensure it fails gracefully if the email is absent.
+
 ## [4.1.8] - 2026-01-04
 
 ### Fixed
@@ -760,6 +766,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [4.1.8]: https://https://github.com/internetguru/laravel-user/compare/v4.1.7...v4.1.8
 [4.1.7]: https://https://github.com/internetguru/laravel-user/compare/v4.1.6...v4.1.7
 [4.1.6]: https://https://github.com/internetguru/laravel-user/compare/v4.1.5...v4.1.6

@@ -25,38 +25,53 @@ trait SocialiteAuth
             ->user ?? null;
     }
 
+    public static function getByEmail($provider, string $email): ?User
+    {
+        // User email may be missing if permission was declined by the user
+        if (! $email) {
+            return null;
+        }
+
+        return User::where('email', $email)->first();
+    }
+
     public static function socialiteLoginAndConnect($provider, SocialiteUser $providerUser): RedirectResponse
     {
-        $user = User::where('email', $providerUser->email)->first();
-        $connectedUser = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
 
-        if (! $user && ! $connectedUser) {
+        // Try to find user by provider id first
+        $user = User::getBySocialiteProvider($provider, $providerUser->id);
+        $foundByProviderId = (bool) $user;
+
+        // Then try to find user by email
+        if (! $user) {
+            $user = User::getByEmail($provider, $providerUser->email);
+        }
+
+        // If still not found, abort
+        if (! $user) {
             Log::info('User not found', ['provider_user' => $providerUser]);
 
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.identity.notfound'));
         }
 
-        auth()->login($connectedUser ?? $user, $remember);
-        User::authenticated(auth()->user());
+        auth()->login($user, $remember);
+        User::authenticated($user);
 
-        if (! $connectedUser) {
+        // Connect socialite if not connected yet
+        if (! $foundByProviderId) {
             User::socialiteConnect($provider, $providerUser);
         }
 
-        return User::successLoginRedirect($user ?? $connectedUser);
+        return User::successLoginRedirect($user);
     }
 
     public static function socialiteConnect($provider, SocialiteUser $providerUser): RedirectResponse
     {
         $user = User::getBySocialiteProvider($provider, $providerUser->id);
-        [$prevUrl, $backUrl] = User::getAuthSessions();
 
         if ($user) {
             // transfer
-            if ($user->email == auth()->user()->email) {
-                return redirect()->to($backUrl)->withErrors(__('ig-user::messages.connect.exists.self'));
-            }
             $user->socialites()
                 ->where('provider', $provider)
                 ->firstOrFail()
@@ -67,22 +82,26 @@ trait SocialiteAuth
                 'provider' => $provider,
                 'provider_id' => $providerUser->id,
                 'name' => $providerUser->name,
-                'email' => $providerUser->email,
             ]);
             auth()->user()
                 ->socialites()
                 ->save($socialite);
         }
 
-        return redirect()->to($prevUrl)->with('success', __('ig-user::messages.connect.success'));
+        return redirect()->to(route('users.show', ['user' => auth()->user()]))->with('success', __('ig-user::messages.connect.success'));
     }
 
     public static function socialiteRegister($provider, SocialiteUser $providerUser): RedirectResponse
     {
-        $user = User::getBySocialiteProvider($provider, $providerUser->id);
         [$prevUrl, $backUrl] = User::getAuthSessions();
+        if (! $providerUser->email) {
+            // Email is required for registration
+            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.noemail'));
+        }
 
-        if ($user || User::where('email', $providerUser->email)->exists()) {
+        $user = User::getBySocialiteProvider($provider, $providerUser->id);
+        $userByEmail = User::getByEmail($provider, $providerUser->email);
+        if ($user || $userByEmail) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }
 
@@ -93,7 +112,6 @@ trait SocialiteAuth
             'provider' => $provider,
             'provider_id' => $providerUser->id,
             'name' => $providerUser->name,
-            'email' => $providerUser->email,
         ]);
         $user->socialites()->save($socialite);
 

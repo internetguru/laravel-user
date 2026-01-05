@@ -12,6 +12,7 @@ return [
     'login.required' => 'This action requires you to log in.',
     'login.success' => 'Logged in as :name.',
     'register.exists' => 'This identity or its email is already registered.',
+    'register.noemail' => 'Registration failed: the provided identity does not contain an email address.',
     'register.success' => 'Registered as :name.',
     'register.token-auth.success' => 'Account created. Login link sent to your email.',
     'remember_me' => 'Remember me',
