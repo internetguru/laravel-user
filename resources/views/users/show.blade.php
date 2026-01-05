@@ -107,7 +107,10 @@
                         <i class="{{ config("services.{$provider}.icon") }} socialite-{{ $provider }}-icon"></i>
                         {{ Str::ucfirst($provider) }}
                     </dt>
-                    <dd>
+                    @if ($socialite->email)
+                        <dd class="mb-0 mt-2" style="min-height: 0; line-height: 1;">{{ $socialite->email }}</dd>
+                    @endif
+                    <dd class="mt-0">
                         {{ strlen($socialite->name) ? $socialite->name : __('ig-user::user.no-name') }}
                         @if ($ownDetail)
                             <a

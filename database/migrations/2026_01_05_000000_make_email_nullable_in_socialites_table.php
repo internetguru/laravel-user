@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('socialites', function (Blueprint $table) {
-            $table->dropColumn('email');
+            $table->string('email')->nullable()->change();
         });
     }
 
@@ -21,8 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('socialites', function (Blueprint $table) {
-            $table->string('email')->nullable()->after('name');
-        });
+        // This migration is not truly reversible since data may have NULL emails.
+        // For testing purposes, we just keep the nullable state.
     }
 };

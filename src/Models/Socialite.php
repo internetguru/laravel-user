@@ -12,6 +12,7 @@ class Socialite extends Model
         'provider',
         'provider_id',
         'name',
+        'email',
     ];
 
     protected function casts(): array
