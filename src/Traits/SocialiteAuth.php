@@ -25,7 +25,7 @@ trait SocialiteAuth
             ->user ?? null;
     }
 
-    public static function getByEmail($provider, string $email): ?User
+    public static function getByEmail(string $email): ?User
     {
         // User email may be missing if permission was declined by the user
         if (! $email) {
@@ -45,7 +45,7 @@ trait SocialiteAuth
 
         // Then try to find user by email
         if (! $user) {
-            $user = User::getByEmail($provider, $providerUser->email);
+            $user = User::getByEmail($providerUser->email);
         }
 
         // If still not found, abort
@@ -100,7 +100,7 @@ trait SocialiteAuth
         }
 
         $user = User::getBySocialiteProvider($provider, $providerUser->id);
-        $userByEmail = User::getByEmail($provider, $providerUser->email);
+        $userByEmail = User::getByEmail($providerUser->email);
         if ($user || $userByEmail) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }

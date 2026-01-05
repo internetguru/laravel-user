@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.2.1] - 2026-01-05
+
+### Fixed
+
+- Make socialite email optional instead of removing it completely.
+
 ## [4.2.0] - 2026-01-05
 
 _Stable release based on [4.2.0-rc.1]._
@@ -773,6 +779,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[4.2.1]: https://https://github.com/internetguru/laravel-user/compare/v4.2.0...v4.2.1
 [4.2.0]: https://https://github.com/internetguru/laravel-user/compare/v4.1.8...v4.2.0
 [4.2.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v4.1.8
 [4.1.8]: https://https://github.com/internetguru/laravel-user/compare/v4.1.7...v4.1.8
