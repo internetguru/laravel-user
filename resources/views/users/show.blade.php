@@ -104,7 +104,11 @@
                         $provider = $socialite->provider->value;
                     @endphp
                     <dt>
-                        {{ strlen($socialite->name) ? $socialite->name : __('ig-user::user.no-name') }} ({{ Str::ucfirst($provider) }})
+                        <i class="{{ config("services.{$provider}.icon") }} socialite-{{ $provider }}-icon"></i>
+                        {{ Str::ucfirst($provider) }}
+                    </dt>
+                    <dd>
+                        {{ strlen($socialite->name) ? $socialite->name : __('ig-user::user.no-name') }}
                         @if ($ownDetail)
                             <a
                                 class="btn btn-link link-danger"
@@ -113,15 +117,6 @@
                                     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
                                 ]) }}"
                             >@lang('ig-user::socialite.unlink')</a>
-                        @endif
-                    </dt>
-                    <dd class="d-flex flex-wrap gap-2">
-                        {{ $socialite->email }}
-                        @if ($socialite->email != $user->email)
-                            <x-ig::form class="editable-skip" :recaptcha="false" :action="route('users.update', $user)">
-                                <input type="hidden" name="email" value="{{ $socialite->email }}" />
-                                <button type="submit" class="btn btn-link">@lang('ig-user::user.set-primary')</button>
-                            </x-ig::form>
                         @endif
                     </dd>
                 @endforeach

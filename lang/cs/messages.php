@@ -12,6 +12,7 @@ return [
     'login.required' => 'Tato akce vyžaduje přihlášení.',
     'login.success' => 'Přihlášen jako :name.',
     'register.exists' => 'Tato identita nebo její e-mailová adresa je již registrovaná.',
+    'register.noemail' => 'Registrace se nezdařila: poskytnutá identita neobsahuje e-mailovou adresu.',
     'register.success' => 'Registrován jako :name.',
     'register.token-auth.success' => 'Účet vytvořen. Odkaz pro přihlášení odeslán na váš email.',
     'remember_me' => 'Zapamatovat si mě',
