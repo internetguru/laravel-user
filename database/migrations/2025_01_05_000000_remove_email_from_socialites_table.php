@@ -21,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        throw new \Exception('This migration cannot be reverted.');
+        Schema::table('socialites', function (Blueprint $table) {
+            $table->string('email')->nullable()->after('name');
+        });
     }
 };

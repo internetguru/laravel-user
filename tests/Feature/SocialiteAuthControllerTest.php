@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
@@ -17,7 +16,7 @@ class SocialiteAuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testHandleProviderActionLoginRequired()
+    public function test_handle_provider_action_login_required()
     {
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/disconnect', 'GET');
@@ -27,7 +26,7 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals(__('ig-user::messages.login.required'), session('errors')->first());
     }
 
-    public function testHandleProviderActionLoginForbidden()
+    public function test_handle_provider_action_login_forbidden()
     {
         $user = User::factory()->create();
         Auth::login($user);
@@ -40,7 +39,7 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals(__('ig-user::messages.login.forbidden'), session('errors')->first());
     }
 
-    public function testHandleProviderActionRedirectsToProvider()
+    public function test_handle_provider_action_redirects_to_provider()
     {
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/login', 'GET');
@@ -63,7 +62,7 @@ class SocialiteAuthControllerTest extends TestCase
 
         if ($createUser) {
             $user = User::factory()->create(['email' => $email]);
-            $user->socialites()->create(['provider' => 'google', 'provider_id' => $id, 'email' => $user->email, 'name' => $name]);
+            $user->socialites()->create(['provider' => 'google', 'provider_id' => $id, 'name' => $name]);
         }
 
         $providerUser = Mockery::mock(SocialiteUser::class);
@@ -76,7 +75,7 @@ class SocialiteAuthControllerTest extends TestCase
         return $user ?? null;
     }
 
-    public function testHandleProviderCallbackLogin()
+    public function test_handle_provider_callback_login()
     {
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/login/callback', 'GET');
@@ -90,7 +89,7 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals($user->id, Auth::id());
     }
 
-    public function testHandleProviderCallbackRegister()
+    public function test_handle_provider_callback_register()
     {
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/register/callback', 'GET');
@@ -112,7 +111,7 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertTrue(Auth::check());
     }
 
-    public function testHandleProviderCallbackConnect()
+    public function test_handle_provider_callback_connect()
     {
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/connect/callback', 'GET');
@@ -129,7 +128,7 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals(__('ig-user::messages.login.required'), session('errors')->first());
     }
 
-    public function testHandleProviderCallbackUnexpectedException()
+    public function test_handle_provider_callback_unexpected_exception()
     {
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/login/callback', 'GET');
