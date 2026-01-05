@@ -82,6 +82,7 @@ trait SocialiteAuth
                 'provider' => $provider,
                 'provider_id' => $providerUser->id,
                 'name' => $providerUser->name,
+                'email' => $providerUser->email,
             ]);
             auth()->user()
                 ->socialites()

@@ -107,7 +107,7 @@
                         <i class="{{ config("services.{$provider}.icon") }} socialite-{{ $provider }}-icon"></i>
                         {{ Str::ucfirst($provider) }}
                     </dt>
-                    <dd class="mb-0 mt-2" style="min-height: 0; line-height: 1;">
+                    <dd class="mb-3" style="line-height: 1.7em; min-height: auto;">
                         {{ strlen($socialite->name) ? $socialite->name : __('ig-user::user.no-name') }}
                         @if ($ownDetail)
                             <a
@@ -118,10 +118,10 @@
                                 ]) }}"
                             >@lang('ig-user::socialite.unlink')</a>
                         @endif
+                        @if ($socialite->email)
+                            <br/>{{ $socialite->email }}
+                        @endif
                     </dd>
-                    @if ($socialite->email)
-                        <dd class="mt-0">{{ $socialite->email }}</dd>
-                    @endif
                 @endforeach
             </dl>
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::socialite.add')</h2>
