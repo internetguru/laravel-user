@@ -4,13 +4,14 @@ namespace InternetGuru\LaravelUser\Traits;
 
 trait WithSocialite
 {
-    public function withSocialite($provider, $providerId, $name)
+    public function withSocialite($provider, $providerId, $name, $email = null)
     {
-        return $this->afterCreating(function ($user) use ($provider, $providerId, $name) {
+        return $this->afterCreating(function ($user) use ($provider, $providerId, $name, $email) {
             $user->socialites()->create([
                 'provider' => $provider,
                 'provider_id' => $providerId,
                 'name' => $name,
+                'email' => $email,
             ]);
         });
     }
