@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Restrict Socialite email usage to register/connect actions and ensure it fails gracefully if the email is absent.
+
 ## [4.1.8] - 2026-01-04
 
 ### Fixed
