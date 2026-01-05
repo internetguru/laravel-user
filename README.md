@@ -28,7 +28,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 2. Publish the migration files:
 
     ```sh
-    php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServiceProvider" --tag="migrations"
+    php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServiceProvider" --tag="ig-user:migrations"
     ```
 
 3. Run the migrations:
@@ -58,12 +58,12 @@ SEZNAM_REDIRECT_URI=your-seznam-redirect-uri
 ## Usage Examples
 
 ```blade
-<x-auth::buttons action="login" :showRemember="true" />
-<x-auth::buttons action="login" :showRemember="false" />
-<x-auth::buttons action="register"/>
-<x-auth::buttons action="connect"/>
+<x-ig-user::buttons action="login" :showRemember="true" />
+<x-ig-user::buttons action="login" :showRemember="false" />
+<x-ig-user::buttons action="register"/>
+<x-ig-user::buttons action="connect"/>
 
-<a href="{{ route('auth.action', [
+<a href="{{ route('socialite.action', [
     'provider' => InternetGuru\LaravelUser\Enums\Provider::GOOGLE,
     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
 ]) }}">Disconnect Google</a>

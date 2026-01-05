@@ -12,6 +12,7 @@ return [
     'login.required' => 'Du skal være logget ind for at udføre denne handling.',
     'login.success' => 'Logget ind som :name.',
     'register.exists' => 'Denne identitet eller dens mailadresse er allerede registreret.',
+    'register.noemail' => 'Registrering mislykkedes: den angivne identitet indeholder ingen e-mailadresse.',
     'register.success' => 'Registreret som :name.',
     'register.token-auth.success' => 'Konto oprettet. Loginlink er sendt til din e-mail.',
     'remember_me' => 'Husk mig',
