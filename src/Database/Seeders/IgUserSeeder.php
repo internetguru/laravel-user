@@ -21,7 +21,7 @@ class IgUserSeeder extends Seeder
             'pavelka.iix@gmail.com',
         )->create([
             'name' => 'George',
-            'email' => 'george@giftcarder.io',
+            'email' => 'george@internetguru.io',
             'role' => User::roles()::ADMIN,
         ]);
 
@@ -37,7 +37,7 @@ class IgUserSeeder extends Seeder
             'poulikpetrzela@gmail.com',
         )->create([
             'name' => 'Pavel',
-            'email' => 'pavel@giftcarder.io',
+            'email' => 'pavel@internetguru.io',
             'role' => User::roles()::ADMIN,
         ]);
     }

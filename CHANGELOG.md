@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.5] - 2026-01-18
+
+### Fixed
+
+- Update IG user seeder emails to @internetguru.io.
+
 ## [4.2.4] - 2026-01-05
 
 ### Fixed
@@ -794,6 +800,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[4.2.5]: https://https://github.com/internetguru/laravel-user/compare/v4.2.4...v4.2.5
 [4.2.4]: https://https://github.com/internetguru/laravel-user/compare/v4.2.3...v4.2.4
 [4.2.3]: https://https://github.com/internetguru/laravel-user/compare/v4.2.2...v4.2.3
 [4.2.2]: https://https://github.com/internetguru/laravel-user/compare/v4.2.1...v4.2.2
