@@ -2,6 +2,10 @@ name: Tests
 
 on: [push, pull_request]
 
+concurrency:
+  group: badges-push
+  cancel-in-progress: false
+
 jobs:
   test:
     runs-on: ubuntu-latest
