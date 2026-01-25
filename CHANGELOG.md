@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.6] - 2026-01-25
+
+### Changed
+
+- Update license to CC BY-NC-SA 4.0.
+
 ## [4.2.5] - 2026-01-18
 
 ### Fixed
@@ -800,6 +806,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[4.2.6]: https://https://github.com/internetguru/laravel-user/compare/v4.2.5...v4.2.6
 [4.2.5]: https://https://github.com/internetguru/laravel-user/compare/v4.2.4...v4.2.5
 [4.2.4]: https://https://github.com/internetguru/laravel-user/compare/v4.2.3...v4.2.4
 [4.2.3]: https://https://github.com/internetguru/laravel-user/compare/v4.2.2...v4.2.3
