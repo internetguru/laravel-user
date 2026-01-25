@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [4.2.9] - 2026-01-25
+
+### Fixed
+
+- Fix github worflow is sometimes canceled.
+
 ## [4.2.8] - 2026-01-25
 
 ### Fixed
@@ -821,6 +827,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[4.2.9]: https://https://github.com/internetguru/laravel-user/compare/v4.2.8...v4.2.9
 [4.2.8]: https://https://github.com/internetguru/laravel-user/compare/v4.2.7...v4.2.8
 [4.2.7]: https://https://github.com/internetguru/laravel-user/compare/v4.2.6...v4.2.7
 [4.2.6]: https://https://github.com/internetguru/laravel-user/compare/v4.2.5...v4.2.6
