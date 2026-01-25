@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.8] - 2026-01-25
+
+### Fixed
+
+- Fix workflow concurrency between repos.
+
 ## [4.2.7] - 2026-01-25
 
 ### Fixed
@@ -812,6 +818,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[4.2.8]: https://https://github.com/internetguru/laravel-user/compare/v4.2.7...v4.2.8
 [4.2.7]: https://https://github.com/internetguru/laravel-user/compare/v4.2.6...v4.2.7
 [4.2.6]: https://https://github.com/internetguru/laravel-user/compare/v4.2.5...v4.2.6
 [4.2.5]: https://https://github.com/internetguru/laravel-user/compare/v4.2.4...v4.2.5
