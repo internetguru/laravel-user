@@ -6,7 +6,7 @@ return [
     'connect.exists' => 'Kunne ikke tilknytte: identitet er allerede knyttet til en anden konto.',
     'connect.success' => 'Identitet tilknyttet din konto.',
     'disconnect.success' => 'Identitet fjernet fra din konto.',
-    'identity.notfound' => 'Login mislykkedes: identitet eller e-mail blev ikke fundet.',
+    'identity.notfound' => 'Login mislykkedes: identitet eller e-mail :email blev ikke fundet.',
     'login.forbidden' => 'Denne handling er ikke tilgængelig, når du er logget ind.',
     'login.notfound' => 'E-mail blev ikke fundet.',
     'login.required' => 'Du skal være logget ind for at udføre denne handling.',

@@ -6,7 +6,7 @@ return [
     'connect.exists' => 'Link failed: identity already linked to another account.',
     'connect.success' => 'Identity linked to your account.',
     'disconnect.success' => 'Identity unlinked from your account.',
-    'identity.notfound' => 'Log in failed: identity or its email not found.',
+    'identity.notfound' => 'Log in failed: identity or email :email not found.',
     'login.forbidden' => 'This ation is not available for logged-in users.',
     'login.notfound' => 'Email not found.',
     'login.required' => 'This action requires you to log in.',
