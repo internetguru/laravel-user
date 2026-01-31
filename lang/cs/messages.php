@@ -6,7 +6,7 @@ return [
     'connect.exists' => 'Identitu nelze připojit: je již připojena k jinému účtu.',
     'connect.success' => 'Identita připojena k vašemu účtu.',
     'disconnect.success' => 'Identita odpojena od vašeho účtu.',
-    'identity.notfound' => 'Nepodařilo se přihlásit: identita ani její email nenalezeny.',
+    'identity.notfound' => 'Nepodařilo se přihlásit: identita ani email :email nenalezeny.',
     'login.forbidden' => 'Tato akce je pouze pro nepřihlášené uživatele.',
     'login.notfound' => 'Email nenalezen.',
     'login.required' => 'Tato akce vyžaduje přihlášení.',
