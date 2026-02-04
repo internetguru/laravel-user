@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [5.0.0-rc.1] - 2026-02-04
 
+- Use laravel-model-browser v3 for user list and filters.
+
 ## [4.2.11] - 2026-01-31
 
 ### Fixed
