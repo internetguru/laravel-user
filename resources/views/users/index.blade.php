@@ -6,20 +6,23 @@
             'email' => __('ig-user::user.summary.email'),
             'role' => __('ig-user::user.summary.role'),
         ]"
-        :filterAttributes="[
-            'name',
-            'email',
-            'role',
+        :filters="[
+            'name' => ['label' => __('ig-user::user.summary.name')],
+            'email' => ['label' => __('ig-user::user.summary.email')],
+            'role' => [
+                'type' => 'options',
+                'label' => __('ig-user::user.summary.role'),
+                'options' => \App\Models\User::roleOptions(),
+            ],
         ]"
+        filterSessionKey="laravel-user-user-filters"
         :formats="[
             'name' => 'formatUserNameLink',
             'role' => 'formatUserRole',
         ]"
-        :enableSort="$enableSort ?? true"
-        :defaultSort="[
-            'name' => 'asc',
-            'email' => 'asc',
-        ]"
+        :enableSort="false"
+        defaultSortColumn="name"
+        defaultSortDirection="asc"
         :column-widths="[
             'name' => 'minmax(7em, 0.7fr)',
             'email' => 'minmax(10em, 1fr)',
