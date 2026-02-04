@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Traits\BaseAuth;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
 use InternetGuru\LaravelUser\Traits\TokenAuth;
-use InternetGuru\LaravelUser\Enums\Provider;
-use Symfony\Component\Mime\Address;
+use Internetguru\ModelBrowser\Traits\HasModelBrowserFilters;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
@@ -21,9 +21,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use Authorizable;
     use BaseAuth;
     use HasFactory;
+    use HasModelBrowserFilters;
     use Notifiable;
     use SocialiteAuth;
     use TokenAuth;
+
+    protected $modelBrowserFilterSessionKey = 'laravel-user-user-filters';
 
     protected $fillable = [
         'name',
@@ -73,6 +76,17 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             )->toArray();
     }
 
+    public static function roleOptions(): array
+    {
+        return array_map(
+            fn ($role) => [
+                'id' => $role->value,
+                'name' => $role->translation(),
+            ],
+            static::roles()::cases()
+        );
+    }
+
     public function routeNotificationForMail($notification)
     {
         return [$this->email => $this->name];
@@ -80,9 +94,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public static function summary()
     {
-        return static::query()->when(
-            auth()?->user()->role !== static::roles()::ADMIN,
-            fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)
-        )->get();
+        $filters = (new static)->getModelBrowserFilters();
+
+        return static::query()
+            ->when(
+                auth()?->user()->role !== static::roles()::ADMIN,
+                fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)
+            )
+            ->when($filters->get('name'), fn ($query, $value) => $query->where('name', 'like', "%{$value}%"))
+            ->when($filters->get('email'), fn ($query, $value) => $query->where('email', 'like', "%{$value}%"))
+            ->when($filters->get('role'), fn ($query, $value) => $query->where('role', $value));
     }
 }
