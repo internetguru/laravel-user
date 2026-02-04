@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+# Added
+
+- Add user preferences table with simple set and get methods.
+
 ## [5.0.0] - 2026-02-04
 
 _Stable release based on [5.0.0-rc.1]._

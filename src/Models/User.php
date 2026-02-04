@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use InternetGuru\LaravelUser\Enums\Provider;
@@ -90,6 +91,26 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function routeNotificationForMail($notification)
     {
         return [$this->email => $this->name];
+    }
+
+    public function preferences(): HasMany
+    {
+        return $this->hasMany(UserPreference::class);
+    }
+
+    public function getPreference(string $key, mixed $default = null): mixed
+    {
+        $preference = $this->preferences()->where('key', $key)->first();
+
+        return $preference ? $preference->value : $default;
+    }
+
+    public function setPreference(string $key, mixed $value): UserPreference
+    {
+        return $this->preferences()->updateOrCreate(
+            ['key' => $key],
+            ['value' => $value]
+        );
     }
 
     public static function summary()
