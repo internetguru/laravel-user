@@ -122,8 +122,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                 auth()?->user()->role !== static::roles()::ADMIN,
                 fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)
             )
-            ->when($filters->get('name'), fn ($query, $value) => $query->where('name', 'like', "%{$value}%"))
-            ->when($filters->get('email'), fn ($query, $value) => $query->where('email', 'like', "%{$value}%"))
+            ->when($filters->get('name'), fn ($query, $value) => $query->whereLikeUnaccented('name', $value))
+            ->when($filters->get('email'), fn ($query, $value) => $query->whereLikeUnaccented('email', $value))
             ->when($filters->get('role'), fn ($query, $value) => $query->where('role', $value));
     }
 }
