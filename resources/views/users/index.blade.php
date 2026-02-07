@@ -7,12 +7,13 @@
             'role' => __('ig-user::user.summary.role'),
         ]"
         :filters="[
-            'name' => ['label' => __('ig-user::user.summary.name')],
-            'email' => ['label' => __('ig-user::user.summary.email')],
+            'name' => ['label' => __('ig-user::user.summary.name'), 'column' => 'name'],
+            'email' => ['label' => __('ig-user::user.summary.email'), 'column' => 'email'],
             'role' => [
                 'type' => 'options',
                 'label' => __('ig-user::user.summary.role'),
                 'options' => \App\Models\User::roleOptions(),
+                'column' => 'role',
             ],
         ]"
         filterSessionKey="laravel-user-user-filters"
