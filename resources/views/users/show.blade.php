@@ -3,6 +3,7 @@
     x-data="{
         editName: false,
         editEmail: false,
+        editPhone: false,
         editRole: false,
     }"
     x-init="closeEdits = (opened) => {
@@ -11,6 +12,7 @@
         }
         editName = false;
         editEmail = false;
+        editPhone = false;
         editRole = false;
     }"
 >
@@ -57,6 +59,27 @@
                     <x-ig::form class="editable-skip" :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
                         <div class="input-group">
                             <input name="email" type="email" class="form-control" value="{{ $user->email }}" />
+                            <button type="submit" class="btn btn-primary">@lang('ig-user::user.save')</button>
+                        </div>
+                    </x-ig::form>
+                </dd>
+                {{-- phone --}}
+                <dt>
+                    @lang('ig-user::user.phone')
+                    @can('crud', $user)
+                        <button class="btn btn-link" @click.prevent="closeEdits(editPhone); editPhone = !editPhone">
+                            <span x-show="!editPhone">@lang('ig-user::user.edit')</span>
+                            <span x-show="editPhone">@lang('ig-user::user.cancel')</span>
+                        </button>
+                    @endcan
+                </dt>
+                <dd x-bind:class="{ 'user-edit-active': editPhone }">
+                    <span x-show="!editPhone">
+                        {{ $user->phone ?? '—' }}
+                    </span>
+                    <x-ig::form class="editable-skip" :recaptcha="false" x-show="editPhone" :action="route('users.update', $user)">
+                        <div class="input-group">
+                            <input name="phone" type="tel" class="form-control" value="{{ $user->phone }}" />
                             <button type="submit" class="btn btn-primary">@lang('ig-user::user.save')</button>
                         </div>
                     </x-ig::form>

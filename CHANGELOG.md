@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add optional phone number to user settings.
+
 ## [5.1.2] - 2026-02-07
 
 ### Changed
