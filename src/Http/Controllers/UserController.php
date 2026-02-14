@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
-use InternetGuru\LaravelUser\Enums\Role;
 
 class UserController extends Controller
 {
@@ -42,6 +41,11 @@ class UserController extends Controller
             Gate::authorize('crud', $user);
 
             return $this->updateEmail($request, $user);
+        }
+        if ($request->has('phone')) {
+            Gate::authorize('crud', $user);
+
+            return $this->updatePhone($request, $user);
         }
         if ($request->has('role')) {
             $request->validate([
@@ -79,6 +83,17 @@ class UserController extends Controller
         $user->save();
 
         return back()->with('success', __('ig-user::user.update.email'));
+    }
+
+    private function updatePhone(Request $request, User $user)
+    {
+        $request->validate([
+            'phone' => 'nullable|string|max:50',
+        ]);
+        $user->phone = $request->phone ?: null;
+        $user->save();
+
+        return back()->with('success', __('ig-user::user.update.phone'));
     }
 
     private function updateRole(Request $request, User $user, $role)
