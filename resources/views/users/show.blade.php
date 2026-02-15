@@ -39,7 +39,7 @@
                     </span>
                     <x-ig::form class="editable-skip" :recaptcha="false" x-show="editName" :action="route('users.update', $user)">
                         <div class="input-group">
-                            <input name="name" type="text" class="form-control" value="{{ $user->name }}" />
+                            <input name="name" type="text" class="form-control" value="{{ $user->name }}" autocomplete="name" />
                             <button type="submit" class="btn btn-primary">@lang('ig-user::user.save')</button>
                         </div>
                     </x-ig::form>
@@ -58,7 +58,7 @@
                     <span x-show="!editEmail">{{ $user->email }}</span>
                     <x-ig::form class="editable-skip" :recaptcha="false" x-show="editEmail" :action="route('users.update', $user)">
                         <div class="input-group">
-                            <input name="email" type="email" class="form-control" value="{{ $user->email }}" />
+                            <input name="email" type="email" class="form-control" value="{{ $user->email }}" autocomplete="email" />
                             <button type="submit" class="btn btn-primary">@lang('ig-user::user.save')</button>
                         </div>
                     </x-ig::form>
@@ -79,7 +79,7 @@
                     </span>
                     <x-ig::form class="editable-skip" :recaptcha="false" x-show="editPhone" :action="route('users.update', $user)">
                         <div class="input-group">
-                            <input name="phone" type="tel" class="form-control" value="{{ $user->phone }}" />
+                            <input name="phone" type="tel" class="form-control" value="{{ $user->phone }}" autocomplete="tel" />
                             <button type="submit" class="btn btn-primary">@lang('ig-user::user.save')</button>
                         </div>
                     </x-ig::form>
