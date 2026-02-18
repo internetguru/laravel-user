@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Add migration for created_by (auto-set to auth user id) and logged_at.
+- Save logged_at on every successful login via authenticated method.
+- Add scopeFilterAutomatic to hide unused automatic accounts in summary.
+- Allow registration to reuse automatic accounts.
+- Skip automatic users in getDemoUsers method.
+
 ## [5.2.1] - 2026-02-15
 
 ### Fixed
@@ -882,6 +892,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [5.2.1]: https://https://github.com/internetguru/laravel-user/compare/v5.2.0...v5.2.1
 [5.2.0]: https://https://github.com/internetguru/laravel-user/compare/v5.1.2...v5.2.0
 [5.2.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v5.1.2

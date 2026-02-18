@@ -17,6 +17,8 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'remember_token' => Str::random(10),
             'role' => fake()->randomElement(Role::cases())->value,
+            'created_by' => null,
+            'logged_at' => now(),
         ];
     }
 
@@ -32,5 +34,14 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'role' => $role->value,
         ]);
+    }
+
+    public function automatic(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'logged_at' => null,
+        ])->afterCreating(function ($user) {
+            $user->update(['created_by' => $user->id]);
+        });
     }
 }
