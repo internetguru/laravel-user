@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
@@ -35,6 +36,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'phone',
         'role',
         'lang',
+        'created_by',
+        'logged_at',
     ];
 
     protected $hidden = [
@@ -45,7 +48,29 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return [
             'role' => static::roles(),
+            'logged_at' => 'datetime',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::creating(function ($user) {
+            if (! array_key_exists('created_by', $user->getAttributes())) {
+                $user->created_by = auth()->id();
+            }
+        });
+    }
+
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(static::class, 'created_by');
+    }
+
+    public function isAutomatic(): bool
+    {
+        return $this->created_by !== null
+            && $this->created_by === $this->id
+            && $this->logged_at === null;
     }
 
     public static function providers(): string
@@ -69,6 +94,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public static function getDemoUsers(): array
     {
         return self::all()
+            ->reject(fn ($user) => $user->isAutomatic())
             ->sortBy(fn ($user) => $user->role->level())
             ->map(
                 fn ($user) => [
@@ -114,9 +140,21 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         );
     }
 
+    public function scopeFilterAutomatic($query)
+    {
+        $table = $this->getTable();
+
+        return $query->where(function ($q) use ($table) {
+            $q->whereNull("{$table}.created_by")
+                ->orWhereColumn("{$table}.created_by", '!=', "{$table}.id")
+                ->orWhereNotNull("{$table}.logged_at");
+        });
+    }
+
     public static function summary()
     {
         return static::query()
+            ->filterAutomatic()
             ->when(
                 auth()?->user()->role !== static::roles()::ADMIN,
                 fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)

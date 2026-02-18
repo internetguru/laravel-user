@@ -101,13 +101,28 @@ trait SocialiteAuth
         }
 
         $user = User::getBySocialiteProvider($provider, $providerUser->id);
-        $userByEmail = User::getByEmail($providerUser->email);
-        if ($user || $userByEmail) {
+        if ($user) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }
 
-        $user = User::registerUser($providerUser->name, $providerUser->email);
-        event(new Registered($user));
+        // Check by email including automatic accounts
+        $userByEmail = User::where('email', $providerUser->email)->first();
+
+        if ($userByEmail) {
+            if ($userByEmail->isAutomatic()) {
+                // Rewrite created_by and continue registration
+                $userByEmail->update([
+                    'created_by' => null,
+                    'name' => $providerUser->name,
+                ]);
+                $user = $userByEmail;
+            } else {
+                return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
+            }
+        } else {
+            $user = User::registerUser($providerUser->name, $providerUser->email);
+            event(new Registered($user));
+        }
 
         $socialite = new Socialite([
             'provider' => $provider,

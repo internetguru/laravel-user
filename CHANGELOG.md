@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add migration for created_by (auto-set to auth user id) and logged_at.
+- Save logged_at on every successful login via authenticated method.
+- Add scopeFilterAutomatic to hide unused automatic accounts in summary.
+- Allow registration to reuse automatic accounts.
+- Skip automatic users in getDemoUsers method.
+
 ## [5.2.1] - 2026-02-15
 
 ### Fixed
