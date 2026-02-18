@@ -45,8 +45,27 @@ class LoginController extends Controller
         $request->validate([
             'g-recaptcha-response' => 'recaptchav3',
             'name' => 'required|string|max:255',
-            'email' => 'required|email:rfc,dns|max:255|unique:users',
+            'email' => 'required|email:rfc,dns|max:255',
         ]);
+
+        // Check if user exists (including automatic accounts)
+        $existingUser = User::where('email', $request->email)->first();
+
+        if ($existingUser) {
+            if ($existingUser->isAutomatic()) {
+                // Rewrite created_by and continue registration
+                $existingUser->update([
+                    'created_by' => null,
+                    'name' => $request->name,
+                ]);
+                $existingUser->sendTokenAuthLink();
+
+                return redirect()->to('/')->with('success', __('ig-user::messages.register.token-auth.success')
+                    . Helpers::getEmailClientLink());
+            }
+
+            return back()->withErrors(['email' => __('validation.unique', ['attribute' => 'email'])]);
+        }
 
         $user = User::registerUser($request->name, $request->email);
         $user->sendTokenAuthLink();
@@ -87,6 +106,7 @@ class LoginController extends Controller
         $user = User::where('email', $credentials['email'])->first();
         $lang = app()->getLocale();
         auth()->login($user, $request->filled('remember'));
+        User::authenticated($user);
 
         // $request->session()->regenerate(); // reason?
 

@@ -44,16 +44,18 @@ trait BaseAuth
 
     public static function authenticated(User|UserModel $user): void
     {
-        // Do something when the user is authenticated
+        $user->logged_at = now();
+        $user->save();
     }
 
     public static function successLoginRedirect(User|UserModel $user, ?string $lang = null): RedirectResponse
     {
-        [$prevUrl, $backUrl, ] = User::getAuthSessions();
+        [$prevUrl, $backUrl] = User::getAuthSessions();
         $to = $prevUrl ?? $backUrl;
         if ($lang) {
             $to .= (str_contains($to, '?') ? '&' : '?') . "lang=$lang";
         }
+
         return redirect()->to($to)->with('success', __('ig-user::messages.login.success', ['name' => $user->name], $lang));
     }
 
