@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Update laravel common to v5 and laravel model browser to v4.
+
 ## [5.3.1] - 2026-02-25
 
 ### Fixed
