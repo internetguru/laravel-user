@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\URL;
 use InternetGuru\LaravelUser\Enums\ProviderAction;
 use InternetGuru\LaravelUser\Exceptions\AuthCheckException;
 use Laravel\Socialite\Facades\Socialite;
+use ValueError;
 
 class SocialiteAuthController extends Controller
 {
@@ -37,8 +38,11 @@ class SocialiteAuthController extends Controller
         try {
             $provider = User::providers()::from($provider);
             $action = ProviderAction::from($action);
+        } catch (ValueError $e) {
+            abort(404);
+        }
 
-            // switch the actions
+        try {
             switch ($action) {
                 case ProviderAction::DISCONNECT:
                     $this->loginRequired();
@@ -79,17 +83,23 @@ class SocialiteAuthController extends Controller
      */
     public function handleProviderCallback(string $provider, string $action): RedirectResponse
     {
+
         try {
             $provider = User::providers()::from($provider);
             $action = ProviderAction::from($action);
+        } catch (ValueError $e) {
+            abort(404);
+        }
 
-            try {
-                $providerUser = Socialite::driver($provider->value)->stateless()->user();
-            } catch (Exception $e) {
-                [, $backUrl] = User::getAuthSessions();
+        try {
+            $providerUser = Socialite::driver($provider->value)->stateless()->user();
+        } catch (Exception $e) {
+            [, $backUrl] = User::getAuthSessions();
 
-                return redirect()->to($backUrl)->withErrors(__('ig-user::auth.error'));
-            }
+            return redirect()->to($backUrl)->withErrors(__('ig-user::auth.error'));
+        }
+
+        try {
             switch ($action) {
                 case ProviderAction::LOGIN:
                     $this->loginForbidden();
