@@ -3,8 +3,9 @@
 return [
 
     'action' => 'Log ind nu',
-    'expires' => 'Dette link og PIN udløber snart. Hvis du ikke anmodede om det, kan du trygt ignorere denne e-mail.',
-    'intro' => 'Brug linket nedenfor til at åbne PIN-login-siden, og indtast derefter din PIN for at logge ind.',
+    'expires' => 'Linket og PIN udløber om en time. Hvis du ikke bad om login, kan du ignorere denne e-mail.',
+    'expired_pin' => 'Din PIN er udløbet. Bed venligst om en ny.',
+    'intro' => 'Åbn linket nedenfor og indtast din PIN for at logge ind.',
     'invalid' => 'Ugyldig eller udløbet PIN.',
     'invalid_pin' => 'Ugyldig PIN. Prøv venligst igen.',
     'pin_digit' => 'PIN-ciffer :digit',

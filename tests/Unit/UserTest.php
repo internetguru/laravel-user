@@ -10,15 +10,15 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Notifications\Notifiable;
 use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\User as BaseUser;
+use InternetGuru\LaravelUser\Traits\PinLogin;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
-use InternetGuru\LaravelUser\Traits\TokenAuth;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testUserCreation()
+    public function test_user_creation()
     {
         $user = User::factory()->create([
             'name' => 'Test User',
@@ -31,7 +31,7 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testUserRole()
+    public function test_user_role()
     {
         $user = User::factory()->create([
             'role' => Role::ADMIN,
@@ -40,7 +40,7 @@ class UserTest extends TestCase
         $this->assertEquals('admin', $user->role->value);
     }
 
-    public function testUserTraits()
+    public function test_user_traits()
     {
         $this->assertInstanceOf(BaseUser::class, new User);
         $traits = class_uses(BaseUser::class);
@@ -50,6 +50,6 @@ class UserTest extends TestCase
         $this->assertContains(HasFactory::class, $traits);
         $this->assertContains(Notifiable::class, $traits);
         $this->assertContains(SocialiteAuth::class, $traits);
-        $this->assertContains(TokenAuth::class, $traits);
+        $this->assertContains(PinLogin::class, $traits);
     }
 }

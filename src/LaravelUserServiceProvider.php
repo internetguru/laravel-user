@@ -37,11 +37,6 @@ class LaravelUserServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
         $this->mergeConfigFrom(__DIR__ . '/../config/ig-user.php', 'ig-user');
 
-        // Register ig-user navig namespace for breadcrumb translations
-        $namespaces = config('ig-common.navig_namespaces', []);
-        $namespaces[] = 'ig-user';
-        config(['ig-common.navig_namespaces' => array_unique($namespaces)]);
-
         // register UserPolicy
         Gate::policy(User::class, UserPolicy::class);
 
