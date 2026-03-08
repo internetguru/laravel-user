@@ -3,8 +3,9 @@
 return [
 
     'action' => 'Přihlásit se',
-    'expires' => 'Tento odkaz a PIN brzy vyprší. Pokud jste ho nepožadovali, můžete tento e-mail bezpečně ignorovat.',
-    'intro' => 'Pomocí odkazu níže otevřete stránku pro zadání PINu a přihlaste se.',
+    'expires' => 'Odkaz a PIN vyprší do jedné hodiny. Pokud jste o přihlášení nežádali, e-mail můžete ignorovat.',
+    'expired_pin' => 'PIN vypršel. Nechte si poslat nový.',
+    'intro' => 'Otevřete odkaz níže a zadejte PIN pro přihlášení.',
     'invalid' => 'Neplatný nebo vypršelý PIN.',
     'invalid_pin' => 'Neplatný PIN. Zkuste to prosím znovu.',
     'pin_digit' => 'PIN číslice :digit',
