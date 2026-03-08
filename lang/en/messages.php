@@ -14,7 +14,7 @@ return [
     'register.exists' => 'This identity or its email is already registered.',
     'register.noemail' => 'Registration failed: the provided identity does not contain an email address.',
     'register.success' => 'Registered as :name.',
-    'register.token-auth.success' => 'Account created. Login link sent to your email.',
+    'register.pin-login.success' => 'Account created. Login link and PIN sent to your email.',
     'remember_me' => 'Remember me',
     'unexpected' => 'An unexpected error occurred. Please try again later.',
 

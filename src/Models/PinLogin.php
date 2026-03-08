@@ -4,11 +4,13 @@ namespace InternetGuru\LaravelUser\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TokenAuth extends Model
+class PinLogin extends Model
 {
+    protected $table = 'token_auths';
+
     protected $fillable = [
         'user_id',
-        'token',
+        'pin',
         'expires_at',
     ];
 

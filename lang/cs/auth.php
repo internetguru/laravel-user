@@ -14,8 +14,11 @@ return [
     'register-email.submit' => 'Vytvořit účet',
     'register-email.title' => 'Osobní informace',
     'register.title' => 'Registrace pomocí poskytovatele',
-    'token_auth.email' => 'Váš e-mail',
-    'token_auth.submit' => 'Poslat odkaz',
-    'token_auth.title' => 'Vložte svůj e-mail',
+    'pin_verify.description' => 'Zadejte 6místný PIN z e-mailu, který jsme vám poslali.',
+    'pin_verify.submit' => 'Ověřit PIN',
+    'pin_verify.title' => 'Zadejte svůj PIN',
+    'pin_login.email' => 'Váš e-mail',
+    'pin_login.submit' => 'Odeslat přihlašovací PIN',
+    'pin_login.title' => 'Vložte svůj e-mail',
 
 ];

@@ -5,12 +5,12 @@ namespace InternetGuru\LaravelUser\Notifications;
 use App\Models\User;
 use Illuminate\Notifications\Messages\MailMessage;
 use InternetGuru\LaravelCommon\Notifications\BaseNotification;
-use InternetGuru\LaravelUser\Models\TokenAuth;
+use InternetGuru\LaravelUser\Models\PinLogin;
 
-class TokenAuthNotification extends BaseNotification
+class PinLoginNotification extends BaseNotification
 {
     public function __construct(
-        public TokenAuth $tokenAuth
+        public PinLogin $pinLogin
     ) {
         parent::__construct();
     }
@@ -18,7 +18,7 @@ class TokenAuthNotification extends BaseNotification
     public function toMail(object $notifiable): MailMessage
     {
         $url = route('pin-login.verify');
-        $formattedPin = User::formatPin($this->tokenAuth->pin);
+        $formattedPin = User::formatPin($this->pinLogin->pin);
 
         return parent::toMail($notifiable)
             ->subject(__('ig-user::pin_login.subject'))
@@ -30,7 +30,7 @@ class TokenAuthNotification extends BaseNotification
                 [
                     'loginUrl' => $url,
                     'pin' => $formattedPin,
-                    'expires' => $this->tokenAuth->expires_at->diffForHumans(),
+                    'expires' => $this->pinLogin->expires_at->diffForHumans(),
                 ]
             );
     }

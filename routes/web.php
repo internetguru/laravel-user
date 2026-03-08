@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use InternetGuru\LaravelUser\Http\Controllers\LoginController;
+use InternetGuru\LaravelUser\Http\Controllers\PinLoginController;
 use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
-use InternetGuru\LaravelUser\Http\Controllers\TokenAuthController;
 use InternetGuru\LaravelUser\Http\Controllers\UserController;
 
 Route::controller(LoginController::class)
@@ -13,9 +13,9 @@ Route::controller(LoginController::class)
             ->middleware('guest')
             ->name('login');
 
-        Route::get('/token_auth', 'showTokenAuth')
+        Route::get('/pin-login', 'showPinLogin')
             ->middleware('guest')
-            ->name('token_auth');
+            ->name('pin-login');
 
         Route::get('/register', 'showRegister')
             ->middleware('guest')
@@ -61,19 +61,23 @@ Route::controller(UserController::class)
             ->name('users.enable');
     });
 
-Route::controller(TokenAuthController::class)
-    ->prefix('token-auth')
+Route::controller(PinLoginController::class)
+    ->prefix('pin-login')
     ->middleware('web')
     ->group(function () {
 
-        Route::post('/send', 'handleTokenAuthSendForm')
-            ->name('token-auth.form');
+        Route::post('/send', 'handleSendForm')
+            ->name('pin-login.form');
 
-        Route::get('/send/{user}', 'handleTokenAuthSend')
-            ->name('token-auth.send');
+        Route::get('/send/{user}', 'handleSend')
+            ->name('pin-login.send');
 
-        Route::get('/callback/{token}', 'handleTokenAuthCallback')
-            ->name('token-auth.callback');
+        Route::get('/verify', 'showPinVerify')
+            ->name('pin-login.verify');
+
+        Route::post('/verify', 'handlePinVerify')
+            ->middleware('throttle:3,60')
+            ->name('pin-login.verify.submit');
 
     });
 

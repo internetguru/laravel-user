@@ -1,6 +1,6 @@
 # Internet Guru Laravel User
 
-Internet Guru Laravel User is a library that provides seamless integration with various social authentication providers. It stores the user's social identity in the database and allows the user to link multiple social identities to a single account. It also provides temporary login link to the user's email address.
+Internet Guru Laravel User is a library that provides seamless integration with various social authentication providers. It stores the user's social identity in the database and allows the user to link multiple social identities to a single account. It also provides PIN-based login via email.
 
 | Branch  | Status | Code Coverage |
 | :------------- | :------------- | :------------- |
