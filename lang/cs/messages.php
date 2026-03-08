@@ -14,7 +14,7 @@ return [
     'register.exists' => 'Tato identita nebo její e-mailová adresa je již registrovaná.',
     'register.noemail' => 'Registrace se nezdařila: poskytnutá identita neobsahuje e-mailovou adresu.',
     'register.success' => 'Registrován jako :name.',
-    'register.token-auth.success' => 'Účet vytvořen. Odkaz pro přihlášení odeslán na váš email.',
+    'register.pin-login.success' => 'Účet vytvořen. Přihlašovací odkaz a PIN odeslány na váš email.',
     'remember_me' => 'Zapamatovat si mě',
     'unexpected' => 'Došlo k neočekávané chybě. Zkuste to prosím později.',
 

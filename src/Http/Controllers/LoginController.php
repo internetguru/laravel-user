@@ -25,9 +25,9 @@ class LoginController extends Controller
         return view('ig-common::layouts.base', ['view' => 'login', 'prefix' => 'ig-user::']);
     }
 
-    public function showTokenAuth()
+    public function showPinLogin()
     {
-        return view('ig-common::layouts.base', ['view' => 'token-auth', 'prefix' => 'ig-user::']);
+        return view('ig-common::layouts.base', ['view' => 'pin-login', 'prefix' => 'ig-user::']);
     }
 
     public function showRegister()
@@ -58,9 +58,9 @@ class LoginController extends Controller
                     'created_by' => null,
                     'name' => $request->name,
                 ]);
-                $existingUser->sendTokenAuthLink();
+                $existingUser->sendPinLogin();
 
-                return redirect()->to('/')->with('success', __('ig-user::messages.register.token-auth.success')
+                return redirect()->to('/')->with('success', __('ig-user::messages.register.pin-login.success')
                     . Helpers::getEmailClientLink());
             }
 
@@ -68,9 +68,9 @@ class LoginController extends Controller
         }
 
         $user = User::registerUser($request->name, $request->email);
-        $user->sendTokenAuthLink();
+        $user->sendPinLogin();
 
-        return redirect()->to('/')->with('success', __('ig-user::messages.register.token-auth.success')
+        return redirect()->to('/')->with('success', __('ig-user::messages.register.pin-login.success')
             . Helpers::getEmailClientLink());
     }
 

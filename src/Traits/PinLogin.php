@@ -6,49 +6,46 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use InternetGuru\LaravelCommon\Support\Helpers;
-use InternetGuru\LaravelUser\Models\TokenAuth as TokenAuthModel;
-use InternetGuru\LaravelUser\Notifications\TokenAuthNotification;
+use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
+use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
 
-trait TokenAuth
+trait PinLogin
 {
     public const PIN_PREFIX = 'IG-';
 
-    public function tokenAuth(): HasOne
+    public function pinLoginRecord(): HasOne
     {
-        return $this->hasOne(TokenAuthModel::class);
+        return $this->hasOne(PinLoginModel::class);
     }
 
     public function sendPinLogin(?string $redirectTo = null): RedirectResponse
     {
         // If PIN already exists and newer than 5 minutes then throttle
-        if ($this->tokenAuth && $this->tokenAuth->updated_at->diffInMinutes() < 5) {
+        if ($this->pinLoginRecord && $this->pinLoginRecord->updated_at->diffInMinutes() < 5) {
             return back()->withErrors(__('ig-user::pin_login.wait'));
         }
 
-        $tokenAuth = $this->tokenAuth()->updateOrCreate([
+        $pinLogin = $this->pinLoginRecord()->updateOrCreate([
             'user_id' => $this->id,
         ], [
             'pin' => str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT),
-            'expires_at' => now()->addHour(),
+            'expires_at' => now()->addDays(2),
         ]);
-        User::sendTokenAuthNotification($tokenAuth);
+        User::sendPinLoginNotification($pinLogin);
 
         return redirect()->to('/')->with('success', __('ig-user::pin_login.sent') . Helpers::getEmailClientLink());
     }
 
-    public static function sendTokenAuthNotification(TokenAuthModel $tokenAuth): void
+    public static function sendPinLoginNotification(PinLoginModel $pinLogin): void
     {
-        $notification = new TokenAuthNotification($tokenAuth);
+        $notification = new PinLoginNotification($pinLogin);
         $notification->locale(app()->getLocale());
-        $tokenAuth->user->notify($notification);
+        $pinLogin->user->notify($notification);
     }
 
-    /**
-     * Format PIN with prefix for display: "123456" → "IG-1 2 3 4 5 6"
-     */
     public static function formatPin(string $pin): string
     {
-        return self::PIN_PREFIX . implode(' ', str_split($pin));
+        return self::PIN_PREFIX . $pin;
     }
 
     public static function pinLogin(string $pin): RedirectResponse
@@ -58,16 +55,16 @@ trait TokenAuth
         // Strip prefix and non-digits
         $pin = preg_replace('/[^0-9]/', '', $pin);
 
-        $tokenAuth = TokenAuthModel::where('pin', $pin)
+        $pinLogin = PinLoginModel::where('pin', $pin)
             ->where('expires_at', '>', now())
             ->first();
 
-        if (! $tokenAuth) {
+        if (! $pinLogin) {
             return redirect()->to($backUrl)->withErrors(__('ig-user::pin_login.invalid_pin'));
         }
 
-        $user = $tokenAuth->user;
-        $tokenAuth->delete();
+        $user = $pinLogin->user;
+        $pinLogin->delete();
         auth()->login($user);
         User::authenticated(auth()->user());
 

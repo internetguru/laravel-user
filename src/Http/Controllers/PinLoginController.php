@@ -9,15 +9,15 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 
-class TokenAuthController extends Controller
+class PinLoginController extends Controller
 {
     /**
-     * Send the token auth link to the user
+     * Send PIN to the user
      */
-    public function handleTokenAuthSend(User $user, Request $request): RedirectResponse
+    public function handleSend(User $user, Request $request): RedirectResponse
     {
         try {
-            return $user->sendTokenAuthLink();
+            return $user->sendPinLogin();
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
@@ -26,9 +26,9 @@ class TokenAuthController extends Controller
     }
 
     /**
-     * Send the token auth link to the user based on the form email input
+     * Send PIN to the user based on the form email input
      */
-    public function handleTokenAuthSendForm(Request $request): RedirectResponse
+    public function handleSendForm(Request $request): RedirectResponse
     {
         $request->validate([
             'g-recaptcha-response' => 'recaptchav3',
@@ -37,7 +37,7 @@ class TokenAuthController extends Controller
         try {
             $user = User::where('email', $request->input('email'))->firstOrFail();
 
-            return $this->handleTokenAuthSend($user, $request);
+            return $this->handleSend($user, $request);
         } catch (ModelNotFoundException $e) {
             return back()->withInput()->withErrors(__('ig-user::messages.login.notfound'));
         } catch (\Exception $e) {
@@ -48,17 +48,31 @@ class TokenAuthController extends Controller
     }
 
     /**
-     * Handle the token auth callback
+     * Show PIN verification form
      */
-    public function handleTokenAuthCallback(string $token): RedirectResponse
+    public function showPinVerify(Request $request)
     {
+        return view('ig-common::layouts.base', [
+            'view' => 'pin-verify',
+            'prefix' => 'ig-user::',
+        ]);
+    }
+
+    /**
+     * Handle PIN verification submission
+     */
+    public function handlePinVerify(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'pin' => 'required|string|size:6',
+        ]);
+
         try {
-            return User::tokenAuthLogin($token);
+            return User::pinLogin($request->input('pin'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            [, $backUrl] = User::getAuthSessions();
 
-            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.unexpected'));
+            return back()->withErrors(__('ig-user::messages.unexpected'));
         }
     }
 }

@@ -1,0 +1,53 @@
+.pin-input {
+    display: flex;
+    align-items: center;
+    gap: $spacer * 0.5;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pin-input-prefix {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: monospace;
+    color: var(--bs-body-color, #333);
+    user-select: none;
+}
+
+.pin-input-boxes {
+    display: flex;
+    gap: $spacer * 0.25;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @include media-1 {
+        gap: $spacer * 0.35;
+    }
+}
+
+.pin-input-box {
+    width: 2.25rem;
+    height: 2.75rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    font-family: monospace;
+    border: 2px solid var(--bs-border-color, #ccc);
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border-color 0.15s ease;
+    caret-color: transparent;
+    background: var(--bs-body-bg, #fff);
+    color: var(--bs-body-color, #333);
+
+    &:focus {
+        border-color: var(--bs-primary, #0d6efd);
+        box-shadow: 0 0 0 0.15rem rgba(var(--bs-primary-rgb, 13, 110, 253), 0.25);
+    }
+
+    @include media-1 {
+        width: 3rem;
+        height: 3.5rem;
+        font-size: 1.75rem;
+    }
+}
