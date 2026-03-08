@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+## [6.1.0] - 2026-03-08
+
+### Added
+
+- Add PIN login replacing token auth (6-digit PIN with IG- prefix).
+- Add PIN input component with Alpine.js (paste, backspace, arrow key support).
+- Add PIN verification page with autofocus.
+- Add throttle middleware on PIN verify route (3 attempts per hour).
+- Move user navigation translations from laravel-common to laravel-user.
+
+### Changed
+
+- Rename all token-auth routes, views, controllers, and translations to pin-login.
+- Set PIN expiry to 2 days.
+
+### Removed
+
+- Remove token-based authentication (URL callback with signed token).
+
 ## [6.0.1] - 2026-03-04
 
 ### Changed
@@ -918,6 +939,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [6.0.1]: https://https://github.com/internetguru/laravel-user/compare/v6.0.0...v6.0.1
 [6.0.0]: https://https://github.com/internetguru/laravel-user/compare/v5.3.1...v6.0.0
 [6.0.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v5.3.1

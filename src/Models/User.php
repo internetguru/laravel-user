@@ -13,8 +13,8 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Traits\BaseAuth;
+use InternetGuru\LaravelUser\Traits\PinLogin;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
-use InternetGuru\LaravelUser\Traits\TokenAuth;
 use Internetguru\ModelBrowser\Traits\HasModelBrowserFilters;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
@@ -25,8 +25,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use HasFactory;
     use HasModelBrowserFilters;
     use Notifiable;
+    use PinLogin;
     use SocialiteAuth;
-    use TokenAuth;
 
     protected $modelBrowserFilterSessionKey = 'laravel-user-user-filters';
 
