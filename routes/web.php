@@ -76,7 +76,7 @@ Route::controller(PinLoginController::class)
             ->name('pin-login.verify');
 
         Route::post('/verify', 'handlePinVerify')
-            ->middleware('throttle:3,60')
+            ->middleware('throttle:5,10')
             ->name('pin-login.verify.submit');
 
     });

@@ -29,7 +29,7 @@ trait PinLogin
             'user_id' => $this->id,
         ], [
             'pin' => str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT),
-            'expires_at' => now()->addDays(2),
+            'expires_at' => now()->addHour(),
         ]);
         User::sendPinLoginNotification($pinLogin);
 
@@ -60,7 +60,16 @@ trait PinLogin
             ->first();
 
         if (! $pinLogin) {
-            return redirect()->to($backUrl)->withErrors(__('ig-user::pin_login.invalid_pin'));
+            // Check if there's an expired PIN matching
+            $expired = PinLoginModel::where('pin', $pin)
+                ->where('expires_at', '<=', now())
+                ->exists();
+
+            $error = $expired
+                ? __('ig-user::pin_login.expired_pin')
+                : __('ig-user::pin_login.invalid_pin');
+
+            return redirect()->to($backUrl)->withErrors($error);
         }
 
         $user = $pinLogin->user;

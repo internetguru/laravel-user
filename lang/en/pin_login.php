@@ -3,8 +3,9 @@
 return [
 
     'action' => 'Log In Now',
-    'expires' => 'This link and PIN will expire soon. If you didn\'t request it, you can safely ignore this email.',
-    'intro' => 'Use the link below to open the PIN login page, then enter your PIN to log in.',
+    'expires' => 'The link and PIN will expire in one hour. If you didn\'t request a login, you can ignore this email.',
+    'expired_pin' => 'Your PIN has expired. Please request a new one.',
+    'intro' => 'Open the link below and enter your PIN to log in.',
     'invalid' => 'Invalid or expired PIN.',
     'invalid_pin' => 'Invalid PIN. Please try again.',
     'pin_digit' => 'PIN digit :digit',
