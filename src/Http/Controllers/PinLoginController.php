@@ -76,4 +76,3 @@ class PinLoginController extends Controller
         }
     }
 }
-}
