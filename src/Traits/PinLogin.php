@@ -21,7 +21,8 @@ trait PinLogin
     {
         // If PIN already exists and newer than 1 minute then throttle
         if ($this->pinLoginRecord && $this->pinLoginRecord->updated_at->diffInMinutes() < 1) {
-            return back()->withErrors(__('ig-user::pin_login.wait'));
+            return redirect()->route('pin-login.verify', ['email' => $this->email])
+                ->withErrors(__('ig-user::pin_login.wait'));
         }
 
         $pinLogin = $this->pinLoginRecord()->updateOrCreate([
@@ -32,7 +33,7 @@ trait PinLogin
         ]);
         User::sendPinLoginNotification($pinLogin);
 
-        return redirect()->route('pin-login.verify')
+        return redirect()->route('pin-login.verify', ['email' => $this->email])
             ->with('success', __('ig-user::pin_login.sent'));
     }
 
@@ -48,10 +49,12 @@ trait PinLogin
         return self::PIN_PREFIX . $pin;
     }
 
-    public static function pinLogin(string $pin): RedirectResponse
+    public static function pinLogin(string $pin, ?string $email = null): RedirectResponse
     {
         // Strip prefix and non-digits
         $pin = preg_replace('/[^0-9]/', '', $pin);
+
+        $verifyParams = $email ? ['email' => $email] : [];
 
         $pinLogin = PinLoginModel::where('pin', $pin)
             ->where('expires_at', '>', now())
@@ -67,7 +70,7 @@ trait PinLogin
                 ? __('ig-user::pin_login.expired_pin')
                 : __('ig-user::pin_login.invalid_pin');
 
-            return redirect()->route('pin-login.verify')->withErrors($error);
+            return redirect()->route('pin-login.verify', $verifyParams)->withErrors($error);
         }
 
         $user = $pinLogin->user;

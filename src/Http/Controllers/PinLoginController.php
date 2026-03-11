@@ -68,11 +68,12 @@ class PinLoginController extends Controller
         ]);
 
         try {
-            return User::pinLogin($request->input('pin'));
+            return User::pinLogin($request->input('pin'), $request->query('email'));
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
             return back()->withErrors(__('ig-user::messages.unexpected'));
         }
     }
+}
 }
