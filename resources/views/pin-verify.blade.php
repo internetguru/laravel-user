@@ -8,7 +8,7 @@
             </x-ig::form>
             <x-ig::form :action="route('pin-login.form')" class="editable-skip d-inline">
                 <input type="hidden" name="email" value="{{ request()->query('email') }}" />
-                <button type="submit" class="btn btn-link p-0">@lang('ig-user::auth.pin_verify.resend')</button>
+                <button type="submit" class="btn btn-link">@lang('ig-user::auth.pin_verify.resend')</button>
             </x-ig::form>
             <p class="mt-3 mb-0 text-end"><a href="{{ route('login') }}">@lang('ig-user::auth.back')</a></p>
         </div>
