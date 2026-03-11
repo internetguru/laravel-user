@@ -50,8 +50,6 @@ trait PinLogin
 
     public static function pinLogin(string $pin): RedirectResponse
     {
-        [, $backUrl] = User::getAuthSessions();
-
         // Strip prefix and non-digits
         $pin = preg_replace('/[^0-9]/', '', $pin);
 
@@ -69,7 +67,7 @@ trait PinLogin
                 ? __('ig-user::pin_login.expired_pin')
                 : __('ig-user::pin_login.invalid_pin');
 
-            return redirect()->to($backUrl)->withErrors($error);
+            return redirect()->route('pin-login.verify')->withErrors($error);
         }
 
         $user = $pinLogin->user;
