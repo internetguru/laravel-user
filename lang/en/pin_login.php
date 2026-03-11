@@ -3,7 +3,7 @@
 return [
 
     'action' => 'Log In Now',
-    'expires' => 'The link and PIN will expire in one hour. If you didn\'t request a login, you can ignore this email.',
+    'expires' => 'The PIN will expire in 10 minutes. If you didn\'t request a login, you can ignore this email.',
     'expired_pin' => 'Your PIN has expired. Please request a new one.',
     'intro' => 'Open the link below and enter your PIN to log in.',
     'invalid' => 'Invalid or expired PIN.',

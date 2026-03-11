@@ -3,7 +3,7 @@
 return [
 
     'action' => 'Přihlásit se',
-    'expires' => 'Odkaz a PIN vyprší do jedné hodiny. Pokud jste o přihlášení nežádali, e-mail můžete ignorovat.',
+    'expires' => 'PIN vyprší za 10 minut. Pokud jste o přihlášení nežádali, e-mail můžete ignorovat.',
     'expired_pin' => 'PIN vypršel. Nechte si poslat nový.',
     'intro' => 'Otevřete odkaz níže a zadejte PIN pro přihlášení.',
     'invalid' => 'Neplatný nebo vypršelý PIN.',

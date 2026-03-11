@@ -20,8 +20,8 @@ trait PinLogin
 
     public function sendPinLogin(?string $redirectTo = null): RedirectResponse
     {
-        // If PIN already exists and newer than 5 minutes then throttle
-        if ($this->pinLoginRecord && $this->pinLoginRecord->updated_at->diffInMinutes() < 5) {
+        // If PIN already exists and newer than 1 minute then throttle
+        if ($this->pinLoginRecord && $this->pinLoginRecord->updated_at->diffInMinutes() < 1) {
             return back()->withErrors(__('ig-user::pin_login.wait'));
         }
 
@@ -29,7 +29,7 @@ trait PinLogin
             'user_id' => $this->id,
         ], [
             'pin' => str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT),
-            'expires_at' => now()->addHour(),
+            'expires_at' => now()->addMinutes(10),
         ]);
         User::sendPinLoginNotification($pinLogin);
 

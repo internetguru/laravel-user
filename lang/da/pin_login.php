@@ -3,7 +3,7 @@
 return [
 
     'action' => 'Log ind nu',
-    'expires' => 'Linket og PIN udløber om en time. Hvis du ikke bad om login, kan du ignorere denne e-mail.',
+    'expires' => 'PIN udløber om 10 minutter. Hvis du ikke bad om login, kan du ignorere denne e-mail.',
     'expired_pin' => 'Din PIN er udløbet. Bed venligst om en ny.',
     'intro' => 'Åbn linket nedenfor og indtast din PIN for at logge ind.',
     'invalid' => 'Ugyldig eller udløbet PIN.',

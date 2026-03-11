@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Reduce PIN lifetime from 1 hour to 10 minutes.
+- Reduce PIN resend throttle from 5 minutes to 1 minute.
+
 ## [6.1.1] - 2026-03-08
 
 ### Fixed
