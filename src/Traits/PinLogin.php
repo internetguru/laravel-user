@@ -34,7 +34,7 @@ trait PinLogin
         User::sendPinLoginNotification($pinLogin);
 
         return redirect()->route('pin-login.verify', ['email' => $this->email])
-            ->with('success', __('ig-user::pin_login.sent'));
+            ->with('success', __('ig-user::pin_login.sent') . Helpers::getEmailClientLink());
     }
 
     public static function sendPinLoginNotification(PinLoginModel $pinLogin): void
