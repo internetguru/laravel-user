@@ -15,6 +15,7 @@ return [
     'register-email.title' => 'Osobní informace',
     'register.title' => 'Registrace pomocí poskytovatele',
     'pin_verify.description' => 'Zadejte 6místný PIN z e-mailu, který jsme vám poslali.',
+    'pin_verify.resend' => 'Odeslat kód znovu',
     'pin_verify.submit' => 'Ověřit PIN',
     'pin_verify.title' => 'Zadejte svůj PIN',
     'pin_login.email' => 'Váš e-mail',

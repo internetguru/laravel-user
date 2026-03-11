@@ -2,16 +2,13 @@
 
 return [
 
-    'action' => 'Log In Now',
-    'expires' => 'The link and PIN will expire in one hour. If you didn\'t request a login, you can ignore this email.',
-    'expired_pin' => 'Your PIN has expired. Please request a new one.',
-    'intro' => 'Open the link below and enter your PIN to log in.',
-    'invalid' => 'Invalid or expired PIN.',
-    'invalid_pin' => 'Invalid PIN. Please try again.',
+    'expires' => 'The PIN can be used once and expires in 10 minutes. If you did not request this, ignore this email.',
+    'intro' => 'Enter the following one-time PIN on the login page:',
+    'invalid' => 'Invalid code.',
+    'login_page_label' => 'Login page:',
     'pin_digit' => 'PIN digit :digit',
-    'pin_label' => 'Your login PIN:',
-    'sent' => 'Login link and PIN sent to the given email.',
-    'subject' => 'Your One-Time Login PIN',
+    'sent' => 'Login PIN sent to the given email.',
+    'subject' => 'Your login code',
     'wait' => 'Please wait before requesting a new login PIN.',
 
 ];

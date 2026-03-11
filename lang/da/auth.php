@@ -15,6 +15,7 @@ return [
     'register-email.title' => 'Personlige oplysninger',
     'register.title' => 'Opret konto med en tjeneste',
     'pin_verify.description' => 'Indtast den 6-cifrede PIN fra den e-mail, vi sendte dig.',
+    'pin_verify.resend' => 'Send kode igen',
     'pin_verify.submit' => 'Bekræft PIN',
     'pin_verify.title' => 'Indtast din PIN',
     'pin_login.email' => 'Din e-mail',

@@ -15,6 +15,7 @@ return [
     'register-email.title' => 'Personal information',
     'register.title' => 'Register with a provider',
     'pin_verify.description' => 'Enter the 6-digit PIN from the email we sent you.',
+    'pin_verify.resend' => 'Resend code',
     'pin_verify.submit' => 'Verify PIN',
     'pin_verify.title' => 'Enter your PIN',
     'pin_login.email' => 'Your email',

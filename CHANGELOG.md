@@ -6,6 +6,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [6.1.2] - 2026-03-11
+
+### Changed
+
+- Reduce PIN lifetime from 1 hour to 10 minutes.
+- Reduce PIN resend throttle from 5 minutes to 1 minute.
+- Rename `token_auths` database table to `pin_logins`.
+- Redirect to PIN verify page after sending PIN email.
+- Simplify PIN email: remove button, show PIN and login link as plain text.
+- Show generic "Invalid code" message for all PIN errors (expired, invalid, not found).
+- Remove reference number from PIN login emails (subject and footer).
+- Stay on PIN verify page when PIN is invalid or expired.
+- Add "Resend code" button on PIN verify page, reusing existing send form endpoint.
+- Pass user email as URL query parameter throughout PIN login flow.
+
+### Fixed
+
+- New feature 'hotfix-petrzpav'.
+
 ## [6.1.1] - 2026-03-08
 
 ### Fixed
@@ -952,6 +971,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[6.1.2]: https://https://github.com/internetguru/laravel-user/compare/v6.1.1...v6.1.2
 [6.1.1]: https://https://github.com/internetguru/laravel-user/compare/v6.1.0...v6.1.1
 [6.1.0]: https://https://github.com/internetguru/laravel-user/compare/v6.0.1...v6.1.0
 [6.1.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v6.0.1

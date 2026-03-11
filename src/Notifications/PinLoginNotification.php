@@ -21,6 +21,7 @@ class PinLoginNotification extends BaseNotification
         $formattedPin = User::formatPin($this->pinLogin->pin);
 
         return parent::toMail($notifiable)
+            ->withoutRefNumber()
             ->subject(__('ig-user::pin_login.subject'))
             ->view(
                 [
