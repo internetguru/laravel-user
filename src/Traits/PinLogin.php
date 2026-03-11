@@ -61,16 +61,8 @@ trait PinLogin
             ->first();
 
         if (! $pinLogin) {
-            // Check if there's an expired PIN matching
-            $expired = PinLoginModel::where('pin', $pin)
-                ->where('expires_at', '<=', now())
-                ->exists();
-
-            $error = $expired
-                ? __('ig-user::pin_login.expired_pin')
-                : __('ig-user::pin_login.invalid_pin');
-
-            return redirect()->route('pin-login.verify', $verifyParams)->withErrors($error);
+            return redirect()->route('pin-login.verify', $verifyParams)
+                ->withErrors(__('ig-user::pin_login.invalid'));
         }
 
         $user = $pinLogin->user;

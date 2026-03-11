@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Rename `token_auths` database table to `pin_logins`.
 - Redirect to PIN verify page after sending PIN email.
 - Simplify PIN email: remove button, show PIN and login link as plain text.
+- Show generic "Invalid code" message for all PIN errors (expired, invalid, not found).
 - Stay on PIN verify page when PIN is invalid or expired.
 - Add "Resend code" button on PIN verify page, reusing existing send form endpoint.
 - Pass user email as URL query parameter throughout PIN login flow.
