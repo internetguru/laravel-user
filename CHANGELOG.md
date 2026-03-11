@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [6.1.2] - 2026-03-11
 
 ### Changed
 
@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Stay on PIN verify page when PIN is invalid or expired.
 - Add "Resend code" button on PIN verify page, reusing existing send form endpoint.
 - Pass user email as URL query parameter throughout PIN login flow.
+
+### Fixed
+
+- New feature 'hotfix-petrzpav'.
 
 ## [6.1.1] - 2026-03-08
 
@@ -964,6 +968,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[6.1.2]: https://https://github.com/internetguru/laravel-user/compare/v6.1.1...v6.1.2
 [6.1.1]: https://https://github.com/internetguru/laravel-user/compare/v6.1.0...v6.1.1
 [6.1.0]: https://https://github.com/internetguru/laravel-user/compare/v6.0.1...v6.1.0
 [6.1.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v6.0.1
