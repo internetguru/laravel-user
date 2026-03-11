@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PinLogin extends Model
 {
-    protected $table = 'token_auths';
-
     protected $fillable = [
         'user_id',
         'pin',
