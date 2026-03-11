@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Redirect to PIN verify page after sending PIN email.
 - Simplify PIN email: remove button, show PIN and login link as plain text.
 - Stay on PIN verify page when PIN is invalid or expired.
+- Add "Resend code" link on PIN verify page.
 
 ## [6.1.1] - 2026-03-08
 
