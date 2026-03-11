@@ -5,6 +5,7 @@ namespace InternetGuru\LaravelUser\Traits;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
+use InternetGuru\LaravelCommon\Support\Helpers;
 use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
 use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
 
