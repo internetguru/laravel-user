@@ -5,7 +5,6 @@ namespace InternetGuru\LaravelUser\Traits;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
-use InternetGuru\LaravelCommon\Support\Helpers;
 use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
 use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
 
@@ -33,7 +32,8 @@ trait PinLogin
         ]);
         User::sendPinLoginNotification($pinLogin);
 
-        return redirect()->to('/')->with('success', __('ig-user::pin_login.sent') . Helpers::getEmailClientLink());
+        return redirect()->route('pin-login.verify')
+            ->with('success', __('ig-user::pin_login.sent'));
     }
 
     public static function sendPinLoginNotification(PinLoginModel $pinLogin): void

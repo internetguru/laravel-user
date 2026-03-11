@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Reduce PIN lifetime from 1 hour to 10 minutes.
 - Reduce PIN resend throttle from 5 minutes to 1 minute.
 - Rename `token_auths` database table to `pin_logins`.
+- Redirect to PIN verify page after sending PIN email.
 
 ## [6.1.1] - 2026-03-08
 
