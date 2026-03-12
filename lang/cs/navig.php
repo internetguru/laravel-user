@@ -7,7 +7,7 @@ return [
     'register.email' => 'Nový účet s emailem',
     'users.index' => 'Uživatelé',
     'users.show' => 'Detail uživatele',
-    'pin-login' => 'Přihlášení PINem',
-    'pin-login.verify' => 'Ověření PINem',
+    'pin-login' => 'Přihlášení e-mailem',
+    'pin-login.verify' => 'Ověření kódu',
 
 ];

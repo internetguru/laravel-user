@@ -7,7 +7,7 @@ return [
     'register.email' => 'Ny konto med e-mail',
     'users.index' => 'Brugere',
     'users.show' => 'Brugeroplysninger',
-    'pin-login' => 'PIN-login',
-    'pin-login.verify' => 'PIN-bekræftelse',
+    'pin-login' => 'E-mail login',
+    'pin-login.verify' => 'Bekræftelseskode',
 
 ];
