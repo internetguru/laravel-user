@@ -6,7 +6,7 @@ return [
     'intro' => 'Zadejte následující jednorázový PIN na přihlašovací stránce:',
     'invalid' => 'Neplatný kód.',
     'login_page_label' => 'Přihlašovací stránka:',
-    'pin_digit' => 'PIN číslice :digit',
+    'pin_digit' => 'Číslice kódu :pos z :total',
     'sent' => 'Přihlašovací PIN odeslán na zadaný email.',
     'subject' => 'Váš přihlašovací kód',
     'wait' => 'Vyčkejte před požádáním o nový přihlašovací PIN.',
