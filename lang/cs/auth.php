@@ -14,12 +14,12 @@ return [
     'register-email.submit' => 'Vytvořit účet',
     'register-email.title' => 'Osobní informace',
     'register.title' => 'Registrace pomocí poskytovatele',
-    'pin_verify.description' => 'Zadejte 6místný PIN z e-mailu, který jsme vám poslali.',
+    'pin_verify.description' => 'Zadejte ověřovací kód z e-mailu, který jsme vám poslali.',
     'pin_verify.resend' => 'Odeslat kód znovu',
-    'pin_verify.submit' => 'Ověřit PIN',
-    'pin_verify.title' => 'Zadejte svůj PIN',
+    'pin_verify.submit' => 'Pokračovat',
+    'pin_verify.title' => 'Zadejte svůj ověřovací kód',
     'pin_login.email' => 'Váš e-mail',
-    'pin_login.submit' => 'Odeslat přihlašovací PIN',
-    'pin_login.title' => 'Vložte svůj e-mail',
+    'pin_login.submit' => 'Odeslat ověřovací kód',
+    'pin_login.title' => 'Zadejte svůj e-mail',
 
 ];

@@ -20,7 +20,7 @@
                 x-on:focus="$event.target.select()"
                 class="pin-input-box"
                 autocomplete="off"
-                aria-label="@lang('ig-user::pin_login.pin_digit', ['digit' => $i + 1])"
+                aria-label="@lang('ig-user::pin_login.pin_digit', ['pos' => $i + 1, 'total' => $length])"
             />
         @endfor
     </div>
