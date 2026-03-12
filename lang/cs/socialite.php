@@ -6,6 +6,6 @@ return [
     'facebook' => 'Facebook',
     'google' => 'Google',
     'seznam' => 'Seznam',
-    'unlink' => 'odpojit',
+    'unlink' => 'Odpojit',
 
 ];
