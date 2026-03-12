@@ -10,7 +10,7 @@ return [
     'login-register' => 'Log ind / Opret konto',
     'login.title' => 'Log ind med en udbyder',
     'register-email.email' => 'Din e-mail',
-    'register-email.name' => 'Fulde navn',
+    'register-email.name' => 'Fuldt navn',
     'register-email.submit' => 'Opret konto',
     'register-email.title' => 'Personlige oplysninger',
     'register.title' => 'Opret konto med en udbyder',

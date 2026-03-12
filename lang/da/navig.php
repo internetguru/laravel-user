@@ -8,6 +8,6 @@ return [
     'users.index' => 'Brugere',
     'users.show' => 'Brugeroplysninger',
     'pin-login' => 'Login med e-mail',
-    'pin-login.verify' => 'Bekræftelseskode',
+    'pin-login.verify' => 'Kodebekræftelse',
 
 ];

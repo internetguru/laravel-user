@@ -7,7 +7,7 @@ return [
     'register.email' => 'New account with email',
     'users.index' => 'Users',
     'users.show' => 'User details',
-    'pin-login' => 'Manual login',
+    'pin-login' => 'Login with email',
     'pin-login.verify' => 'Code verification',
 
 ];
