@@ -18,7 +18,7 @@ trait PinLogin
         return $this->hasOne(PinLoginModel::class);
     }
 
-    public function sendPinLogin(?string $redirectTo = null): RedirectResponse
+    public function sendPinLogin(bool $remember = false, bool $register = false, bool $resend = false): RedirectResponse
     {
         // If PIN already exists and newer than 1 minute then throttle
         if ($this->pinLoginRecord && $this->pinLoginRecord->updated_at->diffInMinutes() < 1) {
@@ -26,12 +26,20 @@ trait PinLogin
                 ->withErrors(__('ig-user::pin_login.wait'));
         }
 
-        $pinLogin = $this->pinLoginRecord()->updateOrCreate([
-            'user_id' => $this->id,
-        ], [
+        $attributes = [
             'pin' => str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT),
             'expires_at' => now()->addMinutes(10),
-        ]);
+        ];
+
+        if (! $resend) {
+            $attributes['remember'] = $remember;
+            $attributes['register'] = $register;
+        }
+
+        $pinLogin = $this->pinLoginRecord()->updateOrCreate(
+            ['user_id' => $this->id],
+            $attributes
+        );
         User::sendPinLoginNotification($pinLogin);
 
         return redirect()->route('pin-login.verify', ['email' => $this->email])
@@ -67,8 +75,9 @@ trait PinLogin
         }
 
         $user = $pinLogin->user;
+        $remember = $pinLogin->remember;
         $pinLogin->delete();
-        auth()->login($user);
+        auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
         return User::successLoginRedirect($user);

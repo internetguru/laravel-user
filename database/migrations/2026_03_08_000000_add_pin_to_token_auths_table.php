@@ -17,7 +17,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('token_auths', function (Blueprint $table) {
-            $table->string('token')->after('user_id');
+            $table->string('token')->default('')->after('user_id');
             $table->dropColumn('pin');
         });
     }
