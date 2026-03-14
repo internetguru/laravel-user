@@ -22,6 +22,9 @@ class SetAppLocale
             $this->setLang($lang);
 
             // remove the lang parameter from the url and redirect
+            // reflash to preserve any flash data (e.g. success message after login)
+            session()->reflash();
+
             return redirect()->to($request->url());
         }
 
@@ -71,7 +74,7 @@ class SetAppLocale
         foreach ($request->getLanguages() as $fullLang) {
             $lang = explode('_', $fullLang)[0];
             // Special case: fallback Slovak to Czech if Slovak is not supported
-            if ($lang === 'sk' && !in_array('sk', array_keys($languages)) && in_array('cs', array_keys($languages))) {
+            if ($lang === 'sk' && ! in_array('sk', array_keys($languages)) && in_array('cs', array_keys($languages))) {
                 return 'cs';
             }
             if (in_array($lang, array_keys($languages))) {

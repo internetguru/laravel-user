@@ -2,12 +2,10 @@
 
 return [
 
-    'login' => 'Přihlášení',
-    'register' => 'Nový účet',
-    'register.email' => 'Nový účet s emailem',
+    'login' => 'Přihlásit / Registrovat',
+    'pin-login' => 'Přihlásit / Registrovat',
     'users.index' => 'Uživatelé',
     'users.show' => 'Detail uživatele',
-    'pin-login' => 'Přihlášení e-mailem',
-    'pin-login.verify' => 'Ověření kódu',
+    'pin-login.verify' => 'Ověření PINem',
 
 ];

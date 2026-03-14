@@ -2,12 +2,10 @@
 
 return [
 
-    'login' => 'Log in',
-    'register' => 'New account',
-    'register.email' => 'New account with email',
+    'login' => 'Log in or Register',
+    'pin-login' => 'Log in or Register',
     'users.index' => 'Users',
-    'users.show' => 'User details',
-    'pin-login' => 'Login with email',
-    'pin-login.verify' => 'Code verification',
+    'users.show' => 'User Detail',
+    'pin-login.verify' => 'PIN Verification',
 
 ];

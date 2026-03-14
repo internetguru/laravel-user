@@ -94,7 +94,7 @@ trait SocialiteAuth
 
     public static function socialiteRegister($provider, SocialiteUser $providerUser): RedirectResponse
     {
-        [$prevUrl, $backUrl] = User::getAuthSessions();
+        [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
         if (! $providerUser->email) {
             // Email is required for registration
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.noemail'));
@@ -131,10 +131,10 @@ trait SocialiteAuth
         ]);
         $user->socialites()->save($socialite);
 
-        auth()->login($user);
+        auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
-        return redirect()->to('/')->with('success', __('ig-user::messages.register.success', ['name' => $user->name]));
+        return User::successLoginRedirect($user);
     }
 
     public function socialiteDisconnect($provider): RedirectResponse

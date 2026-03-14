@@ -10,12 +10,16 @@ class PinLogin extends Model
         'user_id',
         'pin',
         'expires_at',
+        'remember',
+        'register',
     ];
 
     protected function casts(): array
     {
         return [
             'expires_at' => 'datetime',
+            'remember' => 'boolean',
+            'register' => 'boolean',
         ];
     }
 
