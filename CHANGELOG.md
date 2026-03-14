@@ -6,8 +6,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-## [6.2.0] - 2026-03-14
-
 ### Added
 
 - Add unified login/register page combining socialite, PIN login, and registration into a single view.
@@ -27,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Avoid redirecting to login-related URLs after authentication to prevent losing flash data.
 - Add default value to `token` column in migration rollback.
 
-## [6.1.4] - 2026-03-13
+## [6.1.4] - 2026-03-12
 
 ### Changed
 
