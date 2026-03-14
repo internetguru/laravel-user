@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use InternetGuru\LaravelCommon\Support\Helpers;
 
 class LoginController extends Controller
 {
@@ -23,55 +22,6 @@ class LoginController extends Controller
         }
 
         return view('ig-common::layouts.base', ['view' => 'login', 'prefix' => 'ig-user::']);
-    }
-
-    public function showPinLogin()
-    {
-        return view('ig-common::layouts.base', ['view' => 'pin-login', 'prefix' => 'ig-user::']);
-    }
-
-    public function showRegister()
-    {
-        return view('ig-common::layouts.base', ['view' => 'register', 'prefix' => 'ig-user::']);
-    }
-
-    public function showRegisterEmail()
-    {
-        return view('ig-common::layouts.base', ['view' => 'register-email', 'prefix' => 'ig-user::']);
-    }
-
-    public function handleRegisterEmail(Request $request)
-    {
-        $request->validate([
-            'g-recaptcha-response' => 'recaptchav3',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email:rfc,dns|max:255',
-        ]);
-
-        // Check if user exists (including automatic accounts)
-        $existingUser = User::where('email', $request->email)->first();
-
-        if ($existingUser) {
-            if ($existingUser->isAutomatic()) {
-                // Rewrite created_by and continue registration
-                $existingUser->update([
-                    'created_by' => null,
-                    'name' => $request->name,
-                ]);
-                $existingUser->sendPinLogin();
-
-                return redirect()->to('/')->with('success', __('ig-user::messages.register.pin-login.success')
-                    . Helpers::getEmailClientLink());
-            }
-
-            return back()->withErrors(['email' => __('validation.unique', ['attribute' => 'email'])]);
-        }
-
-        $user = User::registerUser($request->name, $request->email);
-        $user->sendPinLogin();
-
-        return redirect()->to('/')->with('success', __('ig-user::messages.register.pin-login.success')
-            . Helpers::getEmailClientLink());
     }
 
     public function authenticate(Request $request)

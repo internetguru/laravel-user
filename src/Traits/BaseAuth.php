@@ -52,6 +52,13 @@ trait BaseAuth
     {
         [$prevUrl, $backUrl] = User::getAuthSessions();
         $to = $prevUrl ?? $backUrl;
+
+        // Avoid redirecting to login-related URLs (guest middleware would redirect again, losing flash data)
+        $loginUrl = route('login');
+        if (str_starts_with($to, $loginUrl)) {
+            $to = '/';
+        }
+
         if ($lang) {
             $to .= (str_contains($to, '?') ? '&' : '?') . "lang=$lang";
         }

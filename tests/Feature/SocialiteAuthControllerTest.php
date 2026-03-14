@@ -87,6 +87,7 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals(302, $response->status());
         $this->assertEquals('http://localhost', $response->getTargetUrl());
         $this->assertEquals($user->id, Auth::id());
+        $this->assertTrue(session()->has('success'));
     }
 
     public function test_handle_provider_callback_register()
@@ -103,12 +104,13 @@ class SocialiteAuthControllerTest extends TestCase
         // test success register $user
         $user->socialites()->delete();
         $user->delete();
+        Auth::logout();
         $this->mockProviderUser(createUser: false);
         $response = $controller->handleProviderCallback('google', 'register');
 
         $this->assertEquals(302, $response->status());
-        $this->assertEquals('http://localhost', $response->getTargetUrl());
         $this->assertTrue(Auth::check());
+        $this->assertTrue(session()->has('success'));
     }
 
     public function test_handle_provider_callback_connect()

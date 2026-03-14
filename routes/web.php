@@ -13,21 +13,13 @@ Route::controller(LoginController::class)
             ->middleware('guest')
             ->name('login');
 
-        Route::get('/pin-login', 'showPinLogin')
-            ->middleware('guest')
-            ->name('pin-login');
-
-        Route::get('/register', 'showRegister')
+        Route::get('/register', fn () => redirect()->route('login', request()->query()))
             ->middleware('guest')
             ->name('register');
 
-        Route::get('/register-email', 'showRegisterEmail')
+        Route::get('/pin-login', fn () => redirect()->route('login', request()->query()))
             ->middleware('guest')
-            ->name('register.email');
-
-        Route::post('/register-email', 'handleRegisterEmail')
-            ->middleware('guest')
-            ->name('register.email.handle');
+            ->name('pin-login');
 
         Route::post('/login', 'authenticate')
             ->middleware('guest')
@@ -68,9 +60,6 @@ Route::controller(PinLoginController::class)
 
         Route::post('/send', 'handleSendForm')
             ->name('pin-login.form');
-
-        Route::get('/send/{user}', 'handleSend')
-            ->name('pin-login.send');
 
         Route::get('/verify', 'showPinVerify')
             ->name('pin-login.verify');

@@ -42,3 +42,7 @@ a[class*="btn-socialite"] {
 .socialite-seznam-icon {
     color: $seznam-color;
 }
+
+.section-login .mt-3 + .mt-3 {
+    margin-top: $spacer * 0.5;
+}

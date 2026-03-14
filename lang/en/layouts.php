@@ -2,18 +2,12 @@
 
 return [
 
-    'login.description' => 'Log in with a provider or request a verification code.',
-    'login.title' => 'Log in with a provider',
+    'login.description' => 'Select a provider or enter your email below. You can manage providers later.',
+    'login.title' => 'Log in or Register',
     'login-demo.title' => 'Demo login',
-    'login-demo.description' => 'Log in with preset demo users.',
-    'register-email.description' => 'Create an account with your name and email.',
-    'register-email.title' => 'Create a new account manually',
-    'register.description' => 'Create an account with a provider or manually.',
-    'register.title' => 'Create a new account',
-    'pin-verify.description' => 'Enter the verification code from your email to complete the login.',
-    'pin-verify.title' => 'Verification code',
-    'pin-login.description' => 'Enter your email and we will send you a verification code.',
-    'pin-login.title' => 'Log in with email',
+    'login-demo.description' => 'Demo login with pre-set users.',
+    'pin-verify.description' => 'Enter the PIN from your email to complete the login.',
+    'pin-verify.title' => 'PIN Verification',
     'users.index.description' => 'List of existing users and their basic information.',
     'users.index.title' => 'User List',
     'users.show.description' => 'Interactive user information with connected identities.',

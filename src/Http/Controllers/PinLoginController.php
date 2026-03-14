@@ -3,28 +3,14 @@
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class PinLoginController extends Controller
 {
-    /**
-     * Send PIN to the user
-     */
-    public function handleSend(User $user, Request $request): RedirectResponse
-    {
-        try {
-            return $user->sendPinLogin();
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-
-            return back()->withErrors(__('ig-user::messages.unexpected'));
-        }
-    }
-
     /**
      * Send PIN to the user based on the form email input
      */
@@ -34,12 +20,24 @@ class PinLoginController extends Controller
             'g-recaptcha-response' => 'recaptchav3',
             'email' => 'required|email|max:255',
         ]);
-        try {
-            $user = User::where('email', $request->input('email'))->firstOrFail();
 
-            return $this->handleSend($user, $request);
-        } catch (ModelNotFoundException $e) {
-            return back()->withInput()->withErrors(__('ig-user::messages.login.notfound'));
+        $remember = filter_var($request->input('remember'), FILTER_VALIDATE_BOOLEAN);
+        $register = filter_var($request->input('register'), FILTER_VALIDATE_BOOLEAN);
+        $resend = $request->boolean('resend');
+
+        try {
+            $user = User::where('email', $request->input('email'))->first();
+
+            if (! $user && $register && ! $resend) {
+                $name = Str::before($request->input('email'), '@');
+                $user = User::registerUser($name, $request->input('email'));
+            }
+
+            if (! $user) {
+                return back()->withInput()->withErrors(__('ig-user::messages.login.notfound'));
+            }
+
+            return $user->sendPinLogin($remember, $register, $resend);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
