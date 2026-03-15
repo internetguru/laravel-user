@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [6.2.5] - 2026-03-15
+
+### Fixed
+
+- Log invalid pin login attempt.
+
 ## [6.2.4] - 2026-03-15
 
 ### Fixed
@@ -1033,6 +1039,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[6.2.5]: https://https://github.com/internetguru/laravel-user/compare/v6.2.4...v6.2.5
 [6.2.4]: https://https://github.com/internetguru/laravel-user/compare/v6.2.3...v6.2.4
 [6.2.3]: https://https://github.com/internetguru/laravel-user/compare/v6.2.2...v6.2.3
 [6.2.2]: https://https://github.com/internetguru/laravel-user/compare/v6.2.1...v6.2.2
