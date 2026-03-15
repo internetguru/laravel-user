@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.2.12] - 2026-03-15
+
+## Added
+
+- Log failed token auth logins with warning level.
+
 ## [4.2.11] - 2026-01-31
 
 ### Fixed
@@ -836,6 +842,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[4.2.12]: https://https://github.com/internetguru/laravel-user/compare/v4.2.11...v4.2.12
 [4.2.11]: https://https://github.com/internetguru/laravel-user/compare/v4.2.10...v4.2.11
 [4.2.10]: https://https://github.com/internetguru/laravel-user/compare/v4.2.9...v4.2.10
 [4.2.9]: https://https://github.com/internetguru/laravel-user/compare/v4.2.8...v4.2.9
