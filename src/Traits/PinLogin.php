@@ -70,6 +70,8 @@ trait PinLogin
             ->first();
 
         if (! $pinLogin) {
+            logger()->warning('Invalid PIN login attempt', ['pin' => $pin, 'email' => $email]);
+
             return redirect()->route('pin-login.verify', $verifyParams)
                 ->withErrors(__('ig-user::pin_login.invalid'));
         }
