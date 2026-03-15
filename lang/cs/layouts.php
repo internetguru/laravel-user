@@ -2,12 +2,13 @@
 
 return [
 
-    'login.description' => 'Vyberte poskytovatele nebo zadejte svůj e-mail. Poskytovatele můžete spravovat později.',
-    'login.title' => 'Přihlásit / Registrovat',
+    'login.description' => 'Přihlaste se pomocí poskytovatele nebo si vyžádejte ověřovací kód.',
+    'login.title' => 'Přihlášení pomocí poskytovatele',
     'login-demo.title' => 'Demo přihlášení',
     'login-demo.description' => 'Demo přihlášení pomocí přednastavených uživatelů.',
-    'pin-verify.description' => 'Zadejte PIN z vašeho e-mailu pro dokončení přihlášení.',
-    'pin-verify.title' => 'Ověření PINem',
+    'register-email.title' => 'Vytvořit nový účet ručně',
+    'pin-verify.description' => 'Zadejte ověřovací kód z e-mailu, který jsme vám poslali.',
+    'pin-verify.title' => 'Ověřovací kód',
     'users.index.description' => 'Seznam existujících uživatelů a jejich základní informace.',
     'users.index.title' => 'Seznam uživatelů',
     'users.show.description' => 'Interaktivní informace o uživateli s připojenými identitami.',
