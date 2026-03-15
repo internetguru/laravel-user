@@ -54,10 +54,13 @@ trait BaseAuth
         $to = $prevUrl ?? $backUrl;
 
         // Avoid redirecting to login-related URLs (guest middleware would redirect again, losing flash data)
-        $loginUrl = route('login');
-        $pinLoginUrl = route('pin-login.verify');
-        if (str_starts_with($to, $loginUrl) || str_starts_with($to, $pinLoginUrl)) {
-            $to = '/';
+        $authUrls = [route('login'), route('register'), url('/pin-login'), url('/socialite')];
+        foreach ($authUrls as $authUrl) {
+            if (str_starts_with($to, $authUrl)) {
+                $to = '/';
+
+                break;
+            }
         }
 
         if ($lang) {
