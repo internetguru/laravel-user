@@ -48,12 +48,15 @@ trait TokenAuth
         try {
             $tokenAuth = TokenAuthModel::where('token', $token)->firstOrFail();
         } catch (\Exception $e) {
+            logger()->warning('Token not found for token auth login', ['token' => $token, 'exception' => $e]);
+
             return redirect()->to($backUrl)->withErrors(__('ig-user::token_auth.invalid'));
         }
         $user = $tokenAuth->user;
 
         if ($tokenAuth->expires_at->isPast()) {
             $tokenAuth->delete();
+            logger()->warning('Token expired for token auth login', ['token' => $token, 'user_id' => $user->id]);
 
             return redirect()->to($backUrl)->withErrors(__('ig-user::token_auth.invalid'));
         }
