@@ -74,6 +74,7 @@ trait BaseAuth
             'email' => $email,
             'role' => static::roles()::cases()[0],
             'lang' => app()->getLocale(),
+            'phone' => null,
         ]);
     }
 }
