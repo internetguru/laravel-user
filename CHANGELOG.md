@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.2.3] - 2026-03-15
+
+### Fixed
+
+- Fix registering new user create random phone number.
+
 ## [6.2.2] - 2026-03-15
 
 ### Fixed
@@ -1018,6 +1024,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[6.2.3]: https://https://github.com/internetguru/laravel-user/compare/v6.2.2...v6.2.3
 [6.2.2]: https://https://github.com/internetguru/laravel-user/compare/v6.2.1...v6.2.2
 [6.2.1]: https://https://github.com/internetguru/laravel-user/compare/v6.2.0...v6.2.1
 [6.2.0]: https://https://github.com/internetguru/laravel-user/compare/v6.1.4...v6.2.0
