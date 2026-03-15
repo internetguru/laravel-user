@@ -55,7 +55,8 @@ trait BaseAuth
 
         // Avoid redirecting to login-related URLs (guest middleware would redirect again, losing flash data)
         $loginUrl = route('login');
-        if (str_starts_with($to, $loginUrl)) {
+        $pinLoginUrl = route('pin-login.verify');
+        if (str_starts_with($to, $loginUrl) || str_starts_with($to, $pinLoginUrl)) {
             $to = '/';
         }
 
