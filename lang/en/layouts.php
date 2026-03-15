@@ -7,7 +7,7 @@ return [
     'login-demo.title' => 'Demo login',
     'login-demo.description' => 'Log in with preset demo users.',
     'register-email.title' => 'Create a new account manually',
-    'pin-verify.description' => 'Enter the verification code from your email to complete the login.',
+    'pin-verify.description' => 'Enter the verification code from the email we sent you.',
     'pin-verify.title' => 'Verification code',
     'users.index.description' => 'List of existing users and their basic information.',
     'users.index.title' => 'User List',

@@ -7,7 +7,7 @@ return [
     'login-demo.title' => 'Demo přihlášení',
     'login-demo.description' => 'Demo přihlášení pomocí přednastavených uživatelů.',
     'register-email.title' => 'Vytvořit nový účet ručně',
-    'pin-verify.description' => 'Zadejte ověřovací kód z vašeho e-mailu pro dokončení přihlášení.',
+    'pin-verify.description' => 'Zadejte ověřovací kód z e-mailu, který jsme vám poslali.',
     'pin-verify.title' => 'Ověřovací kód',
     'users.index.description' => 'Seznam existujících uživatelů a jejich základní informace.',
     'users.index.title' => 'Seznam uživatelů',
