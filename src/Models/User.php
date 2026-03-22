@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use InternetGuru\LaravelCommon\Traits\AssociationHistory;
 use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Traits\BaseAuth;
 use InternetGuru\LaravelUser\Traits\PinLogin;
@@ -19,6 +20,7 @@ use Internetguru\ModelBrowser\Traits\HasModelBrowserFilters;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
+    use AssociationHistory;
     use Authenticatable;
     use Authorizable;
     use BaseAuth;
@@ -27,6 +29,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use Notifiable;
     use PinLogin;
     use SocialiteAuth;
+
+    protected array $associationHistoryTracked = [
+        'name',
+        'email',
+        'phone',
+        'role',
+        'lang',
+    ];
 
     protected $modelBrowserFilterSessionKey = 'laravel-user-user-filters';
 
@@ -59,6 +69,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                 $user->created_by = auth()->id();
             }
         });
+    }
+
+    public function getSocialiteAttribute(): string
+    {
+        $providers = $this->socialites->pluck('provider.value')->sort()->implode(',');
+
+        return $providers ? 'connected:' . $providers : 'disconnected';
     }
 
     public function createdBy(): BelongsTo

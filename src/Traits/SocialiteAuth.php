@@ -89,6 +89,12 @@ trait SocialiteAuth
                 ->save($socialite);
         }
 
+        auth()->user()->associationHistories()->create([
+            'column_name' => 'socialite',
+            'column_prev_value' => 'disconnected:' . $provider->value,
+            'author_id' => auth()->id(),
+        ]);
+
         return redirect()->to(route('users.show', ['user' => auth()->user()]))->with('success', __('ig-user::messages.connect.success'));
     }
 
@@ -134,6 +140,12 @@ trait SocialiteAuth
         auth()->login($user, $remember);
         User::authenticated(auth()->user());
 
+        $user->associationHistories()->create([
+            'column_name' => 'socialite',
+            'column_prev_value' => 'disconnected:' . $provider->value,
+            'author_id' => auth()->id(),
+        ]);
+
         return User::successLoginRedirect($user);
     }
 
@@ -144,6 +156,12 @@ trait SocialiteAuth
             ->where('provider', $provider)
             ->firstOrFail()
             ->delete();
+
+        auth()->user()->associationHistories()->create([
+            'column_name' => 'socialite',
+            'column_prev_value' => 'connected:' . $provider->value,
+            'author_id' => auth()->id(),
+        ]);
 
         return back()->with('success', __('ig-user::messages.disconnect.success'));
     }
