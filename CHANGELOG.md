@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [6.3.0-rc.1] - 2026-03-22
 
+### Added
+
+- Implement association history.
+
 ## [6.2.6] - 2026-03-22
 
 ### Fixed
