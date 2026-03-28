@@ -10,48 +10,89 @@ class SetAppLocale
     /**
      * Handle an incoming request.
      *
-     * @return mixed
+     * When lang domains are configured (ig-common.lang_domains), browser language
+     * detection is skipped on the main domain to prevent auto-redirects. Language
+     * is only switched via explicit means: ?lang= param, authenticated user preference,
+     * or an existing session locale. Lang domains always enforce their own language.
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         $lang = $request->input('lang');
         $languages = config('languages');
+        $langDomains = config('ig-common.lang_domains', []);
+        $currentHost = $request->getHost();
+        $domainToLang = array_flip($langDomains);
+        $isOnLangDomain = isset($domainToLang[$currentHost]);
 
-        // set the language if it is set in request and supported
+        // Handle explicit ?lang= parameter
         if ($lang && in_array($lang, array_keys($languages))) {
             $this->setLang($lang);
-
-            // remove the lang parameter from the url and redirect
-            // reflash to preserve any flash data (e.g. success message after login)
             session()->reflash();
 
+            // Redirect to the lang domain if applicable and not already there
+            if (! empty($langDomains) && isset($langDomains[$lang]) && $langDomains[$lang] !== $currentHost) {
+                return redirect()->away($request->getScheme() . '://' . $langDomains[$lang] . $request->getPathInfo());
+            }
+
+            // Remove the lang parameter from the URL and redirect
             return redirect()->to($request->url());
         }
 
-        // use user lang if it is set and supported
-        if (auth()->check() && in_array(auth()->user()->lang, array_keys($languages))) {
-            $this->setLang(auth()->user()->lang, userSave: false);
+        // If on a lang domain, that domain's language takes precedence
+        if ($isOnLangDomain) {
+            $expectedLang = $domainToLang[$currentHost];
+            $explicitLocale = $this->getExplicitLocale($languages);
+
+            // Redirect if the user has an explicit preference for a different language
+            if ($explicitLocale && $explicitLocale !== $expectedLang) {
+                $uri = $request->getRequestUri();
+                $separator = str_contains($uri, '?') ? '&' : '?';
+
+                if (isset($langDomains[$explicitLocale])) {
+                    return redirect()->away($request->getScheme() . '://' . $langDomains[$explicitLocale] . $uri . $separator . 'lang=' . $explicitLocale, 302);
+                }
+
+                $mainDomain = config('app.www');
+
+                if ($mainDomain && $currentHost !== $mainDomain) {
+                    return redirect()->away($request->getScheme() . '://' . $mainDomain . $uri . $separator . 'lang=' . $explicitLocale, 302);
+                }
+            }
+
+            $this->setLang($expectedLang);
 
             return $next($request);
         }
 
-        // use session lang if it is set and supported
-        if (session()->has('locale') && in_array(session('locale'), array_keys($languages))) {
-            $this->setLang(session('locale'), userSave: false);
+        // Not on a lang domain: use explicit preferences only
+        $explicitLocale = $this->getExplicitLocale($languages);
+
+        if ($explicitLocale) {
+            $this->setLang($explicitLocale, userSave: false);
+
+            // Redirect to the lang domain if applicable
+            if (! empty($langDomains) && isset($langDomains[$explicitLocale])) {
+                $uri = $request->getRequestUri();
+                $separator = str_contains($uri, '?') ? '&' : '?';
+
+                return redirect()->away($request->getScheme() . '://' . $langDomains[$explicitLocale] . $uri . $separator . 'lang=' . $explicitLocale, 302);
+            }
 
             return $next($request);
         }
 
-        // try to detect the request language
-        $lang = $this->detectLang($request);
+        // No explicit preference: browser detection only when no lang domains are configured
+        if (empty($langDomains)) {
+            $detected = $this->detectLang($request);
 
-        // fallback to the default language if the detected language is not supported
-        if (! in_array($lang, array_keys($languages))) {
-            $lang = config('app.locale');
+            if (! in_array($detected, array_keys($languages))) {
+                $detected = config('app.locale');
+            }
+
+            $this->setLang($detected);
+        } else {
+            app()->setLocale(config('app.locale'));
         }
-
-        // persist the detected language
-        $this->setLang($lang);
 
         return $next($request);
     }
@@ -83,5 +124,18 @@ class SetAppLocale
         }
 
         return (string) current(array_keys($languages));
+    }
+
+    private function getExplicitLocale(array $languages): ?string
+    {
+        if (auth()->check() && in_array(auth()->user()->lang, array_keys($languages))) {
+            return auth()->user()->lang;
+        }
+
+        if (session()->has('locale') && in_array(session('locale'), array_keys($languages))) {
+            return session('locale');
+        }
+
+        return null;
     }
 }
