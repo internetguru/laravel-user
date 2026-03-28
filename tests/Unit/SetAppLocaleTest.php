@@ -201,6 +201,7 @@ class SetAppLocaleTest extends TestCase
 
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertStringContainsString('giftcarder.io', $response->getTargetUrl());
+        $this->assertStringContainsString('lang=en', $response->getTargetUrl());
     }
 
     public function test_handle_lang_param_on_lang_domain_redirects_to_main_domain()
@@ -219,7 +220,28 @@ class SetAppLocaleTest extends TestCase
 
         $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertStringContainsString('qrpoukazy.cz', $response->getTargetUrl());
-        $this->assertStringNotContainsString('lang=', $response->getTargetUrl());
+        $this->assertStringContainsString('lang=cs', $response->getTargetUrl());
+    }
+
+    public function test_handle_lang_param_to_lang_domain_overrides_stale_session()
+    {
+        Config::set('ig-user.lang_domains', ['cs' => 'qrpoukazy.cz']);
+        Config::set('app.www', 'www.giftcarder.io');
+        Config::set('languages', ['cs' => 'Česky', 'da' => 'Dansk', 'en' => 'English']);
+
+        // Simulate: user was on qrpoukazy.cz before with da, then clicks ?lang=cs from www.giftcarder.io
+        $middleware = new SetAppLocale;
+        $request = Request::create('http://www.giftcarder.io/some-path?lang=cs', 'GET', ['lang' => 'cs']);
+        $next = function ($request) {
+            return $request;
+        };
+
+        $response = $middleware->handle($request, $next);
+
+        // Must redirect to qrpoukazy.cz WITH ?lang=cs so the stale session there is overridden
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertStringContainsString('qrpoukazy.cz', $response->getTargetUrl());
+        $this->assertStringContainsString('lang=cs', $response->getTargetUrl());
     }
 
     public function test_handle_session_locale_redirects_to_lang_domain()
