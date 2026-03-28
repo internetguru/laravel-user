@@ -150,23 +150,43 @@ class SetAppLocaleTest extends TestCase
         $this->assertEquals('en', $lang);
     }
 
-    public function test_handle_skips_browser_detection_when_lang_domains_configured()
+    public function test_handle_browser_detection_redirects_to_lang_domain()
     {
-        Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);
-        Config::set('app.locale', 'cs');
-        Config::set('languages', ['cs' => 'Česky', 'en' => 'English']);
+        Config::set('ig-user.lang_domains', ['cs' => 'qrpoukazy.cz']);
+        Config::set('app.locale', 'en');
+        Config::set('languages', ['cs' => 'Česky', 'en' => 'English', 'da' => 'Dansk']);
 
         $middleware = new SetAppLocale;
-        $request = Request::create('/some-path', 'GET');
-        $request->headers->set('Accept-Language', 'en,en-US;q=0.9');
+        $request = Request::create('http://www.giftcarder.io/some-path', 'GET');
+        $request->headers->set('Accept-Language', 'cs,cs-CZ;q=0.9');
+        $next = function ($request) {
+            return $request;
+        };
+
+        $response = $middleware->handle($request, $next);
+
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertStringContainsString('qrpoukazy.cz', $response->getTargetUrl());
+        $this->assertStringContainsString('lang=cs', $response->getTargetUrl());
+    }
+
+    public function test_handle_browser_detection_serves_unmapped_language_on_main_domain()
+    {
+        Config::set('ig-user.lang_domains', ['cs' => 'qrpoukazy.cz']);
+        Config::set('app.locale', 'en');
+        Config::set('languages', ['cs' => 'Česky', 'en' => 'English', 'da' => 'Dansk']);
+
+        $middleware = new SetAppLocale;
+        $request = Request::create('http://www.giftcarder.io/some-path', 'GET');
+        $request->headers->set('Accept-Language', 'da,da-DK;q=0.9');
         $next = function ($request) {
             return $request;
         };
 
         $middleware->handle($request, $next);
 
-        $this->assertEquals('cs', App::getLocale());
-        $this->assertFalse(Session::has('locale'));
+        $this->assertEquals('da', App::getLocale());
+        $this->assertEquals('da', Session::get('locale'));
     }
 
     public function test_handle_enforces_lang_domain_language()
