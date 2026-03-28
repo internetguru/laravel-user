@@ -10,7 +10,7 @@ class SetAppLocale
     /**
      * Handle an incoming request.
      *
-     * When lang domains are configured (ig-common.lang_domains), browser language
+     * When lang domains are configured (ig-user.lang_domains), browser language
      * detection is skipped on the main domain to prevent auto-redirects. Language
      * is only switched via explicit means: ?lang= param, authenticated user preference,
      * or an existing session locale. Lang domains always enforce their own language.
@@ -19,7 +19,7 @@ class SetAppLocale
     {
         $lang = $request->input('lang');
         $languages = config('languages');
-        $langDomains = config('ig-common.lang_domains', []);
+        $langDomains = config('ig-user.lang_domains', []);
         $currentHost = $request->getHost();
         $domainToLang = array_flip($langDomains);
         $isOnLangDomain = isset($domainToLang[$currentHost]);
