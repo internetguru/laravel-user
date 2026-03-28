@@ -37,6 +37,7 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
         $this->loadLaravelMigrations(['--database' => 'testing']);
+        $this->loadMigrationsFrom(__DIR__ . '/../vendor/internetguru/laravel-common/database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         // clear all users
         User::query()->delete();
