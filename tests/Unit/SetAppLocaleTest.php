@@ -152,7 +152,7 @@ class SetAppLocaleTest extends TestCase
 
     public function test_handle_skips_browser_detection_when_lang_domains_configured()
     {
-        Config::set('ig-common.lang_domains', ['en' => 'giftcarder.io']);
+        Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);
         Config::set('app.locale', 'cs');
         Config::set('languages', ['cs' => 'Česky', 'en' => 'English']);
 
@@ -171,7 +171,7 @@ class SetAppLocaleTest extends TestCase
 
     public function test_handle_enforces_lang_domain_language()
     {
-        Config::set('ig-common.lang_domains', ['en' => 'giftcarder.io']);
+        Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);
         Config::set('languages', ['cs' => 'Česky', 'en' => 'English']);
 
         $middleware = new SetAppLocale;
@@ -188,7 +188,7 @@ class SetAppLocaleTest extends TestCase
 
     public function test_handle_redirects_lang_param_to_lang_domain()
     {
-        Config::set('ig-common.lang_domains', ['en' => 'giftcarder.io']);
+        Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);
         Config::set('languages', ['cs' => 'Česky', 'en' => 'English']);
 
         $middleware = new SetAppLocale;
@@ -205,7 +205,7 @@ class SetAppLocaleTest extends TestCase
 
     public function test_handle_session_locale_redirects_to_lang_domain()
     {
-        Config::set('ig-common.lang_domains', ['en' => 'giftcarder.io']);
+        Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);
         Config::set('languages', ['cs' => 'Česky', 'en' => 'English']);
         Session::put('locale', 'en');
 
@@ -223,7 +223,7 @@ class SetAppLocaleTest extends TestCase
 
     public function test_handle_on_lang_domain_redirects_mismatched_session_locale()
     {
-        Config::set('ig-common.lang_domains', ['en' => 'giftcarder.io']);
+        Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);
         Config::set('app.www', 'qrpoukazy.cz');
         Config::set('languages', ['cs' => 'Česky', 'en' => 'English']);
         Session::put('locale', 'cs');
