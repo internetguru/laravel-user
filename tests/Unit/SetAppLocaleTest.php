@@ -203,6 +203,25 @@ class SetAppLocaleTest extends TestCase
         $this->assertStringContainsString('giftcarder.io', $response->getTargetUrl());
     }
 
+    public function test_handle_lang_param_on_lang_domain_redirects_to_main_domain()
+    {
+        Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);
+        Config::set('app.www', 'qrpoukazy.cz');
+        Config::set('languages', ['cs' => 'Česky', 'en' => 'English']);
+
+        $middleware = new SetAppLocale;
+        $request = Request::create('http://giftcarder.io/some-path?lang=cs', 'GET', ['lang' => 'cs']);
+        $next = function ($request) {
+            return $request;
+        };
+
+        $response = $middleware->handle($request, $next);
+
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertStringContainsString('qrpoukazy.cz', $response->getTargetUrl());
+        $this->assertStringNotContainsString('lang=', $response->getTargetUrl());
+    }
+
     public function test_handle_session_locale_redirects_to_lang_domain()
     {
         Config::set('ig-user.lang_domains', ['en' => 'giftcarder.io']);

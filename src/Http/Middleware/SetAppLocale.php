@@ -34,6 +34,15 @@ class SetAppLocale
                 return redirect()->away($request->getScheme() . '://' . $langDomains[$lang] . $request->getPathInfo());
             }
 
+            // Redirect to the main domain when switching to the main-domain language from a lang domain
+            if (! empty($langDomains) && ! isset($langDomains[$lang]) && $isOnLangDomain) {
+                $mainDomain = config('app.www');
+
+                if ($mainDomain && $currentHost !== $mainDomain) {
+                    return redirect()->away($request->getScheme() . '://' . $mainDomain . $request->getPathInfo());
+                }
+            }
+
             // Remove the lang parameter from the URL and redirect
             return redirect()->to($request->url());
         }
