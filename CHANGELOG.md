@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.4.5] - 2026-03-28
+
+### Fixed
+
+- Fix automatic lang detection.
+
 ## [6.4.4] - 2026-03-28
 
 ### Fixed
@@ -1082,6 +1088,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[6.4.5]: https://https://github.com/internetguru/laravel-user/compare/v6.4.4...v6.4.5
 [6.4.4]: https://https://github.com/internetguru/laravel-user/compare/v6.4.3...v6.4.4
 [6.4.3]: https://https://github.com/internetguru/laravel-user/compare/v6.4.2...v6.4.3
 [6.4.2]: https://https://github.com/internetguru/laravel-user/compare/v6.4.1...v6.4.2

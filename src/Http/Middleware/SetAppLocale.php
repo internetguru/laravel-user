@@ -10,10 +10,11 @@ class SetAppLocale
     /**
      * Handle an incoming request.
      *
-     * When lang domains are configured (ig-user.lang_domains), browser language
-     * detection is skipped on the main domain to prevent auto-redirects. Language
-     * is only switched via explicit means: ?lang= param, authenticated user preference,
-     * or an existing session locale. Lang domains always enforce their own language.
+     * When lang domains are configured (ig-user.lang_domains), browser detection
+     * still runs on the main domain. If the detected language has a dedicated lang
+     * domain, the user is redirected there. Languages without a dedicated domain
+     * (e.g. da when only cs:qrpoukazy.cz is configured) are served directly.
+     * Lang domains always enforce their own language.
      */
     public function handle(Request $request, Closure $next): mixed
     {
@@ -90,18 +91,21 @@ class SetAppLocale
             return $next($request);
         }
 
-        // No explicit preference: browser detection only when no lang domains are configured
-        if (empty($langDomains)) {
-            $detected = $this->detectLang($request);
+        // No explicit preference: browser detection, redirect to lang domain if detected lang has one
+        $detected = $this->detectLang($request);
 
-            if (! in_array($detected, array_keys($languages))) {
-                $detected = config('app.locale');
-            }
-
-            $this->setLang($detected);
-        } else {
-            app()->setLocale(config('app.locale'));
+        if (! in_array($detected, array_keys($languages))) {
+            $detected = config('app.locale');
         }
+
+        if (! empty($langDomains) && isset($langDomains[$detected])) {
+            $uri = $request->getRequestUri();
+            $separator = str_contains($uri, '?') ? '&' : '?';
+
+            return redirect()->away($request->getScheme() . '://' . $langDomains[$detected] . $uri . $separator . 'lang=' . $detected, 302);
+        }
+
+        $this->setLang($detected);
 
         return $next($request);
     }
