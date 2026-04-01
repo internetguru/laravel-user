@@ -15,7 +15,7 @@ return [
     'register.noemail' => 'Registrering mislykkedes. Den angivne identitet indeholder ingen e-mailadresse.',
     'register.success' => 'Registreret som :name.',
     'register.pin-login.success' => 'Konto oprettet. Bekræftelseskoden er sendt til din e-mail.',
-    'remember_me' => 'Husk mig',
+    'remember_me' => 'Forbliv logget ind',
     'unexpected' => 'Der opstod en uventet fejl. Prøv igen senere.',
 
 ];

@@ -15,7 +15,7 @@ return [
     'register.noemail' => 'Registration failed. The provided identity does not contain an email address.',
     'register.success' => 'Registered as :name.',
     'register.pin-login.success' => 'Account created. Verification code sent to your email.',
-    'remember_me' => 'Remember me',
+    'remember_me' => 'Stay signed in',
     'unexpected' => 'An unexpected error occurred. Please try again later.',
 
 ];
