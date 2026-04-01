@@ -46,6 +46,10 @@ _Stable release based on [6.4.0-rc.1]._
 
 ## [6.4.0-rc.1] - 2026-03-28
 
+### Added
+
+- Support lang domains.
+
 ## [6.3.0] - 2026-03-22
 
 _Stable release based on [6.3.0-rc.1]._
