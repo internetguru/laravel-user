@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add complex e2e tests for normal and demo login, registration, and PIN login flows.
+
 ## [6.4.7] - 2026-04-01
 
 ### Fixed
