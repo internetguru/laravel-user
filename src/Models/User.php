@@ -90,6 +90,32 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             && $this->logged_at === null;
     }
 
+    /**
+     * Dynamic is{Role}() and is{Role}Plus() checks.
+     * E.g. $user->isAdmin(), $user->isOperatorPlus().
+     */
+    public function __call($method, $parameters)
+    {
+        if (str_starts_with($method, 'is')) {
+            $rolesEnum = static::roles();
+            $suffix = substr($method, 2);
+
+            if (str_ends_with($suffix, 'Plus')) {
+                $roleName = strtoupper(substr($suffix, 0, -4));
+                if (defined("$rolesEnum::$roleName")) {
+                    return $this->role->level() >= constant("$rolesEnum::$roleName")->level();
+                }
+            }
+
+            $roleName = strtoupper($suffix);
+            if (defined("$rolesEnum::$roleName")) {
+                return $this->role === constant("$rolesEnum::$roleName");
+            }
+        }
+
+        return parent::__call($method, $parameters);
+    }
+
     public static function providers(): string
     {
         return Provider::class;
@@ -173,7 +199,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return static::query()
             ->filterAutomatic()
             ->when(
-                auth()?->user()->role !== static::roles()::ADMIN,
+                ! auth()?->user()?->isAdmin(),
                 fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)
             );
     }

@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add dynamic `is{Role}()` and `is{Role}Plus()` methods on User model.
+
+
 ## [6.5.0] - 2026-04-04
 
 _Stable release based on [6.5.0-rc.1]._
