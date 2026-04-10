@@ -8,14 +8,14 @@ return [
     'disconnect.success' => 'Identiteten er fjernet fra din konto.',
     'identity.notfound' => 'Login mislykkedes. Identitet eller e-mail :email blev ikke fundet.',
     'login.forbidden' => 'Denne handling er ikke tilgængelig, når du er logget ind.',
-    'login.notfound' => 'E-mail blev ikke fundet.',
+    'login.notfound' => 'E-mailen eksisterer ikke.',
     'login.required' => 'Du skal være logget ind for at udføre denne handling.',
     'login.success' => 'Logget ind som :name.',
     'register.exists' => 'Denne identitet eller dens e-mailadresse er allerede registreret.',
     'register.noemail' => 'Registrering mislykkedes. Den angivne identitet indeholder ingen e-mailadresse.',
     'register.success' => 'Registreret som :name.',
     'register.pin-login.success' => 'Konto oprettet. Bekræftelseskoden er sendt til din e-mail.',
-    'remember_me' => 'Forbliv logget ind',
+    'remember_me' => 'Forbliv logget ind på denne enhed.',
     'unexpected' => 'Der opstod en uventet fejl. Prøv igen senere.',
 
 ];

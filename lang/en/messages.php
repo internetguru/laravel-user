@@ -8,14 +8,14 @@ return [
     'disconnect.success' => 'Identity unlinked from your account.',
     'identity.notfound' => 'Log in failed. Identity or email :email not found.',
     'login.forbidden' => 'This action is not available for logged in users.',
-    'login.notfound' => 'Email not found.',
+    'login.notfound' => 'Email doesn\'t exist.',
     'login.required' => 'This action requires you to log in.',
     'login.success' => 'Logged in as :name.',
     'register.exists' => 'This identity or its email is already registered.',
     'register.noemail' => 'Registration failed. The provided identity does not contain an email address.',
     'register.success' => 'Registered as :name.',
     'register.pin-login.success' => 'Account created. Verification code sent to your email.',
-    'remember_me' => 'Stay signed in',
+    'remember_me' => 'Stay signed in on this device.',
     'unexpected' => 'An unexpected error occurred. Please try again later.',
 
 ];
