@@ -1,5 +1,6 @@
 <section
     class="section section-user-detail"
+    style="padding-bottom: 1em"
     x-data="{
         editName: false,
         editEmail: false,
@@ -157,7 +158,8 @@
         </div>
     </div>
 </section>
-<section class="section" style="padding-top: 0;">
+@can('administrate', $user)
+<section class="section user-history" style="padding-top: 0;">
     <div class="row row-stretched">
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.history')</h2>
@@ -165,3 +167,4 @@
         </div>
     </div>
 </section>
+@endcan
