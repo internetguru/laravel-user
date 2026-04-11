@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [6.6.3] - 2026-04-11
+
+### Fixed
+
+- Update translations.
+
 ## [6.6.2] - 2026-04-10
 
 ### Fixed
@@ -1140,6 +1146,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[6.6.3]: https://https://github.com/internetguru/laravel-user/compare/v6.6.2...v6.6.3
 [6.6.2]: https://https://github.com/internetguru/laravel-user/compare/v6.6.1...v6.6.2
 [6.6.1]: https://https://github.com/internetguru/laravel-user/compare/v6.6.0...v6.6.1
 [6.6.0]: https://https://github.com/internetguru/laravel-user/compare/v6.5.0...v6.6.0
