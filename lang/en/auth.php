@@ -10,7 +10,7 @@ return [
     'login-register' => 'Log in / Register',
     'login.choose_method' => 'Choose a sign in method',
     'login.email' => 'Your email',
-    'login.register_if_not_found' => 'Create a new account if not found',
+    'login.register_if_not_found' => 'Create a new account if not found.',
     'login.send_pin' => 'Send verification code',
     'register-email.email' => 'Your email',
     'register-email.name' => 'Full name',

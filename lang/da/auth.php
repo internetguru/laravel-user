@@ -10,7 +10,7 @@ return [
     'login-register' => 'Log ind / Opret konto',
     'login.choose_method' => 'Vælg en login-metode',
     'login.email' => 'Din e-mail',
-    'login.register_if_not_found' => 'Opret en ny konto, hvis den ikke findes',
+    'login.register_if_not_found' => 'Opret en ny konto, hvis den ikke findes.',
     'login.send_pin' => 'Send bekræftelseskode',
     'register-email.email' => 'Din e-mail',
     'register-email.name' => 'Fuldt navn',

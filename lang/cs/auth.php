@@ -10,7 +10,7 @@ return [
     'login-register' => 'Přihlásit / Registrovat',
     'login.choose_method' => 'Zvolte způsob přihlášení',
     'login.email' => 'Váš e-mail',
-    'login.register_if_not_found' => 'Vytvořit nový účet, pokud neexistuje',
+    'login.register_if_not_found' => 'Vytvořit nový účet, pokud neexistuje.',
     'login.send_pin' => 'Odeslat ověřovací kód',
     'register-email.email' => 'Váš e-mail',
     'register-email.name' => 'Celé jméno',
