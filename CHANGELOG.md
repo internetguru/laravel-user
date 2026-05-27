@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+- Sort the demo users from manager to the operator.
+
 ## [6.6.3] - 2026-04-11
 
 ### Fixed
