@@ -16,12 +16,10 @@ class LoginControllerTest extends TestCase
         parent::setUp();
         config(['app.demo' => false]);
         // add machines index route
-        $this->app['router']->middleware('auth')->get('/machines', function () {
-            return 'machines';
-        })->name('machines.index');
+        $this->app['router']->middleware('auth')->get('/machines', fn() => 'machines')->name('machines.index');
     }
 
-    public function testShowLoginForm()
+    public function test_show_login_form()
     {
         $response = $this->get(route('login'));
         $response->assertStatus(200);
@@ -29,7 +27,7 @@ class LoginControllerTest extends TestCase
         $response->assertViewHas('view', 'login');
     }
 
-    public function testShowLoginFormDemo()
+    public function test_show_login_form_demo()
     {
         config(['app.demo' => true]);
 
@@ -43,7 +41,7 @@ class LoginControllerTest extends TestCase
         $response->assertViewHas('props', compact('users'));
     }
 
-    public function testDemoAuthenticateSuccess()
+    public function test_demo_authenticate_success()
     {
         config(['app.demo' => true]);
 
@@ -63,7 +61,16 @@ class LoginControllerTest extends TestCase
         $response->assertRedirect(route('machines.index') . '?lang=en');
     }
 
-    public function testLogout()
+    public function test_authenticate_aborts_when_not_demo()
+    {
+        $response = $this->post(route('login.authenticate'), [
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertStatus(400);
+    }
+
+    public function test_logout()
     {
         $user = User::factory()->withRole(Role::CUSTOMER)->create([
             'email' => 'test@example.com',

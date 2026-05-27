@@ -144,7 +144,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                     'id' => $user->email,
                     'name' => $user->name . ' (' . $user->role->translation() . ')',
                 ]
-            )->toArray();
+            )->values()->toArray();
     }
 
     public static function roleOptions(): array

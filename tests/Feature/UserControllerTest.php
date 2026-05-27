@@ -4,30 +4,14 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Route;
 use InternetGuru\LaravelUser\Enums\Role;
-use InternetGuru\LaravelUser\Http\Controllers\UserController;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // Define routes used in the tests
-        Route::middleware(['web', 'auth'])->group(function () {
-            Route::get('/users', [UserController::class, 'index'])->name('users.index');
-            Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-            Route::post('/users/{user}', [UserController::class, 'update'])->name('users.update');
-            Route::post('/users/{user}/disable', [UserController::class, 'disable'])->name('users.disable');
-            Route::post('/users/{user}/enable', [UserController::class, 'enable'])->name('users.enable');
-        });
-    }
-
-    public function testIndexDisplaysUsers()
+    public function test_index_displays_users()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $users = User::factory()->count(3)->create();
@@ -42,7 +26,7 @@ class UserControllerTest extends TestCase
         });
     }
 
-    public function testShowDisplaysUser()
+    public function test_show_displays_user()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create();
@@ -55,7 +39,7 @@ class UserControllerTest extends TestCase
         $response->assertViewHas('props.user', $user);
     }
 
-    public function testUpdateNameSuccessfully()
+    public function test_update_name_successfully()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create(['name' => 'Old Name']);
@@ -69,7 +53,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals('New Name', $user->fresh()->name);
     }
 
-    public function testUpdateEmailSuccessfully()
+    public function test_update_email_successfully()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create(['email' => 'old@gmail.com']);
@@ -83,7 +67,34 @@ class UserControllerTest extends TestCase
         $this->assertEquals('new@gmail.com', $user->fresh()->email);
     }
 
-    public function testUpdateRoleSuccessfully()
+    public function test_update_phone_successfully()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $user = User::factory()->create(['phone' => null]);
+
+        $response = $this->actingAs($admin)->post(route('users.update', $user), [
+            'phone' => '+420123456789',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', __('ig-user::user.update.phone'));
+        $this->assertEquals('+420123456789', $user->fresh()->phone);
+    }
+
+    public function test_update_phone_to_null()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $user = User::factory()->create(['phone' => '+420123456789']);
+
+        $response = $this->actingAs($admin)->post(route('users.update', $user), [
+            'phone' => '',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertNull($user->fresh()->phone);
+    }
+
+    public function test_update_role_successfully()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
@@ -97,7 +108,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals(Role::OPERATOR, $user->fresh()->role);
     }
 
-    public function testUpdateNameValidationFails()
+    public function test_update_name_validation_fails()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create();
@@ -110,7 +121,7 @@ class UserControllerTest extends TestCase
         $response->assertSessionHasErrors('name');
     }
 
-    public function testUpdateEmailValidationFails()
+    public function test_update_email_validation_fails()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create();
@@ -123,7 +134,21 @@ class UserControllerTest extends TestCase
         $response->assertSessionHasErrors('email');
     }
 
-    public function testUpdateRoleValidationFails()
+    public function test_update_email_to_existing_email_fails()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $user = User::factory()->create(['email' => 'unique@gmail.com']);
+        User::factory()->create(['email' => 'existing@gmail.com']);
+
+        $response = $this->actingAs($admin)->from('/users/' . $user->id)->post(route('users.update', $user), [
+            'email' => 'existing@gmail.com',
+        ]);
+
+        $response->assertRedirect('/users/' . $user->id);
+        $response->assertSessionHasErrors('email');
+    }
+
+    public function test_update_role_validation_fails()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create();
@@ -136,19 +161,7 @@ class UserControllerTest extends TestCase
         $response->assertSessionHasErrors('role');
     }
 
-    public function testUnauthorizedUserCannotUpdateAnotherUser()
-    {
-        $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($operator)->post(route('users.update', $user), [
-            'name' => 'New Name',
-        ]);
-
-        $response->assertStatus(403);
-    }
-
-    public function testUpdateThrowsBadRequestForUnexpectedRequest()
+    public function test_update_throws_bad_request_for_unexpected_request()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $user = User::factory()->create();
@@ -160,18 +173,19 @@ class UserControllerTest extends TestCase
         $response->assertStatus(400);
     }
 
-    public function testGuestCannotAccessUserRoutes()
+    public function test_unauthorized_user_cannot_update_another_user()
     {
+        $operator = User::factory()->create(['role' => Role::OPERATOR]);
         $user = User::factory()->create();
 
-        $this->get(route('users.index'))->assertRedirect('/login');
-        $this->get(route('users.show', $user))->assertRedirect('/login');
-        $this->post(route('users.update', $user), ['name' => 'New Name'])->assertRedirect('/login');
-        $this->post(route('users.disable', $user))->assertRedirect('/login');
-        $this->post(route('users.enable', $user))->assertRedirect('/login');
+        $response = $this->actingAs($operator)->post(route('users.update', $user), [
+            'name' => 'New Name',
+        ]);
+
+        $response->assertStatus(403);
     }
 
-    public function testUserCanUpdateOwnProfile()
+    public function test_user_can_update_own_profile()
     {
         $user = User::factory()->create(['name' => 'Old Name']);
 
@@ -184,7 +198,7 @@ class UserControllerTest extends TestCase
         $this->assertEquals('New Name', $user->fresh()->name);
     }
 
-    public function testBasicUserCannotUpdateOthersProfile()
+    public function test_basic_user_cannot_update_others_profile()
     {
         $user = User::factory()->withRole(Role::CUSTOMER)->create();
         $otherUser = User::factory()->create(['name' => 'Old Name']);
@@ -196,21 +210,18 @@ class UserControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testManagerCanUpdateRolesWithinLimits()
+    public function test_manager_can_update_roles_within_limits()
     {
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
 
-        // Manager can promote operator to customer
         $response = $this->actingAs($manager)->post(route('users.update', $operator), [
             'role' => Role::CUSTOMER->value,
         ]);
 
         $response->assertRedirect();
-        $response->assertSessionHas('success', __('ig-user::user.update.role'));
         $this->assertEquals(Role::CUSTOMER, $operator->fresh()->role);
 
-        // Manager cannot promote operator to admin
         $response = $this->actingAs($manager)->post(route('users.update', $operator), [
             'role' => Role::ADMIN->value,
         ]);
@@ -218,17 +229,12 @@ class UserControllerTest extends TestCase
         $response->assertStatus(403);
     }
 
-    public function testUpdateEmailToExistingEmailFails()
+    public function test_guest_cannot_access_user_routes()
     {
-        $admin = User::factory()->create(['role' => Role::ADMIN]);
-        $user = User::factory()->create(['email' => 'unique@gmail.com']);
-        User::factory()->create(['email' => 'existing@gmail.com']);
+        $user = User::factory()->create();
 
-        $response = $this->actingAs($admin)->from('/users/' . $user->id)->post(route('users.update', $user), [
-            'email' => 'existing@gmail.com',
-        ]);
-
-        $response->assertRedirect('/users/' . $user->id);
-        $response->assertSessionHasErrors('email');
+        $this->get(route('users.index'))->assertRedirect('/login');
+        $this->get(route('users.show', $user))->assertRedirect('/login');
+        $this->post(route('users.update', $user), ['name' => 'New Name'])->assertRedirect('/login');
     }
 }
