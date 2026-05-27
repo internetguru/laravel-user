@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [6.7.0] - 2026-05-27
+
+_Stable release based on [6.7.0-rc.1]._
+
 ## [6.7.0-rc.1] - 2026-05-27
 
 - Sort the demo users from manager to the operator.
@@ -1150,6 +1154,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[6.7.0]: https://https://github.com/internetguru/laravel-user/compare/v6.6.3...v6.7.0
 [6.7.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v6.6.3
 [6.6.3]: https://https://github.com/internetguru/laravel-user/compare/v6.6.2...v6.6.3
 [6.6.2]: https://https://github.com/internetguru/laravel-user/compare/v6.6.1...v6.6.2
