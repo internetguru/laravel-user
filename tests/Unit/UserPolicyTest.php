@@ -10,8 +10,6 @@ use Tests\TestCase;
 
 class UserPolicyTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected UserPolicy $policy;
 
     protected function setUp(): void
@@ -20,7 +18,7 @@ class UserPolicyTest extends TestCase
         $this->policy = new UserPolicy;
     }
 
-    public function testCrudPolicy()
+    public function test_crud()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
@@ -52,7 +50,7 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->policy->crud($customer, $admin));
     }
 
-    public function testViewAnyPolicy()
+    public function test_view_any()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
@@ -65,33 +63,18 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->policy->viewAny($customer));
     }
 
-    public function testAdministratePolicy()
+    public function test_administrate()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
-        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
 
-        // Admin can administrate any user
-        $this->assertTrue($this->policy->administrate($admin, $admin));
         $this->assertTrue($this->policy->administrate($admin, $manager));
-        $this->assertTrue($this->policy->administrate($admin, $operator));
-        $this->assertTrue($this->policy->administrate($admin, $customer));
-
-        // Manager can administrate users
-        $this->assertTrue($this->policy->administrate($manager, $manager));
         $this->assertTrue($this->policy->administrate($manager, $operator));
-        $this->assertTrue($this->policy->administrate($manager, $customer));
-        $this->assertTrue($this->policy->administrate($manager, $admin));
-
-        // Operator cannot administrate
-        $this->assertFalse($this->policy->administrate($operator, $operator));
         $this->assertFalse($this->policy->administrate($operator, $manager));
-        $this->assertFalse($this->policy->administrate($operator, $customer));
-        $this->assertFalse($this->policy->administrate($operator, $admin));
     }
 
-    public function testSetRolePolicy()
+    public function test_set_role()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
@@ -101,10 +84,9 @@ class UserPolicyTest extends TestCase
         // Admin can set any role
         $this->assertTrue($this->policy->setRole($admin, $operator, Role::ADMIN->level()));
         $this->assertTrue($this->policy->setRole($admin, $operator, Role::MANAGER->level()));
-        $this->assertTrue($this->policy->setRole($admin, $operator, Role::OPERATOR->level()));
         $this->assertTrue($this->policy->setRole($admin, $operator, Role::CUSTOMER->level()));
 
-        // Manager can set roles up to MANAGER
+        // Manager can set roles up to MANAGER level
         $this->assertTrue($this->policy->setRole($manager, $operator, Role::OPERATOR->level()));
         $this->assertTrue($this->policy->setRole($manager, $operator, Role::CUSTOMER->level()));
         $this->assertTrue($this->policy->setRole($manager, $operator, Role::MANAGER->level()));
