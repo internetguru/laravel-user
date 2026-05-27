@@ -138,13 +138,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return self::all()
             ->reject(fn ($user) => $user->isAutomatic())
-            ->sortBy(fn ($user) => $user->role->level())
+            ->sortByDesc(fn ($user) => $user->role->level())
             ->map(
                 fn ($user) => [
                     'id' => $user->email,
                     'name' => $user->name . ' (' . $user->role->translation() . ')',
                 ]
-            )->toArray();
+            )->values()->toArray();
     }
 
     public static function roleOptions(): array
