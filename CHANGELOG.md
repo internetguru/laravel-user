@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [6.7.1] - 2026-06-01
+
+### Fixed
+
+- Fix intended url redirect after login.
+
 ## [6.7.0] - 2026-05-27
 
 _Stable release based on [6.7.0-rc.1]._
@@ -1151,6 +1157,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[6.7.1]: https://https://github.com/internetguru/laravel-user/compare/v6.7.0...v6.7.1
 [6.7.0]: https://https://github.com/internetguru/laravel-user/compare/v6.6.3...v6.7.0
 [6.7.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v6.6.3
 [6.6.3]: https://https://github.com/internetguru/laravel-user/compare/v6.6.2...v6.6.3
