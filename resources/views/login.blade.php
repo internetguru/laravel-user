@@ -32,6 +32,7 @@
                 <x-ig::input type="email" name="email" autocomplete="email" required>@lang('ig-user::auth.login.email')</x-ig::input>
                 <input type="hidden" name="remember" x-bind:value="remember" />
                 <input type="hidden" name="register" x-bind:value="register" />
+                <input type="hidden" name="prev_url" value="{{ $prev_url }}" />
                 <x-ig::submit>@lang('ig-user::auth.login.send_pin')</x-ig::submit>
             </x-ig::form>
 
