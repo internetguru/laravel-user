@@ -25,6 +25,10 @@ class PinLoginController extends Controller
         $register = filter_var($request->input('register'), FILTER_VALIDATE_BOOLEAN);
         $resend = $request->boolean('resend');
 
+        if (! $resend) {
+            User::setAuthSessions($request);
+        }
+
         try {
             $user = User::where('email', $request->input('email'))->first();
 

@@ -51,13 +51,14 @@ trait BaseAuth
     public static function successLoginRedirect(User|UserModel $user, ?string $lang = null): RedirectResponse
     {
         [$prevUrl, $backUrl] = User::getAuthSessions();
-        $to = $prevUrl ?? $backUrl;
+        $intended = session()->pull('url.intended');
+        $to = $prevUrl ?? $intended ?? $backUrl;
 
         // Avoid redirecting to login-related URLs (guest middleware would redirect again, losing flash data)
         $authUrls = [route('login'), route('register'), url('/pin-login'), url('/socialite')];
         foreach ($authUrls as $authUrl) {
             if (str_starts_with($to, $authUrl)) {
-                $to = '/';
+                $to = $intended ?? '/';
 
                 break;
             }
