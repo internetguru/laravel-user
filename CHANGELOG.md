@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Use laravel-model-browser v5.
+
+### Fixed
+
+- Self-close the `<livewire:table-model-browser />` tag on the users page.
+
 ## [6.7.2] - 2026-06-02
 
 ### Fixed

@@ -29,5 +29,5 @@
             'email' => 'minmax(10em, 1fr)',
             'role' => 'minmax(3em, 0.5fr)',
         ]"
-    >
+    />
 </section>
