@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Use laravel-model-browser v5.
+
+### Fixed
+
+- Self-close the `<livewire:table-model-browser />` tag on the users page.
+
 ## [6.7.2] - 2026-06-02
 
 ### Fixed
@@ -1163,6 +1173,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [6.7.2]: https://https://github.com/internetguru/laravel-user/compare/v6.7.1...v6.7.2
 [6.7.1]: https://https://github.com/internetguru/laravel-user/compare/v6.7.0...v6.7.1
 [6.7.0]: https://https://github.com/internetguru/laravel-user/compare/v6.6.3...v6.7.0
