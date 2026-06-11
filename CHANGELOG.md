@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [7.0.2] - 2026-06-11
+
+### Fixed
+
+- Fix composer.lock mistmatch requirement.
+
 ## [7.0.1] - 2026-06-03
 
 ### Fixed
@@ -1186,6 +1192,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[7.0.2]: https://https://github.com/internetguru/laravel-user/compare/v7.0.1...v7.0.2
 [7.0.1]: https://https://github.com/internetguru/laravel-user/compare/v7.0.0...v7.0.1
 [7.0.0]: https://https://github.com/internetguru/laravel-user/compare/v6.7.2...v7.0.0
 [7.0.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v6.7.2
