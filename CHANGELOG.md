@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Check and disable "register checkbox" when manager does not exists.
+
 ## [7.0.2] - 2026-06-11
 
 ### Fixed

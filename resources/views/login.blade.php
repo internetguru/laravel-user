@@ -1,13 +1,14 @@
 @php
     $providers = App\Models\User::providers()::enabledCases();
     $prev_url = App\Models\User::getPreviousUrl();
+    $managerExists = App\Models\User::managerExists();
 @endphp
 
 <section class="section section-login">
     <div class="row row-basic row-stretched">
         <div class="card card-login" x-data="{
             remember: {{ request()->boolean('remember') ? 'true' : 'false' }},
-            register: {{ request()->boolean('register') ? 'true' : 'false' }},
+            register: {{ ! $managerExists || request()->boolean('register') ? 'true' : 'false' }},
         }">
             <h2 class="display-6">@lang('ig-user::auth.login.choose_method')</h2>
 
@@ -42,6 +43,8 @@
             >@lang('ig-user::messages.remember_me')</x-ig::input>
 
             <x-ig::input type="checkbox" name="register_check" id="register_check"
+                :checked="! $managerExists"
+                :disabled="! $managerExists"
                 x-bind:checked="register"
                 x-on:change="register = !register"
             >@lang('ig-user::auth.login.register_if_not_found')</x-ig::input>
