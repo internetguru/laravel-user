@@ -27,6 +27,30 @@ class LoginControllerTest extends TestCase
         $response->assertViewHas('view', 'login');
     }
 
+    public function test_show_login_form_without_manager_forces_register_checkbox()
+    {
+        $response = $this->get(route('login'));
+        $response->assertStatus(200);
+        $response->assertSee('id="register_check"', false);
+        $response->assertSeeInOrder(['id="register_check"', 'checked', 'disabled'], false);
+    }
+
+    public function test_show_login_form_with_manager_leaves_register_checkbox_optional()
+    {
+        User::factory()->withRole(Role::MANAGER)->create();
+
+        $response = $this->get(route('login'));
+        $response->assertStatus(200);
+
+        $content = $response->getContent();
+        $checkboxStart = strpos($content, 'id="register_check"');
+        $labelEnd = strpos($content, '</label>', $checkboxStart);
+        $checkboxHtml = substr($content, $checkboxStart, $labelEnd - $checkboxStart);
+
+        $this->assertDoesNotMatchRegularExpression('/(?<!:)\bchecked\b/', $checkboxHtml);
+        $this->assertDoesNotMatchRegularExpression('/\bdisabled\b/', $checkboxHtml);
+    }
+
     public function test_show_login_form_demo()
     {
         config(['app.demo' => true]);
