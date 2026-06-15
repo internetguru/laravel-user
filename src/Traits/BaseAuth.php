@@ -17,6 +17,11 @@ trait BaseAuth
         return Role::class;
     }
 
+    public static function managerExists(): bool
+    {
+        return static::where('role', static::roles()::MANAGER)->exists();
+    }
+
     public static function getPreviousUrl(): string
     {
         $prev = session('prevPage') ?? url()->previous();
