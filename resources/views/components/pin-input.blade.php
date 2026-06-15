@@ -32,11 +32,34 @@
         return {
             digits: Array(length).fill(''),
             length: length,
+            submitted: false,
             get fullPin() {
                 return this.digits.join('');
             },
+            get isComplete() {
+                return this.digits.every((d) => /^\d$/.test(d));
+            },
             init() {
                 setTimeout(() => this.$refs.pin0?.focus(), 50);
+            },
+            // Auto-submit once all digits are filled; the button remains for special cases.
+            submitIfComplete() {
+                if (this.submitted || !this.isComplete) {
+                    return;
+                }
+                const form = this.$root.closest('form');
+                if (!form) {
+                    return;
+                }
+                this.submitted = true;
+                // Wait for Alpine to flush the bound hidden input value before submitting.
+                this.$nextTick(() => {
+                    if (typeof form.requestSubmit === 'function') {
+                        form.requestSubmit();
+                    } else {
+                        form.submit();
+                    }
+                });
             },
             handleInput(event, index) {
                 const value = event.target.value;
@@ -50,6 +73,7 @@
                 if (index < this.length - 1) {
                     this.$refs['pin' + (index + 1)]?.focus();
                 }
+                this.submitIfComplete();
             },
             handleKeydown(event, index) {
                 if (event.key === 'Backspace') {
@@ -81,6 +105,7 @@
                 // Focus last filled or last box
                 const focusIndex = Math.min(digits.length, this.length - 1);
                 this.$refs['pin' + focusIndex]?.focus();
+                this.submitIfComplete();
             },
         };
     }

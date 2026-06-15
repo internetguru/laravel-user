@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Auto-submit the PIN verification form once the last digit is entered; the submit button remains for special cases.
+
 ## [7.1.0] - 2026-06-15
 
 _Stable release based on [7.1.0-rc.1]._
