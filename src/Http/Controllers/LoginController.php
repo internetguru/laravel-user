@@ -55,7 +55,7 @@ class LoginController extends Controller
         ]);
         $user = User::where('email', $credentials['email'])->first();
         $lang = app()->getLocale();
-        auth()->login($user, $request->filled('remember'));
+        auth()->login($user, remember: true);
         User::authenticated($user);
 
         // $request->session()->regenerate(); // reason?
