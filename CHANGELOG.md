@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Move "Log out" from the user menu to the user details page; "User details" is now the last item in the user menu.
+- Rename English action labels to "Sign in" / "Sign up" / "Sign out" / "Signed in as :name."; page/route names keep the "login" wording.
 
 ## [7.2.1] - 2026-07-02
 

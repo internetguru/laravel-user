@@ -4,10 +4,10 @@ return [
 
     'back' => 'Back to the login page',
     'demo.email' => 'Email',
-    'demo.submit' => 'Log in',
+    'demo.submit' => 'Sign in',
     'demo.title' => 'Select a demo account',
     'error' => 'Authentication failed',
-    'login-register' => 'Log in / Register',
+    'login-register' => 'Sign in / Sign up',
     'login.choose_method' => 'Choose a sign in method',
     'login.email' => 'Your email',
     'login.register_if_not_found' => 'Create a new account if not found.',
