@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Show a "No linked identities yet." placeholder under Identities on the user details page when the user has no linked identities.
+
+### Changed
+
+- Move "Log out" from the user menu to the user details page; "User details" is now the last item in the user menu.
+- Rename English action labels to "Sign in" / "Sign up" / "Sign out" / "Signed in as :name."; page/route names keep the "login" wording.
+
 ## [7.2.1] - 2026-07-02
 
 ### Changed
@@ -1215,6 +1226,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [7.2.1]: https://https://github.com/internetguru/laravel-user/compare/v7.2.0...v7.2.1
 [7.2.0]: https://https://github.com/internetguru/laravel-user/compare/v7.1.0...v7.2.0
 [7.2.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.1.0

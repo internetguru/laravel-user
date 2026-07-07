@@ -12,6 +12,7 @@ return [
     'information' => 'Brugerinformation',
     'logout' => 'Log ud',
     'name' => 'Navn',
+    'no-identities' => 'Ingen tilknyttede identiteter endnu.',
     'no-name' => 'Intet navn',
     'primary' => 'Primær',
     'phone' => 'Telefon',
