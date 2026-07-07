@@ -114,6 +114,11 @@
                     </x-ig::form>
                 </dd>
             </dl>
+            @if ($ownDetail)
+                <div class="text-start">
+                    <a class="btn btn-ico btn-simple mt-3" href="{{ route('logout') }}"><i class="fas fa-fw fa-right-from-bracket"></i>{{ Str::ucfirst(__('ig-user::user.logout')) }}</a>
+                </div>
+            @endif
         </div>
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>

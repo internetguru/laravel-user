@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Show a "No linked identities yet." placeholder under Identities on the user details page when the user has no linked identities.
 
+### Changed
+
+- Move "Log out" from the user menu to the user details page; "User details" is now the last item in the user menu.
+
 ## [7.2.1] - 2026-07-02
 
 ### Changed
