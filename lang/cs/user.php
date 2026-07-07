@@ -12,6 +12,7 @@ return [
     'information' => 'Informace o uživateli',
     'logout' => 'Odhlásit se',
     'name' => 'Jméno',
+    'no-identities' => 'Zatím žádné propojené identity.',
     'no-name' => 'Bez jména',
     'primary' => 'Primární',
     'phone' => 'Telefon',
