@@ -12,6 +12,7 @@ return [
     'information' => 'User information',
     'logout' => 'Log out',
     'name' => 'Name',
+    'no-identities' => 'No linked identities yet.',
     'no-name' => 'No name',
     'primary' => 'Primary',
     'phone' => 'Phone',

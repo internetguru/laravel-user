@@ -123,7 +123,7 @@
                 </p>
             @endif
             <dl>
-                @foreach($user->socialites as $socialite)
+                @forelse($user->socialites as $socialite)
                     @php
                         $provider = $socialite->provider->value;
                     @endphp
@@ -146,7 +146,9 @@
                             <br/>{{ $socialite->email }}
                         @endif
                     </dd>
-                @endforeach
+                @empty
+                    <p class="text-muted">@lang('ig-user::user.no-identities')</p>
+                @endforelse
             </dl>
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::socialite.add')</h2>
             <dl>

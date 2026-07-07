@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Show a "No linked identities yet." placeholder under Identities on the user details page when the user has no linked identities.
+
 ## [7.2.1] - 2026-07-02
 
 ### Changed

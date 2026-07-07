@@ -39,6 +39,17 @@ class UserControllerTest extends TestCase
         $response->assertViewHas('props.user', $user);
     }
 
+    public function test_show_displays_no_identities_message_when_user_has_no_socialites()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($admin)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee(__('ig-user::user.no-identities'));
+    }
+
     public function test_update_name_successfully()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
