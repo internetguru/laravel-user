@@ -11,12 +11,12 @@ class LoginControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         config(['app.demo' => false]);
         // add machines index route
-        $this->app['router']->middleware('auth')->get('/machines', fn() => 'machines')->name('machines.index');
+        $this->app['router']->middleware('auth')->get('/machines', fn () => 'machines')->name('machines.index');
     }
 
     public function test_show_login_form()
@@ -79,6 +79,29 @@ class LoginControllerTest extends TestCase
         $response = $this->post(route('login.authenticate'), [
             'email' => 'test@example.com',
             'prev_url' => route('machines.index'),
+        ]);
+
+        $this->assertEquals(auth()->user()->id, $user->id);
+        $response->assertRedirect(route('machines.index') . '?lang=en');
+    }
+
+    public function test_demo_authenticate_prefers_intended_url_over_stale_prev_url()
+    {
+        config(['app.demo' => true]);
+
+        $user = User::factory()->withRole(Role::CUSTOMER)->create([
+            'email' => 'test@example.com',
+        ]);
+
+        // Guest hits a protected route directly; Laravel records this as the real intended URL.
+        $response = $this->get(route('machines.index'));
+        $response->assertRedirect('/login');
+
+        // A stale prev_url (e.g. from unrelated navigation that touched the login page)
+        // must not win over the genuinely intended URL.
+        $response = $this->post(route('login.authenticate'), [
+            'email' => 'test@example.com',
+            'prev_url' => '/some-unrelated-page',
         ]);
 
         $this->assertEquals(auth()->user()->id, $user->id);
