@@ -57,7 +57,9 @@ trait BaseAuth
     {
         [$prevUrl, $backUrl] = User::getAuthSessions();
         $intended = session()->pull('url.intended');
-        $to = $prevUrl ?? $intended ?? $backUrl;
+        // Prefer Laravel's own intended URL: it is only set when a protected route
+        // actually redirected the guest here, so it can't be stale like prevPage/prev_url.
+        $to = $intended ?? $prevUrl ?? $backUrl;
 
         // Avoid redirecting to login-related URLs (guest middleware would redirect again, losing flash data)
         $authUrls = [route('login'), route('register'), url('/pin-login'), url('/socialite')];
