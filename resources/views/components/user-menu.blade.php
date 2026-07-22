@@ -11,7 +11,7 @@
             <li><a class="dropdown-item" style="border:none;" href="{{ route('users.show', auth()->user()) }}">@lang('ig-user::user.detail')</a></li>
         </ul>
     </div>
-@else
+@elseif (config('ig-user.login', true))
     <div>
         @if (url()->current() !== route('login'))
             <a href="{{ route('login') }}">
