@@ -31,11 +31,11 @@ class LaravelUserServiceProvider extends ServiceProvider
         }
 
         // load views, routes, translations, config
+        $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
+        $this->mergeConfigFrom(__DIR__ . '/../config/ig-user.php', 'ig-user');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ig-user');
         Route::middleware('web')->group(__DIR__ . '/../routes/web.php');
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'ig-user');
-        $this->mergeConfigFrom(__DIR__ . '/../config/services.php', 'services');
-        $this->mergeConfigFrom(__DIR__ . '/../config/ig-user.php', 'ig-user');
 
         // register UserPolicy
         Gate::policy(User::class, UserPolicy::class);

@@ -74,6 +74,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 | `SEZNAM_CLIENT_ID` | — | Seznam OAuth client ID |
 | `SEZNAM_CLIENT_SECRET` | — | Seznam OAuth client secret |
 | `SEZNAM_REDIRECT_URI` | — | Seznam OAuth redirect URI |
+| `AUTH_LOGIN_ENABLED` | `true` | Set to `false` to disable login — all login entry points return 404 |
 | `AUTH_DEMO` | `false` | Enable demo login — no password, user selected from list |
 | `LANG_DOMAINS` | `""` | Comma-separated `lang:domain` pairs, e.g. `cs:example.cz,da:example.dk` |
 
@@ -156,6 +157,16 @@ The `socialite.action` route accepts a `provider` and an `action`: `login`, `log
     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::DISCONNECT,
 ]) }}">Disconnect Google</a>
 ```
+
+## Disabling Login
+
+Set `AUTH_LOGIN_ENABLED=false` to close all ways in — `/login`, `/register`, `/pin-login`, the PIN endpoints and socialite `login`/`register` all return 404. Routes stay registered, so `route('login')` keeps resolving in host apps and views.
+
+```env
+AUTH_LOGIN_ENABLED=false
+```
+
+Logout, the `users` routes and socialite `connect`/`disconnect` remain available, so already authenticated sessions keep working. The `x-ig-user::user-menu` component hides its login link.
 
 ## Demo Mode
 

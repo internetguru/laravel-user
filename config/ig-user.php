@@ -2,6 +2,8 @@
 
 return [
 
+    'login' => env('AUTH_LOGIN_ENABLED', true),
+
     'demo' => env('AUTH_DEMO', false),
 
     'lang_domains' => collect(explode(',', env('LANG_DOMAINS', '')))
