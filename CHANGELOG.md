@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add `AUTH_LOGIN_ENABLED`, default `true`; set it to `false` to disable login — `/login`, `/register`, `/pin-login`, the PIN endpoints and socialite login/register return 404, and the user menu hides its login link. Logout, user routes and socialite connect/disconnect stay available.
+
 ## [7.3.2] - 2026-07-20
 
 ### Fixed

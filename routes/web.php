@@ -5,24 +5,25 @@ use InternetGuru\LaravelUser\Http\Controllers\LoginController;
 use InternetGuru\LaravelUser\Http\Controllers\PinLoginController;
 use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
 use InternetGuru\LaravelUser\Http\Controllers\UserController;
+use InternetGuru\LaravelUser\Http\Middleware\EnsureLoginEnabled;
 
 Route::controller(LoginController::class)
     ->middleware('web')
     ->group(function () {
         Route::get('/login', 'showLogin')
-            ->middleware('guest')
+            ->middleware(['guest', EnsureLoginEnabled::class])
             ->name('login');
 
         Route::get('/register', fn () => redirect()->route('login', request()->query()))
-            ->middleware('guest')
+            ->middleware(['guest', EnsureLoginEnabled::class])
             ->name('register');
 
         Route::get('/pin-login', fn () => redirect()->route('login', request()->query()))
-            ->middleware('guest')
+            ->middleware(['guest', EnsureLoginEnabled::class])
             ->name('pin-login');
 
         Route::post('/login', 'authenticate')
-            ->middleware('guest')
+            ->middleware(['guest', EnsureLoginEnabled::class])
             ->name('login.authenticate');
 
         Route::get('/logout', 'logout')
@@ -55,7 +56,7 @@ Route::controller(UserController::class)
 
 Route::controller(PinLoginController::class)
     ->prefix('pin-login')
-    ->middleware('web')
+    ->middleware(['web', EnsureLoginEnabled::class])
     ->group(function () {
 
         Route::post('/send', 'handleSendForm')
@@ -72,7 +73,7 @@ Route::controller(PinLoginController::class)
 
 Route::controller(SocialiteAuthController::class)
     ->prefix('socialite')
-    ->middleware('web')
+    ->middleware(['web', EnsureLoginEnabled::class])
     ->group(function () {
 
         Route::get('/{provider}/{action}', 'handleProviderAction')
