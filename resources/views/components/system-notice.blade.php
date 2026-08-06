@@ -26,10 +26,12 @@
             {!! __('ig-user::layouts.use-app') !!}
         </p>
     </div>
+    @include('ig-user::components.partials.standalone-notice-script')
 @elseif (auth()->guest())
     <div class="container-fluid alert alert-info mb-0 rounded-0 d-none app-login" data-testid="app-login">
         <p class="my-0">
             @lang('ig-user::layouts.app-login') <a href="{{ route('login') }}">@lang('ig-user::auth.login-register')</a>
         </p>
     </div>
+    @include('ig-user::components.partials.standalone-notice-script')
 @endif
