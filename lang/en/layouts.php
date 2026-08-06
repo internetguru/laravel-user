@@ -2,9 +2,9 @@
 
 return [
 
-    'identity-link' => 'You have no connected identity yet. Connect one in your <a href=":url">user profile</a> to sign in faster next time.',
-    'use-app' => 'You are signed in with elevated permissions. Be careful, your changes affect all users.',
-    'app-login' => 'Sign in to use all the application features.',
+    'identity-link' => '<a href=":url">Connect an identity</a> to your account to sign in with a single click.',
+    'use-app' => 'For your convenience and security, you can use this service as an app.',
+    'app-login' => 'You can sign in for more options.',
 
     'login.description' => 'Log in with a provider or request a verification code.',
     'login.title' => 'Log in with a provider',
