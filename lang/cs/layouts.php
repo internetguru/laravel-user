@@ -2,6 +2,10 @@
 
 return [
 
+    'identity-link' => 'Zatím nemáte připojenou žádnou identitu. Připojte si ji ve <a href=":url">svém profilu</a> a příště se přihlásíte rychleji.',
+    'use-app' => 'Jste přihlášeni s rozšířenými oprávněními. Buďte opatrní, vaše změny se projeví všem uživatelům.',
+    'app-login' => 'Pro využití všech funkcí aplikace se přihlaste.',
+
     'login.description' => 'Přihlaste se pomocí poskytovatele nebo si vyžádejte ověřovací kód.',
     'login.title' => 'Přihlášení pomocí poskytovatele',
     'login-demo.title' => 'Demo přihlášení',
