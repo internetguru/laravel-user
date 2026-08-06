@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add system-notice blade component.
+
 ## [7.4.0] - 2026-07-22
 
 _Stable release based on [7.4.0-rc.1]._
