@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Add to home screen guide behind the `use-app` system notice, opt-in via `ig::user-js`.
+
 ## [7.5.2] - 2026-08-06
 
 ### Fixed

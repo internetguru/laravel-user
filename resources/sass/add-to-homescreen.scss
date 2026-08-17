@@ -1,0 +1,78 @@
+// Corrections to the pwa-add-to-homescreen guide.
+// Loaded after the library stylesheet from resources/js/add-to-homescreen.js.
+
+.adhs-container {
+
+    // The overlay fades its opacity and background colour in while carrying a
+    // full-viewport backdrop blur, which forces the blur to be recomputed every
+    // frame and drops the modal open to a crawl on mobile. Show it outright.
+    &,
+    .adhs-modal {
+        transition: none;
+    }
+
+    &.visible .adhs-modal {
+        animation: none;
+    }
+
+    // Bootstrap Reboot sets `img, svg { vertical-align: middle }`, which breaks the
+    // library's inline buttons: their icons are positioned against the text baseline,
+    // so middle alignment inflates the line box and pushes the icons out of the pills.
+    img {
+        vertical-align: baseline;
+    }
+
+    // Chrome for iOS lets the user place the address bar at the top or at the bottom,
+    // and exposes no way to tell which. The library assumes the top and pins its arrow
+    // to the upper right corner, where there is nothing to point at in the bottom
+    // layout, so drop the arrow here and keep the wording corner-agnostic instead.
+    &.adhs-ios.adhs-chrome .adhs-bouncing-arrow {
+        display: none;
+    }
+
+    // The library hardcodes its type in pixels, at sizes that overwhelm the modal on a
+    // phone. Anchor the body copy to 1rem and express the rest relative to it, so the
+    // guide follows the application's own type scale.
+    .adhs-modal {
+        font-size: 1rem;
+
+        .adhs-title {
+            font-size: 1.5rem;
+        }
+
+        .adhs-app-name {
+            font-size: 1.25rem;
+        }
+
+        .adhs-list .adhs-list-item {
+
+            .adhs-instruction {
+                font-size: 1em;
+                line-height: 1.5;
+            }
+
+            .adhs-list-button .adhs-list-button-text {
+                font-size: 1em;
+            }
+        }
+
+        .adhs-list .adhs-emphasis,
+        .adhs-blurb,
+        .adhs-app-url {
+            font-size: 1em;
+        }
+    }
+
+    // Mobile overrides in the library are more specific than the rules above
+    &.adhs-mobile .adhs-modal {
+
+        .adhs-app-name {
+            font-size: 1.25rem;
+        }
+
+        .adhs-blurb,
+        .adhs-app-url {
+            font-size: 1em;
+        }
+    }
+}

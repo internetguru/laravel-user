@@ -20,6 +20,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 - [Language and Locale](#language-and-locale)
 - [User Management](#user-management)
 - [Blade Components](#blade-components)
+- [Add to Home Screen](#add-to-home-screen)
 - [User Preferences](#user-preferences)
 - [Association History](#association-history)
 - [User Policy](#user-policy)
@@ -270,6 +271,50 @@ Alpine.js-powered 6-box PIN input with paste, backspace, and arrow key support.
 | `name` | `'pin'` | Hidden input field name |
 | `length` | `6` | Number of digit boxes |
 | `prefix` | `'IG-'` | Visual prefix label |
+
+## Add to Home Screen
+
+The `use-app` system notice links part of its message to a guide that walks the user
+through installing the site on their home screen, built on
+[philfung/add-to-homescreen](https://github.com/philfung/add-to-homescreen). Any element
+carrying `data-add-to-homescreen` opens the guide.
+
+The guide is opt-in, because it needs an npm dependency the application owns. Without the
+wiring below the notice degrades to plain text. To enable it:
+
+1. Install the library:
+
+    ```sh
+    npm install pwa-add-to-homescreen
+    ```
+
+2. Alias the package's JavaScript and register the asset plugin in `vite.config.js`. The
+   plugin mirrors the library's illustrations into `public/vendor/add-to-homescreen/img`,
+   which the library loads at runtime and Vite therefore cannot bundle:
+
+    ```js
+    import addToHomescreenAssets from './vendor/internetguru/laravel-user/resources/js/vite-add-to-homescreen-assets.js';
+
+    export default defineConfig({
+        plugins: [laravel({ /* ... */ }), addToHomescreenAssets()],
+        resolve: {
+            alias: {
+                'ig::user-js': path.resolve(__dirname, 'vendor/internetguru/laravel-user/resources/js'),
+            },
+        },
+    });
+    ```
+
+    Add `/public/vendor` to `.gitignore`.
+
+3. Import it from `resources/js/app.js`:
+
+    ```js
+    import 'ig::user-js';
+    ```
+
+The library also expects the site to be a valid PWA: a web manifest linked from the
+layout and a square `/apple-touch-icon.png` of at least 40x40 pixels.
 
 ## User Preferences
 
