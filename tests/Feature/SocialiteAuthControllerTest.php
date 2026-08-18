@@ -95,11 +95,14 @@ class SocialiteAuthControllerTest extends TestCase
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/register/callback', 'GET');
 
+        // existing identity logs in instead of failing
         $user = $this->mockProviderUser();
         $response = $controller->handleProviderCallback('google', 'register');
 
-        $this->assertTrue(session()->has('errors'));
-        $this->assertEquals(__('ig-user::messages.register.exists'), session('errors')->first());
+        $this->assertEquals(302, $response->status());
+        $this->assertFalse(session()->has('errors'));
+        $this->assertEquals($user->id, Auth::id());
+        $this->assertTrue(session()->has('success'));
 
         // test success register $user
         $user->socialites()->delete();
@@ -111,6 +114,27 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals(302, $response->status());
         $this->assertTrue(Auth::check());
         $this->assertTrue(session()->has('success'));
+    }
+
+    public function test_handle_provider_callback_register_logs_in_existing_email()
+    {
+        $controller = new SocialiteAuthController;
+
+        $user = User::factory()->create(['email' => 'test@example.com']);
+
+        $providerUser = Mockery::mock(SocialiteUser::class);
+        $providerUser->id = rand(1000, 9999);
+        $providerUser->email = 'test@example.com';
+        $providerUser->name = 'Test User';
+        $providerMock = Mockery::mock('overload:' . Socialite::class);
+        $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
+
+        $response = $controller->handleProviderCallback('google', 'register');
+
+        $this->assertEquals(302, $response->status());
+        $this->assertFalse(session()->has('errors'));
+        $this->assertEquals($user->id, Auth::id());
+        $this->assertEquals(1, $user->socialites()->where('provider_id', $providerUser->id)->count());
     }
 
     public function test_handle_provider_callback_connect()
