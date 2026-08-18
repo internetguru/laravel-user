@@ -14,6 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use InternetGuru\LaravelCommon\Traits\AssociationHistory;
 use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Traits\BaseAuth;
+use InternetGuru\LaravelUser\Traits\MergedAccounts;
 use InternetGuru\LaravelUser\Traits\PinLogin;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
 use Internetguru\ModelBrowser\Traits\HasModelBrowserFilters;
@@ -26,6 +27,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use BaseAuth;
     use HasFactory;
     use HasModelBrowserFilters;
+    use MergedAccounts;
     use Notifiable;
     use PinLogin;
     use SocialiteAuth;

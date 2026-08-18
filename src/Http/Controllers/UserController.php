@@ -61,6 +61,59 @@ class UserController extends Controller
         abort(400);
     }
 
+    /**
+     * Add another account to this user's merged group.
+     */
+    public function merge(Request $request, User $user)
+    {
+        $mergeUser = $this->resolveMergeUser($request, $user);
+
+        if ($user->isMergedWith($mergeUser)) {
+            // Idempotent: a double submit or a back button should not read as an error
+            return back()->with('success', __('ig-user::user.merge.already'));
+        }
+
+        $user->mergeWith($mergeUser);
+
+        return back()->with('success', __('ig-user::user.merge.added', ['name' => $mergeUser->name]));
+    }
+
+    /**
+     * Split an account back out of this user's merged group.
+     */
+    public function unmerge(Request $request, User $user)
+    {
+        $mergeUser = $this->resolveMergeUser($request, $user);
+
+        if (! $user->isMergedWith($mergeUser)) {
+            return back()->with('success', __('ig-user::user.merge.not-merged'));
+        }
+
+        $user->unmergeFrom($mergeUser);
+
+        return back()->with('success', __('ig-user::user.merge.removed', ['name' => $mergeUser->name]));
+    }
+
+    /**
+     * Validate and authorize the second subject of a merge operation.
+     */
+    private function resolveMergeUser(Request $request, User $user): User
+    {
+        $request->validate([
+            'merge_user_id' => ['required', 'integer', 'exists:users,id'],
+        ]);
+
+        $mergeUser = User::findOrFail($request->integer('merge_user_id'));
+
+        if ($mergeUser->id === $user->id) {
+            abort(400);
+        }
+
+        Gate::authorize('merge', [$user, $mergeUser]);
+
+        return $mergeUser;
+    }
+
     private function updateName(Request $request, User $user)
     {
         $request->validate([

@@ -3,7 +3,6 @@
 namespace Tests\Unit\Policies;
 
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Policies\UserPolicy;
 use Tests\TestCase;
@@ -94,5 +93,35 @@ class UserPolicyTest extends TestCase
 
         // Operator cannot set roles
         $this->assertFalse($this->policy->setRole($operator, $customer, Role::OPERATOR->level()));
+    }
+
+    public function test_merge()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $otherManager = User::factory()->create(['role' => Role::MANAGER]);
+        $operator = User::factory()->create(['role' => Role::OPERATOR]);
+        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        // Admin can merge any pair
+        $this->assertTrue($this->policy->merge($admin, $operator, $customer));
+        $this->assertTrue($this->policy->merge($admin, $manager, $admin));
+
+        // Manager can merge accounts at or below their own level
+        $this->assertTrue($this->policy->merge($manager, $operator, $customer));
+        $this->assertTrue($this->policy->merge($manager, $manager, $customer));
+
+        // A manager must not pull an admin into any group: group membership drives row
+        // ownership, so that would grant access to the admin's records
+        $this->assertFalse($this->policy->merge($manager, $manager, $admin));
+        $this->assertFalse($this->policy->merge($manager, $admin, $customer));
+
+        // A peer manager is allowed, consistently with crud: managers may already administer
+        // each other, so this is a lateral move rather than an escalation
+        $this->assertTrue($this->policy->merge($manager, $otherManager, $customer));
+
+        // Below manager level nobody can merge, not even their own account
+        $this->assertFalse($this->policy->merge($operator, $operator, $customer));
+        $this->assertFalse($this->policy->merge($customer, $customer, $operator));
     }
 }

@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Merge user accounts: several accounts belonging to the same person form a group, and
+  consumers scope owned rows to the whole group via `$user->mergedIds()`. Managers administer
+  the group from the user detail page. Requires the new `user_merges` migration.
+
 ## [7.6.0] - 2026-08-17
 
 _Stable release based on [7.6.0-rc.1]._

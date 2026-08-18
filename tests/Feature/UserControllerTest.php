@@ -247,5 +247,175 @@ class UserControllerTest extends TestCase
         $this->get(route('users.index'))->assertRedirect('/login');
         $this->get(route('users.show', $user))->assertRedirect('/login');
         $this->post(route('users.update', $user), ['name' => 'New Name'])->assertRedirect('/login');
+        $this->post(route('users.merge', $user), ['merge_user_id' => 1])->assertRedirect('/login');
+        $this->post(route('users.unmerge', $user), ['merge_user_id' => 1])->assertRedirect('/login');
+    }
+
+    public function test_manager_can_merge_and_unmerge_accounts()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $response = $this->actingAs($manager)->post(route('users.merge', $user), [
+            'merge_user_id' => $other->id,
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', __('ig-user::user.merge.added', ['name' => $other->name]));
+        $this->assertTrue($user->fresh()->isMergedWith($other));
+        $this->assertDatabaseHas('user_merges', [
+            'user_id' => min($user->id, $other->id),
+            'merged_user_id' => max($user->id, $other->id),
+        ]);
+
+        $response = $this->actingAs($manager)->post(route('users.unmerge', $user), [
+            'merge_user_id' => $other->id,
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', __('ig-user::user.merge.removed', ['name' => $other->name]));
+        $this->assertFalse($user->fresh()->isMergedWith($other));
+        $this->assertDatabaseCount('user_merges', 0);
+    }
+
+    public function test_merge_writes_history_for_both_accounts()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $this->actingAs($manager)->post(route('users.merge', $user), [
+            'merge_user_id' => $other->id,
+        ]);
+
+        foreach ([$user, $other] as $account) {
+            $history = $account->fresh()->associationHistories()->where('column_name', 'merged')->get();
+
+            $this->assertCount(1, $history);
+            $this->assertSame('', $history->first()->column_prev_value);
+            $this->assertSame($manager->id, $history->first()->author_id);
+        }
+    }
+
+    public function test_merge_is_idempotent_and_does_not_error()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $payload = ['merge_user_id' => $other->id];
+
+        $this->actingAs($manager)->post(route('users.merge', $user), $payload);
+        $response = $this->actingAs($manager)->post(route('users.merge', $user), $payload);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', __('ig-user::user.merge.already'));
+        $this->assertDatabaseCount('user_merges', 1);
+    }
+
+    public function test_unmerging_unrelated_accounts_does_not_error()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $response = $this->actingAs($manager)->post(route('users.unmerge', $user), [
+            'merge_user_id' => $other->id,
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('success', __('ig-user::user.merge.not-merged'));
+    }
+
+    public function test_operator_cannot_merge_accounts()
+    {
+        $operator = User::factory()->create(['role' => Role::OPERATOR]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $this->actingAs($operator)->post(route('users.merge', $user), [
+            'merge_user_id' => $other->id,
+        ])->assertStatus(403);
+
+        $this->assertDatabaseCount('user_merges', 0);
+    }
+
+    public function test_manager_cannot_merge_an_admin_account()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+
+        // Neither by naming the admin as the route subject nor as the merge target
+        $this->actingAs($manager)->post(route('users.merge', $manager), [
+            'merge_user_id' => $admin->id,
+        ])->assertStatus(403);
+
+        $this->actingAs($manager)->post(route('users.merge', $admin), [
+            'merge_user_id' => $manager->id,
+        ])->assertStatus(403);
+
+        $this->assertDatabaseCount('user_merges', 0);
+    }
+
+    public function test_merge_validates_the_target_account()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $this->actingAs($manager)
+            ->post(route('users.merge', $user), [])
+            ->assertSessionHasErrors('merge_user_id');
+
+        $this->actingAs($manager)
+            ->post(route('users.merge', $user), ['merge_user_id' => 999999])
+            ->assertSessionHasErrors('merge_user_id');
+
+        // Merging an account with itself is meaningless
+        $this->actingAs($manager)
+            ->post(route('users.merge', $user), ['merge_user_id' => $user->id])
+            ->assertStatus(400);
+
+        $this->assertDatabaseCount('user_merges', 0);
+    }
+
+    public function test_merging_does_not_change_roles()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
+        $operator = User::factory()->create(['role' => Role::OPERATOR]);
+
+        $this->actingAs($manager)->post(route('users.merge', $customer), [
+            'merge_user_id' => $operator->id,
+        ]);
+
+        $this->assertEquals(Role::CUSTOMER, $customer->fresh()->role);
+        $this->assertEquals(Role::OPERATOR, $operator->fresh()->role);
+    }
+
+    public function test_show_lists_merged_accounts_for_a_manager()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER, 'name' => 'Merged Person']);
+
+        $user->mergeWith($other);
+
+        $response = $this->actingAs($manager)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee(__('ig-user::user.merges'));
+        $response->assertSee('Merged Person');
+        $response->assertSee($other->email);
+    }
+
+    public function test_show_hides_the_merge_section_from_non_managers()
+    {
+        $operator = User::factory()->create(['role' => Role::OPERATOR]);
+
+        $response = $this->actingAs($operator)->get(route('users.show', $operator));
+
+        $response->assertStatus(200);
+        $response->assertDontSee(__('ig-user::user.merges'));
     }
 }

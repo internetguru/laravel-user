@@ -11,6 +11,15 @@ return [
     'history' => 'Historie úprav',
     'information' => 'Informace o uživateli',
     'logout' => 'Odhlásit se',
+    'merge.added' => 'Účet :name byl sloučen.',
+    'merge.already' => 'Tyto účty už jsou sloučené.',
+    'merge.not-merged' => 'Tyto účty nejsou sloučené.',
+    'merge.removed' => 'Účet :name už není sloučený.',
+    'merge' => 'Sloučit účet',
+    'merges-empty' => 'Tento účet není sloučený s žádným dalším.',
+    'merges-info' => 'Sloučené účty patří jedné osobě. Každý z nich vidí a může spravovat záznamy všech ostatních.',
+    'merges-select' => 'Účet ke sloučení',
+    'merges' => 'Sloučené účty',
     'name' => 'Jméno',
     'no-identities' => 'Zatím žádné propojené identity.',
     'no-name' => 'Bez jména',
@@ -35,6 +44,7 @@ return [
     'update.name' => 'Jméno aktualizováno.',
     'update.phone' => 'Telefonní číslo aktualizováno.',
     'update.role' => 'Role aktualizována.',
+    'unmerge' => 'Rozdělit',
     'you' => 'Vy',
 
 ];
