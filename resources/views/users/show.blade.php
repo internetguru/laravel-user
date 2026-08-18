@@ -171,10 +171,10 @@
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.merges')</h2>
             <p class="text-muted">@lang('ig-user::user.merges-info')</p>
-            <dl class="mb-0">
+            <dl class="mb-0 mt-3">
                 @forelse ($user->mergedUsers() as $mergedUser)
                     <dt>{{ $mergedUser->name }}</dt>
-                    <dd class="mb-3" style="line-height: 1.7em; min-height: auto;">
+                    <dd class="mb-3" style="line-height: 1.7em; min-height: auto; margin-left: 0;">
                         {{ $mergedUser->email }}
                         <x-ig::form class="editable-skip d-inline" :recaptcha="false" :action="route('users.unmerge', $user)">
                             <input type="hidden" name="merge_user_id" value="{{ $mergedUser->id }}" />
