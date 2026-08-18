@@ -101,30 +101,32 @@ trait SocialiteAuth
     public static function socialiteRegister($provider, SocialiteUser $providerUser): RedirectResponse
     {
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
+
+        // Identity already registered, log the user in instead
+        if (User::getBySocialiteProvider($provider, $providerUser->id)) {
+            return User::socialiteLoginAndConnect($provider, $providerUser);
+        }
+
         if (! $providerUser->email) {
             // Email is required for registration
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.noemail'));
-        }
-
-        $user = User::getBySocialiteProvider($provider, $providerUser->id);
-        if ($user) {
-            return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
         }
 
         // Check by email including automatic accounts
         $userByEmail = User::where('email', $providerUser->email)->first();
 
         if ($userByEmail) {
-            if ($userByEmail->isAutomatic()) {
-                // Rewrite created_by and continue registration
-                $userByEmail->update([
-                    'created_by' => null,
-                    'name' => $providerUser->name,
-                ]);
-                $user = $userByEmail;
-            } else {
-                return redirect()->to($backUrl)->withErrors(__('ig-user::messages.register.exists'));
+            if (! $userByEmail->isAutomatic()) {
+                // Email already registered, log the user in and connect the identity
+                return User::socialiteLoginAndConnect($provider, $providerUser);
             }
+
+            // Rewrite created_by and continue registration
+            $userByEmail->update([
+                'created_by' => null,
+                'name' => $providerUser->name,
+            ]);
+            $user = $userByEmail;
         } else {
             $user = User::registerUser($providerUser->name, $providerUser->email);
             event(new Registered($user));
