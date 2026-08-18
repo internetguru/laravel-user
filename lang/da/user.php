@@ -11,6 +11,15 @@ return [
     'history' => 'Redigeringshistorik',
     'information' => 'Brugerinformation',
     'logout' => 'Log ud',
+    'merge.added' => 'Kontoen :name er blevet sammenlagt.',
+    'merge.already' => 'Disse konti er allerede sammenlagt.',
+    'merge.not-merged' => 'Disse konti er ikke sammenlagt.',
+    'merge.removed' => 'Kontoen :name er ikke længere sammenlagt.',
+    'merge' => 'Sammenlæg konto',
+    'merges-empty' => 'Denne konto er ikke sammenlagt med nogen anden.',
+    'merges-info' => 'Sammenlagte konti tilhører samme person. Hver af dem kan se og administrere alle de andres poster.',
+    'merges-select' => 'Konto der skal sammenlægges',
+    'merges' => 'Sammenlagte konti',
     'name' => 'Navn',
     'no-identities' => 'Ingen tilknyttede identiteter endnu.',
     'no-name' => 'Intet navn',
@@ -35,6 +44,7 @@ return [
     'update.name' => 'Navn opdateret.',
     'update.phone' => 'Telefonnummer opdateret.',
     'update.role' => 'Rolle opdateret.',
+    'unmerge' => 'Ophæv sammenlægning',
     'you' => 'Dig',
 
 ];

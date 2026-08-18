@@ -165,6 +165,46 @@
         </div>
     </div>
 </section>
+@can('merge', [$user, $user])
+<section class="section user-merges" style="padding-top: 0;">
+    <div class="row row-stretched">
+        <div class="card col col-centered">
+            <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.merges')</h2>
+            <p class="text-muted">@lang('ig-user::user.merges-info')</p>
+            <dl class="mb-0">
+                @forelse ($user->mergedUsers() as $mergedUser)
+                    <dt>{{ $mergedUser->name }}</dt>
+                    <dd class="mb-3" style="line-height: 1.7em; min-height: auto;">
+                        {{ $mergedUser->email }}
+                        <x-ig::form class="editable-skip d-inline" :recaptcha="false" :action="route('users.unmerge', $user)">
+                            <input type="hidden" name="merge_user_id" value="{{ $mergedUser->id }}" />
+                            <button type="submit" class="btn btn-link link-danger">@lang('ig-user::user.unmerge')</button>
+                        </x-ig::form>
+                    </dd>
+                @empty
+                    <p class="text-muted">@lang('ig-user::user.merges-empty')</p>
+                @endforelse
+            </dl>
+            @php
+                $mergeCandidates = $user::mergeCandidateOptions($user);
+            @endphp
+            @if (count($mergeCandidates))
+                <h2 class="h3 mb-3 mt-3 fw-normal">@lang('ig-user::user.merge')</h2>
+                <x-ig::form class="editable-skip" :recaptcha="false" :action="route('users.merge', $user)">
+                    <div class="input-group">
+                        <select name="merge_user_id" class="form-select" aria-label="@lang('ig-user::user.merges-select')">
+                            @foreach ($mergeCandidates as $candidate)
+                                <option value="{{ $candidate['id'] }}">{{ $candidate['name'] }}</option>
+                            @endforeach
+                        </select>
+                        <button type="submit" class="btn btn-primary">@lang('ig-user::user.merge')</button>
+                    </div>
+                </x-ig::form>
+            @endif
+        </div>
+    </div>
+</section>
+@endcan
 @can('administrate', $user)
 <section class="section user-history" style="padding-top: 0;">
     <div class="row row-stretched">

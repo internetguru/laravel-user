@@ -11,6 +11,15 @@ return [
     'history' => 'Edit history',
     'information' => 'User information',
     'logout' => 'Sign out',
+    'merge.added' => 'Account :name has been merged.',
+    'merge.already' => 'These accounts are already merged.',
+    'merge.not-merged' => 'These accounts are not merged.',
+    'merge.removed' => 'Account :name is no longer merged.',
+    'merge' => 'Merge account',
+    'merges-empty' => 'This account is not merged with any other.',
+    'merges-info' => 'Merged accounts belong to the same person. Each of them can see and manage the records of all the others.',
+    'merges-select' => 'Account to merge',
+    'merges' => 'Merged accounts',
     'name' => 'Name',
     'no-identities' => 'No linked identities yet.',
     'no-name' => 'No name',
@@ -35,6 +44,7 @@ return [
     'update.name' => 'Name updated.',
     'update.phone' => 'Phone number updated.',
     'update.role' => 'Role updated.',
+    'unmerge' => 'Unmerge',
     'you' => 'You',
 
 ];

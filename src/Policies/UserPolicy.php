@@ -50,6 +50,38 @@ class UserPolicy
     }
 
     /**
+     * Merge two accounts into one merged group, or split one off again.
+     *
+     * Both subjects are always passed explicitly, because merging is mutual: authorizing only
+     * one side would let a manager pull an account they may not touch into their own group.
+     *
+     * Requires manager level plus `crud` on both accounts. Group membership drives row
+     * ownership, and owning a row generally implies the right to change it, so merging into a
+     * higher-privileged account would hand the lower one access to its records. `crud` already
+     * caps a manager at MANAGER_LEVEL, which keeps admin accounts out of every group a manager
+     * can build. Peer managers are allowed, consistently with crud: managers may already
+     * administer each other, so that is a lateral move rather than an escalation.
+     */
+    public function merge(User $user, User $firstUser, User $secondUser): bool
+    {
+        if ($user->role->level() < User::MANAGER_LEVEL) {
+            return false;
+        }
+
+        foreach ([$firstUser, $secondUser] as $targetUser) {
+            if (! $this->crud($user, $targetUser)) {
+                return false;
+            }
+
+            if ($targetUser->role->level() > $user->role->level()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Admins can set any role
      * Managers can set lower roles than themselves
      * Managers can set the same role (no change)

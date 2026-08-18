@@ -45,6 +45,14 @@ Route::controller(UserController::class)
         Route::post('/{user}', 'update') // check on controller level based on attribute sent
             ->name('users.update');
 
+        // check on controller level: the merge ability takes two subjects, which the
+        // can: middleware cannot express (it only passes the route-bound model)
+        Route::post('/{user}/merge', 'merge')
+            ->name('users.merge');
+
+        Route::post('/{user}/unmerge', 'unmerge')
+            ->name('users.unmerge');
+
         Route::post('/{user}/disable', 'disable')
             ->middleware('can:enable-disable,user')
             ->name('users.disable');
