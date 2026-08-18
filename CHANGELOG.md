@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [7.7.0] - 2026-08-18
+
+_Stable release based on [7.7.0-rc.1]._
+
+## [7.7.0-rc.1] - 2026-08-18
+
+### Added
+
+- Merge user accounts: several accounts belonging to the same person form a group, and
+  consumers scope owned rows to the whole group via `$user->mergedIds()`. Managers administer
+  the group from the user detail page. Requires the new `user_merges` migration.
+
 ## [7.6.0] - 2026-08-17
 
 _Stable release based on [7.6.0-rc.1]._
@@ -1284,6 +1296,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[7.7.0]: https://https://github.com/internetguru/laravel-user/compare/v7.6.0...v7.7.0
+[7.7.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.6.0
 [7.6.0]: https://https://github.com/internetguru/laravel-user/compare/v7.5.2...v7.6.0
 [7.6.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.5.2
 [7.5.2]: https://https://github.com/internetguru/laravel-user/compare/v7.5.1...v7.5.2
