@@ -21,6 +21,9 @@
             'name' => 'formatUserNameLink',
             'role' => 'formatUserRole',
         ]"
+        :rawFormats="[
+            'role' => 'formatUserRole',
+        ]"
         :enableSort="false"
         defaultSortColumn="name"
         defaultSortDirection="asc"

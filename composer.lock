@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d33991e843b148ca8522ead00ecae995",
+    "content-hash": "4ea9a494bd3ea545bda4444ab6be56ff",
     "packages": [
         {
             "name": "brick/math",
@@ -1181,16 +1181,16 @@
         },
         {
             "name": "internetguru/laravel-model-browser",
-            "version": "v5.0.0",
+            "version": "v6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-model-browser.git",
-                "reference": "f2a2f22b031bbaf68509cbcf0ba2c08d23c47651"
+                "reference": "913f4128bbda7e534188e6d4ee6c2f20d7b94e6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/f2a2f22b031bbaf68509cbcf0ba2c08d23c47651",
-                "reference": "f2a2f22b031bbaf68509cbcf0ba2c08d23c47651",
+                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/913f4128bbda7e534188e6d4ee6c2f20d7b94e6d",
+                "reference": "913f4128bbda7e534188e6d4ee6c2f20d7b94e6d",
                 "shasum": ""
             },
             "require": {
@@ -1235,9 +1235,9 @@
             "description": "A Laravel package to browse models and show them in a table, autocmplete, etc.",
             "support": {
                 "issues": "https://github.com/internetguru/laravel-model-browser/issues",
-                "source": "https://github.com/internetguru/laravel-model-browser/tree/v5.0.0"
+                "source": "https://github.com/internetguru/laravel-model-browser/tree/v6.0.0"
             },
-            "time": "2026-06-02T10:23:12+00:00"
+            "time": "2026-08-23T16:03:52+00:00"
         },
         {
             "name": "internetguru/laravel-recaptchav3",
@@ -9966,5 +9966,5 @@
         "php": "^8.4"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
