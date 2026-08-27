@@ -45,6 +45,36 @@ class SystemNoticeTest extends TestCase
         }
     }
 
+    public function test_install_hint_is_hidden_below_the_configured_role()
+    {
+        config(['ig-user.system_notice_role' => 'manager']);
+
+        $this->actingAs($this->operator());
+
+        $view = $this->blade('<x-ig-user::system-notice />');
+
+        $view->assertDontSee('data-testid="use-app"', false);
+    }
+
+    public function test_install_hint_is_shown_from_the_configured_role_up()
+    {
+        config(['ig-user.system_notice_role' => 'customer']);
+
+        $user = User::factory()->withRole(Role::CUSTOMER)->create();
+        $user->socialites()->create([
+            'provider' => (User::providers())::cases()[0],
+            'provider_id' => 'provider-id',
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
+
+        $this->actingAs($user);
+
+        $view = $this->blade('<x-ig-user::system-notice />');
+
+        $view->assertSee('data-testid="use-app"', false);
+    }
+
     public function test_install_hint_degrades_to_plain_text_without_the_guide_script()
     {
         $this->actingAs($this->operator());
