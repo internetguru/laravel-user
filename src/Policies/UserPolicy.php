@@ -52,6 +52,10 @@ class UserPolicy
     /**
      * Merge two accounts into one merged group, or split one off again.
      *
+     * Merging is opt-in per application: it stays off until `ig-user.merge`
+     * (`AUTH_MERGE_ENABLED`) is turned on, which hides the whole section from the
+     * user detail and rejects both the merge and the unmerge endpoints.
+     *
      * Both subjects are always passed explicitly, because merging is mutual: authorizing only
      * one side would let a manager pull an account they may not touch into their own group.
      *
@@ -64,6 +68,10 @@ class UserPolicy
      */
     public function merge(User $user, User $firstUser, User $secondUser): bool
     {
+        if (! config('ig-user.merge', false)) {
+            return false;
+        }
+
         if ($user->role->level() < User::MANAGER_LEVEL) {
             return false;
         }

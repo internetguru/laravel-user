@@ -77,6 +77,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 | `SEZNAM_REDIRECT_URI` | — | Seznam OAuth redirect URI |
 | `AUTH_LOGIN_ENABLED` | `true` | Set to `false` to disable login — all login entry points return 404 |
 | `AUTH_DEMO` | `false` | Enable demo login — no password, user selected from list |
+| `AUTH_MERGE_ENABLED` | `false` | Set to `true` to allow merging user accounts |
 | `LANG_DOMAINS` | `""` | Comma-separated `lang:domain` pairs, e.g. `cs:example.cz,da:example.dk` |
 
 ### Disabling a Provider
@@ -240,6 +241,14 @@ The package provides a user list at `/users` and a user detail page at `/users/{
 
 Users can update their own `name`, `email`, `phone`, and `role` via POST to `/users/{user}`. Role changes are subject to the `setRole` policy.
 
+### Merging Accounts
+
+Merging joins several accounts of the same person into one group, so any of them owns the group's records. It is disabled by default; set `AUTH_MERGE_ENABLED=true` to expose the merge and unmerge controls on the user detail page. While disabled, the `merge` gate denies everyone, which hides the section and makes the `users.merge` and `users.unmerge` endpoints return 403.
+
+```env
+AUTH_MERGE_ENABLED=true
+```
+
 ### Automatic Accounts
 
 An account is considered _automatic_ when `created_by === id` and `logged_at IS NULL`. These accounts are hidden from `User::summary()` and `getDemoUsers()`. When a user registers via PIN login with the "create account" option, reusing an existing automatic account converts it to a regular account.
@@ -341,6 +350,7 @@ The history is displayed on the user detail page, visible to managers and above.
 | `viewAny` | Managers and above can view the user list |
 | `administrate` | Managers and above |
 | `setRole` | Admins can set any role; managers can set roles up to their own level |
+| `merge` | Managers and above, both subjects editable; requires `AUTH_MERGE_ENABLED=true` |
 
 Publish the default policy to customise it:
 

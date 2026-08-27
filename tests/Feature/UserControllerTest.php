@@ -251,8 +251,27 @@ class UserControllerTest extends TestCase
         $this->post(route('users.unmerge', $user), ['merge_user_id' => 1])->assertRedirect('/login');
     }
 
+    public function test_merge_endpoints_are_disabled_by_default()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $this->actingAs($manager)->post(route('users.merge', $user), [
+            'merge_user_id' => $other->id,
+        ])->assertStatus(403);
+
+        $this->actingAs($manager)->post(route('users.unmerge', $user), [
+            'merge_user_id' => $other->id,
+        ])->assertStatus(403);
+
+        $this->assertDatabaseCount('user_merges', 0);
+    }
+
     public function test_manager_can_merge_and_unmerge_accounts()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
         $other = User::factory()->create(['role' => Role::CUSTOMER]);
@@ -281,6 +300,8 @@ class UserControllerTest extends TestCase
 
     public function test_merge_writes_history_for_both_accounts()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
         $other = User::factory()->create(['role' => Role::CUSTOMER]);
@@ -300,6 +321,8 @@ class UserControllerTest extends TestCase
 
     public function test_merge_is_idempotent_and_does_not_error()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
         $other = User::factory()->create(['role' => Role::CUSTOMER]);
@@ -316,6 +339,8 @@ class UserControllerTest extends TestCase
 
     public function test_unmerging_unrelated_accounts_does_not_error()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
         $other = User::factory()->create(['role' => Role::CUSTOMER]);
@@ -330,6 +355,8 @@ class UserControllerTest extends TestCase
 
     public function test_operator_cannot_merge_accounts()
     {
+        config(['ig-user.merge' => true]);
+
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
         $other = User::factory()->create(['role' => Role::CUSTOMER]);
@@ -343,6 +370,8 @@ class UserControllerTest extends TestCase
 
     public function test_manager_cannot_merge_an_admin_account()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $admin = User::factory()->create(['role' => Role::ADMIN]);
 
@@ -360,6 +389,8 @@ class UserControllerTest extends TestCase
 
     public function test_merge_validates_the_target_account()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
 
@@ -381,6 +412,8 @@ class UserControllerTest extends TestCase
 
     public function test_merging_does_not_change_roles()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $customer = User::factory()->create(['role' => Role::CUSTOMER]);
         $operator = User::factory()->create(['role' => Role::OPERATOR]);
@@ -395,6 +428,8 @@ class UserControllerTest extends TestCase
 
     public function test_show_lists_merged_accounts_for_a_manager()
     {
+        config(['ig-user.merge' => true]);
+
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
         $other = User::factory()->create(['role' => Role::CUSTOMER, 'name' => 'Merged Person']);
@@ -407,6 +442,17 @@ class UserControllerTest extends TestCase
         $response->assertSee(__('ig-user::user.merges'));
         $response->assertSee('Merged Person');
         $response->assertSee($other->email);
+    }
+
+    public function test_show_hides_the_merge_section_while_merging_is_disabled()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $response = $this->actingAs($manager)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertDontSee(__('ig-user::user.merges'));
     }
 
     public function test_show_hides_the_merge_section_from_non_managers()
