@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Disable account merging by default, enable it with `AUTH_MERGE_ENABLED=true`.
+
 ## [7.8.0] - 2026-08-27
 
 _Stable release based on [7.8.0-rc.1]._
