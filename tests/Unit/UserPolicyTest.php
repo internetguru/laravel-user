@@ -95,8 +95,18 @@ class UserPolicyTest extends TestCase
         $this->assertFalse($this->policy->setRole($operator, $customer, Role::OPERATOR->level()));
     }
 
+    public function test_merge_is_disabled_by_default()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $customer = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        $this->assertFalse($this->policy->merge($admin, $admin, $customer));
+    }
+
     public function test_merge()
     {
+        config(['ig-user.merge' => true]);
+
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $otherManager = User::factory()->create(['role' => Role::MANAGER]);
