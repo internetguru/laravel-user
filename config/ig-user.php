@@ -6,6 +6,8 @@ return [
 
     'demo' => env('AUTH_DEMO', false),
 
+    'merge' => env('AUTH_MERGE_ENABLED', false),
+
     'lang_domains' => collect(explode(',', env('LANG_DOMAINS', '')))
         ->filter()
         ->mapWithKeys(function (string $item) {
