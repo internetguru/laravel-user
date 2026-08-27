@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
 
 class PinLoginController extends Controller
 {
@@ -29,19 +29,18 @@ class PinLoginController extends Controller
             User::setAuthSessions($request);
         }
 
+        $email = $request->input('email');
+
         try {
-            $user = User::where('email', $request->input('email'))->first();
+            $known = User::where('email', $email)->exists()
+                || PinLoginModel::where('email', $email)->exists();
 
-            if (! $user && $register && ! $resend) {
-                $name = Str::before($request->input('email'), '@');
-                $user = User::registerUser($name, $request->input('email'));
-            }
-
-            if (! $user) {
+            if (! $known && ! $register) {
                 return back()->withInput()->withErrors(__('ig-user::messages.login.notfound'));
             }
 
-            return $user->sendPinLogin($remember, $register, $resend);
+            // The account itself is created only once the PIN is verified
+            return User::sendPinLogin($email, $remember, $register, $resend);
         } catch (\Exception $e) {
             Log::error($e->getMessage());
 
