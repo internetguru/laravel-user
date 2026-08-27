@@ -8,6 +8,8 @@ return [
 
     'merge' => env('AUTH_MERGE_ENABLED', false),
 
+    'system_notice_role' => env('AUTH_SYSTEM_NOTICE_ROLE', 'operator'),
+
     'lang_domains' => collect(explode(',', env('LANG_DOMAINS', '')))
         ->filter()
         ->mapWithKeys(function (string $item) {
