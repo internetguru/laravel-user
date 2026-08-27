@@ -3,6 +3,8 @@
 namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
 use InternetGuru\LaravelUser\Models\PinLogin;
 use Tests\TestCase;
@@ -54,6 +56,7 @@ class PinLoginControllerTest extends TestCase
         $this->travel(-2)->minutes();
         PinLogin::create([
             'user_id' => $user->id,
+            'email' => $user->email,
             'pin' => '111111',
             'expires_at' => now()->subMinutes(5),
             'remember' => false,
@@ -87,6 +90,7 @@ class PinLoginControllerTest extends TestCase
         $this->travel(-2)->minutes();
         PinLogin::create([
             'user_id' => $user->id,
+            'email' => $user->email,
             'pin' => '111111',
             'expires_at' => now()->subMinutes(5),
             'remember' => true,
@@ -119,7 +123,7 @@ class PinLoginControllerTest extends TestCase
         $response->assertSessionHasErrors();
     }
 
-    public function test_send_pin_with_register_creates_new_user()
+    public function test_send_pin_with_register_does_not_create_user_yet()
     {
         Notification::fake();
 
@@ -129,12 +133,113 @@ class PinLoginControllerTest extends TestCase
         ]);
 
         $response->assertRedirect(route('pin-login.verify', ['email' => 'newuser@example.com']));
-        $this->assertDatabaseHas('users', [
+        $this->assertDatabaseMissing('users', [
             'email' => 'newuser@example.com',
         ]);
         $this->assertDatabaseHas('pin_logins', [
+            'email' => 'newuser@example.com',
+            'user_id' => null,
             'register' => true,
         ]);
+        Notification::assertCount(1);
+    }
+
+    public function test_resend_pin_for_pending_registration()
+    {
+        Notification::fake();
+
+        $this->travel(-2)->minutes();
+        PinLogin::create([
+            'email' => 'newuser@example.com',
+            'pin' => '111111',
+            'expires_at' => now()->addMinutes(10),
+            'remember' => true,
+            'register' => true,
+        ]);
+        $this->travelBack();
+
+        $response = $this->post(route('pin-login.form'), [
+            'email' => 'newuser@example.com',
+            'resend' => '1',
+            'remember' => 'false',
+            'register' => 'false',
+        ]);
+
+        $response->assertRedirect(route('pin-login.verify', ['email' => 'newuser@example.com']));
+        $this->assertDatabaseCount('pin_logins', 1);
+        $this->assertDatabaseHas('pin_logins', [
+            'email' => 'newuser@example.com',
+            'user_id' => null,
+            'remember' => true,
+            'register' => true,
+        ]);
+        $this->assertDatabaseMissing('users', ['email' => 'newuser@example.com']);
+    }
+
+    public function test_verify_pin_registers_user()
+    {
+        Event::fake();
+
+        PinLogin::create([
+            'email' => 'newuser@example.com',
+            'pin' => '123456',
+            'expires_at' => now()->addMinutes(10),
+            'remember' => false,
+            'register' => true,
+        ]);
+
+        $response = $this->post(route('pin-login.verify.submit', ['email' => 'newuser@example.com']), [
+            'pin' => '123456',
+        ]);
+
+        $response->assertRedirect();
+        $this->assertDatabaseHas('users', [
+            'email' => 'newuser@example.com',
+            'name' => 'newuser',
+        ]);
+        $this->assertAuthenticatedAs(User::where('email', 'newuser@example.com')->first());
+        $this->assertDatabaseCount('pin_logins', 0);
+        Event::assertDispatched(Registered::class);
+    }
+
+    public function test_verify_pin_does_not_register_without_register_flag()
+    {
+        PinLogin::create([
+            'email' => 'newuser@example.com',
+            'pin' => '123456',
+            'expires_at' => now()->addMinutes(10),
+            'remember' => false,
+            'register' => false,
+        ]);
+
+        $response = $this->post(route('pin-login.verify.submit', ['email' => 'newuser@example.com']), [
+            'pin' => '123456',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHasErrors();
+        $this->assertGuest();
+        $this->assertDatabaseMissing('users', ['email' => 'newuser@example.com']);
+    }
+
+    public function test_expired_pin_does_not_register_user()
+    {
+        PinLogin::create([
+            'email' => 'newuser@example.com',
+            'pin' => '123456',
+            'expires_at' => now()->subMinute(),
+            'remember' => false,
+            'register' => true,
+        ]);
+
+        $response = $this->post(route('pin-login.verify.submit', ['email' => 'newuser@example.com']), [
+            'pin' => '123456',
+        ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHasErrors();
+        $this->assertGuest();
+        $this->assertDatabaseMissing('users', ['email' => 'newuser@example.com']);
     }
 
     public function test_send_pin_without_register_does_not_create_user()
@@ -156,6 +261,7 @@ class PinLoginControllerTest extends TestCase
         $user = User::factory()->create(['email' => 'test@example.com']);
         PinLogin::create([
             'user_id' => $user->id,
+            'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
             'remember' => false,
@@ -176,6 +282,7 @@ class PinLoginControllerTest extends TestCase
         $user = User::factory()->create(['email' => 'test@example.com']);
         PinLogin::create([
             'user_id' => $user->id,
+            'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
             'remember' => true,
@@ -197,6 +304,7 @@ class PinLoginControllerTest extends TestCase
         $user = User::factory()->create(['email' => 'test@example.com']);
         PinLogin::create([
             'user_id' => $user->id,
+            'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->subMinutes(1),
             'remember' => false,
@@ -217,6 +325,7 @@ class PinLoginControllerTest extends TestCase
         $user = User::factory()->create(['email' => 'test@example.com']);
         PinLogin::create([
             'user_id' => $user->id,
+            'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
             'remember' => false,
@@ -259,6 +368,7 @@ class PinLoginControllerTest extends TestCase
 
         PinLogin::create([
             'user_id' => $user->id,
+            'email' => $user->email,
             'pin' => '111111',
             'expires_at' => now()->addMinutes(10),
             'remember' => false,

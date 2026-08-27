@@ -8,6 +8,7 @@ class PinLogin extends Model
 {
     protected $fillable = [
         'user_id',
+        'email',
         'pin',
         'expires_at',
         'remember',
