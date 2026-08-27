@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Disable account merging by default, enable it with `AUTH_MERGE_ENABLED=true`.
+- Create the user account only after the registration is finished, i.e. once the PIN
+  confirms the email address (OAuth already registered after the provider callback).
+  Pending registrations live in `pin_logins` with a `null` `user_id` and a new `email` column.
 
 ## [7.8.0] - 2026-08-27
 

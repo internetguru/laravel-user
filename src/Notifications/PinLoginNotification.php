@@ -17,7 +17,7 @@ class PinLoginNotification extends BaseNotification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $url = route('pin-login.verify', ['email' => $this->pinLogin->user->email]);
+        $url = route('pin-login.verify', ['email' => $this->pinLogin->email]);
         $formattedPin = User::formatPin($this->pinLogin->pin);
 
         return parent::toMail($notifiable)
