@@ -2,6 +2,9 @@
 
 @php
     $user = auth()->user();
+    $useAppRole = $user
+        ? ($user::roles())::tryFrom(config('ig-user.system_notice_role', 'operator'))
+        : null;
 @endphp
 
 @if (config('app.demo'))
@@ -20,7 +23,7 @@
             {!! __('ig-user::layouts.identity-link', ['url' => route('users.show', $user)]) !!}
         </p>
     </div>
-@elseif ($user && $user->role->level() >= $user::roles()::OPERATOR->level())
+@elseif ($user && $useAppRole && $user->role->level() >= $useAppRole->level())
     <div class="container-fluid alert alert-info mb-0 rounded-0 use-app" data-testid="use-app">
         <p class="my-0">
             {!! __('ig-user::layouts.use-app') !!}

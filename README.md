@@ -78,6 +78,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 | `AUTH_LOGIN_ENABLED` | `true` | Set to `false` to disable login — all login entry points return 404 |
 | `AUTH_DEMO` | `false` | Enable demo login — no password, user selected from list |
 | `AUTH_MERGE_ENABLED` | `false` | Set to `true` to allow merging user accounts |
+| `AUTH_SYSTEM_NOTICE_ROLE` | `operator` | Lowest role that sees the system notice install hint; unknown value hides it for everyone |
 | `LANG_DOMAINS` | `""` | Comma-separated `lang:domain` pairs, e.g. `cs:example.cz,da:example.dk` |
 
 ### Disabling a Provider
