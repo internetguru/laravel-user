@@ -133,12 +133,27 @@ export default (candidates = [], searchUrl = null, shown = 10) => ({
         }, 200);
     },
 
+    /**
+     * Moves the highlight, skipping the rows of accounts that are already in the group.
+     */
     move(step) {
-        if (! this.visible.length) {
+        const rows = this.visible;
+
+        if (! rows.length) {
             return;
         }
 
-        this.active = (this.active + step + this.visible.length) % this.visible.length;
+        let index = this.active;
+
+        for (let moved = 0; moved < rows.length; moved++) {
+            index = (index + step + rows.length) % rows.length;
+
+            if (! rows[index].merged) {
+                break;
+            }
+        }
+
+        this.active = index;
 
         this.$nextTick(() => {
             this.$el.querySelector('.merge-candidate.active')?.scrollIntoView({ block: 'nearest' });

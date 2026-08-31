@@ -287,7 +287,7 @@ class MergedAccountsTest extends TestCase
         $this->assertSame(Role::MANAGER, $manager->fresh()->role);
     }
 
-    public function test_merge_candidate_options_include_automatic_accounts_and_exclude_members()
+    public function test_merge_candidate_options_include_automatic_accounts_and_flag_members()
     {
         $admin = User::factory()->withRole(Role::ADMIN)->create();
         $this->actingAs($admin);
@@ -298,12 +298,15 @@ class MergedAccountsTest extends TestCase
 
         $user->mergeWith($member);
 
-        $ids = collect(User::mergeCandidateOptions($user->fresh()))->pluck('id')->all();
+        $options = collect(User::mergeCandidateOptions($user->fresh()));
 
         // Automatic placeholder accounts are the most common merge target
-        $this->assertContains($automatic->id, $ids);
-        $this->assertNotContains($member->id, $ids);
-        $this->assertNotContains($user->id, $ids);
+        $this->assertContains($automatic->id, $options->pluck('id')->all());
+        $this->assertFalse($options->firstWhere('id', $automatic->id)['merged']);
+
+        // Members stay listed, flagged, so adding one does not pull the rows below it up
+        $this->assertTrue($options->firstWhere('id', $member->id)['merged']);
+        $this->assertNotContains($user->id, $options->pluck('id')->all());
     }
 
     public function test_merge_candidate_options_carry_the_name_and_the_email()

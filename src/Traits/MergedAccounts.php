@@ -187,19 +187,22 @@ trait MergedAccounts
     }
 
     /**
-     * Users this account may still be merged with, as model-browser style options.
+     * Users this account may be merged with, as model-browser style options.
      *
      * Deliberately not built on User::summary(), which applies scopeFilterAutomatic and would
      * hide the automatic placeholder accounts that are the most common merge targets. The email
      * travels alongside the name, because duplicate accounts usually share a name and the
      * candidate picker both shows and searches it.
      *
+     * The accounts already in the group stay in the list, flagged as `merged`, so adding one
+     * greys its row out where it stands instead of pulling every row below it up.
+     *
      * Always bounded: the picker embeds the result in the page while the installation is small
      * and switches to searching over `users.merge-candidates` once it is not, so neither path
      * may load the whole table.
      *
      * @param  string|null  $search  Whitespace separated terms, each matched against name and email
-     * @return array<int, array{id: int, name: string, email: string}>
+     * @return array<int, array{id: int, name: string, email: string, merged: bool}>
      */
     public static function mergeCandidateOptions(User $for, ?string $search = null, int $limit = self::MERGE_CANDIDATES_SHOWN + 1): array
     {
@@ -207,8 +210,9 @@ trait MergedAccounts
         // search value, and SQLite's LIKE only folds case for ASCII: without this, "NOVÁK"
         // would miss "Novák" while "novak" and "Novák" both find it.
         $terms = array_map(mb_strtolower(...), array_filter(preg_split('/\s+/', (string) $search)));
+        $mergedIds = $for->mergedIds();
 
-        return User::whereNotIn('id', $for->mergedIds())
+        return User::whereKeyNot($for->getKey())
             ->when(
                 ! auth()?->user()?->isAdmin(),
                 fn ($query) => $query->where('role', '!=', User::roles()::ADMIN->value)
@@ -231,6 +235,7 @@ trait MergedAccounts
                 'id' => (int) $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'merged' => in_array((int) $user->id, $mergedIds, true),
             ])
             ->all();
     }

@@ -18,6 +18,7 @@ return [
     'merge.removed' => 'Account :name is no longer merged.',
     'merge' => 'Merge account',
     'merges-add' => 'Add',
+    'merges-added' => 'Added',
     'merges-empty' => 'You have no merged accounts.',
     'merges-hint' => 'Start typing to filter users…',
     'merges-info' => 'Adding users to merged accounts lets you manage their records regardless of roles.',

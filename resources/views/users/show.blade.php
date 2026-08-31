@@ -227,19 +227,24 @@
                                 <li
                                     class="merge-candidate"
                                     role="option"
-                                    :class="{ active: index === active }"
+                                    :class="{ active: index === active, merged: candidate.merged }"
                                     :aria-selected="index === active"
                                     x-on:mouseenter="active = index"
                                 >
                                     <span class="merge-candidate-name" x-text="candidate.name"></span>
                                     <span class="merge-candidate-email" x-text="candidate.email"></span>
+                                    {{-- An account already in the group keeps its row, greyed out --}}
                                     <button
                                         type="submit"
                                         class="btn btn-sm btn-primary merge-candidate-add"
                                         name="merge_user_id"
                                         :value="candidate.id"
                                         :data-index="index"
-                                    >@lang('ig-user::user.merges-add')</button>
+                                        :disabled="candidate.merged"
+                                    >
+                                        <span x-show="! candidate.merged">@lang('ig-user::user.merges-add')</span>
+                                        <span x-show="candidate.merged" x-cloak>@lang('ig-user::user.merges-added')</span>
+                                    </button>
                                 </li>
                             </template>
                             {{-- Without a search box the list always has rows, so none of the notes can apply --}}
