@@ -18,6 +18,7 @@ return [
     'merge.removed' => 'Účet :name už není sloučený.',
     'merge' => 'Sloučit účet',
     'merges-add' => 'Přidat',
+    'merges-added' => 'Přidáno',
     'merges-empty' => 'Nemáte žádné sloučené účty.',
     'merges-hint' => 'Začněte psát pro vyhledání uživatelů…',
     'merges-info' => 'Přidání uživatelů do sloučených účtů umožní spravovat jejich záznamy bez ohledu na role.',

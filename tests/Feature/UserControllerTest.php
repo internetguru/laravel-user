@@ -593,19 +593,23 @@ class UserControllerTest extends TestCase
         $this->assertCount(User::MERGE_CANDIDATES_SHOWN + 1, $response->json());
     }
 
-    public function test_merge_candidates_endpoint_excludes_the_existing_group()
+    public function test_merge_candidates_endpoint_keeps_the_existing_group_flagged_as_merged()
     {
         config(['ig-user.merge' => true]);
 
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
         $member = User::factory()->create(['role' => Role::CUSTOMER]);
+        $other = User::factory()->create(['role' => Role::CUSTOMER]);
         $user->mergeWith($member);
 
         $response = $this->actingAs($manager)->getJson(route('users.merge-candidates', $user->fresh()));
 
         $response->assertStatus(200);
-        $response->assertJsonMissing(['id' => $member->id]);
+
+        // a merged account keeps its row, greyed out, instead of disappearing from under the cursor
+        $response->assertJsonFragment(['id' => $member->id, 'merged' => true]);
+        $response->assertJsonFragment(['id' => $other->id, 'merged' => false]);
         $response->assertJsonMissing(['id' => $user->id]);
     }
 

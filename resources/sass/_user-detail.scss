@@ -56,6 +56,9 @@
     .merge-candidate.active {
         background-color: $light;
     }
+    .merge-candidate.merged {
+        opacity: 0.55;
+    }
     .merge-candidate-name {
       flex-shrink: 0;
     }
