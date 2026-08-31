@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Enums\Role;
 use Tests\TestCase;
 
@@ -442,6 +443,166 @@ class UserControllerTest extends TestCase
         $response->assertSee(__('ig-user::user.merges'));
         $response->assertSee('Merged Person');
         $response->assertSee($other->email);
+    }
+
+    public function test_show_renders_the_seznam_brand_mark_instead_of_a_font_awesome_fallback()
+    {
+        $user = User::factory()->create();
+        $user->socialites()->create([
+            'provider' => Provider::SEZNAM,
+            'provider_id' => 'seznam-1',
+            'name' => 'Seznam User',
+            'email' => 'user@seznam.cz',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee('<svg', false);
+        $response->assertSee('fill="#C00"', false);
+        $response->assertDontSee(config('services.seznam.icon'), false);
+    }
+
+    public function test_show_falls_back_to_the_configured_icon_for_providers_without_a_brand_mark()
+    {
+        $user = User::factory()->create();
+        $user->socialites()->create([
+            'provider' => Provider::GOOGLE,
+            'provider_id' => 'google-1',
+            'name' => 'Google User',
+            'email' => 'user@gmail.com',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee(config('services.google.icon'), false);
+    }
+
+    public function test_show_describes_the_benefit_of_adding_an_identity()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee(__('ig-user::user.authentication-desc'));
+    }
+
+    public function test_show_renders_a_searchable_merge_candidate_picker()
+    {
+        config(['ig-user.merge' => true]);
+
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $candidate = User::factory()->create(['role' => Role::CUSTOMER, 'name' => 'Merge Candidate']);
+
+        $response = $this->actingAs($manager)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee(__('ig-user::user.merges-search'));
+        $response->assertSee(__('ig-user::user.merges-hint'));
+        $response->assertSee(__('ig-user::user.merges-none'));
+        $response->assertSee(__('ig-user::user.merges-more'));
+        $response->assertSee('x-data="mergeSearch(', false);
+        $response->assertSee('x-for="(candidate, index) in visible"', false);
+        $response->assertSee($candidate->name);
+        $response->assertSee($candidate->email);
+    }
+
+    public function test_show_embeds_the_candidates_while_the_installation_is_small()
+    {
+        config(['ig-user.merge' => true, 'ig-user.merge_inline_limit' => 10]);
+
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $candidate = User::factory()->create(['role' => Role::CUSTOMER, 'name' => 'Merge Candidate']);
+
+        $response = $this->actingAs($manager)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee($candidate->email);
+        // the URL travels JSON encoded inside x-data, so match the path instead of the raw route
+        $response->assertDontSee('merge-candidates', false);
+    }
+
+    public function test_show_switches_to_server_side_search_above_the_inline_limit()
+    {
+        config(['ig-user.merge' => true, 'ig-user.merge_inline_limit' => 2]);
+
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        User::factory()->count(5)->create(['role' => Role::CUSTOMER]);
+
+        $response = $this->actingAs($manager)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee('merge-candidates', false);
+        $response->assertSee('mergeSearch([],', false);
+    }
+
+    public function test_merge_candidates_endpoint_searches_by_name_and_email()
+    {
+        config(['ig-user.merge' => true]);
+
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $match = User::factory()->create(['role' => Role::CUSTOMER, 'name' => 'Jana Dvorakova', 'email' => 'jana@example.com']);
+        $other = User::factory()->create(['role' => Role::CUSTOMER, 'name' => 'Petr Svoboda', 'email' => 'petr@example.com']);
+
+        $response = $this->actingAs($manager)->getJson(route('users.merge-candidates', $user) . '?q=jana');
+
+        $response->assertStatus(200);
+        $response->assertJsonFragment(['id' => $match->id, 'name' => $match->name, 'email' => $match->email]);
+        $response->assertJsonMissing(['id' => $other->id]);
+    }
+
+    public function test_merge_candidates_endpoint_returns_one_row_over_what_the_picker_shows()
+    {
+        config(['ig-user.merge' => true]);
+
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        User::factory()->count(User::MERGE_CANDIDATES_SHOWN + 5)->create(['role' => Role::CUSTOMER]);
+
+        $response = $this->actingAs($manager)->getJson(route('users.merge-candidates', $user));
+
+        $response->assertStatus(200);
+
+        // one row over the limit is what tells the picker to ask for a narrower search
+        $this->assertCount(User::MERGE_CANDIDATES_SHOWN + 1, $response->json());
+    }
+
+    public function test_merge_candidates_endpoint_excludes_the_existing_group()
+    {
+        config(['ig-user.merge' => true]);
+
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $member = User::factory()->create(['role' => Role::CUSTOMER]);
+        $user->mergeWith($member);
+
+        $response = $this->actingAs($manager)->getJson(route('users.merge-candidates', $user->fresh()));
+
+        $response->assertStatus(200);
+        $response->assertJsonMissing(['id' => $member->id]);
+        $response->assertJsonMissing(['id' => $user->id]);
+    }
+
+    public function test_merge_candidates_endpoint_is_denied_without_the_merge_ability()
+    {
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+
+        // merging is disabled by default, which denies the gate for everyone
+        $this->actingAs($manager)->getJson(route('users.merge-candidates', $user))->assertForbidden();
+
+        config(['ig-user.merge' => true]);
+
+        $operator = User::factory()->create(['role' => Role::OPERATOR]);
+        $this->actingAs($operator)->getJson(route('users.merge-candidates', $user))->assertForbidden();
+
+        $this->post(route('users.merge-candidates', $user))->assertStatus(405);
     }
 
     public function test_show_hides_the_merge_section_while_merging_is_disabled()

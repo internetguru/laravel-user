@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [7.11.0] - 2026-08-31
+
+_Stable release based on [7.11.0-rc.1]._
+
+## [7.11.0-rc.1] - 2026-08-31
+
+### Added
+
+- Type-to-search list of accounts to merge with, matching name and e-mail without diacritics,
+  each result carrying an add button. A query matching more than ten accounts asks for a
+  narrower one instead of listing them.
+- Bounded merge candidate list: embedded in the page up to `AUTH_MERGE_INLINE_LIMIT`, searched
+  over the new `users.merge-candidates` endpoint above it.
+- Seznam.cz brand mark via the new `provider-icon` component, which falls back to
+  `services.<provider>.icon`.
+- Description of what connecting an identity gives the user.
+
+### Changed
+
+- Reword the merged accounts description and both empty states on the user detail.
+- `mergeCandidateOptions()` takes a search string and a row limit, and returns the name and the
+  e-mail as separate keys instead of one `name (email)` label.
+- Update the Facebook brand colour to its current blue (`#1877F2`).
+
 ## [7.10.1] - 2026-08-31
 
 ### Changed
@@ -1350,6 +1374,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[7.11.0]: https://https://github.com/internetguru/laravel-user/compare/v7.10.1...v7.11.0
+[7.11.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.10.1
 [7.10.1]: https://https://github.com/internetguru/laravel-user/compare/v7.10.0...v7.10.1
 [7.10.0]: https://https://github.com/internetguru/laravel-user/compare/v7.9.0...v7.10.0
 [7.10.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.9.0

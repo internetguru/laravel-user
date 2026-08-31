@@ -122,6 +122,7 @@
         </div>
         <div class="card col col-centered">
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::user.authentication')</h2>
+            <p class="text-muted">@lang('ig-user::user.authentication-desc')</p>
             @if (!$ownDetail)
                 <p>
                     {!! Str::inlineMarkdown(__('ig-user::user.authentication-info', ['url' => route('users.show', auth()->user())])) !!}
@@ -133,7 +134,7 @@
                         $provider = $socialite->provider->value;
                     @endphp
                     <dt>
-                        <i class="{{ config("services.{$provider}.icon") }} socialite-{{ $provider }}-icon"></i>
+                        <x-ig-user::provider-icon :provider="$provider" class="socialite-{{ $provider }}-icon" />
                         {{ Str::ucfirst($provider) }}
                     </dt>
                     <dd class="mb-3" style="line-height: 1.7em; min-height: auto;">
@@ -186,18 +187,65 @@
                 @endforelse
             </dl>
             @php
-                $mergeCandidates = $user::mergeCandidateOptions($user);
+                // One row over the inline limit is enough to tell whether the whole list still
+                // fits in the page or the picker has to search the server instead. Above it
+                // nothing travels with the page: every keystroke searches the server.
+                $mergeInlineLimit = (int) config('ig-user.merge_inline_limit', 100);
+                $mergeCandidates = $user::mergeCandidateOptions($user, limit: $mergeInlineLimit + 1);
+                $mergeSearchUrl = count($mergeCandidates) > $mergeInlineLimit
+                    ? route('users.merge-candidates', $user)
+                    : null;
+                $mergeCandidates = $mergeSearchUrl ? [] : $mergeCandidates;
             @endphp
-            @if (count($mergeCandidates))
+            @if ($mergeSearchUrl || count($mergeCandidates))
                 <h2 class="h3 mb-3 mt-3 fw-normal">@lang('ig-user::user.merge')</h2>
                 <x-ig::form class="editable-skip" :recaptcha="false" :action="route('users.merge', $user)">
-                    <div class="input-group">
-                        <select name="merge_user_id" class="form-select" aria-label="@lang('ig-user::user.merges-select')">
-                            @foreach ($mergeCandidates as $candidate)
-                                <option value="{{ $candidate['id'] }}">{{ $candidate['name'] }}</option>
-                            @endforeach
-                        </select>
-                        <button type="submit" class="btn btn-primary">@lang('ig-user::user.merge')</button>
+                    <div
+                        class="merge-search"
+                        x-data="mergeSearch(@js($mergeCandidates), @js($mergeSearchUrl), @js($user::MERGE_CANDIDATES_SHOWN))"
+                    >
+                        <input
+                            type="search"
+                            class="form-control"
+                            autocomplete="off"
+                            aria-controls="merge-candidate-list"
+                            aria-label="@lang('ig-user::user.merges-select')"
+                            placeholder="@lang('ig-user::user.merges-search')"
+                            x-model="search"
+                            x-on:input="onInput()"
+                            x-on:keydown.arrow-down.prevent="move(1)"
+                            x-on:keydown.arrow-up.prevent="move(-1)"
+                            x-on:keydown.enter.prevent="addActive()"
+                        />
+                        {{-- Fixed height for as many rows as the search shows, so nothing below it jumps --}}
+                        <ul class="merge-candidate-list" id="merge-candidate-list" role="listbox" aria-live="polite">
+                            <template x-for="(candidate, index) in visible" :key="candidate.id">
+                                <li
+                                    class="merge-candidate"
+                                    role="option"
+                                    :class="{ active: index === active }"
+                                    :aria-selected="index === active"
+                                    x-on:mouseenter="active = index"
+                                >
+                                    <span class="merge-candidate-name" x-text="candidate.name"></span>
+                                    <span class="merge-candidate-email" x-text="candidate.email"></span>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-primary merge-candidate-add"
+                                        name="merge_user_id"
+                                        :value="candidate.id"
+                                        :data-index="index"
+                                    >@lang('ig-user::user.merges-add')</button>
+                                </li>
+                            </template>
+                            <li class="merge-candidate-note" x-show="loading">
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                @lang('ig-user::user.merges-loading')
+                            </li>
+                            <li class="merge-candidate-note" x-show="! loading && ! search.trim().length">@lang('ig-user::user.merges-hint')</li>
+                            <li class="merge-candidate-note" x-show="! loading && search.trim().length && ! matches.length">@lang('ig-user::user.merges-none')</li>
+                            <li class="merge-candidate-note" x-show="! loading && tooMany">@lang('ig-user::user.merges-more')</li>
+                        </ul>
                     </div>
                 </x-ig::form>
             @endif
