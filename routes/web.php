@@ -47,6 +47,9 @@ Route::controller(UserController::class)
 
         // check on controller level: the merge ability takes two subjects, which the
         // can: middleware cannot express (it only passes the route-bound model)
+        Route::get('/{user}/merge-candidates', 'mergeCandidates')
+            ->name('users.merge-candidates');
+
         Route::post('/{user}/merge', 'merge')
             ->name('users.merge');
 

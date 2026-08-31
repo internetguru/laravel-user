@@ -25,6 +25,53 @@
         font-weight: normal;
     }
 }
+.merge-search {
+    --merge-candidate-height: 2.5em;
+
+    .merge-candidate-list {
+        list-style: none;
+        margin: $spacer 0 0;
+        padding: 0;
+        border: thin solid $border-color;
+        border-radius: $border-radius;
+        // Room for a full result set, so the page never jumps while typing
+        min-height: calc(var(--merge-candidate-height) * 10);
+    }
+    .merge-candidate,
+    .merge-candidate-note {
+        display: flex;
+        align-items: center;
+        gap: $spacer * 0.5;
+        height: var(--merge-candidate-height);
+        padding: 0 $spacer * 0.75;
+    }
+    .merge-candidate + .merge-candidate {
+        border-top: thin solid $border-color;
+    }
+    .merge-candidate.active {
+        background-color: $light;
+    }
+    .merge-candidate-name {
+      flex-shrink: 0;
+    }
+    .merge-candidate-email,
+    .merge-candidate-note {
+        opacity: 0.75;
+    }
+    .merge-candidate-note:not(:has(.spinner-border)) {
+        margin-top: 0.5em;
+    }
+    .merge-candidate-email {
+        flex: 1 1 auto;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .merge-candidate-add {
+        flex: 0 0 auto;
+        margin-left: auto;
+    }
+}
 header {
     .dropdown-menu {
         width: 13em;
