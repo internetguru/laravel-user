@@ -7,9 +7,11 @@
  * "Jan Novák". With a `searchUrl` the page carries nothing and every keystroke searches the
  * server instead, so a large user table never ends up in the HTML.
  *
- * Nothing is listed until something is typed, and a query matching more than `shown` accounts
- * asks for a narrower one rather than paginating: picking the right account out of a long list
- * is what the search is there to avoid.
+ * A candidate list that already fits in `shown` rows is listed straight away — there is nothing
+ * to search through, and the page renders no search box for it. Otherwise nothing is listed
+ * until something is typed, and a query matching more than `shown` accounts asks for a narrower
+ * one rather than paginating: picking the right account out of a long list is what the search is
+ * there to avoid.
  */
 export default (candidates = [], searchUrl = null, shown = 10) => ({
     candidates,
@@ -25,7 +27,18 @@ export default (candidates = [], searchUrl = null, shown = 10) => ({
     request: 0,
     debounce: null,
 
+    /**
+     * True when the whole candidate list fits, so it is shown without searching.
+     */
+    get listsEverything() {
+        return ! this.searchUrl && this.candidates.length <= this.shown;
+    },
+
     get matches() {
+        if (this.listsEverything) {
+            return this.candidates;
+        }
+
         if (! this.search.trim().length) {
             return [];
         }
@@ -50,6 +63,25 @@ export default (candidates = [], searchUrl = null, shown = 10) => ({
     get visible() {
         // While a search is in flight the box shows the spinner alone, never a stale result
         return this.loading || this.tooMany ? [] : this.matches;
+    },
+
+    /**
+     * Which of the notes the list shows in place of results, if any.
+     */
+    get note() {
+        if (this.loading) {
+            return 'loading';
+        }
+
+        if (this.tooMany) {
+            return 'more';
+        }
+
+        if (this.visible.length) {
+            return null;
+        }
+
+        return this.search.trim().length ? 'none' : 'hint';
     },
 
     normalize(value) {

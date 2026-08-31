@@ -489,7 +489,7 @@ class UserControllerTest extends TestCase
         $response->assertSee(__('ig-user::user.authentication-desc'));
     }
 
-    public function test_show_renders_a_searchable_merge_candidate_picker()
+    public function test_show_lists_a_short_candidate_list_without_a_search_box()
     {
         config(['ig-user.merge' => true]);
 
@@ -500,14 +500,34 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($manager)->get(route('users.show', $user));
 
         $response->assertStatus(200);
+        $response->assertSee('x-data="mergeSearch(', false);
+        $response->assertSee($candidate->name);
+        $response->assertSee($candidate->email);
+        $response->assertSee(__('ig-user::user.merges-add'));
+
+        // nothing to search through, so no search box and no hint to start typing
+        $response->assertDontSee(__('ig-user::user.merges-search'));
+        $response->assertDontSee(__('ig-user::user.merges-hint'));
+    }
+
+    public function test_show_renders_a_searchable_merge_candidate_picker()
+    {
+        config(['ig-user.merge' => true]);
+
+        $manager = User::factory()->create(['role' => Role::MANAGER]);
+        $user = User::factory()->create(['role' => Role::CUSTOMER]);
+        $candidates = User::factory()->count(User::MERGE_CANDIDATES_SHOWN + 1)->create(['role' => Role::CUSTOMER]);
+
+        $response = $this->actingAs($manager)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
         $response->assertSee(__('ig-user::user.merges-search'));
         $response->assertSee(__('ig-user::user.merges-hint'));
         $response->assertSee(__('ig-user::user.merges-none'));
         $response->assertSee(__('ig-user::user.merges-more'));
         $response->assertSee('x-data="mergeSearch(', false);
         $response->assertSee('x-for="(candidate, index) in visible"', false);
-        $response->assertSee($candidate->name);
-        $response->assertSee($candidate->email);
+        $response->assertSee($candidates->first()->email);
     }
 
     public function test_show_embeds_the_candidates_while_the_installation_is_small()

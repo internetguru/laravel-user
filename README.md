@@ -252,7 +252,7 @@ Merging joins several accounts of the same person into one group, so any of them
 AUTH_MERGE_ENABLED=true
 ```
 
-The account to merge with is found by typing into a search box that matches name and e-mail, accents ignored on both sides (the server search uses `whereLikeUnaccented` from laravel-model-browser). Nothing is listed until something is typed; a query matching at most `User::MERGE_CANDIDATES_SHOWN` accounts lists them with an **Add** button each, and a broader one asks for a narrower search instead of paginating. The candidate list never loads the whole table: while an installation holds at most `AUTH_MERGE_INLINE_LIMIT` candidates they travel with the page and are filtered in the browser, and above that every keystroke searches `users.merge-candidates` instead. The `merge` ability authorizes the picked account again on the way in.
+A candidate list of at most `User::MERGE_CANDIDATES_SHOWN` accounts is listed straight away, each row with an **Add** button and no search box at all. A longer one is searched by typing: the search matches name and e-mail, accents ignored on both sides (it uses `whereLikeUnaccented` from laravel-model-browser), nothing is listed until something is typed, and a query still matching more accounts than the list holds asks for a narrower one instead of paginating. The candidate list never loads the whole table: while an installation holds at most `AUTH_MERGE_INLINE_LIMIT` candidates they travel with the page and are filtered in the browser, and above that every keystroke searches `users.merge-candidates` instead. The `merge` ability authorizes the picked account again on the way in.
 
 ### Automatic Accounts
 
