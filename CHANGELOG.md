@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [7.10.1] - 2026-08-31
+
+### Changed
+
+- Update composer packages and add support for laravel-common v6.
+
 ## [7.10.0] - 2026-08-27
 
 _Stable release based on [7.10.0-rc.1]._
@@ -1347,6 +1353,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[7.10.1]: https://https://github.com/internetguru/laravel-user/compare/v7.10.0...v7.10.1
 [7.10.0]: https://https://github.com/internetguru/laravel-user/compare/v7.9.0...v7.10.0
 [7.10.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.9.0
 [7.9.0]: https://https://github.com/internetguru/laravel-user/compare/v7.8.0...v7.9.0
