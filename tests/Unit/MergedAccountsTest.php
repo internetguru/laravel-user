@@ -306,7 +306,7 @@ class MergedAccountsTest extends TestCase
         $this->assertNotContains($user->id, $ids);
     }
 
-    public function test_merge_candidate_options_label_carries_the_email()
+    public function test_merge_candidate_options_carry_the_name_and_the_email()
     {
         $admin = User::factory()->withRole(Role::ADMIN)->create();
         $this->actingAs($admin);
@@ -316,7 +316,44 @@ class MergedAccountsTest extends TestCase
 
         $options = collect(User::mergeCandidateOptions($user))->firstWhere('id', $candidate->id);
 
-        $this->assertSame('Jane Doe (jane@example.com)', $options['name']);
+        $this->assertSame('Jane Doe', $options['name']);
+        $this->assertSame('jane@example.com', $options['email']);
+    }
+
+    public function test_merge_candidate_options_are_bounded_and_searchable()
+    {
+        $admin = User::factory()->withRole(Role::ADMIN)->create();
+        $this->actingAs($admin);
+
+        $user = User::factory()->create();
+        User::factory()->count(5)->create(['name' => 'Nobody']);
+        $match = User::factory()->create(['name' => 'Jan Novák', 'email' => 'jan@example.com']);
+
+        $this->assertCount(3, User::mergeCandidateOptions($user, limit: 3));
+
+        $ids = collect(User::mergeCandidateOptions($user, 'nov jan'))->pluck('id')->all();
+
+        $this->assertSame([$match->id], $ids);
+    }
+
+    public function test_merge_candidate_options_search_ignores_diacritics_and_case()
+    {
+        $admin = User::factory()->withRole(Role::ADMIN)->create();
+        $this->actingAs($admin);
+
+        $user = User::factory()->create();
+        $match = User::factory()->create(['name' => 'Jan Novák', 'email' => 'jan@example.com']);
+        User::factory()->create(['name' => 'Petr Svoboda', 'email' => 'petr@example.com']);
+
+        foreach (['novak', 'NOVÁK', 'Novák'] as $search) {
+            $ids = collect(User::mergeCandidateOptions($user, $search))->pluck('id')->all();
+
+            $this->assertSame([$match->id], $ids, "search '{$search}' should find the accented name");
+        }
+
+        $ids = collect(User::mergeCandidateOptions($user, 'JAN@EXAMPLE.COM'))->pluck('id')->all();
+
+        $this->assertSame([$match->id], $ids);
     }
 
     public function test_merge_candidate_options_hide_admins_from_non_admins()

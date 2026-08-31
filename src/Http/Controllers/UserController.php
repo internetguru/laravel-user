@@ -62,6 +62,26 @@ class UserController extends Controller
     }
 
     /**
+     * Search the accounts this user may be merged with.
+     *
+     * Backs the candidate picker on installations too large to embed the whole list in the page.
+     * Both subjects of `merge` are this user: the picker itself is only rendered for someone who
+     * may merge this account, and every candidate is authorized again on submit.
+     */
+    public function mergeCandidates(Request $request, User $user)
+    {
+        Gate::authorize('merge', [$user, $user]);
+
+        $request->validate([
+            'q' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        return response()->json(
+            User::mergeCandidateOptions($user, $request->string('q')->toString())
+        );
+    }
+
+    /**
      * Add another account to this user's merged group.
      */
     public function merge(Request $request, User $user)

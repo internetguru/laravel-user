@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- Type-to-search dropdown for picking the account to merge with, matching name and e-mail
+  without diacritics.
+- Bounded merge candidate list: embedded in the page up to `AUTH_MERGE_INLINE_LIMIT`, searched
+  over the new `users.merge-candidates` endpoint above it.
 - Seznam.cz brand mark via the new `provider-icon` component, which falls back to
   `services.<provider>.icon`.
 - Description of what connecting an identity gives the user.
@@ -15,6 +19,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - Reword the merged accounts description and both empty states on the user detail.
+- `mergeCandidateOptions()` takes a search string and a row limit, and returns the name and the
+  e-mail as separate keys instead of one `name (email)` label.
 - Update the Facebook brand colour to its current blue (`#1877F2`).
 
 ## [7.10.1] - 2026-08-31

@@ -25,6 +25,27 @@
         font-weight: normal;
     }
 }
+.merge-combobox {
+    position: relative;
+
+    .merge-combobox-menu {
+        width: 100%;
+        max-height: 18em;
+        overflow-y: auto;
+    }
+    .dropdown-item {
+        white-space: normal;
+    }
+    .merge-combobox-name {
+        display: block;
+    }
+    .merge-combobox-email,
+    .merge-combobox-more {
+        display: block;
+        font-size: 0.85em;
+        opacity: 0.75;
+    }
+}
 header {
     .dropdown-menu {
         width: 13em;

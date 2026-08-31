@@ -78,6 +78,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 | `AUTH_LOGIN_ENABLED` | `true` | Set to `false` to disable login — all login entry points return 404 |
 | `AUTH_DEMO` | `false` | Enable demo login — no password, user selected from list |
 | `AUTH_MERGE_ENABLED` | `false` | Set to `true` to allow merging user accounts |
+| `AUTH_MERGE_INLINE_LIMIT` | `100` | Up to this many merge candidates are embedded in the user detail and filtered in the browser; above it the picker searches the server |
 | `AUTH_SYSTEM_NOTICE_ROLE` | `operator` | Lowest role that sees the system notice install hint; unknown value hides it for everyone |
 | `LANG_DOMAINS` | `""` | Comma-separated `lang:domain` pairs, e.g. `cs:example.cz,da:example.dk` |
 
@@ -144,6 +145,7 @@ The `socialite.action` route accepts a `provider` and an `action`: `login`, `log
 | `users.index` | GET `/users` | User list — managers and above |
 | `users.show` | GET `/users/{user}` | User detail |
 | `users.update` | POST `/users/{user}` | Update name, email, phone, or role |
+| `users.merge-candidates` | GET `/users/{user}/merge-candidates` | JSON search over the accounts this user may be merged with, `?q=` terms, capped at 50 rows |
 
 ### Usage Examples
 
@@ -244,11 +246,13 @@ Users can update their own `name`, `email`, `phone`, and `role` via POST to `/us
 
 ### Merging Accounts
 
-Merging joins several accounts of the same person into one group, so any of them owns the group's records. It is disabled by default; set `AUTH_MERGE_ENABLED=true` to expose the merge and unmerge controls on the user detail page. While disabled, the `merge` gate denies everyone, which hides the section and makes the `users.merge` and `users.unmerge` endpoints return 403.
+Merging joins several accounts of the same person into one group, so any of them owns the group's records. It is disabled by default; set `AUTH_MERGE_ENABLED=true` to expose the merge and unmerge controls on the user detail page. While disabled, the `merge` gate denies everyone, which hides the section and makes the `users.merge`, `users.unmerge` and `users.merge-candidates` endpoints return 403.
 
 ```env
 AUTH_MERGE_ENABLED=true
 ```
+
+The account to merge with is picked in a type-to-search dropdown that matches name and e-mail, accents ignored on both sides (the server search uses `whereLikeUnaccented` from laravel-model-browser). Its candidate list never loads the whole table: while an installation holds at most `AUTH_MERGE_INLINE_LIMIT` candidates they travel with the page and are filtered in the browser, and above that the dropdown searches `users.merge-candidates` instead, which returns at most `User::MERGE_CANDIDATES_LIMIT` rows per query. Only a candidate that was picked from the list is submitted, and the `merge` ability authorizes it again on the way in.
 
 ### Automatic Accounts
 

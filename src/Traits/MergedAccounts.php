@@ -23,6 +23,11 @@ use InternetGuru\LaravelUser\Models\UserMerge;
 trait MergedAccounts
 {
     /**
+     * How many candidates one merge search may return, which is also what the picker renders.
+     */
+    public const MERGE_CANDIDATES_LIMIT = 50;
+
+    /**
      * Per-instance memo. Never make this static or container-bound: under Octane that would
      * leak across requests.
      */
@@ -184,23 +189,47 @@ trait MergedAccounts
      * Users this account may still be merged with, as model-browser style options.
      *
      * Deliberately not built on User::summary(), which applies scopeFilterAutomatic and would
-     * hide the automatic placeholder accounts that are the most common merge targets. Labels
-     * carry the email, because duplicate accounts usually share a name.
+     * hide the automatic placeholder accounts that are the most common merge targets. The email
+     * travels alongside the name, because duplicate accounts usually share a name and the
+     * candidate picker both shows and searches it.
      *
-     * @return array<int, array{id: int, name: string}>
+     * Always bounded: the picker embeds the result in the page while the installation is small
+     * and switches to searching over `users.merge-candidates` once it is not, so neither path
+     * may load the whole table.
+     *
+     * @param  string|null  $search  Whitespace separated terms, each matched against name and email
+     * @return array<int, array{id: int, name: string, email: string}>
      */
-    public static function mergeCandidateOptions(User $for): array
+    public static function mergeCandidateOptions(User $for, ?string $search = null, int $limit = self::MERGE_CANDIDATES_LIMIT): array
     {
+        // Lowercased because whereLikeUnaccented falls back to a plain LIKE for an accented
+        // search value, and SQLite's LIKE only folds case for ASCII: without this, "NOVÁK"
+        // would miss "Novák" while "novak" and "Novák" both find it.
+        $terms = array_map(mb_strtolower(...), array_filter(preg_split('/\s+/', (string) $search)));
+
         return User::whereNotIn('id', $for->mergedIds())
             ->when(
                 ! auth()?->user()?->isAdmin(),
                 fn ($query) => $query->where('role', '!=', User::roles()::ADMIN->value)
             )
+            ->tap(function ($query) use ($terms) {
+                foreach ($terms as $term) {
+                    // whereLikeUnaccented comes from laravel-model-browser and matches without
+                    // case or diacritics on both SQLite and MySQL, so "novak" finds "Novák".
+                    // Emails are ASCII, which lets it skip the SQLite unaccent() UDF.
+                    $query->where(fn ($subQuery) => $subQuery
+                        ->whereLikeUnaccented('name', $term)
+                        ->orWhere(fn ($emailQuery) => $emailQuery->whereLikeUnaccented('email', $term, asciiFast: true))
+                    );
+                }
+            })
             ->orderBy('name')
+            ->limit($limit)
             ->get(['id', 'name', 'email'])
             ->map(fn ($user) => [
                 'id' => (int) $user->id,
-                'name' => $user->name . ' (' . $user->email . ')',
+                'name' => $user->name,
+                'email' => $user->email,
             ])
             ->all();
     }
