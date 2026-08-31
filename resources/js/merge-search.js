@@ -1,22 +1,21 @@
 /**
- * Type-to-search dropdown for picking the account to merge with.
+ * Type-to-search list of accounts that can be merged into this one.
  *
  * Two modes, chosen server side by the size of the installation. Without a `searchUrl` the whole
  * candidate list travels with the page and is filtered here: accents are stripped and every
  * whitespace separated term has to match the name or the e-mail, which makes "nov jan" find
- * "Jan Novák". With a `searchUrl` the page only carries the first page of candidates and every
- * keystroke searches the server instead, so a large user table never ends up in the HTML.
+ * "Jan Novák". With a `searchUrl` the page carries nothing and every keystroke searches the
+ * server instead, so a large user table never ends up in the HTML.
  *
- * Either way only a candidate the user actually picked reaches the hidden input, so the form can
- * never submit an account the list has not offered.
+ * Nothing is listed until something is typed, and a query matching more than `shown` accounts
+ * asks for a narrower one rather than paginating: picking the right account out of a long list
+ * is what the search is there to avoid.
  */
-export default (candidates = [], searchUrl = null, limit = 50) => ({
+export default (candidates = [], searchUrl = null, shown = 10) => ({
     candidates,
     searchUrl,
-    limit,
+    shown,
     search: '',
-    selected: null,
-    isOpen: false,
     loading: false,
     active: 0,
 
@@ -26,16 +25,16 @@ export default (candidates = [], searchUrl = null, limit = 50) => ({
     request: 0,
     debounce: null,
 
-    get filtered() {
+    get matches() {
+        if (! this.search.trim().length) {
+            return [];
+        }
+
         if (this.searchUrl) {
             return this.candidates;
         }
 
         const terms = this.normalize(this.search).split(/\s+/).filter(Boolean);
-
-        if (! terms.length) {
-            return this.candidates;
-        }
 
         return this.candidates.filter((candidate) => {
             const haystack = this.normalize(candidate.name + ' ' + candidate.email);
@@ -44,30 +43,21 @@ export default (candidates = [], searchUrl = null, limit = 50) => ({
         });
     },
 
-    get visible() {
-        return this.filtered.slice(0, this.limit);
+    get tooMany() {
+        return this.matches.length > this.shown;
     },
 
-    get hasHidden() {
-        return this.filtered.length >= this.limit;
+    get visible() {
+        // While a search is in flight the box shows the spinner alone, never a stale result
+        return this.loading || this.tooMany ? [] : this.matches;
     },
 
     normalize(value) {
         return value.toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     },
 
-    open() {
-        this.isOpen = true;
-    },
-
-    close() {
-        this.isOpen = false;
-    },
-
     onInput() {
-        this.selected = null;
         this.active = 0;
-        this.open();
 
         if (this.searchUrl) {
             this.searchRemote();
@@ -79,6 +69,14 @@ export default (candidates = [], searchUrl = null, limit = 50) => ({
      */
     searchRemote() {
         clearTimeout(this.debounce);
+
+        if (! this.search.trim().length) {
+            this.candidates = [];
+            this.loading = false;
+
+            return;
+        }
+
         this.loading = true;
 
         this.debounce = setTimeout(() => {
@@ -104,8 +102,6 @@ export default (candidates = [], searchUrl = null, limit = 50) => ({
     },
 
     move(step) {
-        this.open();
-
         if (! this.visible.length) {
             return;
         }
@@ -113,21 +109,11 @@ export default (candidates = [], searchUrl = null, limit = 50) => ({
         this.active = (this.active + step + this.visible.length) % this.visible.length;
 
         this.$nextTick(() => {
-            this.$el.querySelector('.dropdown-item.active')?.scrollIntoView({ block: 'nearest' });
+            this.$el.querySelector('.merge-candidate.active')?.scrollIntoView({ block: 'nearest' });
         });
     },
 
-    choose(candidate) {
-        if (! candidate) {
-            return;
-        }
-
-        this.selected = candidate;
-        this.search = candidate.name;
-        this.close();
-    },
-
-    chooseActive() {
-        this.choose(this.visible[this.active]);
+    addActive() {
+        this.$el.querySelector('[data-index="' + this.active + '"]')?.click();
     },
 });

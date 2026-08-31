@@ -501,7 +501,10 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee(__('ig-user::user.merges-search'));
-        $response->assertSee('x-data="mergeCombobox(', false);
+        $response->assertSee(__('ig-user::user.merges-hint'));
+        $response->assertSee(__('ig-user::user.merges-none'));
+        $response->assertSee(__('ig-user::user.merges-more'));
+        $response->assertSee('x-data="mergeSearch(', false);
         $response->assertSee('x-for="(candidate, index) in visible"', false);
         $response->assertSee($candidate->name);
         $response->assertSee($candidate->email);
@@ -535,6 +538,7 @@ class UserControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('merge-candidates', false);
+        $response->assertSee('mergeSearch([],', false);
     }
 
     public function test_merge_candidates_endpoint_searches_by_name_and_email()
@@ -553,18 +557,20 @@ class UserControllerTest extends TestCase
         $response->assertJsonMissing(['id' => $other->id]);
     }
 
-    public function test_merge_candidates_endpoint_never_returns_more_than_the_limit()
+    public function test_merge_candidates_endpoint_returns_one_row_over_what_the_picker_shows()
     {
         config(['ig-user.merge' => true]);
 
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
-        User::factory()->count(User::MERGE_CANDIDATES_LIMIT + 5)->create(['role' => Role::CUSTOMER]);
+        User::factory()->count(User::MERGE_CANDIDATES_SHOWN + 5)->create(['role' => Role::CUSTOMER]);
 
         $response = $this->actingAs($manager)->getJson(route('users.merge-candidates', $user));
 
         $response->assertStatus(200);
-        $this->assertCount(User::MERGE_CANDIDATES_LIMIT, $response->json());
+
+        // one row over the limit is what tells the picker to ask for a narrower search
+        $this->assertCount(User::MERGE_CANDIDATES_SHOWN + 1, $response->json());
     }
 
     public function test_merge_candidates_endpoint_excludes_the_existing_group()

@@ -1,7 +1,7 @@
 import './add-to-homescreen';
-import mergeCombobox from './merge-combobox';
+import mergeSearch from './merge-search';
 
 // Set up for Alpine.js
 document.addEventListener('alpine:init', () => {
-    Alpine.data('mergeCombobox', mergeCombobox);
+    Alpine.data('mergeSearch', mergeSearch);
 });

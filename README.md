@@ -145,7 +145,7 @@ The `socialite.action` route accepts a `provider` and an `action`: `login`, `log
 | `users.index` | GET `/users` | User list — managers and above |
 | `users.show` | GET `/users/{user}` | User detail |
 | `users.update` | POST `/users/{user}` | Update name, email, phone, or role |
-| `users.merge-candidates` | GET `/users/{user}/merge-candidates` | JSON search over the accounts this user may be merged with, `?q=` terms, capped at 50 rows |
+| `users.merge-candidates` | GET `/users/{user}/merge-candidates` | JSON search over the accounts this user may be merged with, `?q=` terms, one row over what the picker lists |
 
 ### Usage Examples
 
@@ -252,7 +252,7 @@ Merging joins several accounts of the same person into one group, so any of them
 AUTH_MERGE_ENABLED=true
 ```
 
-The account to merge with is picked in a type-to-search dropdown that matches name and e-mail, accents ignored on both sides (the server search uses `whereLikeUnaccented` from laravel-model-browser). Its candidate list never loads the whole table: while an installation holds at most `AUTH_MERGE_INLINE_LIMIT` candidates they travel with the page and are filtered in the browser, and above that the dropdown searches `users.merge-candidates` instead, which returns at most `User::MERGE_CANDIDATES_LIMIT` rows per query. Only a candidate that was picked from the list is submitted, and the `merge` ability authorizes it again on the way in.
+The account to merge with is found by typing into a search box that matches name and e-mail, accents ignored on both sides (the server search uses `whereLikeUnaccented` from laravel-model-browser). Nothing is listed until something is typed; a query matching at most `User::MERGE_CANDIDATES_SHOWN` accounts lists them with an **Add** button each, and a broader one asks for a narrower search instead of paginating. The candidate list never loads the whole table: while an installation holds at most `AUTH_MERGE_INLINE_LIMIT` candidates they travel with the page and are filtered in the browser, and above that every keystroke searches `users.merge-candidates` instead. The `merge` ability authorizes the picked account again on the way in.
 
 ### Automatic Accounts
 

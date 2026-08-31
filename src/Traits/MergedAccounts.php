@@ -23,9 +23,10 @@ use InternetGuru\LaravelUser\Models\UserMerge;
 trait MergedAccounts
 {
     /**
-     * How many candidates one merge search may return, which is also what the picker renders.
+     * How many candidates the picker lists. A search matching more is answered with "keep
+     * typing" instead, so one row over the limit is all a query ever needs to return.
      */
-    public const MERGE_CANDIDATES_LIMIT = 50;
+    public const MERGE_CANDIDATES_SHOWN = 10;
 
     /**
      * Per-instance memo. Never make this static or container-bound: under Octane that would
@@ -200,7 +201,7 @@ trait MergedAccounts
      * @param  string|null  $search  Whitespace separated terms, each matched against name and email
      * @return array<int, array{id: int, name: string, email: string}>
      */
-    public static function mergeCandidateOptions(User $for, ?string $search = null, int $limit = self::MERGE_CANDIDATES_LIMIT): array
+    public static function mergeCandidateOptions(User $for, ?string $search = null, int $limit = self::MERGE_CANDIDATES_SHOWN + 1): array
     {
         // Lowercased because whereLikeUnaccented falls back to a plain LIKE for an accented
         // search value, and SQLite's LIKE only folds case for ASCII: without this, "NOVÁK"

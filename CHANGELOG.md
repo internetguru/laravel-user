@@ -8,8 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-- Type-to-search dropdown for picking the account to merge with, matching name and e-mail
-  without diacritics.
+- Type-to-search list of accounts to merge with, matching name and e-mail without diacritics,
+  each result carrying an add button. A query matching more than ten accounts asks for a
+  narrower one instead of listing them.
 - Bounded merge candidate list: embedded in the page up to `AUTH_MERGE_INLINE_LIMIT`, searched
   over the new `users.merge-candidates` endpoint above it.
 - Seznam.cz brand mark via the new `provider-icon` component, which falls back to
