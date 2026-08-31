@@ -37,6 +37,11 @@
         // Room for a full result set, so the page never jumps while typing
         min-height: calc(var(--merge-candidate-height) * 10);
     }
+    // A list shown without a search box holds exactly what it lists
+    &.merge-search-static .merge-candidate-list {
+        margin-top: 0;
+        min-height: 0;
+    }
     .merge-candidate,
     .merge-candidate-note {
         display: flex;
@@ -61,11 +66,17 @@
     .merge-candidate-note:not(:has(.spinner-border)) {
         margin-top: 0.5em;
     }
+    .merge-candidate-name,
     .merge-candidate-email {
-        flex: 1 1 auto;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+    .merge-candidate-name {
+        flex: 0 1 auto;
+    }
+    .merge-candidate-email {
+        flex: 1 1 auto;
     }
     .merge-candidate-add {
         flex: 0 0 auto;
