@@ -18,6 +18,7 @@ return [
     'merge.removed' => 'Kontoen :name er ikke længere sammenlagt.',
     'merge' => 'Sammenlæg konto',
     'merges-add' => 'Tilføj',
+    'merges-added' => 'Tilføjet',
     'merges-empty' => 'Du har ingen sammenlagte konti.',
     'merges-hint' => 'Begynd at skrive for at filtrere brugere…',
     'merges-info' => 'Tilføjelse af brugere til sammenlagte konti giver mulighed for at administrere deres poster uanset roller.',
