@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Enums\Role;
 use Tests\TestCase;
 
@@ -442,6 +443,40 @@ class UserControllerTest extends TestCase
         $response->assertSee(__('ig-user::user.merges'));
         $response->assertSee('Merged Person');
         $response->assertSee($other->email);
+    }
+
+    public function test_show_renders_the_seznam_brand_mark_instead_of_a_font_awesome_fallback()
+    {
+        $user = User::factory()->create();
+        $user->socialites()->create([
+            'provider' => Provider::SEZNAM,
+            'provider_id' => 'seznam-1',
+            'name' => 'Seznam User',
+            'email' => 'user@seznam.cz',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee('<svg', false);
+        $response->assertSee('fill="#C00"', false);
+        $response->assertDontSee(config('services.seznam.icon'), false);
+    }
+
+    public function test_show_falls_back_to_the_configured_icon_for_providers_without_a_brand_mark()
+    {
+        $user = User::factory()->create();
+        $user->socialites()->create([
+            'provider' => Provider::GOOGLE,
+            'provider_id' => 'google-1',
+            'name' => 'Google User',
+            'email' => 'user@gmail.com',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee(config('services.google.icon'), false);
     }
 
     public function test_show_describes_the_benefit_of_adding_an_identity()

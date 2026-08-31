@@ -21,7 +21,7 @@
                     x-bind:href="`{{ route('socialite.action', ['provider' => $provider, 'action' => $action]) }}?remember=${remember}&prev_url={{ $prev_url }}`"
                 @endif
             >
-                <i class="{{ config("services.{$provider->value}.icon") }}"></i>
+                <x-ig-user::provider-icon :provider="$provider->value" />
                 {{ ucfirst($provider->value) }}
             </a>
         @endforeach

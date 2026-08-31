@@ -134,7 +134,7 @@
                         $provider = $socialite->provider->value;
                     @endphp
                     <dt>
-                        <i class="{{ config("services.{$provider}.icon") }} socialite-{{ $provider }}-icon"></i>
+                        <x-ig-user::provider-icon :provider="$provider" class="socialite-{{ $provider }}-icon" />
                         {{ Str::ucfirst($provider) }}
                     </dt>
                     <dd class="mb-3" style="line-height: 1.7em; min-height: auto;">

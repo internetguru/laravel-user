@@ -33,6 +33,12 @@ a[class*="btn-socialite"] {
     }
 }
 
+.provider-logo {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+}
+
 .socialite-google-icon {
     color: $google-color;
 }
