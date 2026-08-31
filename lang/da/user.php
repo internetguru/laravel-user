@@ -2,6 +2,7 @@
 
 return [
 
+    'authentication-desc' => 'Tilføjelse af en identitet giver dig bekvem login med ét klik og mulighed for at forblive logget ind.',
     'authentication-info' => 'Identitetsstyring er kun tilgængelig for [din egen konto](:url).',
     'authentication' => 'Identiteter',
     'cancel' => 'Annuller',
@@ -16,12 +17,12 @@ return [
     'merge.not-merged' => 'Disse konti er ikke sammenlagt.',
     'merge.removed' => 'Kontoen :name er ikke længere sammenlagt.',
     'merge' => 'Sammenlæg konto',
-    'merges-empty' => 'Denne konto er ikke sammenlagt med nogen anden.',
-    'merges-info' => 'Sammenlagte konti tilhører samme person. Hver af dem kan se og administrere alle de andres poster.',
+    'merges-empty' => 'Du har ingen sammenlagte konti.',
+    'merges-info' => 'Tilføjelse af brugere til sammenlagte konti giver mulighed for at administrere deres poster uanset roller.',
     'merges-select' => 'Konto der skal sammenlægges',
     'merges' => 'Sammenlagte konti',
     'name' => 'Navn',
-    'no-identities' => 'Ingen tilknyttede identiteter endnu.',
+    'no-identities' => 'Du har ingen tilknyttede identiteter.',
     'no-name' => 'Intet navn',
     'primary' => 'Primær',
     'phone' => 'Telefon',

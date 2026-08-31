@@ -2,6 +2,7 @@
 
 return [
 
+    'authentication-desc' => 'Adding an identity lets you sign in conveniently with a single click and stay signed in.',
     'authentication-info' => 'Identity management is available only for [your own account](:url).',
     'authentication' => 'Identities',
     'cancel' => 'Cancel',
@@ -16,12 +17,12 @@ return [
     'merge.not-merged' => 'These accounts are not merged.',
     'merge.removed' => 'Account :name is no longer merged.',
     'merge' => 'Merge account',
-    'merges-empty' => 'This account is not merged with any other.',
-    'merges-info' => 'Merged accounts belong to the same person. Each of them can see and manage the records of all the others.',
+    'merges-empty' => 'You have no merged accounts.',
+    'merges-info' => 'Adding users to merged accounts lets you manage their records regardless of roles.',
     'merges-select' => 'Account to merge',
     'merges' => 'Merged accounts',
     'name' => 'Name',
-    'no-identities' => 'No linked identities yet.',
+    'no-identities' => 'You have no linked identities.',
     'no-name' => 'No name',
     'primary' => 'Primary',
     'phone' => 'Phone',

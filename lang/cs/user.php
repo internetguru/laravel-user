@@ -2,6 +2,7 @@
 
 return [
 
+    'authentication-desc' => 'Přidání identity vám umožní pohodlné přihlašování jedním kliknutím s možností zůstat přihlášený.',
     'authentication-info' => 'Správa identit je dostupná pouze pro [vlastní účet](:url).',
     'authentication' => 'Identity',
     'cancel' => 'Zrušit',
@@ -16,12 +17,12 @@ return [
     'merge.not-merged' => 'Tyto účty nejsou sloučené.',
     'merge.removed' => 'Účet :name už není sloučený.',
     'merge' => 'Sloučit účet',
-    'merges-empty' => 'Tento účet není sloučený s žádným dalším.',
-    'merges-info' => 'Sloučené účty patří jedné osobě. Každý z nich vidí a může spravovat záznamy všech ostatních.',
+    'merges-empty' => 'Nemáte žádné sloučené účty.',
+    'merges-info' => 'Přidání uživatelů do sloučených účtů umožní spravovat jejich záznamy bez ohledu na role.',
     'merges-select' => 'Účet ke sloučení',
     'merges' => 'Sloučené účty',
     'name' => 'Jméno',
-    'no-identities' => 'Zatím žádné propojené identity.',
+    'no-identities' => 'Nemáte žádné propojené identity.',
     'no-name' => 'Bez jména',
     'primary' => 'Primární',
     'phone' => 'Telefon',

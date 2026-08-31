@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Description of what connecting an identity gives the user.
+
+### Changed
+
+- Reword the merged accounts description and both empty states on the user detail.
+
 ## [7.10.1] - 2026-08-31
 
 ### Changed

@@ -444,6 +444,16 @@ class UserControllerTest extends TestCase
         $response->assertSee($other->email);
     }
 
+    public function test_show_describes_the_benefit_of_adding_an_identity()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('users.show', $user));
+
+        $response->assertStatus(200);
+        $response->assertSee(__('ig-user::user.authentication-desc'));
+    }
+
     public function test_show_hides_the_merge_section_while_merging_is_disabled()
     {
         $manager = User::factory()->create(['role' => Role::MANAGER]);
