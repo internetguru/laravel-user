@@ -196,27 +196,31 @@
                     ? route('users.merge-candidates', $user)
                     : null;
                 $mergeCandidates = $mergeSearchUrl ? [] : $mergeCandidates;
+                // A list that already fits is simply shown: there is nothing to search through
+                $mergeShowSearch = $mergeSearchUrl || count($mergeCandidates) > $user::MERGE_CANDIDATES_SHOWN;
             @endphp
             @if ($mergeSearchUrl || count($mergeCandidates))
                 <h2 class="h3 mb-3 mt-3 fw-normal">@lang('ig-user::user.merge')</h2>
                 <x-ig::form class="editable-skip" :recaptcha="false" :action="route('users.merge', $user)">
                     <div
-                        class="merge-search"
+                        @class(['merge-search', 'merge-search-static' => ! $mergeShowSearch])
                         x-data="mergeSearch(@js($mergeCandidates), @js($mergeSearchUrl), @js($user::MERGE_CANDIDATES_SHOWN))"
                     >
-                        <input
-                            type="search"
-                            class="form-control"
-                            autocomplete="off"
-                            aria-controls="merge-candidate-list"
-                            aria-label="@lang('ig-user::user.merges-select')"
-                            placeholder="@lang('ig-user::user.merges-search')"
-                            x-model="search"
-                            x-on:input="onInput()"
-                            x-on:keydown.arrow-down.prevent="move(1)"
-                            x-on:keydown.arrow-up.prevent="move(-1)"
-                            x-on:keydown.enter.prevent="addActive()"
-                        />
+                        @if ($mergeShowSearch)
+                            <input
+                                type="search"
+                                class="form-control"
+                                autocomplete="off"
+                                aria-controls="merge-candidate-list"
+                                aria-label="@lang('ig-user::user.merges-select')"
+                                placeholder="@lang('ig-user::user.merges-search')"
+                                x-model="search"
+                                x-on:input="onInput()"
+                                x-on:keydown.arrow-down.prevent="move(1)"
+                                x-on:keydown.arrow-up.prevent="move(-1)"
+                                x-on:keydown.enter.prevent="addActive()"
+                            />
+                        @endif
                         {{-- Fixed height for as many rows as the search shows, so nothing below it jumps --}}
                         <ul class="merge-candidate-list" id="merge-candidate-list" role="listbox" aria-live="polite">
                             <template x-for="(candidate, index) in visible" :key="candidate.id">
@@ -238,13 +242,16 @@
                                     >@lang('ig-user::user.merges-add')</button>
                                 </li>
                             </template>
-                            <li class="merge-candidate-note" x-show="loading">
-                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                @lang('ig-user::user.merges-loading')
-                            </li>
-                            <li class="merge-candidate-note" x-show="! loading && ! search.trim().length">@lang('ig-user::user.merges-hint')</li>
-                            <li class="merge-candidate-note" x-show="! loading && search.trim().length && ! matches.length">@lang('ig-user::user.merges-none')</li>
-                            <li class="merge-candidate-note" x-show="! loading && tooMany">@lang('ig-user::user.merges-more')</li>
+                            {{-- Without a search box the list always has rows, so none of the notes can apply --}}
+                            @if ($mergeShowSearch)
+                                <li class="merge-candidate-note" x-show="note === 'loading'">
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    @lang('ig-user::user.merges-loading')
+                                </li>
+                                <li class="merge-candidate-note" x-show="note === 'hint'">@lang('ig-user::user.merges-hint')</li>
+                                <li class="merge-candidate-note" x-show="note === 'none'">@lang('ig-user::user.merges-none')</li>
+                                <li class="merge-candidate-note" x-show="note === 'more'">@lang('ig-user::user.merges-more')</li>
+                            @endif
                         </ul>
                     </div>
                 </x-ig::form>

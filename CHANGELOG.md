@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [7.11.1] - 2026-08-31
+
+### Fixed
+
+- List a short set of merge candidates without a search box.
+
 ## [7.11.0] - 2026-08-31
 
 _Stable release based on [7.11.0-rc.1]._
@@ -14,9 +20,9 @@ _Stable release based on [7.11.0-rc.1]._
 
 ### Added
 
-- Type-to-search list of accounts to merge with, matching name and e-mail without diacritics,
-  each result carrying an add button. A query matching more than ten accounts asks for a
-  narrower one instead of listing them.
+- List of accounts to merge with, each row carrying an add button. Up to ten candidates are
+  listed straight away; a longer list is searched by typing, matching name and e-mail without
+  diacritics, and a query matching more than ten accounts asks for a narrower one.
 - Bounded merge candidate list: embedded in the page up to `AUTH_MERGE_INLINE_LIMIT`, searched
   over the new `users.merge-candidates` endpoint above it.
 - Seznam.cz brand mark via the new `provider-icon` component, which falls back to
@@ -1377,6 +1383,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[7.11.1]: https://https://github.com/internetguru/laravel-user/compare/v7.11.0...v7.11.1
 [7.11.0]: https://https://github.com/internetguru/laravel-user/compare/v7.10.1...v7.11.0
 [7.11.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.10.1
 [7.10.1]: https://https://github.com/internetguru/laravel-user/compare/v7.10.0...v7.10.1
