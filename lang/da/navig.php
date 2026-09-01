@@ -10,4 +10,6 @@ return [
     'pin-login' => 'Login med e-mail',
     'pin-login.verify' => 'Kodebekræftelse',
 
+    'role-list' => 'Roller og rettigheder|Roller',
+
 ];

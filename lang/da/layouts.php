@@ -14,4 +14,8 @@ return [
     'users.show.description' => 'Interaktive brugeroplysninger med tilknyttede identiteter.',
     'users.show.title' => 'Brugerdetaljer',
 
+    'role-list.title' => 'Roller og rettigheder',
+    'role-list.short-title' => 'Roller',
+    'role-list.description' => 'Se, hvad hver brugerrolle kan se, administrere og gøre. Hver rolle har også rettighederne for rollerne under sig.',
+
 ];

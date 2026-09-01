@@ -18,4 +18,8 @@ return [
     'users.show.description' => 'Interactive user information with connected identities.',
     'users.show.title' => 'User details',
 
+    'role-list.title' => 'Roles and permissions',
+    'role-list.short-title' => 'Roles',
+    'role-list.description' => 'See what each user role can view, manage and do. Every role also has the permissions of the roles below it.',
+
 ];

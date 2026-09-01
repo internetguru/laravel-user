@@ -42,6 +42,15 @@ class UserPolicy
     }
 
     /**
+     * The role list documents the permission model rather than any account's data, so every
+     * signed-in user may read it. Applications restrict it by overriding this ability.
+     */
+    public function viewRoleList(User $user): bool
+    {
+        return true;
+    }
+
+    /**
      * Only admins and managers can administrate user
      */
     public function administrate(User $user, User $targetUser): bool

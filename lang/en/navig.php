@@ -10,4 +10,6 @@ return [
     'pin-login' => 'Login with email',
     'pin-login.verify' => 'Code verification',
 
+    'role-list' => 'Roles and permissions|Roles',
+
 ];

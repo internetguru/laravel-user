@@ -24,6 +24,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 - [User Preferences](#user-preferences)
 - [Association History](#association-history)
 - [User Policy](#user-policy)
+- [Roles and Permissions Page](#roles-and-permissions-page)
 - [IgUserSeeder](#iguserseeder)
 - [Publishing](#publishing)
 - [E2E Tests](#e2e-tests)
@@ -356,11 +357,83 @@ The history is displayed on the user detail page, visible to managers and above.
 | `administrate` | Managers and above |
 | `setRole` | Admins can set any role; managers can set roles up to their own level |
 | `merge` | Managers and above, both subjects editable; requires `AUTH_MERGE_ENABLED=true` |
+| `viewRoleList` | Everyone signed in; override to restrict the roles and permissions page |
 
 Publish the default policy to customise it:
 
 ```sh
 php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServiceProvider" --tag="ig-user:policies"
+```
+
+## Roles and Permissions Page
+
+`GET /role-list` (route name `role-list`) documents the permission model of the whole
+application: for every role, what it gains — or loses — compared to the role below it.
+
+Nothing is maintained by hand. The page discovers the policies, invokes each ability once per
+role with sample arguments, and diffs the results, so a policy change shows up on the page by
+itself. `ADMIN` is left out, as `User::publicRolesArray()` does everywhere else.
+
+### Discovery
+
+Policies come from two places: the directories listed in `ig-user.role_list.policy_paths`
+(`app/Policies` by default) and the policies registered with the gate. When an application
+policy extends a package one, only the application class is listed, so its overrides drive the
+summary.
+
+### Sample Arguments
+
+An ability is invoked with arguments built by `PolicyArgumentResolver`, which knows accounts,
+the roles enum and scalars. Both the acting and the target account get the evaluated role, so
+an ability comparing the two reads as "what a role may do to its own peer". The accounts are
+never stored, and their null key keeps every relation query empty.
+
+An ability taking a type the resolver does not know is left out of the page rather than
+reported as denied. Teach the resolver about your own models to list those abilities too:
+
+```php
+namespace App\Support;
+
+use App\Models\Machine;
+use BackedEnum;
+use InternetGuru\LaravelUser\Support\PolicyArgumentResolver;
+use ReflectionParameter;
+
+class AppPolicyArgumentResolver extends PolicyArgumentResolver
+{
+    public function resolve(ReflectionParameter $parameter, BackedEnum $role): mixed
+    {
+        return match ($parameter->getType()?->getName()) {
+            Machine::class => new Machine(['name' => 'Sample']),
+            default => parent::resolve($parameter, $role),
+        };
+    }
+}
+```
+
+```php
+// AppServiceProvider::register()
+$this->app->bind(PolicyArgumentResolver::class, AppPolicyArgumentResolver::class);
+```
+
+### Naming Abilities
+
+Each ability is labelled by the `role-list.{Policy}@{ability}` translation line, taken from the
+application first and from `ig-user::role-list` second — so an application can rename a package
+ability in the words of its own domain. An unnamed ability falls back to its key, which keeps a
+newly added policy visible instead of blank.
+
+```php
+// lang/en/role-list.php
+return [
+    'MachinePolicy@manage' => 'Manage machines',
+];
+```
+
+Import the stylesheet in your `app.scss` next to the other package partials:
+
+```scss
+@import 'ig::user/role-list';
 ```
 
 ## IgUserSeeder

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use InternetGuru\LaravelUser\Http\Controllers\LoginController;
 use InternetGuru\LaravelUser\Http\Controllers\PinLoginController;
+use InternetGuru\LaravelUser\Http\Controllers\RoleListController;
 use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
 use InternetGuru\LaravelUser\Http\Controllers\UserController;
 use InternetGuru\LaravelUser\Http\Middleware\EnsureLoginEnabled;
@@ -64,6 +65,10 @@ Route::controller(UserController::class)
             ->middleware('can:enable-disable,user')
             ->name('users.enable');
     });
+
+Route::get('/role-list', [RoleListController::class, 'index'])
+    ->middleware(['web', 'auth', 'can:viewRoleList,App\\Models\\User'])
+    ->name('role-list');
 
 Route::controller(PinLoginController::class)
     ->prefix('pin-login')
