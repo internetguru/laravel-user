@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Roles and permissions page at `/role-list`, derived from the policies themselves: every
+  ability is invoked once per role and the results are reduced to what each role gains or loses
+  compared to the role below it. Applications name the abilities with `role-list` translation
+  lines and teach `PolicyArgumentResolver` about their own models.
+- `viewRoleList` user policy ability, open to every signed-in account by default.
+
 ## [7.11.2] - 2026-08-31
 
 ### Fixed
@@ -1387,6 +1397,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [7.11.2]: https://https://github.com/internetguru/laravel-user/compare/v7.11.1...v7.11.2
 [7.11.1]: https://https://github.com/internetguru/laravel-user/compare/v7.11.0...v7.11.1
 [7.11.0]: https://https://github.com/internetguru/laravel-user/compare/v7.10.1...v7.11.0

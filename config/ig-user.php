@@ -13,6 +13,16 @@ return [
     // carries the whole user table.
     'merge_inline_limit' => (int) env('AUTH_MERGE_INLINE_LIMIT', 100),
 
+    'role_list' => [
+
+        // Directories the role list scans for policies, as path => namespace. Policies
+        // registered with the gate are always included, so packages need no entry here.
+        'policy_paths' => [
+            app_path('Policies') => 'App\\Policies',
+        ],
+
+    ],
+
     'system_notice_role' => env('AUTH_SYSTEM_NOTICE_ROLE', 'operator'),
 
     'lang_domains' => collect(explode(',', env('LANG_DOMAINS', '')))
