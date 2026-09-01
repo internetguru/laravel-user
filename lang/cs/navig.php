@@ -10,4 +10,6 @@ return [
     'pin-login' => 'Přihlášení e-mailem',
     'pin-login.verify' => 'Ověření kódu',
 
+    'role-list' => 'Role a oprávnění|Role',
+
 ];

@@ -18,4 +18,8 @@ return [
     'users.show.description' => 'Interaktivní informace o uživateli s připojenými identitami.',
     'users.show.title' => 'Detail uživatele',
 
+    'role-list.title' => 'Role a oprávnění',
+    'role-list.short-title' => 'Role',
+    'role-list.description' => 'Podívejte se, co může každá uživatelská role zobrazit, spravovat a dělat. Každá role má také oprávnění rolí pod sebou.',
+
 ];
