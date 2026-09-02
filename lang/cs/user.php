@@ -47,6 +47,7 @@ return [
     'summary.name' => 'Jméno',
     'summary.phone' => 'Telefon',
     'summary.role' => 'Role',
+    'summary.user' => 'Uživatel',
     'update.email.unique' => 'Uživatel s tímto e-mailem již existuje.',
     'update.email' => 'Email aktualizován.',
     'update.name' => 'Jméno aktualizováno.',

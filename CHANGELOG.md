@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- User list: the separate name and e-mail filters are merged into a single `user` filter matching either column (requires laravel-model-browser ^6.2).
+
 ## [7.12.0] - 2026-09-01
 
 _Stable release based on [7.12.0-rc.1]._
