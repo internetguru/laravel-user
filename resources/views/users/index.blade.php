@@ -7,8 +7,10 @@
             'role' => __('ig-user::user.summary.role'),
         ]"
         :filters="[
-            'name' => ['label' => __('ig-user::user.summary.name'), 'column' => 'name'],
-            'email' => ['label' => __('ig-user::user.summary.email'), 'column' => 'email'],
+            'user' => [
+                'label' => __('ig-user::user.summary.user'),
+                'columns' => ['name', ['column' => 'email', 'ascii_fast' => true]],
+            ],
             'role' => [
                 'type' => 'options',
                 'label' => __('ig-user::user.summary.role'),

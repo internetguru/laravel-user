@@ -47,6 +47,7 @@ return [
     'summary.name' => 'Navn',
     'summary.phone' => 'Telefon',
     'summary.role' => 'Rolle',
+    'summary.user' => 'Bruger',
     'update.email.unique' => 'En bruger med denne e-mail findes allerede.',
     'update.email' => 'E-mail opdateret.',
     'update.name' => 'Navn opdateret.',

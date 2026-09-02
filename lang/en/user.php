@@ -47,6 +47,7 @@ return [
     'summary.name' => 'Name',
     'summary.phone' => 'Phone',
     'summary.role' => 'Role',
+    'summary.user' => 'User',
     'update.email.unique' => 'A user with this email already exists.',
     'update.email' => 'Email updated.',
     'update.name' => 'Name updated.',
