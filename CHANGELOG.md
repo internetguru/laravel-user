@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [7.13.0-rc.1] - 2026-09-02
 
 ### Changed
 
@@ -1407,7 +1407,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
-[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[7.13.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.12.0
 [7.12.0]: https://https://github.com/internetguru/laravel-user/compare/v7.11.2...v7.12.0
 [7.12.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.11.2
 [7.11.2]: https://https://github.com/internetguru/laravel-user/compare/v7.11.1...v7.11.2
