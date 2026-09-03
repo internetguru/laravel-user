@@ -23,7 +23,7 @@
                             ? `{{ route('socialite.action', ['provider' => $provider, 'action' => 'register']) }}?remember=${remember}&prev_url={{ $prev_url }}`
                             : `{{ route('socialite.action', ['provider' => $provider, 'action' => 'login']) }}?remember=${remember}&prev_url={{ $prev_url }}`"
                     >
-                        <i class="{{ config("services.{$provider->value}.icon") }}"></i>
+                        <x-ig-user::provider-icon :provider="$provider->value" />
                         {{ ucfirst($provider->value) }}
                     </a>
                 @endforeach
