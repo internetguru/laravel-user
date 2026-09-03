@@ -51,6 +51,18 @@ class LoginControllerTest extends TestCase
         $this->assertDoesNotMatchRegularExpression('/\bdisabled\b/', $checkboxHtml);
     }
 
+    public function test_show_login_form_renders_the_seznam_brand_mark_instead_of_a_font_awesome_fallback()
+    {
+        config(['services.seznam.enabled' => true]);
+
+        $response = $this->get(route('login'));
+
+        $response->assertStatus(200);
+        $response->assertSee('<svg', false);
+        $response->assertSee('fill="#C00"', false);
+        $response->assertDontSee(config('services.seznam.icon'), false);
+    }
+
     public function test_show_login_form_demo()
     {
         config(['app.demo' => true]);
