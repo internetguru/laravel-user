@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cb97b4950568370cfae59202ab02cccd",
+    "content-hash": "b80592ab1e265d6fe8f3738b6104090f",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1231,29 +1231,29 @@
         },
         {
             "name": "internetguru/laravel-common",
-            "version": "v5.27.1",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-common.git",
-                "reference": "d220277a103ca11cba4ec8ccaf679ad31629c593"
+                "reference": "4fa67706fe2c52be2cbbad4dca5467520b7b7699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/d220277a103ca11cba4ec8ccaf679ad31629c593",
-                "reference": "d220277a103ca11cba4ec8ccaf679ad31629c593",
+                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/4fa67706fe2c52be2cbbad4dca5467520b7b7699",
+                "reference": "4fa67706fe2c52be2cbbad4dca5467520b7b7699",
                 "shasum": ""
             },
             "require": {
                 "bacon/bacon-qr-code": "^3.0",
                 "internetguru/laravel-recaptchav3": "^1.0",
                 "laravel/framework": "^10.0 || ^11.0 || ^12.0 || ^13.0",
-                "livewire/livewire": "^3.6 || ^4.0",
+                "livewire/livewire": "^4.0",
                 "spatie/laravel-ignition": "^2.9",
                 "torann/geoip": "^3.0"
             },
             "require-dev": {
                 "laravel/pint": "^1.25",
-                "livewire/livewire": "^3.6 || ^4.0",
+                "livewire/livewire": "^4.0",
                 "orchestra/testbench": "^9.5",
                 "phpunit/php-code-coverage": "^11.0"
             },
@@ -1286,32 +1286,32 @@
             ],
             "support": {
                 "issues": "https://github.com/internetguru/laravel-common/issues",
-                "source": "https://github.com/internetguru/laravel-common/tree/v5.27.1"
+                "source": "https://github.com/internetguru/laravel-common/tree/v6.1.0"
             },
-            "time": "2026-08-18T10:36:04+00:00"
+            "time": "2026-09-02T05:29:17+00:00"
         },
         {
             "name": "internetguru/laravel-model-browser",
-            "version": "v6.1.0",
+            "version": "v6.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-model-browser.git",
-                "reference": "27b91ceb0152433fe1d08a7fa3fce212a843e602"
+                "reference": "e6c9717cd1888c392b08ec35b8260ef145c75ed5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/27b91ceb0152433fe1d08a7fa3fce212a843e602",
-                "reference": "27b91ceb0152433fe1d08a7fa3fce212a843e602",
+                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/e6c9717cd1888c392b08ec35b8260ef145c75ed5",
+                "reference": "e6c9717cd1888c392b08ec35b8260ef145c75ed5",
                 "shasum": ""
             },
             "require": {
-                "internetguru/laravel-common": "^5",
+                "internetguru/laravel-common": "^5 || ^6",
                 "laravel/framework": "^11.0 || ^12.0 || ^13.0",
                 "livewire/livewire": "^4.0",
                 "php": "^8.4"
             },
             "require-dev": {
-                "internetguru/laravel-common": "^5",
+                "internetguru/laravel-common": "^5 || ^6",
                 "laravel/pint": "^1.17",
                 "livewire/livewire": "^4.0",
                 "orchestra/testbench": "^9.5 || ^10.0",
@@ -1346,9 +1346,9 @@
             "description": "A Laravel package to browse models and show them in a table, autocmplete, etc.",
             "support": {
                 "issues": "https://github.com/internetguru/laravel-model-browser/issues",
-                "source": "https://github.com/internetguru/laravel-model-browser/tree/v6.1.0"
+                "source": "https://github.com/internetguru/laravel-model-browser/tree/v6.4.0"
             },
-            "time": "2026-08-26T10:55:50+00:00"
+            "time": "2026-09-02T10:40:03+00:00"
         },
         {
             "name": "internetguru/laravel-recaptchav3",
@@ -1997,16 +1997,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.35.3",
+            "version": "3.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "5fc8404762179ae514678487b23494fd69b2309c"
+                "reference": "f7fb152932f30072d573510cbd4dd657d6475b25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/5fc8404762179ae514678487b23494fd69b2309c",
-                "reference": "5fc8404762179ae514678487b23494fd69b2309c",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/f7fb152932f30072d573510cbd4dd657d6475b25",
+                "reference": "f7fb152932f30072d573510cbd4dd657d6475b25",
                 "shasum": ""
             },
             "require": {
@@ -2074,9 +2074,9 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.35.3"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.36.0"
             },
-            "time": "2026-08-22T12:55:54+00:00"
+            "time": "2026-09-02T08:00:27+00:00"
         },
         {
             "name": "league/flysystem-local",
@@ -2443,16 +2443,16 @@
         },
         {
             "name": "livewire/livewire",
-            "version": "v4.4.2",
+            "version": "v4.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/livewire/livewire.git",
-                "reference": "4a030935e6c255c89a114b00ece66326f78157c0"
+                "reference": "92f1427022714b34024459167aa6a85d4fb4af44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/4a030935e6c255c89a114b00ece66326f78157c0",
-                "reference": "4a030935e6c255c89a114b00ece66326f78157c0",
+                "url": "https://api.github.com/repos/livewire/livewire/zipball/92f1427022714b34024459167aa6a85d4fb4af44",
+                "reference": "92f1427022714b34024459167aa6a85d4fb4af44",
                 "shasum": ""
             },
             "require": {
@@ -2507,7 +2507,7 @@
             "description": "A front-end framework for Laravel.",
             "support": {
                 "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v4.4.2"
+                "source": "https://github.com/livewire/livewire/tree/v4.4.3"
             },
             "funding": [
                 {
@@ -2515,20 +2515,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-24T15:02:06+00:00"
+            "time": "2026-08-31T15:40:58+00:00"
         },
         {
             "name": "monolog/monolog",
-            "version": "3.10.0",
+            "version": "3.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "b321dd6749f0bf7189444158a3ce785cc16d69b0"
+                "reference": "147f303310f06334f03f409e49d7ad1e275ff05a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b321dd6749f0bf7189444158a3ce785cc16d69b0",
-                "reference": "b321dd6749f0bf7189444158a3ce785cc16d69b0",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/147f303310f06334f03f409e49d7ad1e275ff05a",
+                "reference": "147f303310f06334f03f409e49d7ad1e275ff05a",
                 "shasum": ""
             },
             "require": {
@@ -2606,7 +2606,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/3.10.0"
+                "source": "https://github.com/Seldaek/monolog/tree/3.11.0"
             },
             "funding": [
                 {
@@ -2618,7 +2618,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-02T08:56:05+00:00"
+            "time": "2026-09-02T12:39:56+00:00"
         },
         {
             "name": "nesbot/carbon",
