@@ -16,6 +16,6 @@ return [
 
     'role-list.title' => 'Roller og rettigheder',
     'role-list.short-title' => 'Roller',
-    'role-list.description' => 'Se, hvad hver brugerrolle kan se, administrere og gøre. Hver rolle har også rettighederne for rollerne under sig.',
+    'role-list.description' => 'Se, hvad hver brugerrolle kan se, administrere og gøre. Hver rolle har også rettighederne for de underordnede roller.',
 
 ];
