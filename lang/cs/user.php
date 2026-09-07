@@ -45,6 +45,7 @@ return [
     'socialite_disconnected' => 'odpojil(a)',
     'summary.email' => 'E-mail',
     'summary.name' => 'Jméno',
+    'summary.pending' => 'Zahrnout nepřihlášené uživatele',
     'summary.phone' => 'Telefon',
     'summary.role' => 'Role',
     'summary.user' => 'Uživatel',

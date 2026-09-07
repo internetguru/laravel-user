@@ -17,6 +17,10 @@
                 'options' => \App\Models\User::roleOptions(),
                 'column' => 'role',
             ],
+            'pending' => [
+                'type' => 'checkbox',
+                'label' => __('ig-user::user.summary.pending'),
+            ],
         ]"
         filterSessionKey="laravel-user-user-filters"
         :formats="[
