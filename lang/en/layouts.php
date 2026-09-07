@@ -20,6 +20,6 @@ return [
 
     'role-list.title' => 'Roles and permissions',
     'role-list.short-title' => 'Roles',
-    'role-list.description' => 'See what each user role can view, manage and do. Every role also has the permissions of the roles below it.',
+    'role-list.description' => 'See what each user role can view, manage and do. Every role also has the permissions of the subordinate roles.',
 
 ];
