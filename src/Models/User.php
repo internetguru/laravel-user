@@ -196,10 +196,17 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         });
     }
 
+    /**
+     * The user list query.
+     *
+     * Automatic (pending) accounts are left out unless the list's `pending` filter asks for them.
+     */
     public static function summary()
     {
+        $includePending = (bool) (new static)->getModelBrowserFilter('pending');
+
         return static::query()
-            ->filterAutomatic()
+            ->unless($includePending, fn ($query) => $query->filterAutomatic())
             ->when(
                 ! auth()?->user()?->isAdmin(),
                 fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)

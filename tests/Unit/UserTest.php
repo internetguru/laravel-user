@@ -99,6 +99,26 @@ class UserTest extends TestCase
         $this->assertCount(1, $users);
     }
 
+    public function test_summary_excludes_automatic_users_by_default()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $this->actingAs($admin);
+        $automatic = User::factory()->automatic()->create();
+
+        $this->assertNotContains($automatic->id, User::summary()->pluck('id')->all());
+    }
+
+    public function test_summary_includes_automatic_users_when_pending_filter_is_set()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $this->actingAs($admin);
+        $automatic = User::factory()->automatic()->create();
+
+        session(['laravel-user-user-filters' => ['pending' => '1']]);
+
+        $this->assertContains($automatic->id, User::summary()->pluck('id')->all());
+    }
+
     public function test_preferences()
     {
         $user = User::factory()->create();
