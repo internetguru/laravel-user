@@ -185,28 +185,30 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         );
     }
 
-    public function scopeFilterAutomatic($query)
+    /**
+     * Accounts somebody has signed in to at least once.
+     *
+     * Who created the account does not enter into it. An account a member of
+     * staff opened on a customer's behalf and one that opened itself are the
+     * same thing until the person it belongs to actually uses it.
+     */
+    public function scopeLoggedIn($query)
     {
-        $table = $this->getTable();
-
-        return $query->where(function ($q) use ($table) {
-            $q->whereNull("{$table}.created_by")
-                ->orWhereColumn("{$table}.created_by", '!=', "{$table}.id")
-                ->orWhereNotNull("{$table}.logged_at");
-        });
+        return $query->whereNotNull($this->getTable() . '.logged_at');
     }
 
     /**
      * The user list query.
      *
-     * Automatic (pending) accounts are left out unless the list's `pending` filter asks for them.
+     * Accounts nobody has ever signed in to are left out unless the list's
+     * `never_logged_in` filter asks for them.
      */
     public static function summary()
     {
-        $includePending = (bool) (new static)->getModelBrowserFilter('pending');
+        $includeNeverLoggedIn = (bool) (new static)->getModelBrowserFilter('never_logged_in');
 
         return static::query()
-            ->unless($includePending, fn ($query) => $query->filterAutomatic())
+            ->unless($includeNeverLoggedIn, fn ($query) => $query->loggedIn())
             ->when(
                 ! auth()?->user()?->isAdmin(),
                 fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)
