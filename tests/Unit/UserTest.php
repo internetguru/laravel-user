@@ -99,7 +99,7 @@ class UserTest extends TestCase
         $this->assertCount(1, $users);
     }
 
-    public function test_summary_excludes_automatic_users_by_default()
+    public function test_summary_excludes_users_who_never_logged_in_by_default()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $this->actingAs($admin);
@@ -108,15 +108,34 @@ class UserTest extends TestCase
         $this->assertNotContains($automatic->id, User::summary()->pluck('id')->all());
     }
 
-    public function test_summary_includes_automatic_users_when_pending_filter_is_set()
+    public function test_summary_excludes_users_who_never_logged_in_whoever_created_them()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $this->actingAs($admin);
+        $invited = User::factory()->create([
+            'logged_at' => null,
+            'created_by' => $admin->id,
+        ]);
+
+        $this->assertNotContains($invited->id, User::summary()->pluck('id')->all());
+    }
+
+    public function test_summary_includes_users_who_never_logged_in_when_the_filter_is_set()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
         $this->actingAs($admin);
         $automatic = User::factory()->automatic()->create();
+        $invited = User::factory()->create([
+            'logged_at' => null,
+            'created_by' => $admin->id,
+        ]);
 
-        session(['laravel-user-user-filters' => ['pending' => '1']]);
+        session(['laravel-user-user-filters' => ['never_logged_in' => '1']]);
 
-        $this->assertContains($automatic->id, User::summary()->pluck('id')->all());
+        $ids = User::summary()->pluck('id')->all();
+
+        $this->assertContains($automatic->id, $ids);
+        $this->assertContains($invited->id, $ids);
     }
 
     public function test_preferences()

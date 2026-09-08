@@ -257,7 +257,9 @@ A candidate list of at most `User::MERGE_CANDIDATES_SHOWN` accounts is listed st
 
 ### Automatic Accounts
 
-An account is considered _automatic_ when `created_by === id` and `logged_at IS NULL`. These accounts are hidden from `User::summary()` and `getDemoUsers()`. When a user registers via PIN login with the "create account" option, reusing an existing automatic account converts it to a regular account.
+An account is considered _automatic_ when `created_by === id` and `logged_at IS NULL`. These accounts are hidden from `getDemoUsers()`. When a user registers via PIN login with the "create account" option, reusing an existing automatic account converts it to a regular account.
+
+`User::summary()` makes a wider cut than that: it lists only accounts somebody has signed in to at least once (`scopeLoggedIn`), whoever created them, since an account opened on a customer's behalf is a placeholder for a person until that person uses it. The list's `never_logged_in` checkbox brings the rest back.
 
 ## Blade Components
 
