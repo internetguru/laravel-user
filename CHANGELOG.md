@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.0.0] - 2026-09-08
+
+_Stable release based on [8.0.0-rc.1]._
+
+## [8.0.0-rc.1] - 2026-09-08
+
+### Added
+
+- Declare the field types of this package's login and profile forms, so internetguru/laravel-common can clean up what they submit. An application that has already declared a field keeps its own setting.
+
+### Changed
+
+- **Breaking.** Require Laravel 13, Livewire 4, internetguru/laravel-common 7 and internetguru/laravel-model-browser 7. Support for Laravel 9 through 12, Livewire 3 and earlier releases of both packages is dropped.
+
 ## [7.14.0] - 2026-09-07
 
 _Stable release based on [7.14.0-rc.1]._
@@ -1435,6 +1449,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[8.0.0]: https://https://github.com/internetguru/laravel-user/compare/v7.14.0...v8.0.0
+[8.0.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.14.0
 [7.14.0]: https://https://github.com/internetguru/laravel-user/compare/v7.13.3...v7.14.0
 [7.14.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.13.3
 [7.13.3]: https://https://github.com/internetguru/laravel-user/compare/v7.13.2...v7.13.3

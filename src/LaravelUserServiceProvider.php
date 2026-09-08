@@ -54,6 +54,8 @@ class LaravelUserServiceProvider extends ServiceProvider
             __DIR__ . '/Policies' => app_path('Policies'),
         ], 'ig-user:policies');
 
+        $this->registerSanitizeTypes();
+
         // extend socialite with seznam provider
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
         $socialite->extend(
@@ -64,5 +66,37 @@ class LaravelUserServiceProvider extends ServiceProvider
                 return $socialite->buildProvider(SeznamProvider::class, $config);
             }
         );
+    }
+
+    /**
+     * Declare the sanitization type of every field this package's forms submit.
+     *
+     * internetguru/laravel-common normalizes input by what a value is, and
+     * reports anything it cannot type rather than guessing. The fields below
+     * are the ones only this package knows about; `email`, `name`, `phone`,
+     * `pin`, `role`, `q` and `merge_user_id` are already covered by its
+     * defaults, and `prev_url` by the `*_url` pattern.
+     *
+     * Entries the application has already set win, so publishing a config and
+     * changing one of these keeps working.
+     */
+    private function registerSanitizeTypes(): void
+    {
+        $config = $this->app['config'];
+        $types = $config->get('ig-common.sanitize.types');
+
+        if (! is_array($types)) {
+            return;
+        }
+
+        $config->set('ig-common.sanitize.types', [
+            // Submit buttons and checkboxes, posted as strings by the browser.
+            'register' => 'flag',
+            'register_check' => 'flag',
+            'remember' => 'flag',
+            'remember_check' => 'flag',
+            'resend' => 'flag',
+            ...$types,
+        ]);
     }
 }
