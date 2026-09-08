@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- **Breaking.** The user list now hides everyone who has never signed in, whoever created their account. It used to hide only the accounts that had created themselves. `scopeFilterAutomatic` becomes `scopeLoggedIn`.
+- Rename the list's checkbox to "Never-logged-in users". A filter saved from an earlier version has to be ticked again.
+
 ## [8.0.0] - 2026-09-08
 
 _Stable release based on [8.0.0-rc.1]._
@@ -1449,6 +1456,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
 [8.0.0]: https://https://github.com/internetguru/laravel-user/compare/v7.14.0...v8.0.0
 [8.0.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v7.14.0
 [7.14.0]: https://https://github.com/internetguru/laravel-user/compare/v7.13.3...v7.14.0

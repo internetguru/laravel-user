@@ -17,9 +17,9 @@
                 'options' => \App\Models\User::roleOptions(),
                 'column' => 'role',
             ],
-            'pending' => [
+            'never_logged_in' => [
                 'type' => 'checkbox',
-                'label' => __('ig-user::user.summary.pending'),
+                'label' => __('ig-user::user.summary.never-logged-in'),
             ],
         ]"
         filterSessionKey="laravel-user-user-filters"
