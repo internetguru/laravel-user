@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d65f15212352f4e3a2300c43af9ecfbd",
+    "content-hash": "c29a8b110d718cd53d9d8c1750b00952",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1235,16 +1235,16 @@
         },
         {
             "name": "internetguru/laravel-common",
-            "version": "v7.0.0",
+            "version": "v7.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-common.git",
-                "reference": "f163f06c557a9313fa6e6a7411401a97749ab253"
+                "reference": "9e8a80fb91ee4917fc1eac1391db040f70dd5369"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/f163f06c557a9313fa6e6a7411401a97749ab253",
-                "reference": "f163f06c557a9313fa6e6a7411401a97749ab253",
+                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/9e8a80fb91ee4917fc1eac1391db040f70dd5369",
+                "reference": "9e8a80fb91ee4917fc1eac1391db040f70dd5369",
                 "shasum": ""
             },
             "require": {
@@ -1290,9 +1290,9 @@
             ],
             "support": {
                 "issues": "https://github.com/internetguru/laravel-common/issues",
-                "source": "https://github.com/internetguru/laravel-common/tree/v7.0.0"
+                "source": "https://github.com/internetguru/laravel-common/tree/v7.0.1"
             },
-            "time": "2026-09-08T08:54:10+00:00"
+            "time": "2026-09-08T09:22:51+00:00"
         },
         {
             "name": "internetguru/laravel-model-browser",
