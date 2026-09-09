@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Name a linked identity after the part of its e-mail before the @ when the provider shares no name, so identities no longer show up as "No name". A migration fills in the identities already stored without one.
+
+### Fixed
+
+- Close the empty space between the list of linked identities and the buttons below it.
+
 ## [8.1.0] - 2026-09-08
 
 _Stable release based on [8.1.0-rc.1]._
