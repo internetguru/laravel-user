@@ -153,7 +153,8 @@
                         @endif
                     </dd>
                 @empty
-                    <p class="text-muted mt-0 mb-3">@lang('ig-user::user.no-identities')</p>
+                    {{-- A div, not a p: .card p forces its own margins over a utility class. --}}
+                    <div class="text-muted mb-3">@lang('ig-user::user.no-identities')</div>
                 @endforelse
             </dl>
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::socialite.add')</h2>
