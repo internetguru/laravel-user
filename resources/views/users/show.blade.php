@@ -128,7 +128,7 @@
                     {!! Str::inlineMarkdown(__('ig-user::user.authentication-info', ['url' => route('users.show', auth()->user())])) !!}
                 </p>
             @endif
-            <dl>
+            <dl class="mb-0">
                 @forelse($user->socialites as $socialite)
                     @php
                         $provider = $socialite->provider->value;

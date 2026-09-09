@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use InternetGuru\LaravelUser\Models\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
@@ -33,6 +34,14 @@ trait SocialiteAuth
         }
 
         return User::where('email', $email)->first();
+    }
+
+    /**
+     * Some providers do not share a name, so fall back to the local part of the email.
+     */
+    public static function socialiteName(SocialiteUser $providerUser): string
+    {
+        return $providerUser->name ?: Str::before((string) $providerUser->email, '@');
     }
 
     public static function socialiteLoginAndConnect($provider, SocialiteUser $providerUser): RedirectResponse
@@ -81,7 +90,7 @@ trait SocialiteAuth
             $socialite = new Socialite([
                 'provider' => $provider,
                 'provider_id' => $providerUser->id,
-                'name' => $providerUser->name,
+                'name' => User::socialiteName($providerUser),
                 'email' => $providerUser->email,
             ]);
             auth()->user()
@@ -124,18 +133,18 @@ trait SocialiteAuth
             // Rewrite created_by and continue registration
             $userByEmail->update([
                 'created_by' => null,
-                'name' => $providerUser->name,
+                'name' => User::socialiteName($providerUser),
             ]);
             $user = $userByEmail;
         } else {
-            $user = User::registerUser($providerUser->name, $providerUser->email);
+            $user = User::registerUser(User::socialiteName($providerUser), $providerUser->email);
             event(new Registered($user));
         }
 
         $socialite = new Socialite([
             'provider' => $provider,
             'provider_id' => $providerUser->id,
-            'name' => $providerUser->name,
+            'name' => User::socialiteName($providerUser),
         ]);
         $user->socialites()->save($socialite);
 
