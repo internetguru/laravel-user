@@ -128,7 +128,7 @@
                     {!! Str::inlineMarkdown(__('ig-user::user.authentication-info', ['url' => route('users.show', auth()->user())])) !!}
                 </p>
             @endif
-            <dl class="mb-0">
+            <dl class="mb-0 mt-3">
                 @forelse($user->socialites as $socialite)
                     @php
                         $provider = $socialite->provider->value;
@@ -153,7 +153,7 @@
                         @endif
                     </dd>
                 @empty
-                    <p class="text-muted">@lang('ig-user::user.no-identities')</p>
+                    <p class="text-muted mt-0 mb-3">@lang('ig-user::user.no-identities')</p>
                 @endforelse
             </dl>
             <h2 class="h3 mb-3 fw-normal">@lang('ig-user::socialite.add')</h2>
