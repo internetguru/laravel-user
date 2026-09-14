@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The user list's checkbox says what ticking it does: "Include never logged-in users".
+
 ## [8.3.0] - 2026-09-14
 
 _Stable release based on [8.3.0-rc.1]._
