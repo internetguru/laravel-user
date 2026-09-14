@@ -2,10 +2,7 @@
     <div class="row">
         @foreach ($rolePolicy as $roleStructure)
             <div class="card" style="max-width: 25em;">
-                <h2 class="h4">
-                    <i class="fa-solid fa-fw {{ $roleStructure['role']->icon() }}"></i>
-                    {{ $roleStructure['role']->translation() }}
-                </h2>
+                <h2 class="h4">{!! formatUserRoleLabel($roleStructure['role']) !!}</h2>
                 @if (! $roleStructure['granted'] && ! $roleStructure['revoked'])
                     <p class="text-muted">@lang('ig-user::role-list.no-additional-permissions')</p>
                 @endif

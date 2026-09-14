@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Roles show as labels in the user list, on a user's detail and on the roles page, each with its own icon and a colour for how far it reaches.
+- Sorting and exporting the user list still use the plain role name.
+- Require laravel-common 7.3 for the label.
+
 ## [8.2.2] - 2026-09-09
 
 ### Fixed
