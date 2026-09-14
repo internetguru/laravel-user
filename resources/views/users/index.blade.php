@@ -25,7 +25,7 @@
         filterSessionKey="laravel-user-user-filters"
         :formats="[
             'name' => 'formatUserNameLink',
-            'role' => 'formatUserRole',
+            'role' => 'formatUserRoleLabel',
         ]"
         :rawFormats="[
             'role' => 'formatUserRole',
