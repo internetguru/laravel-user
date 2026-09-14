@@ -98,15 +98,22 @@ Set `enabled` to `false` in `config/services.php` for any provider to hide it fr
 
 The package ships with a five-level `Role` enum. Applications can override `User::roles()` to return a custom enum.
 
-| Role | Level | Icon |
-|---|---|---|
-| `CUSTOMER` | 10 | `fa-user` |
-| `OPERATOR` | 20 | `fa-user-nurse` |
-| `AUDITOR` | 30 | `fa-user-shield` |
-| `MANAGER` | 40 | `fa-user-tie` |
-| `ADMIN` | 50 | `fa-user-gear` |
+| Role | Level | Icon | Colour |
+|---|---|---|---|
+| `CUSTOMER` | 10 | `fa-user` | `secondary` |
+| `OPERATOR` | 20 | `fa-user-nurse` | `primary` |
+| `AUDITOR` | 30 | `fa-user-shield` | `info` |
+| `MANAGER` | 40 | `fa-user-tie` | `warning` |
+| `ADMIN` | 50 | `fa-user-gear` | `danger` |
 
 Each case exposes `level()`, `icon()`, and `translation()` methods.
+
+`Role` implements laravel-common's `HasLabel`, so `$role->toLabelHtml()` gives the role as a label:
+its name in plain text on white, with its own icon in place of the dot, coloured by how far the role
+reaches. A custom roles enum wanting the same should implement `HasLabel` and use `RendersLabel`; one that does not is shown as plain text.
+
+The user list shows the role through `formatUserRoleLabel`; `formatUserRole` stays plain text, which
+is what the column sorts on and what an exported cell holds.
 
 ### Dynamic Role Checks
 

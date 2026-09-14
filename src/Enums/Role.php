@@ -2,8 +2,13 @@
 
 namespace InternetGuru\LaravelUser\Enums;
 
-enum Role: string
+use InternetGuru\LaravelCommon\Contracts\HasLabel;
+use InternetGuru\LaravelCommon\Traits\RendersLabel;
+
+enum Role: string implements HasLabel
 {
+    use RendersLabel;
+
     case CUSTOMER = 'customer';
     case OPERATOR = 'operator';
     case AUDITOR = 'auditor';
@@ -41,5 +46,31 @@ enum Role: string
             self::MANAGER => __('ig-user::user.roles.manager'),
             self::ADMIN => __('ig-user::user.roles.admin'),
         };
+    }
+
+    public function label(): string
+    {
+        return $this->translation();
+    }
+
+    /**
+     * Coloured by how far a role reaches rather than by the role itself, so the
+     * accounts that can do the most stand out in a list of them.
+     */
+    public function variant(): ?string
+    {
+        return match (true) {
+            $this->level() >= 50 => 'danger',
+            $this->level() >= 40 => 'warning',
+            $this->level() >= 30 => 'info',
+            $this->level() >= 20 => 'primary',
+            default => 'secondary',
+        };
+    }
+
+    /** A role is already recognised by its icon, which stands in for the dot. */
+    protected function labelIcon(): string
+    {
+        return 'fa-solid fa-fw ' . $this->icon();
     }
 }
