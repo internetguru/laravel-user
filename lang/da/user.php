@@ -45,7 +45,7 @@ return [
     'socialite_disconnected' => 'frakoblede',
     'summary.email' => 'E-mail',
     'summary.name' => 'Navn',
-    'summary.never-logged-in' => 'Aldrig indloggede brugere',
+    'summary.never-logged-in' => 'Inkludér brugere der aldrig har logget ind',
     'summary.phone' => 'Telefon',
     'summary.role' => 'Rolle',
     'summary.user' => 'Bruger',
