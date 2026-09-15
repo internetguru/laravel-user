@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.4.0] - 2026-09-15
+
+_Stable release based on [8.4.0-rc.1]._
+
+## [8.4.0-rc.1] - 2026-09-15
+
+### Changed
+
+- The user list's checkbox says what ticking it does: "Include never logged-in users".
+
 ## [8.3.0] - 2026-09-14
 
 _Stable release based on [8.3.0-rc.1]._
@@ -1499,6 +1509,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[8.4.0]: https://https://github.com/internetguru/laravel-user/compare/v8.3.0...v8.4.0
+[8.4.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.3.0
 [8.3.0]: https://https://github.com/internetguru/laravel-user/compare/v8.2.2...v8.3.0
 [8.3.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.2.2
 [8.2.2]: https://https://github.com/internetguru/laravel-user/compare/v8.2.1...v8.2.2

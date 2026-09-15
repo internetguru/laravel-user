@@ -45,7 +45,7 @@ return [
     'socialite_disconnected' => 'odpojil(a)',
     'summary.email' => 'E-mail',
     'summary.name' => 'Jméno',
-    'summary.never-logged-in' => 'Nikdy nepřihlášení uživatelé',
+    'summary.never-logged-in' => 'Zahrnout nikdy nepřihlášené uživatele',
     'summary.phone' => 'Telefon',
     'summary.role' => 'Role',
     'summary.user' => 'Uživatel',
