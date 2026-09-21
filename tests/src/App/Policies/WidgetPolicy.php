@@ -17,6 +17,14 @@ class WidgetPolicy
     }
 
     /**
+     * An ability a signed-out visitor already holds: the summary leaves it out of every role.
+     */
+    public function open(?User $user): bool
+    {
+        return true;
+    }
+
+    /**
      * An ability the argument resolver cannot describe: the summary leaves it out.
      */
     public function inspect(User $user, DateTimeInterface $at): bool

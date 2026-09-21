@@ -61,6 +61,28 @@ class PermissionSummaryTest extends TestCase
         $this->assertArrayNotHasKey('WidgetPolicy@inspect', $matrix[Role::MANAGER->value]);
     }
 
+    public function test_abilities_a_signed_out_visitor_already_holds_are_left_out()
+    {
+        $matrix = $this->summary()->matrix();
+
+        foreach ($matrix as $permissions) {
+            $this->assertArrayNotHasKey('WidgetPolicy@open', $permissions);
+        }
+    }
+
+    public function test_permissions_are_ordered_alphabetically_by_label()
+    {
+        $granted = $this->summary()->groupedByRole()[Role::MANAGER->value]['granted'];
+
+        $labels = array_map(fn (string $key): string => $this->summary()->label($key), array_keys($granted));
+
+        $sorted = $labels;
+        usort($sorted, 'strcasecmp');
+
+        $this->assertSame($sorted, $labels);
+        $this->assertGreaterThan(1, count($labels));
+    }
+
     public function test_abilities_failing_without_real_context_are_left_out()
     {
         $matrix = $this->summary()->matrix();

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The roles page leaves out what a signed-out visitor may already do, and lists each role's permissions alphabetically.
+
 ## [8.4.0] - 2026-09-15
 
 _Stable release based on [8.4.0-rc.1]._

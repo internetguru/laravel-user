@@ -21,7 +21,11 @@ use ReflectionParameter;
  */
 class PolicyArgumentResolver
 {
-    public function resolve(ReflectionParameter $parameter, BackedEnum $role): mixed
+    /**
+     * A null role stands for a signed-out visitor, so every account argument becomes null and
+     * an ability insisting on a real account drops out of the summary on its own.
+     */
+    public function resolve(ReflectionParameter $parameter, ?BackedEnum $role): mixed
     {
         $type = $parameter->getType();
 
@@ -32,7 +36,7 @@ class PolicyArgumentResolver
         $name = $type->getName();
 
         if (is_a($name, BaseUser::class, true)) {
-            return $this->user($role);
+            return $role === null ? null : $this->user($role);
         }
 
         if ($name === User::roles()) {
