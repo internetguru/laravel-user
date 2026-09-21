@@ -34,3 +34,14 @@ function formatUserRoleLabel($role): string
 {
     return $role instanceof HasLabel ? $role->toLabelHtml() : formatUserRole($role);
 }
+
+/**
+ * The same label cut down, for a role read inside a line of text rather than in
+ * a column of its own. Kept apart from formatUserRoleLabel rather than given a
+ * flag: that one is a model browser column formatter, which is handed the row
+ * itself as a second argument.
+ */
+function formatUserRoleLabelSlim($role): string
+{
+    return $role instanceof HasLabel ? $role->toLabelHtml(slim: true) : formatUserRole($role);
+}

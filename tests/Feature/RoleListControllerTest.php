@@ -28,7 +28,7 @@ class RoleListControllerTest extends TestCase
             return array_keys($rolePolicy) === [
                 Role::CUSTOMER->value,
                 Role::OPERATOR->value,
-                Role::AUDITOR->value,
+                Role::SUPERVISOR->value,
                 Role::MANAGER->value,
             ];
         });

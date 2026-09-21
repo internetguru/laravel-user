@@ -11,7 +11,7 @@ enum Role: string implements HasLabel
 
     case CUSTOMER = 'customer';
     case OPERATOR = 'operator';
-    case AUDITOR = 'auditor';
+    case SUPERVISOR = 'supervisor';
     case MANAGER = 'manager';
     case ADMIN = 'admin';
 
@@ -20,7 +20,7 @@ enum Role: string implements HasLabel
         return match ($this) {
             self::CUSTOMER => 10,
             self::OPERATOR => 20,
-            self::AUDITOR => 30,
+            self::SUPERVISOR => 30,
             self::MANAGER => 40,
             self::ADMIN => 50,
         };
@@ -42,7 +42,7 @@ enum Role: string implements HasLabel
         return match ($this) {
             self::CUSTOMER => __('ig-user::user.roles.customer'),
             self::OPERATOR => __('ig-user::user.roles.operator'),
-            self::AUDITOR => __('ig-user::user.roles.auditor'),
+            self::SUPERVISOR => __('ig-user::user.roles.supervisor'),
             self::MANAGER => __('ig-user::user.roles.manager'),
             self::ADMIN => __('ig-user::user.roles.admin'),
         };
