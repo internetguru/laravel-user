@@ -113,7 +113,8 @@ its name in plain text on white, with its own icon in place of the dot, coloured
 reaches. A custom roles enum wanting the same should implement `HasLabel` and use `RendersLabel`; one that does not is shown as plain text.
 
 The user list shows the role through `formatUserRoleLabel`; `formatUserRole` stays plain text, which
-is what the column sorts on and what an exported cell holds.
+is what the column sorts on and what an exported cell holds. `formatUserRoleLabelSlim` gives the same
+label with the padding cut down, for a role read inside a line of text - the user menu, above all.
 
 ### Dynamic Role Checks
 
