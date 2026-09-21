@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\Response;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
@@ -70,8 +71,8 @@ class PermissionSummary
             $grouped[$role->value] = [
                 'role' => $role,
                 'base' => $index === 0,
-                'granted' => $granted,
-                'revoked' => $revoked,
+                'granted' => $this->sortByLabel($granted),
+                'revoked' => $this->sortByLabel($revoked),
             ];
 
             $previousPermissions = $permissions;
@@ -88,17 +89,23 @@ class PermissionSummary
     public function matrix(): array
     {
         $policies = $this->policies();
+        $guestAbilities = $this->guestAbilities($policies);
 
         $matrix = [];
         foreach ($this->roles() as $role) {
             foreach ($policies as $policy => $className) {
                 foreach ($this->abilities($className) as $method) {
+                    $key = "$policy@{$method->getName()}";
+                    if (isset($guestAbilities[$key])) {
+                        continue;
+                    }
+
                     $permission = $this->evaluate($className, $method, $role);
                     if ($permission === null) {
                         continue;
                     }
 
-                    $matrix[$role->value]["$policy@{$method->getName()}"] = [
+                    $matrix[$role->value][$key] = [
                         'role' => $role,
                         'policy' => $policy,
                         'ability' => $method->getName(),
@@ -199,6 +206,49 @@ class PermissionSummary
     }
 
     /**
+     * Abilities a signed-out visitor already holds, keyed by `Policy@ability`.
+     *
+     * An ability that answers yes without an account is not part of the role model: it guards
+     * a page whose address is the secret. Crediting the least privileged role with it would
+     * read as something that role was given, so it is left out of the summary altogether.
+     *
+     * @param  array<string, class-string>  $policies
+     * @return array<string, true>
+     */
+    protected function guestAbilities(array $policies): array
+    {
+        $guestAbilities = [];
+        foreach ($policies as $policy => $className) {
+            foreach ($this->abilities($className) as $method) {
+                if ($this->evaluate($className, $method, null)['allowed'] ?? false) {
+                    $guestAbilities["$policy@{$method->getName()}"] = true;
+                }
+            }
+        }
+
+        return $guestAbilities;
+    }
+
+    /**
+     * Order permissions by the label the page prints, so each role reads alphabetically.
+     *
+     * Diacritics are folded rather than collated: the package cannot count on ext-intl, and
+     * folding keeps an accented label next to its plain neighbours instead of after them.
+     *
+     * @param  array<string, Permission>  $permissions
+     * @return array<string, Permission>
+     */
+    protected function sortByLabel(array $permissions): array
+    {
+        uksort($permissions, fn (string $a, string $b): int => strcasecmp(
+            Str::ascii($this->label($a)),
+            Str::ascii($this->label($b))
+        ));
+
+        return $permissions;
+    }
+
+    /**
      * @return list<ReflectionMethod>
      */
     protected function abilities(string $className): array
@@ -211,7 +261,7 @@ class PermissionSummary
     }
 
     /**
-     * Invoke a single ability for a single role.
+     * Invoke a single ability for a single role, or for a signed-out visitor when null.
      *
      * The policy is called directly rather than through the gate: the summary documents the
      * policies, and a global before callback would collapse every admin ability into one answer.
@@ -222,7 +272,7 @@ class PermissionSummary
      *
      * @return array{arguments: array<int, mixed>, allowed: bool}|null
      */
-    protected function evaluate(string $className, ReflectionMethod $method, BackedEnum $role): ?array
+    protected function evaluate(string $className, ReflectionMethod $method, ?BackedEnum $role): ?array
     {
         $arguments = [];
         foreach ($method->getParameters() as $parameter) {

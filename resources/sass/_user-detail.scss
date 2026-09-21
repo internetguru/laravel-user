@@ -87,9 +87,11 @@
     }
 }
 header {
+    // Sized to its contents rather than fixed: the first line carries the user
+    // name beside the role label, which a single width would cut short.
     .dropdown-menu {
-        width: 13em;
-        max-width: 100vw;
+        min-width: 13em;
+        max-width: min(24em, 100vw);
     }
     .dropdown-toggle::after {
         display: none;
