@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - The roles page leaves out what a signed-out visitor may already do, and lists each role's permissions alphabetically.
+- The `AUDITOR` role is renamed to `SUPERVISOR`, with a migration moving the accounts holding it.
 
 ## [8.4.0] - 2026-09-15
 

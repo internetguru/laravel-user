@@ -102,7 +102,7 @@ The package ships with a five-level `Role` enum. Applications can override `User
 |---|---|---|---|
 | `CUSTOMER` | 10 | `fa-user` | `secondary` |
 | `OPERATOR` | 20 | `fa-user-nurse` | `primary` |
-| `AUDITOR` | 30 | `fa-user-shield` | `info` |
+| `SUPERVISOR` | 30 | `fa-user-shield` | `info` |
 | `MANAGER` | 40 | `fa-user-tie` | `warning` |
 | `ADMIN` | 50 | `fa-user-gear` | `danger` |
 

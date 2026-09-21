@@ -49,7 +49,7 @@ class PermissionSummaryTest extends TestCase
     public function test_the_admin_role_is_left_out_and_the_rest_ordered_by_level()
     {
         $this->assertSame(
-            [Role::CUSTOMER, Role::OPERATOR, Role::AUDITOR, Role::MANAGER],
+            [Role::CUSTOMER, Role::OPERATOR, Role::SUPERVISOR, Role::MANAGER],
             $this->summary()->roles()
         );
     }
@@ -95,7 +95,7 @@ class PermissionSummaryTest extends TestCase
         $grouped = $this->summary()->groupedByRole();
 
         $this->assertArrayHasKey('WidgetPolicy@view', $grouped[Role::OPERATOR->value]['granted']);
-        $this->assertArrayNotHasKey('WidgetPolicy@view', $grouped[Role::AUDITOR->value]['granted']);
+        $this->assertArrayNotHasKey('WidgetPolicy@view', $grouped[Role::SUPERVISOR->value]['granted']);
         $this->assertTrue($grouped[Role::CUSTOMER->value]['base']);
     }
 
