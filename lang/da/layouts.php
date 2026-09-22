@@ -2,6 +2,11 @@
 
 return [
 
+    'identity-link' => '<a href=":url">Tilknyt en identitet</a> til din konto for at logge ind med ét klik.',
+    'use-app' => 'For din bekvemmelighed og sikkerhed kan du <a href="#" role="button" data-add-to-homescreen>bruge denne tjeneste som en app</a>.',
+    'use-app-required' => 'For ubegrænset brug af systemet skal du <a href="#" role="button" data-add-to-homescreen>installere appen</a>.',
+    'app-login' => 'Du kan logge ind for flere muligheder.',
+
     'login.description' => 'Log ind med en udbyder eller anmod om en bekræftelseskode.',
     'login.title' => 'Log ind med en udbyder',
     'login-demo.title' => 'Demo-login',
