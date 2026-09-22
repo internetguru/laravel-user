@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.6.0] - 2026-09-22
+
+_Stable release based on [8.6.0-rc.1]._
+
+## [8.6.0-rc.1] - 2026-09-22
+
+### Added
+
+- Accounts carry a `ulid`, for an application that would rather address them by that than by a sequential id.
+
+### Fixed
+
+- Merged accounts are matched on the account key as it is written, so the grouping also holds where accounts are keyed by something other than a number.
+
 ## [8.5.0] - 2026-09-21
 
 _Stable release based on [8.5.0-rc.1]._
@@ -1521,6 +1535,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[8.6.0]: https://https://github.com/internetguru/laravel-user/compare/v8.5.0...v8.6.0
+[8.6.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.5.0
 [8.5.0]: https://https://github.com/internetguru/laravel-user/compare/v8.4.0...v8.5.0
 [8.5.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.4.0
 [8.4.0]: https://https://github.com/internetguru/laravel-user/compare/v8.3.0...v8.4.0
