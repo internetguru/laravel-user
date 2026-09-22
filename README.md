@@ -339,7 +339,9 @@ wiring below the notice degrades to plain text. To enable it:
     ```
 
 The library also expects the site to be a valid PWA: a web manifest linked from the
-layout and a square `/apple-touch-icon.png` of at least 40x40 pixels.
+layout and a square `<link rel="apple-touch-icon">` of at least 40x40 pixels, which the
+guide illustrates itself with. It falls back to `/apple-touch-icon.png` when the page
+declares no such link.
 
 ## User Preferences
 
