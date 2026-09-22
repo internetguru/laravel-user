@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Accounts carry a `ulid`, for an application that would rather address them by that than by a sequential id.
+
+### Fixed
+
+- Merged accounts are matched on the account key as it is written, so the grouping also holds where accounts are keyed by something other than a number.
+
 ## [8.5.0] - 2026-09-21
 
 _Stable release based on [8.5.0-rc.1]._
