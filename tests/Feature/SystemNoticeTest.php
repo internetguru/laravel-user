@@ -37,8 +37,30 @@ class SystemNoticeTest extends TestCase
 
     public function test_install_hint_is_linked_in_every_locale()
     {
-        foreach (['cs', 'en'] as $locale) {
+        foreach (['cs', 'da', 'en'] as $locale) {
             $message = __('ig-user::layouts.use-app', locale: $locale);
+
+            $this->assertStringContainsString('data-add-to-homescreen', $message, "Missing trigger in [$locale].");
+            $this->assertMatchesRegularExpression('/\w<\/a>/u', $message, "Link wraps no text in [$locale].");
+        }
+    }
+
+    public function test_install_hint_says_the_app_is_mandatory_when_required()
+    {
+        $this->actingAs($this->operator());
+
+        $view = $this->blade('<x-ig-user::system-notice :appRequired="true" />');
+
+        $view->assertSee('data-testid="use-app"', false);
+        $view->assertSee('data-add-to-homescreen', false);
+        $view->assertSee(__('ig-user::layouts.use-app-required'), false);
+        $view->assertDontSee(__('ig-user::layouts.use-app'), false);
+    }
+
+    public function test_mandatory_install_hint_is_linked_in_every_locale()
+    {
+        foreach (['cs', 'da', 'en'] as $locale) {
+            $message = __('ig-user::layouts.use-app-required', locale: $locale);
 
             $this->assertStringContainsString('data-add-to-homescreen', $message, "Missing trigger in [$locale].");
             $this->assertMatchesRegularExpression('/\w<\/a>/u', $message, "Link wraps no text in [$locale].");

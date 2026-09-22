@@ -4,6 +4,7 @@ return [
 
     'identity-link' => '<a href=":url">Connect an identity</a> to your account to sign in with a single click.',
     'use-app' => 'For your convenience and security, you can <a href="#" role="button" data-add-to-homescreen>use this service as an app</a>.',
+    'use-app-required' => 'For unrestricted use of the system, <a href="#" role="button" data-add-to-homescreen>install the app</a>.',
     'app-login' => 'You can sign in for more options.',
 
     'login.description' => 'Log in with a provider or request a verification code.',

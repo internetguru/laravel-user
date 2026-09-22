@@ -62,7 +62,9 @@ const fixIOSChromeInstruction = locale => {
 const createInstance = () => window.AddToHomeScreen({
     appName: document.querySelector('meta[name="apple-mobile-web-app-title"]')?.content ?? document.title,
     appNameDisplay: 'inline',
-    appIconUrl: '/apple-touch-icon.png',
+    // The icon the page already declares, so an application serving it from anywhere
+    // but the library's default path is not illustrated with a broken image.
+    appIconUrl: document.querySelector('link[rel="apple-touch-icon"]')?.href ?? '/apple-touch-icon.png',
     assetUrl,
     maxModalDisplayCount: -1,
     displayOptions: { showMobile: true, showDesktop: true },
