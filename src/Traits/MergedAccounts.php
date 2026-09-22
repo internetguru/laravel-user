@@ -44,7 +44,7 @@ trait MergedAccounts
     public static function bootMergedAccounts(): void
     {
         static::deleted(function ($user) {
-            $key = (int) $user->getKey();
+            $key = (string) $user->getKey();
 
             DB::table('user_merges')
                 ->where('user_id', $key)
@@ -59,7 +59,7 @@ trait MergedAccounts
      * Resolved in a single query: the stored pairs form a clique, so an account's direct
      * links already are its whole group.
      *
-     * @return array<int, int>
+     * @return array<int, string>
      */
     public function mergedIds(): array
     {
@@ -67,13 +67,13 @@ trait MergedAccounts
             return $this->mergedIdsCache;
         }
 
-        $key = (int) $this->getKey();
+        $key = (string) $this->getKey();
 
         $ids = DB::table('user_merges')
             ->where('user_id', $key)
             ->orWhere('merged_user_id', $key)
             ->get(['user_id', 'merged_user_id'])
-            ->flatMap(fn ($row) => [(int) $row->user_id, (int) $row->merged_user_id])
+            ->flatMap(fn ($row) => [(string) $row->user_id, (string) $row->merged_user_id])
             ->push($key)
             ->unique()
             ->sort()
@@ -93,14 +93,14 @@ trait MergedAccounts
      */
     public function mergedUsers(): Collection
     {
-        $ids = array_diff($this->mergedIds(), [(int) $this->getKey()]);
+        $ids = array_diff($this->mergedIds(), [(string) $this->getKey()]);
 
         return User::whereIn('id', $ids)->orderBy('name')->get();
     }
 
     public function isMergedWith(User $other): bool
     {
-        return in_array((int) $other->getKey(), $this->mergedIds(), true);
+        return in_array((string) $other->getKey(), $this->mergedIds(), true);
     }
 
     public function isMerged(): bool
@@ -116,7 +116,7 @@ trait MergedAccounts
      */
     public function getMergedAttribute(): string
     {
-        return implode(',', array_diff($this->mergedIds(), [(int) $this->getKey()]));
+        return implode(',', array_diff($this->mergedIds(), [(string) $this->getKey()]));
     }
 
     /**
@@ -127,7 +127,7 @@ trait MergedAccounts
      */
     public function mergeWith(User $other): void
     {
-        if ((int) $other->getKey() === (int) $this->getKey()) {
+        if ((string) $other->getKey() === (string) $this->getKey()) {
             return;
         }
 
@@ -158,20 +158,20 @@ trait MergedAccounts
      */
     public function unmergeFrom(User $other): void
     {
-        if ((int) $other->getKey() === (int) $this->getKey()) {
+        if ((string) $other->getKey() === (string) $this->getKey()) {
             return;
         }
 
         DB::transaction(function () use ($other) {
             $members = $this->lockAndResolveGroups($other);
 
-            if (! in_array((int) $other->getKey(), $members, true)) {
+            if (! in_array((string) $other->getKey(), $members, true)) {
                 return;
             }
 
             $affected = $this->snapshotAffected($members);
 
-            $otherKey = (int) $other->getKey();
+            $otherKey = (string) $other->getKey();
             $remaining = array_values(array_diff($members, [$otherKey]));
 
             foreach ($remaining as $memberKey) {
@@ -202,7 +202,7 @@ trait MergedAccounts
      * may load the whole table.
      *
      * @param  string|null  $search  Whitespace separated terms, each matched against name and email
-     * @return array<int, array{id: int, name: string, email: string, merged: bool}>
+     * @return array<int, array{id: string, name: string, email: string, merged: bool}>
      */
     public static function mergeCandidateOptions(User $for, ?string $search = null, int $limit = self::MERGE_CANDIDATES_SHOWN + 1): array
     {
@@ -232,10 +232,10 @@ trait MergedAccounts
             ->limit($limit)
             ->get(['id', 'name', 'email'])
             ->map(fn ($user) => [
-                'id' => (int) $user->id,
+                'id' => (string) $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'merged' => in_array((int) $user->id, $mergedIds, true),
+                'merged' => in_array((string) $user->id, $mergedIds, true),
             ])
             ->all();
     }
@@ -245,11 +245,11 @@ trait MergedAccounts
      *
      * The lock stops two concurrent merges from leaving a partial clique behind.
      *
-     * @return array<int, int>
+     * @return array<int, string>
      */
     private function lockAndResolveGroups(User $other): array
     {
-        $keys = [(int) $this->getKey(), (int) $other->getKey()];
+        $keys = [(string) $this->getKey(), (string) $other->getKey()];
 
         DB::table('user_merges')
             ->whereIn('user_id', $keys)
@@ -269,7 +269,7 @@ trait MergedAccounts
     /**
      * Load every affected account with its group state as it is before the write.
      *
-     * @param  array<int, int>  $members
+     * @param  array<int, string>  $members
      * @return array<int, array{user: User, prev: string}>
      */
     private function snapshotAffected(array $members): array
@@ -314,8 +314,8 @@ trait MergedAccounts
     /**
      * Every unordered, normalized pair within a group.
      *
-     * @param  array<int, int>  $members
-     * @return array<int, array{0: int, 1: int}>
+     * @param  array<int, string>  $members
+     * @return array<int, array{0: string, 1: string}>
      */
     private function pairs(array $members): array
     {
