@@ -1,4 +1,4 @@
-@props(['sysMessage' => null])
+@props(['sysMessage' => null, 'appRequired' => false])
 
 @php
     $user = auth()->user();
@@ -26,7 +26,7 @@
 @elseif ($user && $useAppRole && $user->role->level() >= $useAppRole->level())
     <div class="container-fluid alert alert-info mb-0 rounded-0 use-app" data-testid="use-app">
         <p class="my-0">
-            {!! __('ig-user::layouts.use-app') !!}
+            {!! $appRequired ? __('ig-user::layouts.use-app-required') : __('ig-user::layouts.use-app') !!}
         </p>
     </div>
     @include('ig-user::components.partials.standalone-notice-script')

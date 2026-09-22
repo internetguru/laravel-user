@@ -4,6 +4,7 @@ return [
 
     'identity-link' => 'Pro přihlášení jedním kliknutím <a href=":url">připojte identitu</a> ke svému účtu.',
     'use-app' => 'Pro vaše pohodlí a bezpečnost můžete <a href="#" role="button" data-add-to-homescreen>používat tuto službu jako aplikaci</a>.',
+    'use-app-required' => 'Pro neomezené používání systému si <a href="#" role="button" data-add-to-homescreen>nainstalujte aplikaci</a>.',
     'app-login' => 'Pro více možností se můžete přihlásit.',
 
     'login.description' => 'Přihlaste se pomocí poskytovatele nebo si vyžádejte ověřovací kód.',
