@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- System notice: `appRequired` switches the install hint to a message saying the app is mandatory.
+- Danish translations of the system notice messages.
+
+### Fixed
+
+- The add-to-homescreen guide illustrates itself with the icon the page declares, instead of assuming `/apple-touch-icon.png`.
+
 ## [8.6.0] - 2026-09-22
 
 _Stable release based on [8.6.0-rc.1]._
