@@ -36,7 +36,7 @@
         :column-widths="[
             'name' => 'minmax(7em, 0.7fr)',
             'email' => 'minmax(10em, 1fr)',
-            'role' => 'minmax(3em, 0.5fr)',
+            'role' => 'minmax(max-content, max-content)',
         ]"
     />
 </section>
