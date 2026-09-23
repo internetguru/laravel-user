@@ -573,8 +573,8 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($manager)->getJson(route('users.merge-candidates', $user) . '?q=jana');
 
         $response->assertStatus(200);
-        $response->assertJsonFragment(['id' => $match->id, 'name' => $match->name, 'email' => $match->email]);
-        $response->assertJsonMissing(['id' => $other->id]);
+        $response->assertJsonFragment(['id' => (string) $match->id, 'name' => $match->name, 'email' => $match->email]);
+        $response->assertJsonMissing(['id' => (string) $other->id]);
     }
 
     public function test_merge_candidates_endpoint_returns_one_row_over_what_the_picker_shows()
@@ -608,9 +608,9 @@ class UserControllerTest extends TestCase
         $response->assertStatus(200);
 
         // a merged account keeps its row, greyed out, instead of disappearing from under the cursor
-        $response->assertJsonFragment(['id' => $member->id, 'merged' => true]);
-        $response->assertJsonFragment(['id' => $other->id, 'merged' => false]);
-        $response->assertJsonMissing(['id' => $user->id]);
+        $response->assertJsonFragment(['id' => (string) $member->id, 'merged' => true]);
+        $response->assertJsonFragment(['id' => (string) $other->id, 'merged' => false]);
+        $response->assertJsonMissing(['id' => (string) $user->id]);
     }
 
     public function test_merge_candidates_endpoint_is_denied_without_the_merge_ability()
