@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Guidelines for AI agents: `php artisan boost:update` adds how to use this package to the instructions of an application using Laravel Boost.
 
+### Fixed
+
+- Sending a sign-in PIN requires the reCAPTCHA token whenever reCAPTCHA is enabled, so a request leaving the field out no longer skips the check.
+
 ## [8.7.0] - 2026-09-22
 
 _Stable release based on [8.7.0-rc.1]._
