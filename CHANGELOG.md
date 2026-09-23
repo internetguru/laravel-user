@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [8.8.0] - 2026-09-23
+
+_Stable release based on [8.8.0-rc.1]._
+
+## [8.8.0-rc.1] - 2026-09-23
+
+### Added
+
+- Guidelines for AI agents: `php artisan boost:update` adds how to use this package to the instructions of an application using Laravel Boost.
+
+### Fixed
+
+- Sending a sign-in PIN requires the reCAPTCHA token whenever reCAPTCHA is enabled, so a request leaving the field out no longer skips the check.
+
 ## [8.7.0] - 2026-09-22
 
 _Stable release based on [8.7.0-rc.1]._
@@ -1550,6 +1564,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[8.8.0]: https://https://github.com/internetguru/laravel-user/compare/v8.7.0...v8.8.0
+[8.8.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.7.0
 [8.7.0]: https://https://github.com/internetguru/laravel-user/compare/v8.6.0...v8.7.0
 [8.7.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.6.0
 [8.6.0]: https://https://github.com/internetguru/laravel-user/compare/v8.5.0...v8.6.0
