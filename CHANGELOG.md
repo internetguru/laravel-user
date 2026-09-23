@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Guidelines for AI agents: `php artisan boost:update` adds how to use this package to the instructions of an application using Laravel Boost.
+
 ## [8.7.0] - 2026-09-22
 
 _Stable release based on [8.7.0-rc.1]._
