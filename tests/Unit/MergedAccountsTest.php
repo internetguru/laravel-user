@@ -16,7 +16,7 @@ class MergedAccountsTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $this->assertSame([$user->id], $user->mergedIds());
+        $this->assertSame($this->keys($user), $user->mergedIds());
         $this->assertFalse($user->isMerged());
         $this->assertSame('', $user->merged);
     }
@@ -28,7 +28,7 @@ class MergedAccountsTest extends TestCase
 
         $first->mergeWith($second);
 
-        $expected = collect([$first->id, $second->id])->sort()->values()->all();
+        $expected = $this->keys($first, $second);
 
         $this->assertSame($expected, $first->fresh()->mergedIds());
         $this->assertSame($expected, $second->fresh()->mergedIds());
@@ -36,7 +36,7 @@ class MergedAccountsTest extends TestCase
         $this->assertTrue($second->fresh()->isMergedWith($first));
     }
 
-    public function test_merged_ids_are_integers_and_sorted()
+    public function test_merged_ids_are_strings_and_sorted()
     {
         $first = User::factory()->create();
         $second = User::factory()->create();
@@ -49,7 +49,7 @@ class MergedAccountsTest extends TestCase
 
         $this->assertSame(collect($ids)->sort()->values()->all(), $ids);
         foreach ($ids as $id) {
-            $this->assertIsInt($id);
+            $this->assertIsString($id);
         }
     }
 
@@ -63,7 +63,7 @@ class MergedAccountsTest extends TestCase
         // Merge the third one in via the second account, not the first
         $third->fresh()->mergeWith($second->fresh());
 
-        $expected = collect([$first->id, $second->id, $third->id])->sort()->values()->all();
+        $expected = $this->keys($first, $second, $third);
 
         $this->assertSame($expected, $first->fresh()->mergedIds());
         $this->assertSame($expected, $second->fresh()->mergedIds());
@@ -84,11 +84,11 @@ class MergedAccountsTest extends TestCase
 
         $first->fresh()->unmergeFrom($third->fresh());
 
-        $expected = collect([$first->id, $second->id])->sort()->values()->all();
+        $expected = $this->keys($first, $second);
 
         $this->assertSame($expected, $first->fresh()->mergedIds());
         $this->assertSame($expected, $second->fresh()->mergedIds());
-        $this->assertSame([$third->id], $third->fresh()->mergedIds());
+        $this->assertSame($this->keys($third), $third->fresh()->mergedIds());
         $this->assertSame(1, UserMerge::count());
     }
 
@@ -100,8 +100,8 @@ class MergedAccountsTest extends TestCase
         $first->mergeWith($second);
         $first->fresh()->unmergeFrom($second->fresh());
 
-        $this->assertSame([$first->id], $first->fresh()->mergedIds());
-        $this->assertSame([$second->id], $second->fresh()->mergedIds());
+        $this->assertSame($this->keys($first), $first->fresh()->mergedIds());
+        $this->assertSame($this->keys($second), $second->fresh()->mergedIds());
         $this->assertSame(0, UserMerge::count());
     }
 
@@ -123,7 +123,7 @@ class MergedAccountsTest extends TestCase
         $user->mergeWith($user);
 
         $this->assertSame(0, UserMerge::count());
-        $this->assertSame([$user->id], $user->fresh()->mergedIds());
+        $this->assertSame($this->keys($user), $user->fresh()->mergedIds());
     }
 
     public function test_pairs_are_normalized_regardless_of_merge_direction()
@@ -152,7 +152,7 @@ class MergedAccountsTest extends TestCase
 
         $second->delete();
 
-        $expected = collect([$first->id, $third->id])->sort()->values()->all();
+        $expected = $this->keys($first, $third);
 
         $this->assertSame($expected, $first->fresh()->mergedIds());
         $this->assertSame($expected, $third->fresh()->mergedIds());
@@ -184,17 +184,17 @@ class MergedAccountsTest extends TestCase
         $first = User::factory()->create();
         $second = User::factory()->create();
 
-        $this->assertSame([$first->id], $first->mergedIds());
+        $this->assertSame($this->keys($first), $first->mergedIds());
 
         [$a, $b] = UserMerge::normalize($first->id, $second->id);
         UserMerge::create(['user_id' => $a, 'merged_user_id' => $b]);
 
         // Still the memoized value
-        $this->assertSame([$first->id], $first->mergedIds());
+        $this->assertSame($this->keys($first), $first->mergedIds());
 
         $first->forgetMergedIds();
 
-        $expected = collect([$first->id, $second->id])->sort()->values()->all();
+        $expected = $this->keys($first, $second);
         $this->assertSame($expected, $first->mergedIds());
     }
 
@@ -209,7 +209,7 @@ class MergedAccountsTest extends TestCase
 
         $first->mergeWith($second);
 
-        $expected = collect([$first->id, $second->id])->sort()->values()->all();
+        $expected = $this->keys($first, $second);
         $this->assertSame($expected, $first->mergedIds());
         $this->assertSame($expected, $second->mergedIds());
     }
@@ -301,12 +301,12 @@ class MergedAccountsTest extends TestCase
         $options = collect(User::mergeCandidateOptions($user->fresh()));
 
         // Automatic placeholder accounts are the most common merge target
-        $this->assertContains($automatic->id, $options->pluck('id')->all());
-        $this->assertFalse($options->firstWhere('id', $automatic->id)['merged']);
+        $this->assertContains((string) $automatic->id, $options->pluck('id')->all());
+        $this->assertFalse($options->firstWhere('id', (string) $automatic->id)['merged']);
 
         // Members stay listed, flagged, so adding one does not pull the rows below it up
-        $this->assertTrue($options->firstWhere('id', $member->id)['merged']);
-        $this->assertNotContains($user->id, $options->pluck('id')->all());
+        $this->assertTrue($options->firstWhere('id', (string) $member->id)['merged']);
+        $this->assertNotContains((string) $user->id, $options->pluck('id')->all());
     }
 
     public function test_merge_candidate_options_carry_the_name_and_the_email()
@@ -317,7 +317,7 @@ class MergedAccountsTest extends TestCase
         $user = User::factory()->create();
         $candidate = User::factory()->create(['name' => 'Jane Doe', 'email' => 'jane@example.com']);
 
-        $options = collect(User::mergeCandidateOptions($user))->firstWhere('id', $candidate->id);
+        $options = collect(User::mergeCandidateOptions($user))->firstWhere('id', (string) $candidate->id);
 
         $this->assertSame('Jane Doe', $options['name']);
         $this->assertSame('jane@example.com', $options['email']);
@@ -336,7 +336,7 @@ class MergedAccountsTest extends TestCase
 
         $ids = collect(User::mergeCandidateOptions($user, 'nov jan'))->pluck('id')->all();
 
-        $this->assertSame([$match->id], $ids);
+        $this->assertSame($this->keys($match), $ids);
     }
 
     public function test_merge_candidate_options_search_ignores_diacritics_and_case()
@@ -351,12 +351,12 @@ class MergedAccountsTest extends TestCase
         foreach (['novak', 'NOVÁK', 'Novák'] as $search) {
             $ids = collect(User::mergeCandidateOptions($user, $search))->pluck('id')->all();
 
-            $this->assertSame([$match->id], $ids, "search '{$search}' should find the accented name");
+            $this->assertSame($this->keys($match), $ids, "search '{$search}' should find the accented name");
         }
 
         $ids = collect(User::mergeCandidateOptions($user, 'JAN@EXAMPLE.COM'))->pluck('id')->all();
 
-        $this->assertSame([$match->id], $ids);
+        $this->assertSame($this->keys($match), $ids);
     }
 
     public function test_merge_candidate_options_hide_admins_from_non_admins()
@@ -368,6 +368,11 @@ class MergedAccountsTest extends TestCase
 
         $ids = collect(User::mergeCandidateOptions($manager))->pluck('id')->all();
 
-        $this->assertNotContains($admin->id, $ids);
+        $this->assertNotContains((string) $admin->id, $ids);
+    }
+
+    private function keys(User ...$users): array
+    {
+        return collect($users)->map(fn (User $user) => (string) $user->id)->sort()->values()->all();
     }
 }

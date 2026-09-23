@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [8.8.1] - 2026-09-23
+
+### Fixed
+
+- The test suite installs from the lock file again and expects account keys as strings.
+
+### Changed
+
+- CI runs only on the main branch.
+
 ## [8.8.0] - 2026-09-23
 
 _Stable release based on [8.8.0-rc.1]._
@@ -1567,6 +1577,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[8.8.1]: https://https://github.com/internetguru/laravel-user/compare/v8.8.0...v8.8.1
 [8.8.0]: https://https://github.com/internetguru/laravel-user/compare/v8.7.0...v8.8.0
 [8.8.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.7.0
 [8.7.0]: https://https://github.com/internetguru/laravel-user/compare/v8.6.0...v8.7.0
