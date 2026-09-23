@@ -57,4 +57,13 @@ class RoleLabelTest extends TestCase
         $response->assertSee('ig-label ig-label-icon', false);
         $response->assertSee('data-raw="' . Role::ADMIN->translation() . '"', false);
     }
+
+    public function test_the_role_column_is_as_wide_as_its_widest_label()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+
+        $this->actingAs($admin)
+            ->get(route('users.index'))
+            ->assertSee('minmax(max-content, max-content);', false);
+    }
 }
