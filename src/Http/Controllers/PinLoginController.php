@@ -7,6 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
+use InternetGuru\LaravelRecaptchaV3\RecaptchaV3;
 use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
 
 class PinLoginController extends Controller
@@ -17,7 +19,7 @@ class PinLoginController extends Controller
     public function handleSendForm(Request $request): RedirectResponse
     {
         $request->validate([
-            'g-recaptcha-response' => 'recaptchav3',
+            'g-recaptcha-response' => [Rule::requiredIf(fn () => app(RecaptchaV3::class)->isEnabled()), 'recaptchav3'],
             'email' => 'required|email|max:255',
         ]);
 

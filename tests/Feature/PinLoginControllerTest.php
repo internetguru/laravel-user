@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Notification;
+use InternetGuru\LaravelRecaptchaV3\RecaptchaV3;
 use InternetGuru\LaravelUser\Models\PinLogin;
 use Tests\TestCase;
 
@@ -121,6 +122,24 @@ class PinLoginControllerTest extends TestCase
 
         $response->assertRedirect();
         $response->assertSessionHasErrors();
+    }
+
+    public function test_send_pin_without_recaptcha_token_is_refused_when_recaptcha_is_enabled()
+    {
+        Notification::fake();
+        User::factory()->create(['email' => 'test@example.com']);
+        $this->mock(RecaptchaV3::class, function ($mock) {
+            $mock->shouldReceive('isEnabled')->andReturn(true);
+            $mock->shouldReceive('verify')->andReturn(true);
+        });
+
+        $response = $this->post(route('pin-login.form'), [
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertSessionHasErrors('g-recaptcha-response');
+        $this->assertDatabaseCount('pin_logins', 0);
+        Notification::assertNothingSent();
     }
 
     public function test_send_pin_with_register_does_not_create_user_yet()
