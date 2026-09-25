@@ -17,7 +17,7 @@
                 'options' => \App\Models\User::roleOptions(),
                 'column' => 'role',
             ],
-            'never_logged_in' => [
+            'never-logged-in' => [
                 'type' => 'checkbox',
                 'label' => __('ig-user::user.summary.never-logged-in'),
             ],

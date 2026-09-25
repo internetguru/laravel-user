@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** Requires internetguru/laravel-model-browser 8. The user list's filter for accounts nobody signed in to is named `never-logged-in`; update links and session reads that use `never_logged_in`.
+
 ## [8.8.2] - 2026-09-23
 
 ### Fixed
