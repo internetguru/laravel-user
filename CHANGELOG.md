@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
+## [9.0.0-rc.1] - 2026-09-25
 
 ### Changed
 
@@ -1586,7 +1586,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
-[Unreleased]: https://https://github.com/internetguru/laravel-user/compare/staging...dev
+[9.0.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v8.8.2
 [8.8.2]: https://https://github.com/internetguru/laravel-user/compare/v8.8.1...v8.8.2
 [8.8.1]: https://https://github.com/internetguru/laravel-user/compare/v8.8.0...v8.8.1
 [8.8.0]: https://https://github.com/internetguru/laravel-user/compare/v8.7.0...v8.8.0
