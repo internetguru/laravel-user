@@ -130,7 +130,7 @@ class UserTest extends TestCase
             'created_by' => $admin->id,
         ]);
 
-        session(['laravel-user-user-filters' => ['never_logged_in' => '1']]);
+        session(['laravel-user-user-filters' => ['never-logged-in' => '1']]);
 
         $ids = User::summary()->pluck('id')->all();
 

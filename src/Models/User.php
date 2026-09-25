@@ -201,11 +201,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * The user list query.
      *
      * Accounts nobody has ever signed in to are left out unless the list's
-     * `never_logged_in` filter asks for them.
+     * `never-logged-in` filter asks for them.
      */
     public static function summary()
     {
-        $includeNeverLoggedIn = (bool) (new static)->getModelBrowserFilter('never_logged_in');
+        $includeNeverLoggedIn = (bool) (new static)->getModelBrowserFilter('never-logged-in');
 
         return static::query()
             ->unless($includeNeverLoggedIn, fn ($query) => $query->loggedIn())
