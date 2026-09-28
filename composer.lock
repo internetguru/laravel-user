@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "82370aa1fce20c492b6990054845bbe8",
+    "content-hash": "652651175b4aa1fa9f2918de18f1d467",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1239,16 +1239,16 @@
         },
         {
             "name": "internetguru/laravel-common",
-            "version": "v7.7.0",
+            "version": "v8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-common.git",
-                "reference": "d34bdc2b87408a3e9c9d2839e71e43e5b32a20b2"
+                "reference": "61e1f998b31901fac5e9f5e84b7ca580a8cd902f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/d34bdc2b87408a3e9c9d2839e71e43e5b32a20b2",
-                "reference": "d34bdc2b87408a3e9c9d2839e71e43e5b32a20b2",
+                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/61e1f998b31901fac5e9f5e84b7ca580a8cd902f",
+                "reference": "61e1f998b31901fac5e9f5e84b7ca580a8cd902f",
                 "shasum": ""
             },
             "require": {
@@ -1294,32 +1294,32 @@
             ],
             "support": {
                 "issues": "https://github.com/internetguru/laravel-common/issues",
-                "source": "https://github.com/internetguru/laravel-common/tree/v7.7.0"
+                "source": "https://github.com/internetguru/laravel-common/tree/v8.0.0"
             },
-            "time": "2026-09-23T06:51:35+00:00"
+            "time": "2026-09-28T08:27:26+00:00"
         },
         {
             "name": "internetguru/laravel-model-browser",
-            "version": "v8.0.0",
+            "version": "v8.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-model-browser.git",
-                "reference": "dc386ab92cf5597736e2bb4ebbd1ceba85e7eccb"
+                "reference": "35e59e319c587ce0c3899c819b13ea9159eacb52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/dc386ab92cf5597736e2bb4ebbd1ceba85e7eccb",
-                "reference": "dc386ab92cf5597736e2bb4ebbd1ceba85e7eccb",
+                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/35e59e319c587ce0c3899c819b13ea9159eacb52",
+                "reference": "35e59e319c587ce0c3899c819b13ea9159eacb52",
                 "shasum": ""
             },
             "require": {
-                "internetguru/laravel-common": "^7",
+                "internetguru/laravel-common": "^7 || ^8",
                 "laravel/framework": "^13.0",
                 "livewire/livewire": "^4.0",
                 "php": "^8.4"
             },
             "require-dev": {
-                "internetguru/laravel-common": "^7",
+                "internetguru/laravel-common": "^7 || ^8",
                 "laravel/pint": "^1.17",
                 "livewire/livewire": "^4.0",
                 "orchestra/testbench": "^11.0",
@@ -1354,22 +1354,22 @@
             "description": "A Laravel package to browse models and show them in a table, autocmplete, etc.",
             "support": {
                 "issues": "https://github.com/internetguru/laravel-model-browser/issues",
-                "source": "https://github.com/internetguru/laravel-model-browser/tree/v8.0.0"
+                "source": "https://github.com/internetguru/laravel-model-browser/tree/v8.2.0"
             },
-            "time": "2026-09-25T20:48:52+00:00"
+            "time": "2026-09-28T08:50:43+00:00"
         },
         {
             "name": "internetguru/laravel-recaptchav3",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-recaptchav3.git",
-                "reference": "346bd019e9fc0e1350e9dddf4121c9b22b09ecbc"
+                "reference": "6391c401388be216163559a79f52c1cbca9429b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-recaptchav3/zipball/346bd019e9fc0e1350e9dddf4121c9b22b09ecbc",
-                "reference": "346bd019e9fc0e1350e9dddf4121c9b22b09ecbc",
+                "url": "https://api.github.com/repos/internetguru/laravel-recaptchav3/zipball/6391c401388be216163559a79f52c1cbca9429b1",
+                "reference": "6391c401388be216163559a79f52c1cbca9429b1",
                 "shasum": ""
             },
             "require": {
@@ -1403,9 +1403,9 @@
             ],
             "description": "Interent Guru Laravel reCAPTCHA v3 package",
             "support": {
-                "source": "https://github.com/internetguru/laravel-recaptchav3/tree/v1.3.0"
+                "source": "https://github.com/internetguru/laravel-recaptchav3/tree/v1.3.1"
             },
-            "time": "2026-09-23T06:51:39+00:00"
+            "time": "2026-09-24T05:31:42+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2648,16 +2648,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.14.0",
+            "version": "3.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "0023eaa2c9110e47446dd512a263c69c40cd41f2"
+                "reference": "34e9109535165bf1d7ff17a610492372ae73a896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/0023eaa2c9110e47446dd512a263c69c40cd41f2",
-                "reference": "0023eaa2c9110e47446dd512a263c69c40cd41f2",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/34e9109535165bf1d7ff17a610492372ae73a896",
+                "reference": "34e9109535165bf1d7ff17a610492372ae73a896",
                 "shasum": ""
             },
             "require": {
@@ -2749,7 +2749,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-12T20:45:19+00:00"
+            "time": "2026-09-27T12:07:26+00:00"
         },
         {
             "name": "nette/schema",
