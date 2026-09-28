@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Supports `internetguru/laravel-common` `^8`.
+
 ## [9.0.0] - 2026-09-25
 
 _Stable release based on [9.0.0-rc.1]._
