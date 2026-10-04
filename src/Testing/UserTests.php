@@ -12,7 +12,7 @@ use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
  * and the browser tests from a file in tests/Browser:
  *
  *     UserTests::register(demo: false);
- *     UserTests::registerBrowser();
+ *     UserTests::registerBrowser(demo: false);
  */
 class UserTests
 {
@@ -90,43 +90,61 @@ class UserTests
         });
     }
 
-    public static function registerBrowser(): void
+    public static function registerBrowser(bool $demo = false): void
     {
-        describe('laravel-user PIN login', function () {
-            it('signs in once the e-mailed PIN is typed digit by digit', function () {
-                $user = User::factory()->create(['logged_at' => null]);
+        if ($demo) {
+            it('signs in a demo user picked from the list', function () {
+                $user = User::factory()->withRole(User::roles()::MANAGER)->create(['logged_at' => now()->subDay()]);
 
-                $page = UserTests::sendPin($user->email)
-                    ->typeSlowly('.pin-input-box:first-child', PinLogin::where('email', $user->email)->value('pin'));
+                $page = visit(route('login'))
+                    ->select('.section-login select[name="email"]', $user->email)
+                    ->click('.section-login [data-testid="submit-button"]');
 
-                UserTests::leaveVerification($page)
-                    ->assertPathIsNot('/pin-login/verify')
+                UserTests::waitFor($page, fn () => parse_url($page->url(), PHP_URL_PATH) !== '/login')
+                    ->assertPathIsNot('/login')
                     ->assertNoJavascriptErrors();
 
-                expect($user->refresh()->logged_at)->not->toBeNull();
+                expect($user->refresh()->logged_at->isToday())->toBeTrue();
             });
+        }
 
-            it('creates the account of a registering address once its PIN is verified', function () {
-                $page = UserTests::sendPin('new@example.com', register: true)
-                    ->typeSlowly('.pin-input-box:first-child', PinLogin::where('email', 'new@example.com')->value('pin'));
+        if (! $demo) {
+            describe('laravel-user PIN login', function () {
+                it('signs in once the e-mailed PIN is typed digit by digit', function () {
+                    $user = User::factory()->create(['logged_at' => null]);
 
-                UserTests::leaveVerification($page)->assertPathIsNot('/pin-login/verify');
+                    $page = UserTests::sendPin($user->email)
+                        ->typeSlowly('.pin-input-box:first-child', PinLogin::where('email', $user->email)->value('pin'));
 
-                expect(User::where('email', 'new@example.com')->exists())->toBeTrue();
+                    UserTests::leaveVerification($page)
+                        ->assertPathIsNot('/pin-login/verify')
+                        ->assertNoJavascriptErrors();
+
+                    expect($user->refresh()->logged_at)->not->toBeNull();
+                });
+
+                it('creates the account of a registering address once its PIN is verified', function () {
+                    $page = UserTests::sendPin('new@example.com', register: true)
+                        ->typeSlowly('.pin-input-box:first-child', PinLogin::where('email', 'new@example.com')->value('pin'));
+
+                    UserTests::leaveVerification($page)->assertPathIsNot('/pin-login/verify');
+
+                    expect(User::where('email', 'new@example.com')->exists())->toBeTrue();
+                });
+
+                it('keeps a wrong PIN on the verification page with an error', function () {
+                    $user = User::factory()->create(['logged_at' => null]);
+
+                    $page = UserTests::sendPin($user->email)->typeSlowly('.pin-input-box:first-child', '000000');
+
+                    UserTests::waitFor($page, fn () => $page->script('document.querySelector(\'[data-testid="system-message-danger"]\') !== null'))
+                        ->assertPathIs('/pin-login/verify')
+                        ->assertVisible('@system-message-danger');
+
+                    expect($user->refresh()->logged_at)->toBeNull();
+                });
             });
-
-            it('keeps a wrong PIN on the verification page with an error', function () {
-                $user = User::factory()->create(['logged_at' => null]);
-
-                $page = UserTests::sendPin($user->email)->typeSlowly('.pin-input-box:first-child', '000000');
-
-                UserTests::waitFor($page, fn () => $page->script('document.querySelector(\'[data-testid="system-message-danger"]\') !== null'))
-                    ->assertPathIs('/pin-login/verify')
-                    ->assertVisible('@system-message-danger');
-
-                expect($user->refresh()->logged_at)->toBeNull();
-            });
-        });
+        }
 
         describe('laravel-user detail', function () {
             it('lets a manager rename a user in place', function () {

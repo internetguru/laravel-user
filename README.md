@@ -483,13 +483,15 @@ UserTests::register(demo: false);
 // tests/Browser/UserTest.php
 use InternetGuru\LaravelUser\Testing\UserTests;
 
-UserTests::registerBrowser();
+UserTests::registerBrowser(demo: false);
 ```
+
+In demo mode (`app.demo`), register both with `demo: true` from a file that turns it on, e.g. `beforeEach(fn () => config(['app.demo' => true]));`.
 
 | Tests | What is tested |
 | --- | --- |
 | `register()` | The login form (the PIN form, or the demo user list with `demo: true`); guests and `/register` redirected to the login; a signed-in user sent away from it; an unknown address refused unless it registers; the PIN e-mail; the user list for a manager but not a customer; the user detail. |
-| `registerBrowser()` | Signing in and registering by typing the e-mailed PIN, which submits itself; a wrong PIN; renaming a user on the detail page. |
+| `registerBrowser()` | Signing in and registering by typing the e-mailed PIN, which submits itself, and a wrong PIN (or signing in from the demo list with `demo: true`); renaming a user on the detail page. |
 
 The tests use the application's `UserFactory` with `withRole()` and fake notifications.
 
