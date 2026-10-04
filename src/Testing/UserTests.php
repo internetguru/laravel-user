@@ -179,7 +179,7 @@ class UserTests
             ->assertPathIs('/pin-login/verify')
             ->assertVisible('.pin-input');
 
-        // The PIN input focuses its first box shortly after loading; typing earlier loses the first digit
-        return self::waitFor($page, fn () => $page->script('document.activeElement === document.querySelector(".pin-input-box")'));
+        // Alpine focuses the first PIN box 50 ms after it starts, which moves the cursor back if typing has begun
+        return self::waitFor($page, fn () => $page->script('(() => { if (! document.querySelector(".pin-input")?._x_dataStack) return false; window.pinReadyAt ??= performance.now(); return performance.now() - window.pinReadyAt > 100; })()'));
     }
 }
