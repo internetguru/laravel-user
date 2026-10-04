@@ -25,7 +25,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 - [Roles and Permissions Page](#roles-and-permissions-page)
 - [IgUserSeeder](#iguserseeder)
 - [Publishing](#publishing)
-- [E2E Tests](#e2e-tests)
+- [Shared Tests](#shared-tests)
 - [License & Commercial Terms](#license--commercial-terms)
 
 ## Features and Terminology
@@ -468,22 +468,30 @@ php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServi
 php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServiceProvider" --tag="ig-user:views"
 ```
 
-## E2E Tests
+## Shared Tests
 
-The package includes Playwright E2E tests via `laravel-common` test helpers. Register them in your Playwright config:
+The package ships [Pest](https://pestphp.com/) tests that every application built on it should pass. Register the HTTP tests from a feature test file and the browser tests (they need `pestphp/pest-plugin-browser`) from a file in `tests/Browser`:
 
-```js
-import { registerUserTests } from 'path/to/laravel-user/e2e';
+```php
+// tests/Feature/UserTest.php
+use InternetGuru\LaravelUser\Testing\UserTests;
 
-registerUserTests(test, { languages: ['en', 'cs'], demo: true });
+UserTests::register(demo: false);
 ```
 
-### Options
+```php
+// tests/Browser/UserTest.php
+use InternetGuru\LaravelUser\Testing\UserTests;
 
-| Option | Type | Description |
-|---|---|---|
-| `languages` | `string[]` | Languages to test — login/logout per language |
-| `demo` | `boolean` | Include demo login flow tests |
+UserTests::registerBrowser();
+```
+
+| Tests | What is tested |
+| --- | --- |
+| `register()` | The login form (the PIN form, or the demo user list with `demo: true`); guests and `/register` redirected to the login; a signed-in user sent away from it; an unknown address refused unless it registers; the PIN e-mail; the user list for a manager but not a customer; the user detail. |
+| `registerBrowser()` | Signing in and registering by typing the e-mailed PIN, which submits itself; a wrong PIN; renaming a user on the detail page. |
+
+The tests use the application's `UserFactory` with `withRole()` and fake notifications.
 
 ## License & Commercial Terms
 
