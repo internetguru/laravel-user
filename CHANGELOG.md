@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `InternetGuru\LaravelUser\Testing\UserTests` adds the shared sign-in, access and user detail tests to an application's Pest suite: `register()` for HTTP tests, `registerBrowser()` for browser tests.
+
+### Removed
+
+- **Breaking:** The Playwright helpers `tests/e2e/user-tests.js`; register `UserTests` instead.
+
 ## [9.1.0] - 2026-09-28
 
 _Stable release based on [9.1.0-rc.1]._

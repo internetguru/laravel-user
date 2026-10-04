@@ -29,3 +29,4 @@ Accounts, sign-in (Google, Seznam, e-mailed PIN, demo), roles, locale and the us
 ## Tests
 
 - Create accounts with the application's `UserFactory` and its role state (e.g. `User::factory()->withRole(User::roles()::OPERATOR)->create()`), not by setting the `role` column by hand.
+- The shared tests cover sign-in and the user screens: `UserTests::register(demo: …)` in a feature test file and `UserTests::registerBrowser()` in `tests/Browser` (`InternetGuru\LaravelUser\Testing`). Don't rewrite those checks in the application.
