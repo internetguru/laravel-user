@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `UserTests::registerBrowser(demo: true)` signs in from the demo user list instead of testing the PIN form.
+
 ## [9.2.0] - 2026-10-04
 
 _Stable release based on [9.2.0-rc.1]._
