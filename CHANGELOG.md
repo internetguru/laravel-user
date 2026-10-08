@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [9.4.0-rc.1] - 2026-10-08
 
+### Fixed
+
+- Signing in with a PIN logs in the application's user model, so its policies and relations work in that request.
+
 ## [9.3.0] - 2026-10-04
 
 _Stable release based on [9.3.0-rc.1]._
