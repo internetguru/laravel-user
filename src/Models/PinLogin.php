@@ -2,6 +2,7 @@
 
 namespace InternetGuru\LaravelUser\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class PinLogin extends Model
