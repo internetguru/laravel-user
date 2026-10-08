@@ -293,6 +293,7 @@ class PinLoginControllerTest extends TestCase
 
         $response->assertRedirect();
         $this->assertAuthenticatedAs($user);
+        $this->assertInstanceOf(User::class, auth()->user());
         $this->assertDatabaseMissing('pin_logins', ['user_id' => $user->id]);
     }
 
