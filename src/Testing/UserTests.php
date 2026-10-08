@@ -70,16 +70,16 @@ class UserTests
         });
 
         describe('laravel-user access', function () {
-            it('lists users for a manager and refuses a customer', function () {
+            it('lists users for a manager and refuses the lowest role', function () {
                 $this->actingAs(User::factory()->withRole(User::roles()::MANAGER)->create())
                     ->get(route('users.index'))->assertOk()->assertSee('section-user-list', false);
 
-                $this->actingAs(User::factory()->withRole(User::roles()::CUSTOMER)->create())
+                $this->actingAs(User::factory()->withRole(UserTests::lowestRole())->create())
                     ->get(route('users.index'))->assertForbidden();
             });
 
             it('shows a user detail to a manager', function () {
-                $user = User::factory()->create();
+                $user = User::factory()->withRole(UserTests::lowestRole())->create();
 
                 $this->actingAs(User::factory()->withRole(User::roles()::MANAGER)->create())
                     ->get(route('users.show', $user))
@@ -148,7 +148,7 @@ class UserTests
 
         describe('laravel-user detail', function () {
             it('lets a manager rename a user in place', function () {
-                $user = User::factory()->create(['name' => 'Old Name']);
+                $user = User::factory()->withRole(UserTests::lowestRole())->create(['name' => 'Old Name']);
                 $this->actingAs(User::factory()->withRole(User::roles()::MANAGER)->create());
 
                 visit(route('users.show', $user))
@@ -162,6 +162,14 @@ class UserTests
                 expect($user->refresh()->name)->toBe('New Name');
             });
         });
+    }
+
+    /**
+     * The lowest role, which a manager may see and edit; an application may swap the enum for one without CUSTOMER.
+     */
+    public static function lowestRole(): mixed
+    {
+        return collect(User::roles()::cases())->sortBy(fn ($role) => $role->level())->first();
     }
 
     /**

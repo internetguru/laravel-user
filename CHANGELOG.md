@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.4.1] - 2026-10-08
+
+### Fixed
+
+- The shared tests use the lowest role of the application's own enum instead of assuming CUSTOMER, and give the users a manager views or renames that role.
+
 ## [9.4.0] - 2026-10-08
 
 _Stable release based on [9.4.0-rc.1]._
@@ -1634,6 +1640,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[9.4.1]: https://github.com/internetguru/laravel-user/compare/v9.4.0...v9.4.1
 [9.4.0]: https://github.com/internetguru/laravel-user/compare/v9.3.0...v9.4.0
 [9.4.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.3.0
 [9.3.0]: https://https://github.com/internetguru/laravel-user/compare/v9.2.0...v9.3.0
