@@ -25,6 +25,14 @@ class WidgetPolicy
     }
 
     /**
+     * An ability a signed-out visitor holds and staff lose: the summary lists it as revoked.
+     */
+    public function order(?User $user): bool
+    {
+        return ! $user?->isOperatorPlus();
+    }
+
+    /**
      * An ability the argument resolver cannot describe: the summary leaves it out.
      */
     public function inspect(User $user, DateTimeInterface $at): bool
