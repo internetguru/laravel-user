@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The role list shows an ability a signed-out visitor has with a red minus at the first role that loses it, instead of leaving it out.
+
 ## [9.4.1] - 2026-10-08
 
 ### Fixed

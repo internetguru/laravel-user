@@ -70,6 +70,15 @@ class PermissionSummaryTest extends TestCase
         }
     }
 
+    public function test_an_ability_a_visitor_holds_is_listed_as_revoked_where_a_role_loses_it()
+    {
+        $grouped = $this->summary()->groupedByRole();
+
+        $this->assertArrayNotHasKey('WidgetPolicy@order', $grouped[Role::CUSTOMER->value]['granted']);
+        $this->assertArrayHasKey('WidgetPolicy@order', $grouped[Role::OPERATOR->value]['revoked']);
+        $this->assertArrayNotHasKey('WidgetPolicy@order', $grouped[Role::SUPERVISOR->value]['revoked']);
+    }
+
     public function test_permissions_are_ordered_alphabetically_by_label()
     {
         $granted = $this->summary()->groupedByRole()[Role::MANAGER->value]['granted'];

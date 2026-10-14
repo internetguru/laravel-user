@@ -52,7 +52,12 @@ class PermissionSummary
         $matrix = $this->matrix();
 
         $grouped = [];
-        $previousPermissions = [];
+        // The least privileged role is compared against a signed-out visitor, so an ability
+        // the visitor already holds is listed only where a role loses it.
+        $previousPermissions = array_map(
+            fn (): array => ['allowed' => true],
+            $this->guestAbilities($this->policies())
+        );
 
         foreach ($this->roles() as $index => $role) {
             $permissions = $matrix[$role->value] ?? [];
@@ -96,10 +101,6 @@ class PermissionSummary
             foreach ($policies as $policy => $className) {
                 foreach ($this->abilities($className) as $method) {
                     $key = "$policy@{$method->getName()}";
-                    if (isset($guestAbilities[$key])) {
-                        continue;
-                    }
-
                     $permission = $this->evaluate($className, $method, $role);
                     if ($permission === null) {
                         continue;
@@ -115,7 +116,30 @@ class PermissionSummary
             }
         }
 
+        foreach (array_keys($guestAbilities) as $key) {
+            if ($this->allRolesAllow($matrix, $key)) {
+                foreach ($matrix as &$permissions) {
+                    unset($permissions[$key]);
+                }
+                unset($permissions);
+            }
+        }
+
         return $matrix;
+    }
+
+    /**
+     * @param  array<string, array<string, Permission>>  $matrix
+     */
+    protected function allRolesAllow(array $matrix, string $key): bool
+    {
+        foreach ($matrix as $permissions) {
+            if (! ($permissions[$key]['allowed'] ?? true)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -208,9 +232,9 @@ class PermissionSummary
     /**
      * Abilities a signed-out visitor already holds, keyed by `Policy@ability`.
      *
-     * An ability that answers yes without an account is not part of the role model: it guards
-     * a page whose address is the secret. Crediting the least privileged role with it would
-     * read as something that role was given, so it is left out of the summary altogether.
+     * An ability that answers yes without an account is not something a role is given: it
+     * guards a page whose address is the secret. It is left out of the summary unless a role
+     * loses it, which the page then lists as revoked.
      *
      * @param  array<string, class-string>  $policies
      * @return array<string, true>
