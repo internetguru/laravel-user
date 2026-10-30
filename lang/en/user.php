@@ -48,7 +48,6 @@ return [
     'summary.never-logged-in' => 'Include never logged-in users',
     'summary.phone' => 'Phone',
     'summary.role' => 'Role',
-    'summary.user' => 'User',
     'update.email.unique' => 'A user with this email already exists.',
     'update.email' => 'Email updated.',
     'update.name' => 'Name updated.',
