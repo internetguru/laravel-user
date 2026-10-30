@@ -5,12 +5,14 @@ namespace InternetGuru\LaravelUser\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use InternetGuru\LaravelCommon\Traits\AssociationHistory;
 use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Traits\BaseAuth;
@@ -62,6 +64,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             'role' => static::roles(),
             'logged_at' => 'datetime',
         ];
+    }
+
+    protected function email(): Attribute
+    {
+        return Attribute::make(
+            set: fn (?string $value) => $value === null ? null : Str::lower($value),
+        );
     }
 
     protected static function booted(): void

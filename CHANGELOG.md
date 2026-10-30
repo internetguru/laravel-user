@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - The user list filters name and e-mail separately (`name:`, `email:`) instead of with one `user` filter.
 
+### Fixed
+
+- E-mails are stored lowercase on users, identities and PIN logins, and a migration lowercases the existing ones, so signing in with Google or Seznam finds the account whatever case the provider sends.
+
 ## [9.5.0] - 2026-10-14
 
 _Stable release based on [9.5.0-rc.1]._
