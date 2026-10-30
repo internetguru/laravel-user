@@ -48,7 +48,6 @@ return [
     'summary.never-logged-in' => 'Inkludér brugere der aldrig har logget ind',
     'summary.phone' => 'Telefon',
     'summary.role' => 'Rolle',
-    'summary.user' => 'Bruger',
     'update.email.unique' => 'En bruger med denne e-mail findes allerede.',
     'update.email' => 'E-mail opdateret.',
     'update.name' => 'Navn opdateret.',

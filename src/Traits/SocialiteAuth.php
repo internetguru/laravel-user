@@ -33,7 +33,7 @@ trait SocialiteAuth
             return null;
         }
 
-        return User::where('email', $email)->first();
+        return User::where('email', Str::lower($email))->first();
     }
 
     /**
@@ -122,7 +122,7 @@ trait SocialiteAuth
         }
 
         // Check by email including automatic accounts
-        $userByEmail = User::where('email', $providerUser->email)->first();
+        $userByEmail = User::getByEmail($providerUser->email);
 
         if ($userByEmail) {
             if (! $userByEmail->isAutomatic()) {

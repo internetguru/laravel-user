@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- The user list filters name and e-mail separately (`name:`, `email:`) instead of with one `user` filter.
+
+### Fixed
+
+- E-mails are stored lowercase on users, identities and PIN logins, and a migration lowercases the existing ones, so signing in with Google or Seznam finds the account whatever case the provider sends.
+
 ## [9.5.0] - 2026-10-14
 
 _Stable release based on [9.5.0-rc.1]._
@@ -1650,6 +1660,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://github.com/internetguru/laravel-user/compare/staging...dev
 [9.5.0]: https://github.com/internetguru/laravel-user/compare/v9.4.1...v9.5.0
 [9.5.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.4.1
 [9.4.1]: https://github.com/internetguru/laravel-user/compare/v9.4.0...v9.4.1

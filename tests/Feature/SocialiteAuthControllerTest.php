@@ -137,6 +137,42 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals(1, $user->socialites()->where('provider_id', $providerUser->id)->count());
     }
 
+    public function test_handle_provider_callback_login_matches_email_in_any_case()
+    {
+        $controller = new SocialiteAuthController;
+
+        $user = User::factory()->create(['email' => 'test@example.com']);
+
+        $providerUser = Mockery::mock(SocialiteUser::class);
+        $providerUser->id = rand(1000, 9999);
+        $providerUser->email = 'Test@Example.com';
+        $providerUser->name = 'Test User';
+        $providerMock = Mockery::mock('overload:' . Socialite::class);
+        $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
+
+        $response = $controller->handleProviderCallback('google', 'login');
+
+        $this->assertEquals(302, $response->status());
+        $this->assertEquals($user->id, Auth::id());
+        $this->assertEquals('test@example.com', $user->socialites()->first()->email);
+    }
+
+    public function test_handle_provider_callback_register_stores_email_lowercase()
+    {
+        $controller = new SocialiteAuthController;
+
+        $providerUser = Mockery::mock(SocialiteUser::class);
+        $providerUser->id = rand(1000, 9999);
+        $providerUser->email = 'New.User@Example.com';
+        $providerUser->name = 'New User';
+        $providerMock = Mockery::mock('overload:' . Socialite::class);
+        $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
+
+        $controller->handleProviderCallback('google', 'register');
+
+        $this->assertEquals('new.user@example.com', Auth::user()->email);
+    }
+
     public function test_handle_provider_callback_register_derives_name_from_email()
     {
         $controller = new SocialiteAuthController;
