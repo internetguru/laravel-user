@@ -64,6 +64,6 @@ class RoleLabelTest extends TestCase
 
         $this->actingAs($admin)
             ->get(route('users.index'))
-            ->assertSee('minmax(max-content, max-content);', false);
+            ->assertSee('minmax(10em, auto) minmax(max-content, auto) ', false);
     }
 }
