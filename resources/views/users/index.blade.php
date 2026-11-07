@@ -45,9 +45,15 @@
         :enableSort="false"
         defaultSortColumn="name"
         defaultSortDirection="asc"
+        :alignments="[
+            'name' => 'start',
+            'email' => 'start',
+            'role' => 'start',
+            'logged_at' => 'end',
+        ]"
         :column-widths="[
-            'name' => 'minmax(7em, 0.7fr)',
-            'email' => 'minmax(10em, 1fr)',
+            'name' => 'minmax(7em, max-content)',
+            'email' => 'minmax(7em, max-content)',
             'role' => 'minmax(max-content, max-content)',
             'logged_at' => 'minmax(max-content, max-content)',
         ]"
