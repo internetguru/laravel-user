@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [9.7.1] - 2026-11-07
+
+### Security
+
+- Livewire 4.4.8 in the lock file, against GHSA-mhf7-xp6r-6qrc.
+
 ## [9.7.0] - 2026-11-07
 
 _Stable release based on [9.7.0-rc.1]._
@@ -1686,6 +1692,7 @@ _Stable release based on [0.1.0-rc.1]._
 - New changelog file.
 
 [Unreleased]: https://github.com/internetguru/laravel-user/compare/staging...dev
+[9.7.1]: https://github.com/internetguru/laravel-user/compare/v9.7.0...v9.7.1
 [9.7.0]: https://github.com/internetguru/laravel-user/compare/v9.6.0...v9.7.0
 [9.7.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.6.0
 [9.6.0]: https://github.com/internetguru/laravel-user/compare/v9.5.0...v9.6.0
