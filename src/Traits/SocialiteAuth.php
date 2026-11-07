@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use InternetGuru\LaravelUser\Models\Socialite;
+use InternetGuru\LaravelUser\Rules\PersonName;
 use Laravel\Socialite\Two\User as SocialiteUser;
 
 trait SocialiteAuth
@@ -37,11 +38,13 @@ trait SocialiteAuth
     }
 
     /**
-     * Some providers do not share a name, so fall back to the local part of the email.
+     * Some providers do not share a usable name, so fall back to one made of the email.
      */
     public static function socialiteName(SocialiteUser $providerUser): string
     {
-        return $providerUser->name ?: Str::before((string) $providerUser->email, '@');
+        $name = Str::squish((string) $providerUser->name);
+
+        return PersonName::isValid($name) ? $name : User::nameFromEmail((string) $providerUser->email);
     }
 
     public static function socialiteLoginAndConnect($provider, SocialiteUser $providerUser): RedirectResponse

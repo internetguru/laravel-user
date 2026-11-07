@@ -179,7 +179,7 @@ class SocialiteAuthControllerTest extends TestCase
 
         $providerUser = Mockery::mock(SocialiteUser::class);
         $providerUser->id = rand(1000, 9999);
-        $providerUser->email = 'no.name@example.com';
+        $providerUser->email = 'jan.novak85@example.com';
         $providerUser->name = null;
         $providerMock = Mockery::mock('overload:' . Socialite::class);
         $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
@@ -188,8 +188,24 @@ class SocialiteAuthControllerTest extends TestCase
 
         $this->assertEquals(302, $response->status());
         $this->assertTrue(Auth::check());
-        $this->assertEquals('no.name', Auth::user()->name);
-        $this->assertEquals('no.name', Auth::user()->socialites()->first()->name);
+        $this->assertEquals('Jan Novak', Auth::user()->name);
+        $this->assertEquals('Jan Novak', Auth::user()->socialites()->first()->name);
+    }
+
+    public function test_handle_provider_callback_register_replaces_blank_name()
+    {
+        $controller = new SocialiteAuthController;
+
+        $providerUser = Mockery::mock(SocialiteUser::class);
+        $providerUser->id = rand(1000, 9999);
+        $providerUser->email = 'j.k.rowling@example.com';
+        $providerUser->name = ' ';
+        $providerMock = Mockery::mock('overload:' . Socialite::class);
+        $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
+
+        $controller->handleProviderCallback('seznam', 'register');
+
+        $this->assertEquals('J. K. Rowling', Auth::user()->name);
     }
 
     public function test_handle_provider_callback_connect_derives_name_from_email()
@@ -201,7 +217,7 @@ class SocialiteAuthControllerTest extends TestCase
 
         $providerUser = Mockery::mock(SocialiteUser::class);
         $providerUser->id = rand(1000, 9999);
-        $providerUser->email = 'no.name@example.com';
+        $providerUser->email = 'jan.novak@example.com';
         $providerUser->name = null;
         $providerMock = Mockery::mock('overload:' . Socialite::class);
         $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
@@ -209,7 +225,7 @@ class SocialiteAuthControllerTest extends TestCase
         $response = $controller->handleProviderCallback('google', 'connect');
 
         $this->assertEquals(302, $response->status());
-        $this->assertEquals('no.name', $user->socialites()->first()->name);
+        $this->assertEquals('Jan Novak', $user->socialites()->first()->name);
     }
 
     public function test_handle_provider_callback_connect()

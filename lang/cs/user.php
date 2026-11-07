@@ -29,6 +29,7 @@ return [
     'merges-select' => 'Účet ke sloučení',
     'merges' => 'Sloučené účty',
     'name' => 'Jméno',
+    'name.invalid' => 'Jméno musí začínat písmenem nebo číslicí, obsahovat alespoň 2 písmena nebo číslice a smí obsahovat jen písmena, číslice, mezery a znaky . \' -',
     'no-identities' => 'Nemáte žádné propojené identity.',
     'no-name' => 'Bez jména',
     'primary' => 'Primární',

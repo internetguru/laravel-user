@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `PersonName` validation rule for a person's name, applied on the user detail form, and `User::nameFromEmail()`, which makes a readable name of an e-mail (`j.k.rowling85@x.com` gives "J. K. Rowling").
+
+### Fixed
+
+- Signing in with Seznam or Google without a shared name, and PIN registration, give the account a name made of the e-mail instead of a blank one, and a migration renames accounts and identities whose name is blank or has no letters or digits.
+
 ## [9.6.0] - 2026-10-30
 
 _Stable release based on [9.6.0-rc.1]._

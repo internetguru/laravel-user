@@ -214,7 +214,7 @@ class PinLoginControllerTest extends TestCase
         $response->assertRedirect();
         $this->assertDatabaseHas('users', [
             'email' => 'newuser@example.com',
-            'name' => 'newuser',
+            'name' => 'Newuser',
         ]);
         $this->assertAuthenticatedAs(User::where('email', 'newuser@example.com')->first());
         $this->assertDatabaseCount('pin_logins', 0);

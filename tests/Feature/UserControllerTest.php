@@ -133,6 +133,19 @@ class UserControllerTest extends TestCase
         $response->assertSessionHasErrors('name');
     }
 
+    public function test_update_name_rejects_meaningless_name()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $user = User::factory()->create(['name' => 'Old Name']);
+
+        $response = $this->actingAs($admin)->post(route('users.update', $user), [
+            'name' => '...',
+        ]);
+
+        $response->assertSessionHasErrors(['name' => __('ig-user::user.name.invalid')]);
+        $this->assertEquals('Old Name', $user->fresh()->name);
+    }
+
     public function test_update_email_validation_fails()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);

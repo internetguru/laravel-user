@@ -29,6 +29,7 @@ return [
     'merges-select' => 'Konto der skal sammenlægges',
     'merges' => 'Sammenlagte konti',
     'name' => 'Navn',
+    'name.invalid' => 'Navnet skal begynde med et bogstav eller et tal, indeholde mindst 2 bogstaver eller tal og må kun indeholde bogstaver, tal, mellemrum og tegnene . \' -',
     'no-identities' => 'Du har ingen tilknyttede identiteter.',
     'no-name' => 'Intet navn',
     'primary' => 'Primær',

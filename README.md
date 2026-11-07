@@ -251,6 +251,19 @@ The package provides a user list at `/users` and a user detail page at `/users/{
 
 Users can update their own `name`, `email`, `phone`, and `role` via POST to `/users/{user}`. Role changes are subject to the `setRole` policy.
 
+### User Names
+
+The `InternetGuru\LaravelUser\Rules\PersonName` rule validates a name: it starts with a letter or digit, holds at least two letters or digits, and uses only letters, digits, spaces and `. ' -`. The user detail form applies it.
+
+When a provider shares no usable name, and on PIN registration, the name is made of the e-mail by `User::nameFromEmail()`: the local part without a `+tag`, separators turned into spaces, trailing digits dropped, title case, and a period kept after a one- or two-letter word. A result with fewer than two letters or digits gets the domain without its top-level domain appended.
+
+| E-mail | Name |
+| --- | --- |
+| `jan.novak85@seznam.cz` | Jan Novak |
+| `j.k.rowling@x.com` | J. K. Rowling |
+| `x123@seznam.cz` | X123 |
+| `1@1.cz` | 11 |
+
 ### Merging Accounts
 
 Merging joins several accounts of the same person into one group, so any of them owns the group's records. It is disabled by default; set `AUTH_MERGE_ENABLED=true` to expose the merge and unmerge controls on the user detail page. While disabled, the `merge` gate denies everyone, which hides the section and makes the `users.merge`, `users.unmerge` and `users.merge-candidates` endpoints return 403.
