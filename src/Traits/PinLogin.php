@@ -7,7 +7,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Notification;
-use Illuminate\Support\Str;
 use InternetGuru\LaravelCommon\Support\Helpers;
 use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
 use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
@@ -109,7 +108,7 @@ trait PinLogin
                     ->withErrors(__('ig-user::messages.login.notfound'));
             }
 
-            $user = User::registerUser(Str::before($pinEmail, '@'), $pinEmail);
+            $user = User::registerUser(User::nameFromEmail($pinEmail), $pinEmail);
             event(new Registered($user));
         }
 

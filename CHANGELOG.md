@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- The user list shows each user's last login and filters by it, e.g. `logged:2026-10` or `logged:"7 days ago"..`.
+- `PersonName` validation rule for a person's name, applied on the user detail form, and `User::nameFromEmail()`, which makes a readable name of an e-mail (`j.k.rowling85@x.com` gives "J. K. Rowling").
+
+### Changed
+
+- The user list's columns fit their content and share any spare width, and names, e-mails and last logins wrap only when space is short.
+
+### Fixed
+
+- Signing in with Seznam or Google without a shared name, and PIN registration, give the account a name made of the e-mail instead of a blank one, and a migration renames accounts and identities whose name is blank or has no letters or digits.
+
 ## [9.6.0] - 2026-10-30
 
 _Stable release based on [9.6.0-rc.1]._
@@ -1664,6 +1679,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://github.com/internetguru/laravel-user/compare/staging...dev
 [9.6.0]: https://github.com/internetguru/laravel-user/compare/v9.5.0...v9.6.0
 [9.6.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.5.0
 [9.5.0]: https://github.com/internetguru/laravel-user/compare/v9.4.1...v9.5.0

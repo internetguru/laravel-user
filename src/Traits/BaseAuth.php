@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\User as UserModel;
+use InternetGuru\LaravelUser\Rules\PersonName;
 
 trait BaseAuth
 {
@@ -76,6 +77,11 @@ trait BaseAuth
         }
 
         return redirect()->to($to)->with('success', __('ig-user::messages.login.success', ['name' => $user->name], $lang));
+    }
+
+    public static function nameFromEmail(string $email): string
+    {
+        return PersonName::fromEmail($email);
     }
 
     public static function registerUser(string $name, string $email): User

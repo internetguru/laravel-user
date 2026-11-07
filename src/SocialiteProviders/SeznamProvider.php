@@ -53,7 +53,7 @@ class SeznamProvider extends AbstractProvider
         return (new User)->setRaw($user)->map([
             'id' => $user['oauth_user_id'],
             'nickname' => $user['username'],
-            'name' => $user['firstname'] . ' ' . $user['lastname'],
+            'name' => trim(($user['firstname'] ?? '') . ' ' . ($user['lastname'] ?? '')),
             'email' => $user['email'],
         ]);
     }

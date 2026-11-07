@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use InternetGuru\LaravelUser\Rules\PersonName;
 
 class UserController extends Controller
 {
@@ -137,7 +138,7 @@ class UserController extends Controller
     private function updateName(Request $request, User $user)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => ['required', 'string', 'max:255', new PersonName],
         ]);
         $user->name = $request->name;
         $user->save();

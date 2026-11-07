@@ -27,6 +27,27 @@ class UserControllerTest extends TestCase
         });
     }
 
+    public function test_index_shows_last_login()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $user = User::factory()->create(['logged_at' => '2026-01-15 10:30:00']);
+
+        $this->actingAs($admin)->get(route('users.index'))
+            ->assertSee(__('ig-user::user.summary.logged_at'))
+            ->assertSee(formatUserLoggedAt($user->logged_at));
+    }
+
+    public function test_index_filters_by_last_login()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN, 'name' => 'Admin Person']);
+        User::factory()->create(['name' => 'January Person', 'logged_at' => '2026-01-15 10:30:00']);
+        User::factory()->create(['name' => 'March Person', 'logged_at' => '2026-03-15 10:30:00']);
+
+        $this->actingAs($admin)->get(route('users.index', ['q' => 'logged:2026-01']))
+            ->assertSee('January Person')
+            ->assertDontSee('March Person');
+    }
+
     public function test_show_displays_user()
     {
         $admin = User::factory()->create(['role' => Role::ADMIN]);
@@ -131,6 +152,19 @@ class UserControllerTest extends TestCase
 
         $response->assertRedirect('/users/' . $user->id);
         $response->assertSessionHasErrors('name');
+    }
+
+    public function test_update_name_rejects_meaningless_name()
+    {
+        $admin = User::factory()->create(['role' => Role::ADMIN]);
+        $user = User::factory()->create(['name' => 'Old Name']);
+
+        $response = $this->actingAs($admin)->post(route('users.update', $user), [
+            'name' => '...',
+        ]);
+
+        $response->assertSessionHasErrors(['name' => __('ig-user::user.name.invalid')]);
+        $this->assertEquals('Old Name', $user->fresh()->name);
     }
 
     public function test_update_email_validation_fails()
