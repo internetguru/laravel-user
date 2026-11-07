@@ -5,6 +5,7 @@
             'name' => __('ig-user::user.summary.name'),
             'email' => __('ig-user::user.summary.email'),
             'role' => __('ig-user::user.summary.role'),
+            'logged_at' => __('ig-user::user.summary.logged_at'),
         ]"
         :filters="[
             'name' => [
@@ -22,6 +23,11 @@
                 'options' => \App\Models\User::roleOptions(),
                 'column' => 'role',
             ],
+            'logged' => [
+                'type' => 'date',
+                'label' => __('ig-user::user.summary.logged_at'),
+                'column' => 'logged_at',
+            ],
             'never-logged-in' => [
                 'type' => 'checkbox',
                 'label' => __('ig-user::user.summary.never-logged-in'),
@@ -31,6 +37,7 @@
         :formats="[
             'name' => 'formatUserNameLink',
             'role' => 'formatUserRoleLabel',
+            'logged_at' => 'formatUserLoggedAt',
         ]"
         :rawFormats="[
             'role' => 'formatUserRole',
@@ -42,6 +49,7 @@
             'name' => 'minmax(7em, 0.7fr)',
             'email' => 'minmax(10em, 1fr)',
             'role' => 'minmax(max-content, max-content)',
+            'logged_at' => 'minmax(max-content, max-content)',
         ]"
     />
 </section>

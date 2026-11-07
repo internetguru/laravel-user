@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use InternetGuru\LaravelCommon\Contracts\HasLabel;
 
 function getYouSuffix(object $user): string
@@ -44,4 +45,9 @@ function formatUserRoleLabel($role): string
 function formatUserRoleLabelSlim($role): string
 {
     return $role instanceof HasLabel ? $role->toLabelHtml(slim: true) : formatUserRole($role);
+}
+
+function formatUserLoggedAt($loggedAt): string
+{
+    return Carbon::parse($loggedAt)->toDisplayTimezone()->dateTimeForHumans();
 }

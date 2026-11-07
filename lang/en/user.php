@@ -45,6 +45,7 @@ return [
     'socialite_connected' => 'connected',
     'socialite_disconnected' => 'disconnected',
     'summary.email' => 'Email',
+    'summary.logged_at' => 'Last login',
     'summary.name' => 'Name',
     'summary.never-logged-in' => 'Include never logged-in users',
     'summary.phone' => 'Phone',

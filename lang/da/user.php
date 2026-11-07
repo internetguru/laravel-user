@@ -45,6 +45,7 @@ return [
     'socialite_connected' => 'tilsluttede',
     'socialite_disconnected' => 'frakoblede',
     'summary.email' => 'E-mail',
+    'summary.logged_at' => 'Seneste login',
     'summary.name' => 'Navn',
     'summary.never-logged-in' => 'Inkludér brugere der aldrig har logget ind',
     'summary.phone' => 'Telefon',

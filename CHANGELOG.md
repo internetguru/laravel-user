@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+- The user list shows each user's last login and filters by it, e.g. `logged:2026-10` or `logged:"7 days ago"..`.
 - `PersonName` validation rule for a person's name, applied on the user detail form, and `User::nameFromEmail()`, which makes a readable name of an e-mail (`j.k.rowling85@x.com` gives "J. K. Rowling").
 
 ### Fixed
