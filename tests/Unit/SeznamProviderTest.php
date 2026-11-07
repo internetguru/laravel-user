@@ -51,4 +51,25 @@ class SeznamProviderTest extends TestCase
         $this->assertEquals('Test User', $user->getName());
         $this->assertEquals('test@example.com', $user->getEmail());
     }
+
+    public function test_maps_missing_name_to_empty_string()
+    {
+        $provider = new class($this->app['request'], 'client_id', 'client_secret', 'redirect_url') extends SeznamProvider
+        {
+            public function mapUserToObject(array $user)
+            {
+                return parent::mapUserToObject($user);
+            }
+        };
+
+        $user = $provider->mapUserToObject([
+            'oauth_user_id' => '12345',
+            'username' => 'testuser',
+            'firstname' => null,
+            'lastname' => '',
+            'email' => 'test@example.com',
+        ]);
+
+        $this->assertSame('', $user->getName());
+    }
 }

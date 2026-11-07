@@ -9,6 +9,7 @@ Accounts, sign-in (Google, Seznam, e-mailed PIN, demo), roles, locale and the us
 - Check roles with the magic methods `$user->isManager()` (exactly) and `$user->isManagerPlus()` (that level or higher). Compare levels, never role names. `User::publicRolesArray()` leaves out `ADMIN`, and `User::roleOptions()` feeds a select.
 - `Role` implements laravel-common's `HasLabel`: show a role with `$role->toLabelHtml()`. In a user list use `formatUserRoleLabel`; `formatUserRole` stays plain text for sorting and export. Don't add an application-side role formatter.
 - Authorization goes through policies. `UserPolicy` provides `crud`, `viewAny`, `administrate`, `setRole`, `merge` and `viewRoleList`; publish it (`--tag=ig-user:policies`) only to change it.
+- Validate a person's name with `new InternetGuru\LaravelUser\Rules\PersonName` (starts with a letter or digit, at least 2 letters or digits, only letters, digits, spaces and `. ' -`). When a user is created without a name, use `User::nameFromEmail($email)` rather than leaving it empty.
 - `/role-list` documents every policy ability per role automatically. Name a new ability with the flat translation key `'{Policy}@{ability}'` in `lang/<locale>/role-list.php`, e.g. `'MachinePolicy@manage' => 'Manage machines'`.
 
 ## Sign-in and locale
