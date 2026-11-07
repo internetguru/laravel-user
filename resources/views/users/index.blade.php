@@ -49,13 +49,13 @@
             'name' => 'start',
             'email' => 'start',
             'role' => 'start',
-            'logged_at' => 'end',
+            'logged_at' => 'start',
         ]"
         :column-widths="[
-            'name' => 'minmax(7em, max-content)',
-            'email' => 'minmax(7em, max-content)',
-            'role' => 'minmax(max-content, max-content)',
-            'logged_at' => 'minmax(max-content, max-content)',
+            'name' => 'minmax(7em, auto)',
+            'email' => 'minmax(10em, auto)',
+            'role' => 'minmax(max-content, auto)',
+            'logged_at' => 'minmax(7em, auto)',
         ]"
     />
 </section>

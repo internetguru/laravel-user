@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- The user list's columns fit their content, names and e-mails wrap only when space is short, and the last login is aligned right.
+- The user list's columns fit their content and share any spare width, and names, e-mails and last logins wrap only when space is short.
 
 ### Fixed
 
