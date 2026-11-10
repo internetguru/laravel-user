@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use InternetGuru\LaravelCommon\Support\Palette;
 use InternetGuru\LaravelUser\Enums\Role;
 use Tests\TestCase;
 
@@ -13,7 +14,7 @@ class RoleLabelTest extends TestCase
         $html = Role::ADMIN->toLabelHtml();
 
         $this->assertStringContainsString('class="ig-label ig-label-icon"', $html);
-        $this->assertStringContainsString('--ig-label-dot: var(--bs-danger)', $html);
+        $this->assertStringContainsString('--ig-label-dot: ' . Palette::variant('danger'), $html);
         $this->assertStringContainsString('<i class="fa-solid fa-fw fa-user-gear" aria-hidden="true"></i>', $html);
         $this->assertStringContainsString(Role::ADMIN->translation(), $html);
     }
@@ -27,7 +28,7 @@ class RoleLabelTest extends TestCase
             $variants[] = $role->variant();
         }
 
-        $this->assertSame($variants, array_unique($variants), 'Roles of different reach share a colour.');
+        $this->assertSame($variants, array_unique($variants), 'Roles of different reach share a color.');
     }
 
     public function test_the_label_is_the_translation()
