@@ -4,6 +4,7 @@ namespace Tests\Feature\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use InternetGuru\LaravelCommon\Http\Middleware\PreventDuplicateSubmissions;
 use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Enums\Role;
 use Tests\TestCase;
@@ -357,6 +358,8 @@ class UserControllerTest extends TestCase
     public function test_merge_is_idempotent_and_does_not_error()
     {
         config(['ig-user.merge' => true]);
+        // The same form sent twice on purpose, not a duplicate submission.
+        $this->withoutMiddleware(PreventDuplicateSubmissions::class);
 
         $manager = User::factory()->create(['role' => Role::MANAGER]);
         $user = User::factory()->create(['role' => Role::CUSTOMER]);
