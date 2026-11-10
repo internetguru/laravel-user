@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Works with `internetguru/laravel-common` 9.
+
 ## [9.7.1] - 2026-11-07
 
 ### Security

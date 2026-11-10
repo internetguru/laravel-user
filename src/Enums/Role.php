@@ -54,7 +54,7 @@ enum Role: string implements HasLabel
     }
 
     /**
-     * Coloured by how far a role reaches rather than by the role itself, so the
+     * Colored by how far a role reaches rather than by the role itself, so the
      * accounts that can do the most stand out in a list of them.
      */
     public function variant(): ?string
@@ -68,7 +68,7 @@ enum Role: string implements HasLabel
         };
     }
 
-    /** A role is already recognised by its icon, which stands in for the dot. */
+    /** A role is already recognized by its icon, which stands in for the dot. */
     protected function labelIcon(): string
     {
         return 'fa-solid fa-fw ' . $this->icon();
