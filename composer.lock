@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ec9013fc6221196ea2f4dff07e89d30",
+    "content-hash": "668aa3a82423d052c29e85a2ba11fa1f",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1239,16 +1239,16 @@
         },
         {
             "name": "internetguru/laravel-common",
-            "version": "v9.0.1",
+            "version": "v9.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-common.git",
-                "reference": "cf6f8e0a4558823cbc67dc3e41beb60e717eb55d"
+                "reference": "59fd799b83f2c26e04d56e027734e379818b09c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/cf6f8e0a4558823cbc67dc3e41beb60e717eb55d",
-                "reference": "cf6f8e0a4558823cbc67dc3e41beb60e717eb55d",
+                "url": "https://api.github.com/repos/internetguru/laravel-common/zipball/59fd799b83f2c26e04d56e027734e379818b09c6",
+                "reference": "59fd799b83f2c26e04d56e027734e379818b09c6",
                 "shasum": ""
             },
             "require": {
@@ -1294,32 +1294,32 @@
             ],
             "support": {
                 "issues": "https://github.com/internetguru/laravel-common/issues",
-                "source": "https://github.com/internetguru/laravel-common/tree/v9.0.1"
+                "source": "https://github.com/internetguru/laravel-common/tree/v9.4.0"
             },
-            "time": "2026-11-10T08:23:44+00:00"
+            "time": "2026-11-13T20:20:26+00:00"
         },
         {
             "name": "internetguru/laravel-model-browser",
-            "version": "v8.4.0",
+            "version": "v9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/internetguru/laravel-model-browser.git",
-                "reference": "15384cdc6f0c7fdeba3cf07c1d28da70581b4365"
+                "reference": "cc176c334ba6bcd0687d621f2ac0eede34ecf812"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/15384cdc6f0c7fdeba3cf07c1d28da70581b4365",
-                "reference": "15384cdc6f0c7fdeba3cf07c1d28da70581b4365",
+                "url": "https://api.github.com/repos/internetguru/laravel-model-browser/zipball/cc176c334ba6bcd0687d621f2ac0eede34ecf812",
+                "reference": "cc176c334ba6bcd0687d621f2ac0eede34ecf812",
                 "shasum": ""
             },
             "require": {
-                "internetguru/laravel-common": "^7 || ^8 || ^9",
+                "internetguru/laravel-common": "^9.1",
                 "laravel/framework": "^13.0",
                 "livewire/livewire": "^4.0",
                 "php": "^8.4"
             },
             "require-dev": {
-                "internetguru/laravel-common": "^7 || ^8 || ^9",
+                "internetguru/laravel-common": "^9.1",
                 "laravel/pint": "^1.17",
                 "livewire/livewire": "^4.0",
                 "orchestra/testbench": "^11.0",
@@ -1354,9 +1354,9 @@
             "description": "A Laravel package to browse models and show them in a table, autocmplete, etc.",
             "support": {
                 "issues": "https://github.com/internetguru/laravel-model-browser/issues",
-                "source": "https://github.com/internetguru/laravel-model-browser/tree/v8.4.0"
+                "source": "https://github.com/internetguru/laravel-model-browser/tree/v9.0.0"
             },
-            "time": "2026-11-10T08:11:14+00:00"
+            "time": "2026-11-13T21:24:13+00:00"
         },
         {
             "name": "internetguru/laravel-recaptchav3",
