@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Works with `internetguru/laravel-model-browser` 9, so the users list refreshes only when it changed.
+
 ## [9.8.0] - 2026-11-10
 
 _Stable release based on [9.8.0-rc.1]._
@@ -1699,6 +1705,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://github.com/internetguru/laravel-user/compare/staging...dev
 [9.8.0]: https://github.com/internetguru/laravel-user/compare/v9.7.1...v9.8.0
 [9.8.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.7.1
 [9.7.1]: https://github.com/internetguru/laravel-user/compare/v9.7.0...v9.7.1
