@@ -6,6 +6,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Failed sign-ins are logged without credentials: an OAuth account with no matching user logs only its provider and provider id, and a wrong PIN logs the account id instead of the PIN and email.
+- Unexpected errors in PIN and OAuth sign-in are reported with their stack trace, and a failed OAuth callback leaves a notice in the log.
+
+### Security
+
+- A sign-in PIN is accepted only for the email address it was sent to.
+
 ## [9.9.0] - 2026-11-13
 
 _Stable release based on [9.9.0-rc.1]._

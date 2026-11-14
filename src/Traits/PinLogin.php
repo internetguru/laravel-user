@@ -7,6 +7,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 use InternetGuru\LaravelCommon\Support\Helpers;
 use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
 use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
@@ -84,12 +85,14 @@ trait PinLogin
 
         $verifyParams = $email ? ['email' => $email] : [];
 
-        $pinLogin = PinLoginModel::where('pin', $pin)
+        // A PIN is valid only for the address it was sent to
+        $pinLogin = $email === null ? null : PinLoginModel::where('pin', $pin)
+            ->where('email', Str::lower($email))
             ->where('expires_at', '>', now())
             ->first();
 
         if (! $pinLogin) {
-            logger()->warning('Invalid PIN login attempt', ['pin' => $pin, 'email' => $email]);
+            logger()->warning('Invalid PIN login attempt', ['user_id' => User::getByEmail($email)?->id]);
 
             return redirect()->route('pin-login.verify', $verifyParams)
                 ->withErrors(__('ig-user::pin_login.invalid'));

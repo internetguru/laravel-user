@@ -5,6 +5,7 @@ namespace Tests\Feature\Http\Controllers;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use InternetGuru\LaravelRecaptchaV3\RecaptchaV3;
 use InternetGuru\LaravelUser\Models\PinLogin;
@@ -359,6 +360,64 @@ class PinLoginControllerTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHasErrors();
         $this->assertGuest();
+    }
+
+    public function test_verify_pin_of_another_address_is_refused()
+    {
+        Log::spy();
+        $owner = User::factory()->create(['email' => 'owner@example.com']);
+        $other = User::factory()->create(['email' => 'other@example.com']);
+        PinLogin::create([
+            'user_id' => $owner->id,
+            'email' => $owner->email,
+            'pin' => '123456',
+            'expires_at' => now()->addMinutes(10),
+            'remember' => false,
+            'register' => false,
+        ]);
+
+        $response = $this->post(route('pin-login.verify.submit', ['email' => 'other@example.com']), [
+            'pin' => '123456',
+        ]);
+
+        $response->assertSessionHasErrors();
+        $this->assertGuest();
+        $this->assertDatabaseHas('pin_logins', ['email' => 'owner@example.com']);
+        Log::shouldHaveReceived('warning')->with('Invalid PIN login attempt', ['user_id' => $other->id])->once();
+    }
+
+    public function test_verify_pin_without_an_address_is_refused()
+    {
+        $user = User::factory()->create(['email' => 'test@example.com']);
+        PinLogin::create([
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'pin' => '123456',
+            'expires_at' => now()->addMinutes(10),
+            'remember' => false,
+            'register' => false,
+        ]);
+
+        $this->post(route('pin-login.verify.submit'), ['pin' => '123456'])->assertSessionHasErrors();
+
+        $this->assertGuest();
+    }
+
+    public function test_verify_pin_matches_the_address_in_any_case()
+    {
+        $user = User::factory()->create(['email' => 'test@example.com']);
+        PinLogin::create([
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'pin' => '123456',
+            'expires_at' => now()->addMinutes(10),
+            'remember' => false,
+            'register' => false,
+        ]);
+
+        $this->post(route('pin-login.verify.submit', ['email' => 'Test@Example.com']), ['pin' => '123456']);
+
+        $this->assertAuthenticatedAs($user);
     }
 
     public function test_show_pin_verify()

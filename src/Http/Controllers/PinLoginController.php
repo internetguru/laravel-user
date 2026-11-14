@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use InternetGuru\LaravelRecaptchaV3\RecaptchaV3;
 use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
@@ -44,7 +43,7 @@ class PinLoginController extends Controller
             // The account itself is created only once the PIN is verified
             return User::sendPinLogin($email, $remember, $register, $resend);
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
 
             return back()->withInput()->withErrors(__('ig-user::messages.unexpected'));
         }
@@ -73,7 +72,7 @@ class PinLoginController extends Controller
         try {
             return User::pinLogin($request->input('pin'), $request->query('email'));
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
 
             return back()->withErrors(__('ig-user::messages.unexpected'));
         }

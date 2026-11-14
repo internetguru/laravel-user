@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use InternetGuru\LaravelUser\Http\Controllers\SocialiteAuthController;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\User as SocialiteUser;
@@ -88,6 +89,21 @@ class SocialiteAuthControllerTest extends TestCase
         $this->assertEquals('http://localhost', $response->getTargetUrl());
         $this->assertEquals($user->id, Auth::id());
         $this->assertTrue(session()->has('success'));
+    }
+
+    public function test_login_with_unknown_identity_logs_no_provider_token()
+    {
+        Log::spy();
+        $providerUser = new SocialiteUser;
+        $providerUser->map(['id' => '4242', 'email' => 'nobody@example.com', 'name' => 'Nobody']);
+        $providerUser->setToken('secret-token')->setRefreshToken('secret-refresh');
+        $providerMock = Mockery::mock('overload:' . Socialite::class);
+        $providerMock->shouldReceive('driver->stateless->user')->andReturn($providerUser);
+
+        (new SocialiteAuthController)->handleProviderCallback('google', 'login');
+
+        $this->assertGuest();
+        Log::shouldHaveReceived('notice')->with('User not found', ['provider' => 'google', 'provider_id' => '4242'])->once();
     }
 
     public function test_handle_provider_callback_register()
