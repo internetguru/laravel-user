@@ -53,24 +53,20 @@ enum Role: string implements HasLabel
         return $this->translation();
     }
 
-    /**
-     * Colored by how far a role reaches rather than by the role itself, so the
-     * accounts that can do the most stand out in a list of them.
-     */
+    /** None, so each role takes a color of its own from the palette the roles share. */
     public function variant(): ?string
     {
-        return match (true) {
-            $this->level() >= 50 => 'danger',
-            $this->level() >= 40 => 'warning',
-            $this->level() >= 30 => 'info',
-            $this->level() >= 20 => 'primary',
-            default => 'secondary',
-        };
+        return null;
     }
 
     /** A role is already recognized by its icon, which stands in for the dot. */
     protected function labelIcon(): string
     {
         return 'fa-solid fa-fw ' . $this->icon();
+    }
+
+    protected static function labelPaletteSeed(): int|string
+    {
+        return 20;
     }
 }

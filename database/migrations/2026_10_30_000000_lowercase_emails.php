@@ -15,7 +15,7 @@ return new class extends Migration
         $this->lowercase('socialites');
 
         $this->lowercase('users', function (object $row): void {
-            Log::warning('User email left as is, its lowercase form belongs to another user', ['id' => $row->id, 'email' => $row->email]);
+            Log::warning('User email left as is, its lowercase form belongs to another user', ['id' => $row->id]);
         });
 
         // A pending PIN is short-lived, so a duplicate is dropped rather than kept.
