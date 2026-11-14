@@ -508,6 +508,12 @@ In demo mode (`app.demo`), register both with `demo: true` from a file that turn
 
 The tests use the application's `UserFactory` with `withRole()` and fake notifications.
 
+## Considerations
+
+Changes worth considering that were not carried out yet: what to do and why.
+
+- **Security: keep the address out of the PIN link.** The PIN sign-in e-mail links to `pin-login.verify?email=…`, so the address lands in web server access logs, browser history and any proxy on the way. Link with a short-lived signed token for the PIN login instead, and read the address from it.
+
 ## License & Commercial Terms
 
 ### License
