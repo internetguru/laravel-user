@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.10.0] - 2026-11-14
+
+_Stable release based on [9.10.0-rc.1]._
+
+## [9.10.0-rc.1] - 2026-11-14
+
+### Changed
+
+- Roles take their label colors from the shared palette, turned by `Role::labelPaletteSeed()`, instead of a theme color by how far each role reaches.
+- Failed sign-ins are logged without credentials: an OAuth account with no matching user logs only its provider and provider id, and a wrong PIN logs the account id instead of the PIN and email.
+- Unexpected errors in PIN and OAuth sign-in are reported with their stack trace, and a failed OAuth callback leaves a notice in the log.
+
+### Security
+
+- A sign-in PIN is accepted only for the email address it was sent to.
+
 ## [9.9.0] - 2026-11-13
 
 _Stable release based on [9.9.0-rc.1]._
@@ -1709,6 +1725,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[9.10.0]: https://github.com/internetguru/laravel-user/compare/v9.9.0...v9.10.0
+[9.10.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.9.0
 [9.9.0]: https://github.com/internetguru/laravel-user/compare/v9.8.0...v9.9.0
 [9.9.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.8.0
 [9.8.0]: https://github.com/internetguru/laravel-user/compare/v9.7.1...v9.8.0

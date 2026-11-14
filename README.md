@@ -96,19 +96,19 @@ Set `enabled` to `false` in `config/services.php` for any provider to hide it fr
 
 The package ships with a five-level `Role` enum. Applications can override `User::roles()` to return a custom enum.
 
-| Role | Level | Icon | Colour |
-|---|---|---|---|
-| `CUSTOMER` | 10 | `fa-user` | `secondary` |
-| `OPERATOR` | 20 | `fa-user-nurse` | `primary` |
-| `SUPERVISOR` | 30 | `fa-user-shield` | `info` |
-| `MANAGER` | 40 | `fa-user-tie` | `warning` |
-| `ADMIN` | 50 | `fa-user-gear` | `danger` |
+| Role | Level | Icon |
+|---|---|---|
+| `CUSTOMER` | 10 | `fa-user` |
+| `OPERATOR` | 20 | `fa-user-nurse` |
+| `SUPERVISOR` | 30 | `fa-user-shield` |
+| `MANAGER` | 40 | `fa-user-tie` |
+| `ADMIN` | 50 | `fa-user-gear` |
 
 Each case exposes `level()`, `icon()`, and `translation()` methods.
 
 `Role` implements laravel-common's `HasLabel`, so `$role->toLabelHtml()` gives the role as a label:
-its name in plain text on white, with its own icon in place of the dot, coloured by how far the role
-reaches. A custom roles enum wanting the same should implement `HasLabel` and use `RendersLabel`; one that does not is shown as plain text.
+its name in plain text on white, with its own icon in place of the dot. Each role takes a color of its own
+from the palette the roles share, turned by the enum's `labelPaletteSeed()`. A custom roles enum wanting the same should implement `HasLabel` and use `RendersLabel`; one that does not is shown as plain text.
 
 The user list shows the role through `formatUserRoleLabel`; `formatUserRole` stays plain text, which
 is what the column sorts on and what an exported cell holds. `formatUserRoleLabelSlim` gives the same
@@ -507,6 +507,12 @@ In demo mode (`app.demo`), register both with `demo: true` from a file that turn
 | `registerBrowser()` | Signing in and registering by typing the e-mailed PIN, which submits itself, and a wrong PIN (or signing in from the demo list with `demo: true`); renaming a user on the detail page. |
 
 The tests use the application's `UserFactory` with `withRole()` and fake notifications.
+
+## Considerations
+
+Changes worth considering that were not carried out yet: what to do and why.
+
+- **Security: keep the address out of the PIN link.** The PIN sign-in e-mail links to `pin-login.verify?email=…`, so the address lands in web server access logs, browser history and any proxy on the way. Link with a short-lived signed token for the PIN login instead, and read the address from it.
 
 ## License & Commercial Terms
 

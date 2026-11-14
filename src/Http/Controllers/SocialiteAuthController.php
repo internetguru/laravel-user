@@ -71,8 +71,8 @@ class SocialiteAuthController extends Controller
             return Socialite::driver($provider->value)->with(['state' => $encodedBaseUrl])->redirect();
         } catch (AuthCheckException $e) {
             return back()->withErrors($e->getMessage());
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
+        } catch (Exception $e) {
+            report($e);
 
             return back()->withErrors(__('ig-user::messages.unexpected'));
         }
@@ -94,6 +94,8 @@ class SocialiteAuthController extends Controller
         try {
             $providerUser = Socialite::driver($provider->value)->stateless()->user();
         } catch (Exception $e) {
+            // Usually the person cancelled at the provider, so this is not reported as an error
+            Log::notice('OAuth callback failed', ['provider' => $provider->value, 'exception' => $e::class]);
             [, $backUrl] = User::getAuthSessions();
 
             return redirect()->to($backUrl)->withErrors(__('ig-user::auth.error'));
@@ -121,8 +123,8 @@ class SocialiteAuthController extends Controller
             [, $backUrl] = User::getAuthSessions();
 
             return redirect()->to($backUrl)->withErrors($e->getMessage());
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
+        } catch (Exception $e) {
+            report($e);
             [, $backUrl] = User::getAuthSessions();
 
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.unexpected'));

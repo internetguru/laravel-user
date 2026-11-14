@@ -62,7 +62,7 @@ trait SocialiteAuth
 
         // If still not found, abort
         if (! $user) {
-            Log::info('User not found', ['provider_user' => $providerUser]);
+            Log::notice('User not found', ['provider' => $provider->value, 'provider_id' => $providerUser->id]);
 
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.identity.notfound', ['email' => $providerUser->email]));
         }
