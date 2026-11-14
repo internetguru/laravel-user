@@ -14,21 +14,18 @@ class RoleLabelTest extends TestCase
         $html = Role::ADMIN->toLabelHtml();
 
         $this->assertStringContainsString('class="ig-label ig-label-icon"', $html);
-        $this->assertStringContainsString('--ig-label-dot: ' . Palette::variant('danger'), $html);
+        $this->assertStringContainsString('--ig-label-dot: ' . Role::labelColors()['ADMIN'], $html);
         $this->assertStringContainsString('<i class="fa-solid fa-fw fa-user-gear" aria-hidden="true"></i>', $html);
         $this->assertStringContainsString(Role::ADMIN->translation(), $html);
     }
 
-    public function test_every_role_is_coloured_by_how_far_it_reaches()
+    public function test_every_role_takes_a_color_of_its_own_from_the_palette()
     {
-        $variants = [];
+        $colors = Role::labelColors();
 
-        foreach (Role::cases() as $role) {
-            $this->assertContains($role->variant(), ['secondary', 'primary', 'info', 'warning', 'danger']);
-            $variants[] = $role->variant();
-        }
-
-        $this->assertSame($variants, array_unique($variants), 'Roles of different reach share a color.');
+        $this->assertSame(array_column(Role::cases(), 'name'), array_keys($colors));
+        $this->assertSame($colors, array_unique($colors), 'Two roles share a color.');
+        $this->assertSame(Palette::color(0, 20), $colors['CUSTOMER']);
     }
 
     public function test_the_label_is_the_translation()

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- Roles take their label colors from the shared palette, turned by `Role::labelPaletteSeed()`, instead of a theme color by how far each role reaches.
 - Failed sign-ins are logged without credentials: an OAuth account with no matching user logs only its provider and provider id, and a wrong PIN logs the account id instead of the PIN and email.
 - Unexpected errors in PIN and OAuth sign-in are reported with their stack trace, and a failed OAuth callback leaves a notice in the log.
 
