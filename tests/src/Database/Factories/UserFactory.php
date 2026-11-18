@@ -2,12 +2,19 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use InternetGuru\LaravelUser\Enums\Role;
+use InternetGuru\LaravelUser\Traits\WithSocialite;
 
+/**
+ * @extends Factory<User>
+ */
 class UserFactory extends Factory
 {
+    use WithSocialite;
+
     protected static ?string $password;
 
     public function definition(): array

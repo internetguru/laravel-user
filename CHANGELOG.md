@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- `User::preferredLocale()` returns null for a user without a language instead of throwing a TypeError.
+
 ## [9.10.0] - 2026-11-14
 
 _Stable release based on [9.10.0-rc.1]._

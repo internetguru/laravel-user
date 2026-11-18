@@ -5,6 +5,7 @@ namespace InternetGuru\LaravelUser\Models;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,12 +16,21 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use InternetGuru\LaravelCommon\Traits\AssociationHistory;
 use InternetGuru\LaravelUser\Enums\Provider;
+use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Traits\BaseAuth;
 use InternetGuru\LaravelUser\Traits\MergedAccounts;
 use InternetGuru\LaravelUser\Traits\PinLogin;
 use InternetGuru\LaravelUser\Traits\SocialiteAuth;
 use Internetguru\ModelBrowser\Traits\HasModelBrowserFilters;
 
+/**
+ * @property string $email
+ * @property Role $role
+ *
+ * @method bool isAdmin()
+ *
+ * @phpstan-consistent-constructor
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use AssociationHistory;
@@ -34,6 +44,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use PinLogin;
     use SocialiteAuth;
 
+    /** @var list<string> */
     protected array $associationHistoryTracked = [
         'name',
         'email',
@@ -42,6 +53,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         'lang',
     ];
 
+    /** @var string */
     protected $modelBrowserFilterSessionKey = 'laravel-user-user-filters';
 
     protected $fillable = [
@@ -104,6 +116,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     /**
      * Dynamic is{Role}() and is{Role}Plus() checks.
      * E.g. $user->isAdmin(), $user->isOperatorPlus().
+     *
+     * @param  string  $method
+     * @param  array<int, mixed>  $parameters
+     * @return mixed
      */
     public function __call($method, $parameters)
     {
@@ -127,16 +143,22 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return parent::__call($method, $parameters);
     }
 
+    /**
+     * @return class-string<Provider>
+     */
     public static function providers(): string
     {
         return Provider::class;
     }
 
-    public function preferredLocale(): string
+    public function preferredLocale(): ?string
     {
         return $this->lang;
     }
 
+    /**
+     * @return array<int, Role>
+     */
     public static function publicRolesArray(): array
     {
         return array_filter(
@@ -145,6 +167,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         );
     }
 
+    /**
+     * @return array<int, array{id: string, name: string}>
+     */
     public static function getDemoUsers(): array
     {
         return self::all()
@@ -155,9 +180,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
                     'id' => $user->email,
                     'name' => $user->name . ' (' . $user->role->translation() . ')',
                 ]
-            )->values()->toArray();
+            )->values()->all();
     }
 
+    /**
+     * @return list<array{id: string, name: string}>
+     */
     public static function roleOptions(): array
     {
         return array_map(
@@ -169,11 +197,18 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         );
     }
 
+    /**
+     * @param  mixed  $notification
+     * @return array<string, string>
+     */
     public function routeNotificationForMail($notification)
     {
         return [$this->email => $this->name];
     }
 
+    /**
+     * @return HasMany<UserPreference, $this>
+     */
     public function preferences(): HasMany
     {
         return $this->hasMany(UserPreference::class);
@@ -200,6 +235,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * Who created the account does not enter into it. An account a member of
      * staff opened on a customer's behalf and one that opened itself are the
      * same thing until the person it belongs to actually uses it.
+     *
+     * @param  Builder<static>  $query
+     * @return Builder<static>
      */
     public function scopeLoggedIn($query)
     {
@@ -211,15 +249,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * Accounts nobody has ever signed in to are left out unless the list's
      * `never-logged-in` filter asks for them.
+     *
+     * @return Builder<static>
      */
     public static function summary()
     {
         $includeNeverLoggedIn = (bool) (new static)->getModelBrowserFilter('never-logged-in');
+        /** @var User|null $authUser */
+        $authUser = auth()->user();
 
         return static::query()
             ->unless($includeNeverLoggedIn, fn ($query) => $query->loggedIn())
             ->when(
-                ! auth()?->user()?->isAdmin(),
+                ! $authUser?->isAdmin(),
                 fn ($query) => $query->where('role', '!=', static::roles()::ADMIN->value)
             );
     }

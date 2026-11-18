@@ -4,6 +4,7 @@ namespace InternetGuru\LaravelUser\Support;
 
 use App\Models\User;
 use BackedEnum;
+use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Models\User as BaseUser;
 use ReflectionNamedType;
 use ReflectionParameter;
@@ -24,6 +25,8 @@ class PolicyArgumentResolver
     /**
      * A null role stands for a signed-out visitor, so every account argument becomes null and
      * an ability insisting on a real account drops out of the summary on its own.
+     *
+     * @param  Role|null  $role
      */
     public function resolve(ReflectionParameter $parameter, ?BackedEnum $role): mixed
     {
@@ -59,6 +62,8 @@ class PolicyArgumentResolver
      *
      * Both the acting and the target account get the same role, so an ability comparing the two
      * reads as "what a role may do to its own peer".
+     *
+     * @param  Role  $role
      */
     protected function user(BackedEnum $role): BaseUser
     {
@@ -69,10 +74,13 @@ class PolicyArgumentResolver
         return $user;
     }
 
+    /**
+     * @return Role
+     */
     protected function lowestRole(): BackedEnum
     {
         $roles = User::roles()::cases();
-        usort($roles, fn (BackedEnum $a, BackedEnum $b): int => $a->level() <=> $b->level());
+        usort($roles, fn ($a, $b): int => $a->level() <=> $b->level());
 
         return $roles[0];
     }

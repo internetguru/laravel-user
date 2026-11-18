@@ -4,6 +4,7 @@ namespace InternetGuru\LaravelUser\Notifications;
 
 use App\Models\User;
 use Illuminate\Notifications\Messages\MailMessage;
+use InternetGuru\LaravelCommon\Mail\MailMessage as IgMailMessage;
 use InternetGuru\LaravelCommon\Notifications\BaseNotification;
 use InternetGuru\LaravelUser\Models\PinLogin;
 
@@ -20,7 +21,10 @@ class PinLoginNotification extends BaseNotification
         $url = route('pin-login.verify', ['email' => $this->pinLogin->email]);
         $formattedPin = User::formatPin($this->pinLogin->pin);
 
-        return parent::toMail($notifiable)
+        /** @var IgMailMessage $message */
+        $message = parent::toMail($notifiable);
+
+        return $message
             ->withoutRefNumber()
             ->subject(__('ig-user::pin_login.subject'))
             ->view(

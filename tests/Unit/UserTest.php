@@ -156,4 +156,11 @@ class UserTest extends TestCase
         $this->assertContains(Role::MANAGER, $roles);
         $this->assertContains(Role::CUSTOMER, $roles);
     }
+
+    public function test_preferred_locale_is_null_without_a_language()
+    {
+        $user = User::factory()->create(['lang' => null]);
+
+        $this->assertNull($user->preferredLocale());
+    }
 }

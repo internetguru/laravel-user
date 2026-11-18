@@ -1,11 +1,18 @@
 includes:
     - vendor/larastan/larastan/extension.neon
+    # Knows the Carbon macros laravel-common registers
+    - vendor/nesbot/carbon/extension.neon
     - vendor/internetguru/laravel-scripts/phpstan/ig.neon
     - phpstan-baseline.neon
 
 parameters:
     paths:
         - src/
+    # Larastan reads the model columns from these
+    databaseMigrationsPath:
+        # Laravel's own tables, such as users, which this package extends
+        - vendor/orchestra/testbench-core/laravel/migrations
+        - database/migrations
     excludePaths:
         # Pest helpers for the applications; Pest is not installed here
         - src/Testing/UserTests.php

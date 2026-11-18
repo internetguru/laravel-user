@@ -12,6 +12,8 @@ class SeznamProvider extends AbstractProvider
 
     /**
      * {@inheritdoc}
+     *
+     * @var array<int, string>
      */
     protected $scopes = ['identity'];
 
@@ -47,6 +49,8 @@ class SeznamProvider extends AbstractProvider
 
     /**
      * {@inheritdoc}
+     *
+     * @param  array<string, mixed>  $user
      */
     protected function mapUserToObject(array $user)
     {

@@ -31,6 +31,8 @@ trait MergedAccounts
     /**
      * Per-instance memo. Never make this static or container-bound: under Octane that would
      * leak across requests.
+     *
+     * @var array<int, string>|null
      */
     protected ?array $mergedIdsCache = null;
 
@@ -209,12 +211,14 @@ trait MergedAccounts
         // Lowercased because whereLikeUnaccented falls back to a plain LIKE for an accented
         // search value, and SQLite's LIKE only folds case for ASCII: without this, "NOVÁK"
         // would miss "Novák" while "novak" and "Novák" both find it.
-        $terms = array_map(mb_strtolower(...), array_filter(preg_split('/\s+/', (string) $search)));
+        $terms = array_map(mb_strtolower(...), array_filter(preg_split('/\s+/', (string) $search) ?: []));
         $mergedIds = $for->mergedIds();
+        /** @var User|null $authUser */
+        $authUser = auth()->user();
 
         return User::whereKeyNot($for->getKey())
             ->when(
-                ! auth()?->user()?->isAdmin(),
+                ! $authUser?->isAdmin(),
                 fn ($query) => $query->where('role', '!=', User::roles()::ADMIN->value)
             )
             ->tap(function ($query) use ($terms) {
@@ -263,7 +267,7 @@ trait MergedAccounts
         $members = array_unique(array_merge($this->mergedIds(), $other->mergedIds()));
         sort($members);
 
-        return array_values($members);
+        return $members;
     }
 
     /**
@@ -315,7 +319,7 @@ trait MergedAccounts
      * Every unordered, normalized pair within a group.
      *
      * @param  array<int, string>  $members
-     * @return array<int, array{0: string, 1: string}>
+     * @return array<int, array{0: int, 1: int}>
      */
     private function pairs(array $members): array
     {

@@ -13,6 +13,9 @@ trait BaseAuth
 {
     public const MANAGER_LEVEL = 40;
 
+    /**
+     * @return class-string<Role>
+     */
     public static function roles(): string
     {
         return Role::class;
@@ -39,6 +42,9 @@ trait BaseAuth
         ]);
     }
 
+    /**
+     * @return array{0: string|null, 1: string, 2: bool}
+     */
     public static function getAuthSessions(): array
     {
         return [
