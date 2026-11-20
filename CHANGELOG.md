@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.11.0] - 2026-11-20
+
+_Stable release based on [9.11.0-rc.1]._
+
+## [9.11.0-rc.1] - 2026-11-20
+
+### Changed
+
+- Works with laravel-common 10.
+
+### Fixed
+
+- `User::preferredLocale()` returns null for a user without a language instead of throwing a TypeError.
+
 ## [9.10.0] - 2026-11-14
 
 _Stable release based on [9.10.0-rc.1]._
@@ -1725,6 +1739,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[9.11.0]: https://github.com/internetguru/laravel-user/compare/v9.10.0...v9.11.0
+[9.11.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.10.0
 [9.10.0]: https://github.com/internetguru/laravel-user/compare/v9.9.0...v9.10.0
 [9.10.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.9.0
 [9.9.0]: https://github.com/internetguru/laravel-user/compare/v9.8.0...v9.9.0

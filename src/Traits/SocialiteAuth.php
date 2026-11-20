@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use InternetGuru\LaravelUser\Enums\Provider;
 use InternetGuru\LaravelUser\Models\Socialite;
 use InternetGuru\LaravelUser\Rules\PersonName;
 use Laravel\Socialite\Two\User as SocialiteUser;
@@ -19,6 +20,9 @@ trait SocialiteAuth
         return $this->hasMany(Socialite::class);
     }
 
+    /**
+     * @param  Provider  $provider
+     */
     public static function getBySocialiteProvider($provider, string $providerId): ?User
     {
         return Socialite::where('provider', $provider)
@@ -47,6 +51,9 @@ trait SocialiteAuth
         return PersonName::isValid($name) ? $name : User::nameFromEmail((string) $providerUser->email);
     }
 
+    /**
+     * @param  Provider  $provider
+     */
     public static function socialiteLoginAndConnect($provider, SocialiteUser $providerUser): RedirectResponse
     {
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
@@ -78,8 +85,13 @@ trait SocialiteAuth
         return User::successLoginRedirect($user);
     }
 
+    /**
+     * @param  Provider  $provider
+     */
     public static function socialiteConnect($provider, SocialiteUser $providerUser): RedirectResponse
     {
+        /** @var User $authUser */
+        $authUser = auth()->user();
         $user = User::getBySocialiteProvider($provider, $providerUser->id);
 
         if ($user) {
@@ -96,20 +108,23 @@ trait SocialiteAuth
                 'name' => User::socialiteName($providerUser),
                 'email' => $providerUser->email,
             ]);
-            auth()->user()
+            $authUser
                 ->socialites()
                 ->save($socialite);
         }
 
-        auth()->user()->associationHistories()->create([
+        $authUser->associationHistories()->create([
             'column_name' => 'socialite',
             'column_prev_value' => 'disconnected:' . $provider->value,
             'author_id' => auth()->id(),
         ]);
 
-        return redirect()->to(route('users.show', ['user' => auth()->user()]))->with('success', __('ig-user::messages.connect.success'));
+        return redirect()->to(route('users.show', ['user' => $authUser]))->with('success', __('ig-user::messages.connect.success'));
     }
 
+    /**
+     * @param  Provider  $provider
+     */
     public static function socialiteRegister($provider, SocialiteUser $providerUser): RedirectResponse
     {
         [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
@@ -152,7 +167,7 @@ trait SocialiteAuth
         $user->socialites()->save($socialite);
 
         auth()->login($user, $remember);
-        User::authenticated(auth()->user());
+        User::authenticated($user);
 
         $user->associationHistories()->create([
             'column_name' => 'socialite',
@@ -163,15 +178,21 @@ trait SocialiteAuth
         return User::successLoginRedirect($user);
     }
 
+    /**
+     * @param  Provider  $provider
+     */
     public function socialiteDisconnect($provider): RedirectResponse
     {
+        /** @var User $authUser */
+        $authUser = auth()->user();
+
         // Allow disconnect with leaving the user without any socialite
         $this->socialites()
             ->where('provider', $provider)
             ->firstOrFail()
             ->delete();
 
-        auth()->user()->associationHistories()->create([
+        $authUser->associationHistories()->create([
             'column_name' => 'socialite',
             'column_prev_value' => 'connected:' . $provider->value,
             'author_id' => auth()->id(),

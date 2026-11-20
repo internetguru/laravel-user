@@ -65,7 +65,7 @@ enum Role: string implements HasLabel
         return 'fa-solid fa-fw ' . $this->icon();
     }
 
-    protected static function labelPaletteSeed(): int|string
+    protected static function labelPaletteSeed(): int
     {
         return 20;
     }

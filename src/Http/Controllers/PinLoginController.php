@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 use InternetGuru\LaravelRecaptchaV3\RecaptchaV3;
 use InternetGuru\LaravelUser\Models\PinLogin as PinLoginModel;
 
@@ -51,6 +52,8 @@ class PinLoginController extends Controller
 
     /**
      * Show PIN verification form
+     *
+     * @return View
      */
     public function showPinVerify(Request $request)
     {

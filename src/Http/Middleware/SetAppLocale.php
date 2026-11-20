@@ -4,6 +4,7 @@ namespace InternetGuru\LaravelUser\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use InternetGuru\LaravelUser\Models\User;
 
 class SetAppLocale
 {
@@ -114,6 +115,7 @@ class SetAppLocale
     {
         session(['locale' => $lang]);
         if ($userSave && auth()->check()) {
+            /** @var User $user */
             $user = auth()->user();
             $user->lang = $lang;
             $user->save();
@@ -139,10 +141,15 @@ class SetAppLocale
         return (string) current(array_keys($languages));
     }
 
+    /**
+     * @param  array<string, mixed>  $languages
+     */
     private function getExplicitLocale(array $languages): ?string
     {
-        if (auth()->check() && in_array(auth()->user()->lang, array_keys($languages))) {
-            return auth()->user()->lang;
+        /** @var User|null $user */
+        $user = auth()->user();
+        if ($user && in_array($user->lang, array_keys($languages))) {
+            return $user->lang;
         }
 
         if (session()->has('locale') && in_array(session('locale'), array_keys($languages))) {
