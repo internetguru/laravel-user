@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- Works with laravel-common 10.
+
 ### Fixed
 
 - `User::preferredLocale()` returns null for a user without a language instead of throwing a TypeError.
