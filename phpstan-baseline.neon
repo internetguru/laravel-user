@@ -1,18 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Parameter \#1 \$a of static method InternetGuru\\LaravelUser\\Models\\UserMerge\:\:normalize\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: src/Models/User.php
-
-		-
-			message: '#^Parameter \#2 \$b of static method InternetGuru\\LaravelUser\\Models\\UserMerge\:\:normalize\(\) expects int, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: src/Models/User.php
-
-		-
 			message: '#^Call to an undefined method InternetGuru\\LaravelCommon\\Contracts\\HasLabel\:\:toLabelHtml\(\)\.$#'
 			identifier: method.notFound
 			count: 2

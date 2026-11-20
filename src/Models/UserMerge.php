@@ -23,9 +23,9 @@ class UserMerge extends Model
     /**
      * Order a pair of user ids so the same link can never be stored in mirror form.
      *
-     * @return array{0: int, 1: int}
+     * @return array{0: int|string, 1: int|string}
      */
-    public static function normalize(int $a, int $b): array
+    public static function normalize(int|string $a, int|string $b): array
     {
         return $a < $b ? [$a, $b] : [$b, $a];
     }

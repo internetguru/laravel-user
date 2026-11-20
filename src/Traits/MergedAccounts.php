@@ -319,7 +319,7 @@ trait MergedAccounts
      * Every unordered, normalized pair within a group.
      *
      * @param  array<int, string>  $members
-     * @return array<int, array{0: int, 1: int}>
+     * @return array<int, array{0: int|string, 1: int|string}>
      */
     private function pairs(array $members): array
     {
