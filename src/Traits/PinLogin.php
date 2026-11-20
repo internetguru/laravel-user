@@ -41,7 +41,7 @@ trait PinLogin
 
         $attributes = [
             'user_id' => $userId,
-            'pin' => str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT),
+            'pin' => str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT),
             'expires_at' => now()->addMinutes(10),
         ];
 
@@ -116,7 +116,7 @@ trait PinLogin
         }
 
         auth()->login($user, $remember);
-        User::authenticated(auth()->user());
+        User::authenticated($user);
 
         return User::successLoginRedirect($user);
     }

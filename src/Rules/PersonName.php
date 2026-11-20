@@ -27,10 +27,10 @@ class PersonName implements ValidationRule
      */
     public static function fromEmail(string $email): string
     {
-        $localPart = preg_replace('/\+.*/', '', Str::before($email, '@'));
+        $localPart = (string) preg_replace('/\+.*/', '', Str::before($email, '@'));
         $name = self::clean($localPart);
 
-        $withoutTrailingDigits = rtrim(preg_replace('/[\p{N}\s]+$/u', '', $name));
+        $withoutTrailingDigits = rtrim((string) preg_replace('/[\p{N}\s]+$/u', '', $name));
         if (self::hasEnoughAlphanumerics($withoutTrailingDigits)) {
             $name = $withoutTrailingDigits;
         }
@@ -56,8 +56,8 @@ class PersonName implements ValidationRule
      */
     private static function clean(string $value): string
     {
-        $value = preg_replace('/(?<![\p{L}\p{N}])(\p{L}{1,2})\./u', "$1\x01 ", $value);
-        $value = preg_replace('/[^\p{L}\p{N}\x01]+/u', ' ', $value);
+        $value = (string) preg_replace('/(?<![\p{L}\p{N}])(\p{L}{1,2})\./u', "$1\x01 ", $value);
+        $value = (string) preg_replace('/[^\p{L}\p{N}\x01]+/u', ' ', $value);
 
         return Str::squish(str_replace("\x01", '.', $value));
     }

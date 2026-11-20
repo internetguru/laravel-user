@@ -8,6 +8,9 @@ enum Provider: string
     case FACEBOOK = 'facebook';
     case SEZNAM = 'seznam';
 
+    /**
+     * @return list<self>
+     */
     public static function enabledCases(): array
     {
         return array_values(

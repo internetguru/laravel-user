@@ -2,7 +2,7 @@
 
 namespace InternetGuru\LaravelUser\Traits;
 
-trait WithSocialite
+trait WithSocialite // @phpstan-ignore trait.unused (used by the application's UserFactory)
 {
     public function withSocialite($provider, $providerId, $name, $email = null)
     {

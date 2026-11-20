@@ -18,6 +18,9 @@ class LaravelUserServiceProvider extends ServiceProvider
         //
     }
 
+    /**
+     * @return void
+     */
     public function boot()
     {
         // test session.expire_on_close is set to true and lifetime is set to 2 hours
@@ -82,7 +85,7 @@ class LaravelUserServiceProvider extends ServiceProvider
      */
     private function registerSanitizeTypes(): void
     {
-        $config = $this->app['config'];
+        $config = $this->app->make('config');
         $types = $config->get('ig-common.sanitize.types');
 
         if (! is_array($types)) {

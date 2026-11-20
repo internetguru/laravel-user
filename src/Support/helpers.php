@@ -2,12 +2,19 @@
 
 use Carbon\Carbon;
 use InternetGuru\LaravelCommon\Contracts\HasLabel;
+use InternetGuru\LaravelUser\Models\User;
 
+/**
+ * @param  User  $user
+ */
 function getYouSuffix(object $user): string
 {
     return auth()->id() === $user->id ? ' (' . __('ig-user::user.you') . ')' : '';
 }
 
+/**
+ * @param  User  $user
+ */
 function formatUserNameLink(string $name, object $user): string
 {
     return sprintf('<a href="%s">%s</a>%s', route('users.show', $user), $name, getYouSuffix($user));
@@ -20,6 +27,8 @@ function formatUserEmail(string $email): string
 
 /**
  * A role as plain text, for sorting a column on it and for an exported cell.
+ *
+ * @param  mixed  $role
  */
 function formatUserRole($role): string
 {
@@ -30,6 +39,8 @@ function formatUserRole($role): string
  * A role as a label, for a column read on screen. An application may put its
  * own enum in place of the packaged Role; one that says nothing about how it
  * should look is left as plain text rather than refused.
+ *
+ * @param  mixed  $role
  */
 function formatUserRoleLabel($role): string
 {
@@ -41,12 +52,17 @@ function formatUserRoleLabel($role): string
  * a column of its own. Kept apart from formatUserRoleLabel rather than given a
  * flag: that one is a model browser column formatter, which is handed the row
  * itself as a second argument.
+ *
+ * @param  mixed  $role
  */
 function formatUserRoleLabelSlim($role): string
 {
     return $role instanceof HasLabel ? $role->toLabelHtml(slim: true) : formatUserRole($role);
 }
 
+/**
+ * @param  DateTimeInterface|string|null  $loggedAt
+ */
 function formatUserLoggedAt($loggedAt): string
 {
     return Carbon::parse($loggedAt)->toDisplayTimezone()->dateTimeForHumans();

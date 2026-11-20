@@ -3,14 +3,21 @@
 namespace InternetGuru\LaravelUser\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
+use InternetGuru\LaravelUser\Enums\Role;
 use InternetGuru\LaravelUser\Rules\PersonName;
 
 class UserController extends Controller
 {
+    /**
+     * @return View
+     */
     public function index()
     {
         return view('ig-common::layouts.base', [
@@ -22,6 +29,9 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @return View
+     */
     public function show(User $user)
     {
         return view('ig-common::layouts.base', [
@@ -31,6 +41,9 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function update(Request $request, User $user)
     {
         if ($request->has('name')) {
@@ -68,6 +81,8 @@ class UserController extends Controller
      * Backs the candidate picker on installations too large to embed the whole list in the page.
      * Both subjects of `merge` are this user: the picker itself is only rendered for someone who
      * may merge this account, and every candidate is authorized again on submit.
+     *
+     * @return JsonResponse
      */
     public function mergeCandidates(Request $request, User $user)
     {
@@ -84,6 +99,8 @@ class UserController extends Controller
 
     /**
      * Add another account to this user's merged group.
+     *
+     * @return RedirectResponse
      */
     public function merge(Request $request, User $user)
     {
@@ -101,6 +118,8 @@ class UserController extends Controller
 
     /**
      * Split an account back out of this user's merged group.
+     *
+     * @return RedirectResponse
      */
     public function unmerge(Request $request, User $user)
     {
@@ -135,7 +154,7 @@ class UserController extends Controller
         return $mergeUser;
     }
 
-    private function updateName(Request $request, User $user)
+    private function updateName(Request $request, User $user): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255', new PersonName],
@@ -146,7 +165,7 @@ class UserController extends Controller
         return back()->with('success', __('ig-user::user.update.name'));
     }
 
-    private function updateEmail(Request $request, User $user)
+    private function updateEmail(Request $request, User $user): RedirectResponse
     {
         $request->validate([
             'email' => 'required|string|email:rfc,dns|max:255|unique:users,email,' . $user->id,
@@ -159,7 +178,7 @@ class UserController extends Controller
         return back()->with('success', __('ig-user::user.update.email'));
     }
 
-    private function updatePhone(Request $request, User $user)
+    private function updatePhone(Request $request, User $user): RedirectResponse
     {
         $request->validate([
             'phone' => 'nullable|string|max:50',
@@ -170,7 +189,10 @@ class UserController extends Controller
         return back()->with('success', __('ig-user::user.update.phone'));
     }
 
-    private function updateRole(Request $request, User $user, $role)
+    /**
+     * @param  Role  $role
+     */
+    private function updateRole(Request $request, User $user, $role): RedirectResponse
     {
         $user->role = $role;
         $user->save();

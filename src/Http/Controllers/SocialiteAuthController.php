@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\URL;
 use InternetGuru\LaravelUser\Enums\ProviderAction;
 use InternetGuru\LaravelUser\Exceptions\AuthCheckException;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\AbstractProvider;
+use Laravel\Socialite\Two\User as SocialiteUser;
 use ValueError;
 
 class SocialiteAuthController extends Controller
@@ -47,7 +49,10 @@ class SocialiteAuthController extends Controller
                 case ProviderAction::DISCONNECT:
                     $this->loginRequired();
 
-                    return auth()->user()->socialiteDisconnect($provider);
+                    /** @var User $user */
+                    $user = auth()->user();
+
+                    return $user->socialiteDisconnect($provider);
                 case ProviderAction::LOGIN:
                 case ProviderAction::REGISTER:
                     $this->loginForbidden();
@@ -68,7 +73,10 @@ class SocialiteAuthController extends Controller
             $baseUrl = URL::to("/socialite/$provider->value/$action->value/callback");
             $encodedBaseUrl = urlencode($baseUrl);
 
-            return Socialite::driver($provider->value)->with(['state' => $encodedBaseUrl])->redirect();
+            /** @var AbstractProvider $driver */
+            $driver = Socialite::driver($provider->value);
+
+            return $driver->with(['state' => $encodedBaseUrl])->redirect();
         } catch (AuthCheckException $e) {
             return back()->withErrors($e->getMessage());
         } catch (Exception $e) {
@@ -92,7 +100,10 @@ class SocialiteAuthController extends Controller
         }
 
         try {
-            $providerUser = Socialite::driver($provider->value)->stateless()->user();
+            /** @var AbstractProvider $driver */
+            $driver = Socialite::driver($provider->value);
+            /** @var SocialiteUser $providerUser */
+            $providerUser = $driver->stateless()->user();
         } catch (Exception $e) {
             // Usually the person cancelled at the provider, so this is not reported as an error
             Log::notice('OAuth callback failed', ['provider' => $provider->value, 'exception' => $e::class]);

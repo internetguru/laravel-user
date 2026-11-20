@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
+use InternetGuru\LaravelUser\Enums\Role;
 use ReflectionClass;
 use ReflectionMethod;
 use ReflectionParameter;
@@ -183,12 +184,12 @@ class PermissionSummary
     /**
      * Roles the summary describes, from the least to the most privileged.
      *
-     * @return list<BackedEnum>
+     * @return list<Role>
      */
     public function roles(): array
     {
         $roles = array_values(User::publicRolesArray());
-        usort($roles, fn (BackedEnum $a, BackedEnum $b): int => $a->level() <=> $b->level());
+        usort($roles, fn ($a, $b): int => $a->level() <=> $b->level());
 
         return $roles;
     }
@@ -273,6 +274,7 @@ class PermissionSummary
     }
 
     /**
+     * @param  class-string  $className
      * @return list<ReflectionMethod>
      */
     protected function abilities(string $className): array
@@ -294,6 +296,8 @@ class PermissionSummary
      * does not know, or a policy that needs more context than a sample object carries. Such an
      * ability is left out entirely instead of being reported as denied.
      *
+     * @param  class-string  $className
+     * @param  Role|null  $role
      * @return array{arguments: array<int, mixed>, allowed: bool}|null
      */
     protected function evaluate(string $className, ReflectionMethod $method, ?BackedEnum $role): ?array
