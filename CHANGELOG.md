@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - The login form marks the email field as invalid when the email is not registered.
 - The PIN sign-in email shows only the PIN, without a link to the login page.
+- Signing in with an email address that already has a valid PIN opens the verify page without a new PIN or email, and "send again" mails the same PIN, at most once a minute.
 
 ### Removed
 

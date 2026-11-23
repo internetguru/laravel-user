@@ -513,11 +513,61 @@ class PinLoginControllerTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_throttle_pin_send()
+    public function test_send_pin_keeps_a_valid_pin_without_sending_it_again()
     {
         Notification::fake();
         $user = User::factory()->create(['email' => 'test@example.com']);
+        $this->createPin($user, minutesAgo: 5);
 
+        $response = $this->post(route('pin-login.form'), [
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
+        $response->assertSessionHasNoErrors();
+        $response->assertSessionMissing('success');
+        $this->assertDatabaseHas('pin_logins', ['email' => 'test@example.com', 'pin' => '111111']);
+        Notification::assertNothingSent();
+    }
+
+    public function test_resend_within_a_minute_is_throttled()
+    {
+        Notification::fake();
+        $user = User::factory()->create(['email' => 'test@example.com']);
+        $this->createPin($user, minutesAgo: 0);
+
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.form'), [
+            'resend' => '1',
+        ]);
+
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHasErrors();
+        Notification::assertNothingSent();
+    }
+
+    public function test_resend_sends_the_valid_pin_again()
+    {
+        Notification::fake();
+        $user = User::factory()->create(['email' => 'test@example.com']);
+        $this->createPin($user, minutesAgo: 2);
+        $expiresAt = PinLogin::firstOrFail()->expires_at;
+
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.form'), [
+            'resend' => '1',
+        ]);
+
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas('success');
+        $pinLogin = PinLogin::firstOrFail();
+        $this->assertSame('111111', $pinLogin->pin);
+        $this->assertTrue($expiresAt->equalTo($pinLogin->expires_at));
+        Notification::assertSentTo($user, PinLoginNotification::class);
+    }
+
+    private function createPin(User $user, int $minutesAgo): void
+    {
+        $this->travel(-$minutesAgo)->minutes();
         PinLogin::create([
             'user_id' => $user->id,
             'email' => $user->email,
@@ -526,14 +576,6 @@ class PinLoginControllerTest extends TestCase
             'remember' => false,
             'register' => false,
         ]);
-
-        $response = $this->post(route('pin-login.form'), [
-            'email' => 'test@example.com',
-        ]);
-
-        $response->assertRedirect(route('pin-login.verify'));
-        $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
-        $response->assertSessionHasErrors();
-        Notification::assertNothingSent();
+        $this->travelBack();
     }
 }
