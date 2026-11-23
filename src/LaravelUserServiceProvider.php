@@ -43,6 +43,8 @@ class LaravelUserServiceProvider extends ServiceProvider
         // register UserPolicy
         Gate::policy(User::class, UserPolicy::class);
 
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+
         // publish config, migrations, lang, views, policies
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),

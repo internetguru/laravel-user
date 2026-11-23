@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- `php artisan migrate` runs the package migrations on its own, so updating the package no longer needs `--tag=ig-user:migrations` published; copies an application already published still work and take precedence over the package's.
 - The first three migrations skip a table or `users` columns that already exist, so an application that squashed them under other names migrates cleanly.
 
 ## [9.11.0] - 2026-11-20

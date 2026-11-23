@@ -46,10 +46,9 @@ Internet Guru Laravel User is a library that provides seamless integration with 
     composer require internetguru/laravel-user
     ```
 
-2. Publish and run the migration files:
+2. Run the migrations; the package loads its own:
 
     ```sh
-    php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServiceProvider" --tag="ig-user:migrations"
     php artisan migrate
     ```
 
@@ -471,7 +470,7 @@ $this->call(\InternetGuru\LaravelUser\Database\Seeders\IgUserSeeder::class);
 
 | Tag | Destination | Description |
 |---|---|---|
-| `ig-user:migrations` | `database/migrations/` | Database migrations |
+| `ig-user:migrations` | `database/migrations/` | Database migrations, only to change them; `migrate` runs the package's own |
 | `ig-user:translations` | `lang/vendor/ig-user/` | Language files — cs, en, da |
 | `ig-user:views` | `resources/views/vendor/ig-user/` | Blade views |
 | `ig-user:policies` | `app/Policies/` | UserPolicy |

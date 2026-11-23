@@ -8,6 +8,13 @@ use Tests\TestCase;
 
 class PackageMigrationsTest extends TestCase
 {
+    public function test_the_package_registers_its_migrations()
+    {
+        $paths = array_map('realpath', app('migrator')->paths());
+
+        $this->assertContains(realpath(__DIR__ . '/../../database/migrations'), $paths);
+    }
+
     public function test_migrate_skips_the_first_migrations_in_an_app_that_squashed_them()
     {
         DB::table('migrations')->whereIn('migration', [
