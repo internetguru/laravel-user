@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The first three migrations skip a table or `users` columns that already exist, so an application that squashed them under other names migrates cleanly.
+
 ## [9.11.0] - 2026-11-20
 
 _Stable release based on [9.11.0-rc.1]._

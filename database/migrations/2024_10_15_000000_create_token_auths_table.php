@@ -8,6 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // An application that squashed its migrations has the table, later renamed to pin_logins
+        if (Schema::hasTable('token_auths') || Schema::hasTable('pin_logins')) {
+            return;
+        }
+
         Schema::create('token_auths', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
