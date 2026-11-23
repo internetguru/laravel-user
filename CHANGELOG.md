@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The login form marks the email field as invalid when the email is not registered.
+
 ## [9.12.0] - 2026-11-23
 
 _Stable release based on [9.12.0-rc.1]._

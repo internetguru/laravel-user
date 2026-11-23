@@ -38,7 +38,7 @@ class PinLoginController extends Controller
                 || PinLoginModel::where('email', $email)->exists();
 
             if (! $known && ! $register) {
-                return back()->withInput()->withErrors(__('ig-user::messages.login.notfound'));
+                return back()->withInput()->withErrors(['email' => __('ig-user::messages.login.notfound')]);
             }
 
             // The account itself is created only once the PIN is verified

@@ -122,7 +122,7 @@ class PinLoginControllerTest extends TestCase
         ]);
 
         $response->assertRedirect();
-        $response->assertSessionHasErrors();
+        $response->assertSessionHasErrors(['email' => __('ig-user::messages.login.notfound')]);
     }
 
     public function test_send_pin_without_recaptcha_token_is_refused_when_recaptcha_is_enabled()
