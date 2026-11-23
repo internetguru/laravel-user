@@ -5,10 +5,6 @@
 
 {{ $pin }}
 
-@lang('ig-user::pin_login.login_page_label')
-
-{{ $loginUrl }}
-
 @lang('ig-user::pin_login.expires')
 @parent
 @endsection

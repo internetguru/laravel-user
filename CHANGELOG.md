@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 
 - The login form marks the email field as invalid when the email is not registered.
+- The PIN sign-in email shows only the PIN, without a link to the login page.
+
+### Removed
+
+- The `pin_login.login_page_label` translation key.
+
+### Security
+
+- PIN sign-in keeps the email address in the session instead of the `/pin-login/verify` URL, so it no longer lands in access logs or browser history; the verify page without it redirects to the login page.
 
 ## [9.12.0] - 2026-11-23
 

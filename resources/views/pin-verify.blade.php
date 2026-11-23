@@ -2,12 +2,11 @@
     <div class="row row-basic row-stretched">
         <div class="card card-pin-verify">
             <h2 class="display-6">@lang('ig-user::auth.pin_verify.title')</h2>
-            <x-ig::form :action="route('pin-login.verify.submit', ['email' => request()->query('email')])" class="editable-skip">
+            <x-ig::form :action="route('pin-login.verify.submit')" class="editable-skip">
                 <x-ig-user::pin-input name="pin" />
                 <x-ig::submit>@lang('ig-user::auth.pin_verify.submit')</x-ig::submit>
             </x-ig::form>
             <x-ig::form :action="route('pin-login.form')" class="editable-skip d-inline mt-2">
-                <input type="hidden" name="email" value="{{ request()->query('email') }}" />
                 <input type="hidden" name="resend" value="1" />
                 <button type="submit" class="btn btn-link">@lang('ig-user::auth.pin_verify.resend')</button>
             </x-ig::form>

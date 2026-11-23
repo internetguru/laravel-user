@@ -16,6 +16,9 @@ use Illuminate\Support\Str;
  */
 class PinLogin extends Model
 {
+    /** Carries the address from the sign-in form to the PIN check, so it never appears in a URL. */
+    public const SESSION_KEY = 'pin_login.email';
+
     protected $fillable = [
         'user_id',
         'email',

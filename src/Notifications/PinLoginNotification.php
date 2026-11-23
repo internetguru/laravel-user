@@ -18,7 +18,6 @@ class PinLoginNotification extends BaseNotification
 
     public function toMail(object $notifiable): MailMessage
     {
-        $url = route('pin-login.verify', ['email' => $this->pinLogin->email]);
         $formattedPin = User::formatPin($this->pinLogin->pin);
 
         /** @var IgMailMessage $message */
@@ -33,7 +32,6 @@ class PinLoginNotification extends BaseNotification
                     'text' => 'ig-user::emails.pin_login-plain',
                 ],
                 [
-                    'loginUrl' => $url,
                     'pin' => $formattedPin,
                     'expires' => $this->pinLogin->expires_at->diffForHumans(),
                 ]

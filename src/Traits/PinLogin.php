@@ -29,11 +29,12 @@ trait PinLogin
      */
     public static function sendPinLogin(string $email, bool $remember = false, bool $register = false, bool $resend = false): RedirectResponse
     {
+        session()->put(PinLoginModel::SESSION_KEY, $email);
         $pinLogin = PinLoginModel::where('email', $email)->first();
 
         // If PIN already exists and newer than 1 minute then throttle
         if ($pinLogin && $pinLogin->updated_at->diffInMinutes() < 1) {
-            return redirect()->route('pin-login.verify', ['email' => $email])
+            return redirect()->route('pin-login.verify')
                 ->withErrors(__('ig-user::pin_login.wait'));
         }
 
@@ -54,7 +55,7 @@ trait PinLogin
         $pinLogin = PinLoginModel::updateOrCreate(['email' => $email], $attributes);
         User::sendPinLoginNotification($pinLogin);
 
-        return redirect()->route('pin-login.verify', ['email' => $email])
+        return redirect()->route('pin-login.verify')
             ->with('success', __('ig-user::pin_login.sent') . Helpers::getEmailClientLink());
     }
 
@@ -83,8 +84,6 @@ trait PinLogin
         // Strip prefix and non-digits
         $pin = preg_replace('/[^0-9]/', '', $pin);
 
-        $verifyParams = $email ? ['email' => $email] : [];
-
         // A PIN is valid only for the address it was sent to
         $pinLogin = $email === null ? null : PinLoginModel::where('pin', $pin)
             ->where('email', Str::lower($email))
@@ -94,7 +93,7 @@ trait PinLogin
         if (! $pinLogin) {
             logger()->warning('Invalid PIN login attempt', ['user_id' => User::getByEmail($email)?->id]);
 
-            return redirect()->route('pin-login.verify', $verifyParams)
+            return redirect()->route('pin-login.verify')
                 ->withErrors(__('ig-user::pin_login.invalid'));
         }
 
@@ -103,11 +102,12 @@ trait PinLogin
         $register = $pinLogin->register;
         $pinEmail = $pinLogin->email;
         $pinLogin->delete();
+        session()->forget(PinLoginModel::SESSION_KEY);
 
         // The identity is confirmed only now, so this is where the account is created
         if (! $user) {
             if (! $register) {
-                return redirect()->route('pin-login.verify', $verifyParams)
+                return redirect()->route('login')
                     ->withErrors(__('ig-user::messages.login.notfound'));
             }
 
