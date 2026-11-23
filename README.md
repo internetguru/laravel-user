@@ -46,10 +46,9 @@ Internet Guru Laravel User is a library that provides seamless integration with 
     composer require internetguru/laravel-user
     ```
 
-2. Publish and run the migration files:
+2. Run the migrations; the package loads its own:
 
     ```sh
-    php artisan vendor:publish --provider="InternetGuru\LaravelUser\LaravelUserServiceProvider" --tag="ig-user:migrations"
     php artisan migrate
     ```
 
@@ -471,7 +470,7 @@ $this->call(\InternetGuru\LaravelUser\Database\Seeders\IgUserSeeder::class);
 
 | Tag | Destination | Description |
 |---|---|---|
-| `ig-user:migrations` | `database/migrations/` | Database migrations |
+| `ig-user:migrations` | `database/migrations/` | Database migrations, only to change them; `migrate` runs the package's own |
 | `ig-user:translations` | `lang/vendor/ig-user/` | Language files — cs, en, da |
 | `ig-user:views` | `resources/views/vendor/ig-user/` | Blade views |
 | `ig-user:policies` | `app/Policies/` | UserPolicy |
@@ -513,6 +512,9 @@ The tests use the application's `UserFactory` with `withRole()` and fake notific
 Changes worth considering that were not carried out yet: what to do and why.
 
 - **Security: keep the address out of the PIN link.** The PIN sign-in e-mail links to `pin-login.verify?email=…`, so the address lands in web server access logs, browser history and any proxy on the way. Link with a short-lived signed token for the PIN login instead, and read the address from it.
+- **OAuth: show every configured provider.** `Provider::enabledCases()` hides providers by `{X}_OAUTH_ENABLED`. Instead, show every provider whose `client_id` and `client_secret` are set (detected, no flag), so a missing client never renders a failing button. Show the highlighted ones as full buttons and the rest behind a "More providers" button, hidden when empty. Keep a stable order: highlighted ones in the order of their default set, the rest in enum order, so buttons do not jump between visits.
+- **OAuth: highlight by language, with an override.** Pick the highlighted providers from hard-coded default sets in the package, keyed by app locale or `Accept-Language` rather than IP (e.g. `cs`/`sk` → Seznam, Google; otherwise Google, Facebook), since language predicts which accounts a user has better than location does. Resolve it per request, not in config, so `config:cache` does not freeze it. Replace `{X}_OAUTH_ENABLED` with `{X}_OAUTH_HIGHLIGHT`: unset follows the default set, `true`/`false` overrides it.
+- **OAuth: last-used provider first.** Remember the provider the user last signed in with in a cookie and always show it first as a full button, ahead of the default set.
 
 ## License & Commercial Terms
 

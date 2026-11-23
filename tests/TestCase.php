@@ -12,6 +12,8 @@ use Laravel\Socialite\SocialiteServiceProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
+use function Orchestra\Testbench\default_migration_path;
+
 abstract class TestCase extends Orchestra
 {
     use RefreshDatabase;
@@ -33,10 +35,15 @@ abstract class TestCase extends Orchestra
         // Optionally, set up your environment here
     }
 
+    // Laravel's users table must exist before the package migrations change it
+    protected function defineDatabaseMigrations()
+    {
+        $this->app['migrator']->path(default_migration_path());
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
-        $this->loadLaravelMigrations(['--database' => 'testing']);
         $this->loadMigrationsFrom(__DIR__ . '/../vendor/internetguru/laravel-common/database/migrations');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         // clear all users
