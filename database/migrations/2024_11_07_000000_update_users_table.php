@@ -8,6 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // An application that squashed its migrations has these columns changed already
+        if (Schema::hasColumn('users', 'role')) {
+            return;
+        }
+
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->required();
             $table->string('lang')->nullable();

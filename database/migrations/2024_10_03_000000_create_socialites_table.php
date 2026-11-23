@@ -8,6 +8,11 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // An application that squashed its migrations has the table under another migration name
+        if (Schema::hasTable('socialites')) {
+            return;
+        }
+
         Schema::create('socialites', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
