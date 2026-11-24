@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.13.0] - 2026-11-23
+
+_Stable release based on [9.13.0-rc.1]._
+
 ## [9.13.0-rc.1] - 2026-11-23
 
 ### Changed
@@ -1766,6 +1770,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[9.13.0]: https://github.com/internetguru/laravel-user/compare/v9.12.0...v9.13.0
 [9.13.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.12.0
 [9.12.0]: https://github.com/internetguru/laravel-user/compare/v9.11.0...v9.12.0
 [9.12.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.11.0
