@@ -18,6 +18,15 @@ class PinLoginController extends Controller
      */
     public function handleSendForm(Request $request): RedirectResponse
     {
+        $resend = $request->boolean('resend');
+
+        if ($resend) {
+            if (! session()->has(PinLoginModel::SESSION_KEY)) {
+                return redirect()->route('login');
+            }
+            $request->merge(['email' => session(PinLoginModel::SESSION_KEY)]);
+        }
+
         $request->validate([
             'g-recaptcha-response' => [Rule::requiredIf(fn () => app(RecaptchaV3::class)->isEnabled()), 'recaptchav3'],
             'email' => 'required|email|max:255',
@@ -25,7 +34,6 @@ class PinLoginController extends Controller
 
         $remember = filter_var($request->input('remember'), FILTER_VALIDATE_BOOLEAN);
         $register = filter_var($request->input('register'), FILTER_VALIDATE_BOOLEAN);
-        $resend = $request->boolean('resend');
 
         if (! $resend) {
             User::setAuthSessions($request);
@@ -38,7 +46,7 @@ class PinLoginController extends Controller
                 || PinLoginModel::where('email', $email)->exists();
 
             if (! $known && ! $register) {
-                return back()->withInput()->withErrors(__('ig-user::messages.login.notfound'));
+                return back()->withInput()->withErrors(['email' => __('ig-user::messages.login.notfound')]);
             }
 
             // The account itself is created only once the PIN is verified
@@ -50,13 +58,12 @@ class PinLoginController extends Controller
         }
     }
 
-    /**
-     * Show PIN verification form
-     *
-     * @return View
-     */
-    public function showPinVerify(Request $request)
+    public function showPinVerify(): View|RedirectResponse
     {
+        if (! session()->has(PinLoginModel::SESSION_KEY)) {
+            return redirect()->route('login');
+        }
+
         return view('ig-common::layouts.base', [
             'view' => 'pin-verify',
             'prefix' => 'ig-user::',
@@ -72,8 +79,13 @@ class PinLoginController extends Controller
             'pin' => 'required|string|size:6',
         ]);
 
+        $email = session(PinLoginModel::SESSION_KEY);
+        if (! is_string($email)) {
+            return redirect()->route('login');
+        }
+
         try {
-            return User::pinLogin($request->input('pin'), $request->query('email'));
+            return User::pinLogin($request->input('pin'), $email);
         } catch (\Exception $e) {
             report($e);
 

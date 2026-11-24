@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.13.0] - 2026-11-23
+
+_Stable release based on [9.13.0-rc.1]._
+
+## [9.13.0-rc.1] - 2026-11-23
+
+### Changed
+
+- The login form marks the email field as invalid when the email is not registered.
+- The PIN sign-in email shows only the PIN, without a link to the login page.
+- Signing in with an email address that already has a valid PIN opens the verify page without a new PIN or email, and "send again" mails the same PIN, at most once a minute.
+
+### Removed
+
+- The `pin_login.login_page_label` translation key.
+
+### Security
+
+- PIN sign-in keeps the email address in the session instead of the `/pin-login/verify` URL, so it no longer lands in access logs or browser history; the verify page without it redirects to the login page.
+
 ## [9.12.0] - 2026-11-23
 
 _Stable release based on [9.12.0-rc.1]._
@@ -1750,6 +1770,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[9.13.0]: https://github.com/internetguru/laravel-user/compare/v9.12.0...v9.13.0
+[9.13.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.12.0
 [9.12.0]: https://github.com/internetguru/laravel-user/compare/v9.11.0...v9.12.0
 [9.12.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.11.0
 [9.11.0]: https://github.com/internetguru/laravel-user/compare/v9.10.0...v9.11.0

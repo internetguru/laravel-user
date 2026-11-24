@@ -51,10 +51,10 @@ class UserTests
                         ->assertSessionHasErrors();
 
                     $this->post(route('pin-login.form'), ['email' => 'unknown@example.com', 'register' => '1'])
-                        ->assertRedirect(route('pin-login.verify', ['email' => 'unknown@example.com']));
+                        ->assertRedirect(route('pin-login.verify'));
                 });
 
-                it('e-mails the PIN with a link to the verification page', function () {
+                it('e-mails the PIN without a link', function () {
                     Notification::fake();
 
                     $this->post(route('pin-login.form'), ['email' => 'new@example.com', 'register' => '1']);
@@ -63,7 +63,7 @@ class UserTests
                         $mail = (string) $notification->toMail($notifiable)->render();
 
                         return preg_match('/' . preg_quote(User::PIN_PREFIX, '/') . '\d{6}/', $mail)
-                            && str_contains($mail, route('pin-login.verify', ['email' => 'new@example.com']));
+                            && ! str_contains($mail, '/pin-login');
                     });
                 });
             }
