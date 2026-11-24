@@ -7,8 +7,10 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use InternetGuru\LaravelRecaptchaV3\RecaptchaV3;
 use InternetGuru\LaravelUser\Models\PinLogin;
+use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
 use Tests\TestCase;
 
 class PinLoginControllerTest extends TestCase
@@ -22,7 +24,8 @@ class PinLoginControllerTest extends TestCase
             'email' => 'test@example.com',
         ]);
 
-        $response->assertRedirect(route('pin-login.verify', ['email' => 'test@example.com']));
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
             'remember' => false,
@@ -42,7 +45,8 @@ class PinLoginControllerTest extends TestCase
             'register' => 'true',
         ]);
 
-        $response->assertRedirect(route('pin-login.verify', ['email' => 'test@example.com']));
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
             'remember' => true,
@@ -72,7 +76,8 @@ class PinLoginControllerTest extends TestCase
             'register' => 'true',
         ]);
 
-        $response->assertRedirect(route('pin-login.verify', ['email' => 'test@example.com']));
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
         $this->assertDatabaseCount('pin_logins', 1);
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
@@ -100,14 +105,14 @@ class PinLoginControllerTest extends TestCase
         ]);
         $this->travelBack();
 
-        $response = $this->post(route('pin-login.form'), [
-            'email' => 'test@example.com',
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.form'), [
             'resend' => '1',
             'remember' => 'false',
             'register' => 'false',
         ]);
 
-        $response->assertRedirect(route('pin-login.verify', ['email' => 'test@example.com']));
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
             'remember' => true,
@@ -122,7 +127,7 @@ class PinLoginControllerTest extends TestCase
         ]);
 
         $response->assertRedirect();
-        $response->assertSessionHasErrors();
+        $response->assertSessionHasErrors(['email' => __('ig-user::messages.login.notfound')]);
     }
 
     public function test_send_pin_without_recaptcha_token_is_refused_when_recaptcha_is_enabled()
@@ -152,7 +157,8 @@ class PinLoginControllerTest extends TestCase
             'register' => 'true',
         ]);
 
-        $response->assertRedirect(route('pin-login.verify', ['email' => 'newuser@example.com']));
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'newuser@example.com');
         $this->assertDatabaseMissing('users', [
             'email' => 'newuser@example.com',
         ]);
@@ -178,14 +184,14 @@ class PinLoginControllerTest extends TestCase
         ]);
         $this->travelBack();
 
-        $response = $this->post(route('pin-login.form'), [
-            'email' => 'newuser@example.com',
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'newuser@example.com'])->post(route('pin-login.form'), [
             'resend' => '1',
             'remember' => 'false',
             'register' => 'false',
         ]);
 
-        $response->assertRedirect(route('pin-login.verify', ['email' => 'newuser@example.com']));
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'newuser@example.com');
         $this->assertDatabaseCount('pin_logins', 1);
         $this->assertDatabaseHas('pin_logins', [
             'email' => 'newuser@example.com',
@@ -208,7 +214,7 @@ class PinLoginControllerTest extends TestCase
             'register' => true,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'newuser@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'newuser@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '123456',
         ]);
 
@@ -232,11 +238,11 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'newuser@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'newuser@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '123456',
         ]);
 
-        $response->assertRedirect();
+        $response->assertRedirect(route('login'));
         $response->assertSessionHasErrors();
         $this->assertGuest();
         $this->assertDatabaseMissing('users', ['email' => 'newuser@example.com']);
@@ -252,7 +258,7 @@ class PinLoginControllerTest extends TestCase
             'register' => true,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'newuser@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'newuser@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '123456',
         ]);
 
@@ -288,7 +294,7 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'test@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '123456',
         ]);
 
@@ -310,7 +316,7 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'test@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '123456',
         ]);
 
@@ -332,7 +338,7 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'test@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '123456',
         ]);
 
@@ -353,7 +359,7 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'test@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '654321',
         ]);
 
@@ -376,7 +382,7 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $response = $this->post(route('pin-login.verify.submit', ['email' => 'other@example.com']), [
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'other@example.com'])->post(route('pin-login.verify.submit'), [
             'pin' => '123456',
         ]);
 
@@ -398,7 +404,7 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $this->post(route('pin-login.verify.submit'), ['pin' => '123456'])->assertSessionHasErrors();
+        $this->post(route('pin-login.verify.submit'), ['pin' => '123456'])->assertRedirect(route('login'));
 
         $this->assertGuest();
     }
@@ -415,17 +421,84 @@ class PinLoginControllerTest extends TestCase
             'register' => false,
         ]);
 
-        $this->post(route('pin-login.verify.submit', ['email' => 'Test@Example.com']), ['pin' => '123456']);
+        $this->withSession([PinLogin::SESSION_KEY => 'Test@Example.com'])->post(route('pin-login.verify.submit'), ['pin' => '123456']);
 
         $this->assertAuthenticatedAs($user);
     }
 
     public function test_show_pin_verify()
     {
-        $response = $this->get(route('pin-login.verify', ['email' => 'test@example.com']));
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->get(route('pin-login.verify'));
         $response->assertStatus(200);
         $response->assertViewIs('ig-common::layouts.base');
         $response->assertViewHas('view', 'pin-verify');
+    }
+
+    public function test_show_pin_verify_without_an_address_redirects_to_login()
+    {
+        $this->get(route('pin-login.verify'))->assertRedirect(route('login'));
+    }
+
+    public function test_verify_form_carries_no_address()
+    {
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->get(route('pin-login.verify'));
+
+        $response->assertDontSee('test@example.com');
+    }
+
+    public function test_resend_without_an_address_redirects_to_login()
+    {
+        Notification::fake();
+
+        $this->post(route('pin-login.form'), ['resend' => '1'])->assertRedirect(route('login'));
+
+        Notification::assertNothingSent();
+    }
+
+    public function test_resend_ignores_a_posted_address()
+    {
+        Notification::fake();
+        User::factory()->create(['email' => 'test@example.com']);
+        User::factory()->create(['email' => 'other@example.com']);
+
+        $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.form'), [
+            'email' => 'other@example.com',
+            'resend' => '1',
+        ]);
+
+        $this->assertDatabaseHas('pin_logins', ['email' => 'test@example.com']);
+        $this->assertDatabaseMissing('pin_logins', ['email' => 'other@example.com']);
+    }
+
+    public function test_verify_pin_success_forgets_the_address()
+    {
+        $user = User::factory()->create(['email' => 'test@example.com']);
+        PinLogin::create([
+            'user_id' => $user->id,
+            'email' => $user->email,
+            'pin' => '123456',
+            'expires_at' => now()->addMinutes(10),
+        ]);
+
+        $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])
+            ->post(route('pin-login.verify.submit'), ['pin' => '123456'])
+            ->assertSessionMissing(PinLogin::SESSION_KEY);
+    }
+
+    public function test_pin_email_has_no_link()
+    {
+        Notification::fake();
+        Storage::fake('root')->put('VERSION', '1.0.0');
+        $user = User::factory()->create(['email' => 'test@example.com']);
+
+        $this->post(route('pin-login.form'), ['email' => 'test@example.com']);
+
+        Notification::assertSentTo($user, PinLoginNotification::class, function (PinLoginNotification $notification, array $channels, object $notifiable) {
+            $mail = (string) $notification->toMail($notifiable)->render();
+
+            return str_contains($mail, User::formatPin((string) PinLogin::where('email', 'test@example.com')->value('pin')))
+                && ! str_contains($mail, '/pin-login');
+        });
     }
 
     public function test_register_redirects_to_login()
@@ -440,11 +513,61 @@ class PinLoginControllerTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_throttle_pin_send()
+    public function test_send_pin_keeps_a_valid_pin_without_sending_it_again()
     {
         Notification::fake();
         $user = User::factory()->create(['email' => 'test@example.com']);
+        $this->createPin($user, minutesAgo: 5);
 
+        $response = $this->post(route('pin-login.form'), [
+            'email' => 'test@example.com',
+        ]);
+
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
+        $response->assertSessionHasNoErrors();
+        $response->assertSessionMissing('success');
+        $this->assertDatabaseHas('pin_logins', ['email' => 'test@example.com', 'pin' => '111111']);
+        Notification::assertNothingSent();
+    }
+
+    public function test_resend_within_a_minute_is_throttled()
+    {
+        Notification::fake();
+        $user = User::factory()->create(['email' => 'test@example.com']);
+        $this->createPin($user, minutesAgo: 0);
+
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.form'), [
+            'resend' => '1',
+        ]);
+
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHasErrors();
+        Notification::assertNothingSent();
+    }
+
+    public function test_resend_sends_the_valid_pin_again()
+    {
+        Notification::fake();
+        $user = User::factory()->create(['email' => 'test@example.com']);
+        $this->createPin($user, minutesAgo: 2);
+        $expiresAt = PinLogin::firstOrFail()->expires_at;
+
+        $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.form'), [
+            'resend' => '1',
+        ]);
+
+        $response->assertRedirect(route('pin-login.verify'));
+        $response->assertSessionHas('success');
+        $pinLogin = PinLogin::firstOrFail();
+        $this->assertSame('111111', $pinLogin->pin);
+        $this->assertTrue($expiresAt->equalTo($pinLogin->expires_at));
+        Notification::assertSentTo($user, PinLoginNotification::class);
+    }
+
+    private function createPin(User $user, int $minutesAgo): void
+    {
+        $this->travel(-$minutesAgo)->minutes();
         PinLogin::create([
             'user_id' => $user->id,
             'email' => $user->email,
@@ -453,13 +576,6 @@ class PinLoginControllerTest extends TestCase
             'remember' => false,
             'register' => false,
         ]);
-
-        $response = $this->post(route('pin-login.form'), [
-            'email' => 'test@example.com',
-        ]);
-
-        $response->assertRedirect(route('pin-login.verify', ['email' => 'test@example.com']));
-        $response->assertSessionHasErrors();
-        Notification::assertNothingSent();
+        $this->travelBack();
     }
 }

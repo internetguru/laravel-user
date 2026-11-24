@@ -196,7 +196,7 @@ PIN login allows users to authenticate with a 6-digit PIN sent to their email ad
 ### Flow
 
 1. User submits their email on the unified `/login` page.
-2. The server sends a PIN email and redirects to `/pin-login/verify`.
+2. The server sends a PIN email and redirects to `/pin-login/verify`. The address stays in the session, never in a URL, and the email carries no link; without it in the session, the verify page redirects to `/login`.
 3. User enters the PIN in the 6-box input; a hidden field assembles the full value.
 4. On success, the user is logged in and redirected.
 
@@ -511,7 +511,6 @@ The tests use the application's `UserFactory` with `withRole()` and fake notific
 
 Changes worth considering that were not carried out yet: what to do and why.
 
-- **Security: keep the address out of the PIN link.** The PIN sign-in e-mail links to `pin-login.verify?email=…`, so the address lands in web server access logs, browser history and any proxy on the way. Link with a short-lived signed token for the PIN login instead, and read the address from it.
 - **OAuth: show every configured provider.** `Provider::enabledCases()` hides providers by `{X}_OAUTH_ENABLED`. Instead, show every provider whose `client_id` and `client_secret` are set (detected, no flag), so a missing client never renders a failing button. Show the highlighted ones as full buttons and the rest behind a "More providers" button, hidden when empty. Keep a stable order: highlighted ones in the order of their default set, the rest in enum order, so buttons do not jump between visits.
 - **OAuth: highlight by language, with an override.** Pick the highlighted providers from hard-coded default sets in the package, keyed by app locale or `Accept-Language` rather than IP (e.g. `cs`/`sk` → Seznam, Google; otherwise Google, Facebook), since language predicts which accounts a user has better than location does. Resolve it per request, not in config, so `config:cache` does not freeze it. Replace `{X}_OAUTH_ENABLED` with `{X}_OAUTH_HIGHLIGHT`: unset follows the default set, `true`/`false` overrides it.
 - **OAuth: last-used provider first.** Remember the provider the user last signed in with in a cookie and always show it first as a full button, ahead of the default set.
