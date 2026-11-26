@@ -23,5 +23,6 @@ return [
     'pin_login.email' => 'Váš e-mail',
     'pin_login.submit' => 'Odeslat ověřovací kód',
     'pin_login.title' => 'Zadejte svůj e-mail',
+    'signed-out' => 'Na tomto zařízení jste byli odhlášeni. <a href=":url">Přihlaste se znovu</a>.',
 
 ];

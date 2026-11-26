@@ -38,19 +38,17 @@ trait BaseAuth
         session([
             'auth_prev' => $request->input('prev_url', null),
             'auth_back' => url()->previous(),
-            'auth_remember' => $request->input('remember') === 'true',
         ]);
     }
 
     /**
-     * @return array{0: string|null, 1: string, 2: bool}
+     * @return array{0: string|null, 1: string}
      */
     public static function getAuthSessions(): array
     {
         return [
             session('auth_prev', null),
             session('auth_back', '/'),
-            session('auth_remember', false),
         ];
     }
 

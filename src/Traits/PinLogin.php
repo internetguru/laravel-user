@@ -30,7 +30,7 @@ trait PinLogin
      * No user account is created here: a registration stays pending
      * (pin_logins.user_id is null) until the PIN proves the email is real.
      */
-    public static function sendPinLogin(string $email, bool $remember = false, bool $register = false, bool $resend = false): RedirectResponse
+    public static function sendPinLogin(string $email, bool $register = false, bool $resend = false): RedirectResponse
     {
         session()->put(PinLoginModel::SESSION_KEY, $email);
         $pinLogin = PinLoginModel::where('email', $email)->first();
@@ -61,7 +61,6 @@ trait PinLogin
         ];
 
         if (! $resend) {
-            $attributes['remember'] = $remember;
             // Without an account behind the email the PIN can only lead to a registration
             $attributes['register'] = $register || ! $userId;
         }
@@ -116,7 +115,6 @@ trait PinLogin
         }
 
         $user = $pinLogin->user;
-        $remember = $pinLogin->remember;
         $register = $pinLogin->register;
         $pinEmail = $pinLogin->email;
         $pinLogin->delete();
@@ -133,7 +131,7 @@ trait PinLogin
             event(new Registered($user));
         }
 
-        auth()->login($user, $remember);
+        auth()->login($user, remember: true);
         User::authenticated($user);
 
         return User::successLoginRedirect($user);

@@ -24,7 +24,7 @@ class UserTests
 
                 $demo
                     ? $response->assertSee('<select', false)->assertSee('name="email"', false)
-                    : $response->assertSee('type="email"', false)->assertSee('id="remember_check"', false)->assertSee('id="register_check"', false);
+                    : $response->assertSee('type="email"', false)->assertDontSee('id="remember_check"', false)->assertSee('id="register_check"', false);
             });
 
             it('redirects the registration page and guests on a protected page to the login', function () {
