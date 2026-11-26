@@ -348,6 +348,20 @@ wiring below the notice degrades to plain text. To enable it:
     import 'ig::user-js';
     ```
 
+    The entry loads the guide on every page, which the `use-app` hint of `<x-ig-user::system-notice />` needs: its link
+    is dropped at page load when the guide is not there yet. An application that does not show the system notice and
+    offers the guide from a trigger of its own may import the parts instead, and the guide only where the trigger is:
+
+    ```js
+    import mergeSearch from 'ig::user-js/merge-search';
+
+    document.addEventListener('alpine:init', () => Alpine.data('mergeSearch', mergeSearch));
+
+    if (document.querySelector('[data-add-to-homescreen]')) {
+        import('ig::user-js/add-to-homescreen');
+    }
+    ```
+
 The library also expects the site to be a valid PWA: a web manifest linked from the
 layout and a square `<link rel="apple-touch-icon">` of at least 40x40 pixels, which the
 guide illustrates itself with. It falls back to `/apple-touch-icon.png` when the page
