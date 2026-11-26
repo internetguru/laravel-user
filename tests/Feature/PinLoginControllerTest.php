@@ -28,20 +28,18 @@ class PinLoginControllerTest extends TestCase
         $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
-            'remember' => false,
             'register' => false,
         ]);
         Notification::assertCount(1);
     }
 
-    public function test_send_pin_with_remember_and_register()
+    public function test_send_pin_with_register()
     {
         Notification::fake();
         $user = User::factory()->create(['email' => 'test@example.com']);
 
         $response = $this->post(route('pin-login.form'), [
             'email' => 'test@example.com',
-            'remember' => 'true',
             'register' => 'true',
         ]);
 
@@ -49,7 +47,6 @@ class PinLoginControllerTest extends TestCase
         $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
-            'remember' => true,
             'register' => true,
         ]);
     }
@@ -65,14 +62,12 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '111111',
             'expires_at' => now()->subMinutes(5),
-            'remember' => false,
             'register' => false,
         ]);
         $this->travelBack();
 
         $response = $this->post(route('pin-login.form'), [
             'email' => 'test@example.com',
-            'remember' => 'true',
             'register' => 'true',
         ]);
 
@@ -81,7 +76,6 @@ class PinLoginControllerTest extends TestCase
         $this->assertDatabaseCount('pin_logins', 1);
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
-            'remember' => true,
             'register' => true,
         ]);
         $this->assertDatabaseMissing('pin_logins', [
@@ -89,7 +83,7 @@ class PinLoginControllerTest extends TestCase
         ]);
     }
 
-    public function test_resend_preserves_remember_and_register()
+    public function test_resend_preserves_register()
     {
         Notification::fake();
         $user = User::factory()->create(['email' => 'test@example.com']);
@@ -100,14 +94,12 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '111111',
             'expires_at' => now()->subMinutes(5),
-            'remember' => true,
             'register' => true,
         ]);
         $this->travelBack();
 
         $response = $this->withSession([PinLogin::SESSION_KEY => 'test@example.com'])->post(route('pin-login.form'), [
             'resend' => '1',
-            'remember' => 'false',
             'register' => 'false',
         ]);
 
@@ -115,7 +107,6 @@ class PinLoginControllerTest extends TestCase
         $response->assertSessionHas(PinLogin::SESSION_KEY, 'test@example.com');
         $this->assertDatabaseHas('pin_logins', [
             'user_id' => $user->id,
-            'remember' => true,
             'register' => true,
         ]);
     }
@@ -179,14 +170,12 @@ class PinLoginControllerTest extends TestCase
             'email' => 'newuser@example.com',
             'pin' => '111111',
             'expires_at' => now()->addMinutes(10),
-            'remember' => true,
             'register' => true,
         ]);
         $this->travelBack();
 
         $response = $this->withSession([PinLogin::SESSION_KEY => 'newuser@example.com'])->post(route('pin-login.form'), [
             'resend' => '1',
-            'remember' => 'false',
             'register' => 'false',
         ]);
 
@@ -196,7 +185,6 @@ class PinLoginControllerTest extends TestCase
         $this->assertDatabaseHas('pin_logins', [
             'email' => 'newuser@example.com',
             'user_id' => null,
-            'remember' => true,
             'register' => true,
         ]);
         $this->assertDatabaseMissing('users', ['email' => 'newuser@example.com']);
@@ -210,7 +198,6 @@ class PinLoginControllerTest extends TestCase
             'email' => 'newuser@example.com',
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => true,
         ]);
 
@@ -234,7 +221,6 @@ class PinLoginControllerTest extends TestCase
             'email' => 'newuser@example.com',
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => false,
         ]);
 
@@ -254,7 +240,6 @@ class PinLoginControllerTest extends TestCase
             'email' => 'newuser@example.com',
             'pin' => '123456',
             'expires_at' => now()->subMinute(),
-            'remember' => false,
             'register' => true,
         ]);
 
@@ -290,7 +275,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => false,
         ]);
 
@@ -304,7 +288,7 @@ class PinLoginControllerTest extends TestCase
         $this->assertDatabaseMissing('pin_logins', ['user_id' => $user->id]);
     }
 
-    public function test_verify_pin_with_remember()
+    public function test_verify_pin_keeps_the_person_signed_in()
     {
         $user = User::factory()->create(['email' => 'test@example.com']);
         PinLogin::create([
@@ -312,7 +296,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => true,
             'register' => false,
         ]);
 
@@ -322,8 +305,8 @@ class PinLoginControllerTest extends TestCase
 
         $response->assertRedirect();
         $this->assertAuthenticatedAs($user);
-        // Check remember cookie is set
         $this->assertNotNull(auth()->user()->getRememberToken());
+        $response->assertCookie(auth()->guard()->getRecallerName());
     }
 
     public function test_verify_pin_expired()
@@ -334,7 +317,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->subMinutes(1),
-            'remember' => false,
             'register' => false,
         ]);
 
@@ -355,7 +337,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => false,
         ]);
 
@@ -378,7 +359,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $owner->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => false,
         ]);
 
@@ -400,7 +380,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => false,
         ]);
 
@@ -417,7 +396,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '123456',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => false,
         ]);
 
@@ -573,7 +551,6 @@ class PinLoginControllerTest extends TestCase
             'email' => $user->email,
             'pin' => '111111',
             'expires_at' => now()->addMinutes(10),
-            'remember' => false,
             'register' => false,
         ]);
         $this->travelBack();

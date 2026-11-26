@@ -6,6 +6,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- A browser whose remembered sign-in has ended, for example after signing out on another device, sees a warning with a link to sign in again on the first page that shows messages, as a `warning` toast of laravel-common 10.7 or later.
+
+### Changed
+
+- Every sign-in keeps the person signed in on the device, and each remembered return renews that for another 400 days through the `KeepRememberedSignIn` middleware, which the package appends to the `web` group. The "Stay signed in" checkbox and the `showRemember` prop of `<x-ig-user::buttons>` are gone.
+- `User::sendPinLogin()` no longer takes `$remember`, so `register` and `resend` move up one place; pass them by name.
+- `User::getAuthSessions()` returns the previous and back URLs only, without the remember flag.
+
+### Removed
+
+- The `ig-user::messages.remember_me` translation key.
+
+### Fixed
+
+- Deploying no longer signs out remembered people: the migration voiding remember-me cookies is removed, and cookies issued before keep working.
+
 ## [9.16.0] - 2026-11-26
 
 _Stable release based on [9.16.0-rc.1]._

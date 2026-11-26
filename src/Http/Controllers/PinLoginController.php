@@ -32,7 +32,6 @@ class PinLoginController extends Controller
             'email' => 'required|email|max:255',
         ]);
 
-        $remember = filter_var($request->input('remember'), FILTER_VALIDATE_BOOLEAN);
         $register = filter_var($request->input('register'), FILTER_VALIDATE_BOOLEAN);
 
         if (! $resend) {
@@ -50,7 +49,7 @@ class PinLoginController extends Controller
             }
 
             // The account itself is created only once the PIN is verified
-            return User::sendPinLogin($email, $remember, $register, $resend);
+            return User::sendPinLogin($email, register: $register, resend: $resend);
         } catch (\Exception $e) {
             report($e);
 

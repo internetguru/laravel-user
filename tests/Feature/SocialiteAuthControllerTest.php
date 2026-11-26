@@ -44,7 +44,7 @@ class SocialiteAuthControllerTest extends TestCase
     {
         $controller = new SocialiteAuthController;
         $request = Request::create('/socialite/google/login', 'GET');
-        $request->merge(['prev_url' => 'http://example.com', 'remember' => 'true']);
+        $request->merge(['prev_url' => 'http://example.com']);
 
         $providerMock = Mockery::mock('overload:' . Socialite::class);
         $providerMock->shouldReceive('driver->with->redirect')->andReturn(redirect('http://example.com'));
