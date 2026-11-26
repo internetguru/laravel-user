@@ -23,5 +23,6 @@ return [
     'pin_login.email' => 'Din e-mail',
     'pin_login.submit' => 'Send bekræftelseskode',
     'pin_login.title' => 'Indtast din e-mail',
+    'signed-out' => 'Du er blevet logget ud på denne enhed. <a href=":url">Log ind igen</a>.',
 
 ];

@@ -9,6 +9,7 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 ## Table of Contents
 
 - [Features and Terminology](#features-and-terminology)
+- [Sign-in and Sessions](#sign-in-and-sessions)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Roles](#roles)
@@ -37,6 +38,18 @@ Internet Guru Laravel User is a library that provides seamless integration with 
 - **Disconnect** – unlink an existing identity from the current account.
 - **Transfer** – unlink an existing identity from one account and link it to the current one.
 - **Automatic account** – an account created programmatically, e.g. during data import, that has never been logged into; `created_by` equals its own `id` and `logged_at` is `null`.
+
+## Sign-in and Sessions
+
+**Accounts never have a password.** People sign in with a PIN sent by email, Google or Seznam, and the `users` table has no `password` column. Laravel binds the remember-me cookie to `getAuthPassword()` and recalls it only when that is a string, so `User::getAuthPassword()` returns an empty string; an application must not override it.
+
+Every sign-in keeps the person signed in on that device; there is no "remember me" choice.
+
+- **Session.** A sign-in starts a session, which ends when the browser closes (`session.expire_on_close`) or after 2 hours without a request (`session.lifetime` 120); the package requires both. Ending the session does not sign anyone out, managers and admins included: the remembered sign-in below takes over.
+- **Remembered sign-in.** Every sign-in also sets the `remember_web_…` cookie, holding the account id, its `remember_token` and a hash of the empty password. On the first request after the session ended, Laravel matches the cookie against `users.remember_token` and signs the person in again without asking.
+- **400 days, renewed on use.** The cookie lasts 576 000 minutes (400 days, also the longest a browser keeps a cookie). Laravel sets it only at sign-in; the package's `KeepRememberedSignIn` middleware, appended to the `web` group, sets it again with a fresh 400 days whenever it signs someone in from it, so only a device unused for 400 days has to sign in again.
+- **What ends it.** Signing out on any device: Laravel then replaces the account's `remember_token`, so every other device's cookie stops matching once its current session ends. Also deleting the cookie, for example by clearing site data.
+- **Notice.** A browser whose cookie no longer matches, for example after signing out on another device, is told on the first page that shows messages that it was signed out on this device, with a link to sign in again. The notice is a `warning` toast of laravel-common's `<livewire:ig-messages />` (10.7 or later); the middleware removes the cookie only once a page contains the notice, so it appears once and survives redirects and pages without messages. An expired cookie is no longer sent by the browser, so it gets no notice.
 
 ## Installation
 
@@ -157,8 +170,7 @@ The `socialite.action` route accepts a `provider` and an `action`: `login`, `log
 
 ```blade
 {{-- Socialite login/register/connect buttons --}}
-<x-ig-user::buttons action="login" :showRemember="true" />
-<x-ig-user::buttons action="login" :showRemember="false" />
+<x-ig-user::buttons action="login" />
 <x-ig-user::buttons action="register" />
 <x-ig-user::buttons action="connect" />
 
@@ -211,7 +223,6 @@ PIN login allows users to authenticate with a 6-digit PIN sent to their email ad
 
 ### Send Form Options
 
-- **Remember me** – persists the session beyond the browser close.
 - **Create account if not found** – when checked, a new account is created for unknown emails.
 
 ### reCAPTCHA
@@ -290,7 +301,6 @@ Renders socialite provider buttons for a given action.
 | `providers` | `User::providers()::enabledCases()` | List of enabled providers |
 | `action` | `ProviderAction::LOGIN` | Action: login, register, connect |
 | `prev_url` | `User::getPreviousUrl()` | URL to redirect to after auth |
-| `showRemember` | `false` | Show "Remember me" checkbox |
 | `disabled` | `false` | Disable all buttons |
 
 ### `<x-ig-user::user-menu>`
@@ -524,6 +534,7 @@ The tests use the application's `UserFactory` with `withRole()` and fake notific
 
 Changes worth considering that were not carried out yet: what to do and why.
 
+- **Drop the remember-me leftovers.** Once no sign-in page from before 9.17 can still be open, drop the `pin_logins.remember` column in a migration (Octane workers on older code still wrote it during the deploy) and the `remember` and `remember_check` sanitize types in `LaravelUserServiceProvider`.
 - **OAuth: show every configured provider.** `Provider::enabledCases()` hides providers by `{X}_OAUTH_ENABLED`. Instead, show every provider whose `client_id` and `client_secret` are set (detected, no flag), so a missing client never renders a failing button. Show the highlighted ones as full buttons and the rest behind a "More providers" button, hidden when empty. Keep a stable order: highlighted ones in the order of their default set, the rest in enum order, so buttons do not jump between visits.
 - **OAuth: highlight by language, with an override.** Pick the highlighted providers from hard-coded default sets in the package, keyed by app locale or `Accept-Language` rather than IP (e.g. `cs`/`sk` → Seznam, Google; otherwise Google, Facebook), since language predicts which accounts a user has better than location does. Resolve it per request, not in config, so `config:cache` does not freeze it. Replace `{X}_OAUTH_ENABLED` with `{X}_OAUTH_HIGHLIGHT`: unset follows the default set, `true`/`false` overrides it.
 - **OAuth: last-used provider first.** Remember the provider the user last signed in with in a cookie and always show it first as a full button, ahead of the default set.

@@ -56,7 +56,7 @@ trait SocialiteAuth
      */
     public static function socialiteLoginAndConnect($provider, SocialiteUser $providerUser): RedirectResponse
     {
-        [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
+        [$prevUrl, $backUrl] = User::getAuthSessions();
 
         // Try to find user by provider id first
         $user = User::getBySocialiteProvider($provider, $providerUser->id);
@@ -74,7 +74,7 @@ trait SocialiteAuth
             return redirect()->to($backUrl)->withErrors(__('ig-user::messages.identity.notfound', ['email' => $providerUser->email]));
         }
 
-        auth()->login($user, $remember);
+        auth()->login($user, remember: true);
         User::authenticated($user);
 
         // Connect socialite if not connected yet
@@ -127,7 +127,7 @@ trait SocialiteAuth
      */
     public static function socialiteRegister($provider, SocialiteUser $providerUser): RedirectResponse
     {
-        [$prevUrl, $backUrl, $remember] = User::getAuthSessions();
+        [$prevUrl, $backUrl] = User::getAuthSessions();
 
         // Identity already registered, log the user in instead
         if (User::getBySocialiteProvider($provider, $providerUser->id)) {
@@ -166,7 +166,7 @@ trait SocialiteAuth
         ]);
         $user->socialites()->save($socialite);
 
-        auth()->login($user, $remember);
+        auth()->login($user, remember: true);
         User::authenticated($user);
 
         $user->associationHistories()->create([

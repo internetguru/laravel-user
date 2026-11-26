@@ -3,10 +3,13 @@
 namespace InternetGuru\LaravelUser;
 
 use Exception;
+use Illuminate\Contracts\Http\Kernel as HttpKernelContract;
+use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use InternetGuru\LaravelUser\Http\Middleware\KeepRememberedSignIn;
 use InternetGuru\LaravelUser\Models\User;
 use InternetGuru\LaravelUser\Policies\UserPolicy;
 use InternetGuru\LaravelUser\SocialiteProviders\SeznamProvider;
@@ -57,6 +60,7 @@ class LaravelUserServiceProvider extends ServiceProvider
         ], 'ig-user:policies');
 
         $this->registerSanitizeTypes();
+        $this->registerMiddleware();
 
         // extend socialite with seznam provider
         $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
@@ -95,10 +99,19 @@ class LaravelUserServiceProvider extends ServiceProvider
             // Submit buttons and checkboxes, posted as strings by the browser.
             'register' => 'flag',
             'register_check' => 'flag',
+            // Still posted by sign-in pages loaded before remember-me became the default
             'remember' => 'flag',
             'remember_check' => 'flag',
             'resend' => 'flag',
             ...$types,
         ]);
+    }
+
+    private function registerMiddleware(): void
+    {
+        // Through the kernel: it overwrites the router's groups whenever it is resolved after boot, as in tests.
+        $this->callAfterResolving(HttpKernelContract::class, function (HttpKernel $kernel) {
+            $kernel->appendMiddlewareToGroup('web', KeepRememberedSignIn::class);
+        });
     }
 }

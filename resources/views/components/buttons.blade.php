@@ -2,13 +2,10 @@
     'providers' => App\Models\User::providers()::enabledCases(),
     'action' => InternetGuru\LaravelUser\Enums\ProviderAction::LOGIN,
     'prev_url' => App\Models\User::getPreviousUrl(),
-    'showRemember' => false,
     'disabled' => false,
 ])
 
-<div class="socialite" x-data="{
-    remember: false,
-}">
+<div class="socialite">
     <div class="socialite-{{ $action }} socialite-buttons">
         @foreach ($providers as $provider)
             <a @class([
@@ -18,7 +15,7 @@
                     'disabled' => $disabled,
                 ])
                 @if(! $disabled)
-                    x-bind:href="`{{ route('socialite.action', ['provider' => $provider, 'action' => $action]) }}?remember=${remember}&prev_url={{ $prev_url }}`"
+                    href="{{ route('socialite.action', ['provider' => $provider, 'action' => $action]) }}?prev_url={{ $prev_url }}"
                 @endif
             >
                 <x-ig-user::provider-icon :provider="$provider->value" />
@@ -26,10 +23,4 @@
             </a>
         @endforeach
     </div>
-
-    @if ($showRemember)
-        <x-ig::input type="checkbox" name="remember" id="remember"
-            x-on:change="remember = !remember"
-        >@lang('ig-user::messages.remember_me')</x-ig::input>
-    @endif
 </div>

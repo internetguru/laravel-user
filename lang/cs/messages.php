@@ -15,7 +15,6 @@ return [
     'register.noemail' => 'Registrace se nezdařila: poskytnutá identita neobsahuje e-mailovou adresu.',
     'register.success' => 'Registrován jako :name.',
     'register.pin-login.success' => 'Účet vytvořen. Ověřovací kód odeslán na váš e-mail.',
-    'remember_me' => 'Zůstat přihlášený na tomto zařízení.',
     'unexpected' => 'Došlo k neočekávané chybě. Zkuste to prosím později.',
 
 ];

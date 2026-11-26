@@ -24,7 +24,6 @@ class PinLogin extends Model
         'email',
         'pin',
         'expires_at',
-        'remember',
         'register',
     ];
 
@@ -32,7 +31,6 @@ class PinLogin extends Model
     {
         return [
             'expires_at' => 'datetime',
-            'remember' => 'boolean',
             'register' => 'boolean',
         ];
     }
