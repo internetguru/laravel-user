@@ -8,11 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
-- The add-to-homescreen guide is a dialog with a visible "Zavřít" button and Escape to close, takes the application's type, and drops the arrow that guessed the browser's button and could point the wrong way.
+- The add-to-homescreen guide is a dialog named by its title, closed by a visible "Zavřít" (or the browser's own "Later") and Escape, with the focus back on its trigger after; it takes the application's type, speaks Danish on Danish pages, and drops the arrow that guessed the browser's button and could point the wrong way.
 
 ### Fixed
 
-- A remembered sign-in lasts past the session: Laravel recalls a "remember me" cookie only for a user with a password, so `User::getAuthPassword()` returns an empty string for accounts, which have none.
+- A remembered sign-in lasts past the session: Laravel recalls a "remember me" cookie only for a user with a password, so `User::getAuthPassword()` returns an empty string for accounts, which have none. A migration voids the cookies issued before, so a browser that kept one, such as a shared computer's, is not signed in again; current sign-ins keep their sessions. An application that overrides `getAuthPassword()` for the same reason can drop the override.
 
 ## [9.13.0] - 2026-11-23
 

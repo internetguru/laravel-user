@@ -24,7 +24,7 @@ Accounts, sign-in (Google, Seznam, e-mailed PIN, demo), roles, locale and the us
 
 - Components: `<x-ig-user::buttons action="login|register|connect" />`, `<x-ig-user::user-menu />`, `<x-ig-user::pin-input />`, `<x-ig-user::system-notice />`.
 - Views are namespaced `ig-user::`, overridden in `resources/views/vendor/ig-user`. Translations are overridden in `lang/vendor/ig-user`.
-- Sass partials come from `ig::user/…` (variables, socialites, user-detail, pin-input, pin-login, role-list), and JS from `import 'ig::user-js'`, which registers the `mergeSearch` Alpine component and loads the add-to-homescreen guide; import `ig::user-js/merge-search` and `ig::user-js/add-to-homescreen` separately to load the guide only where a page offers it.
+- Sass partials come from `ig::user/…` (variables, socialites, user-detail, pin-input, pin-login, role-list), and JS from `import 'ig::user-js'`, which registers the `mergeSearch` Alpine component and loads the add-to-homescreen guide; an application that does not show `<x-ig-user::system-notice />` may import `ig::user-js/merge-search` (then register `mergeSearch` itself) and `ig::user-js/add-to-homescreen` separately, to load the guide only where its own trigger is.
 - Per-user settings: `$user->setPreference($key, $value)` and `$user->getPreference($key, $default)`.
 
 ## Tests

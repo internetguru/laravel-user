@@ -26,7 +26,7 @@ class LoginControllerTest extends TestCase
         config(['auth.providers.users.model' => User::class]);
         $user = User::factory()->create();
         auth()->login($user, remember: true);
-        $recaller = $user->getAuthIdentifier().'|'.$user->getRememberToken().'|'.auth()->guard()->hashPasswordForCookie($user->getAuthPassword());
+        $recaller = $user->getAuthIdentifier() . '|' . $user->getRememberToken() . '|' . auth()->guard()->hashPasswordForCookie($user->getAuthPassword());
         // The session is gone, as after the browser or the phone's app closed
         session()->flush();
         $this->app['auth']->forgetGuards();
