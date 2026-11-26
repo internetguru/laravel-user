@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- The add-to-homescreen guide is a dialog named by its title, closed by a visible "Zavřít" (or the browser's own "Later") and Escape, with the focus back on its trigger after; it takes the application's type, speaks Danish on Danish pages, and drops the arrow that guessed the browser's button and could point the wrong way.
+
+### Fixed
+
+- A remembered sign-in lasts past the session: Laravel recalls a "remember me" cookie only for a user with a password, so `User::getAuthPassword()` returns an empty string for accounts, which have none. A migration voids the cookies issued before, so a browser that kept one, such as a shared computer's, is not signed in again; current sign-ins keep their sessions. An application that overrides `getAuthPassword()` for the same reason can drop the override.
+
 ## [9.13.0] - 2026-11-23
 
 _Stable release based on [9.13.0-rc.1]._
@@ -1770,6 +1780,7 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[Unreleased]: https://github.com/internetguru/laravel-user/compare/staging...dev
 [9.13.0]: https://github.com/internetguru/laravel-user/compare/v9.12.0...v9.13.0
 [9.13.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.12.0
 [9.12.0]: https://github.com/internetguru/laravel-user/compare/v9.11.0...v9.12.0

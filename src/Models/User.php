@@ -106,6 +106,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsTo(static::class, 'created_by');
     }
 
+    /**
+     * Accounts have no password, and Laravel recalls a "remember me" cookie only for a user with one; an empty one
+     * lets a remembered sign-in last past the session.
+     */
+    public function getAuthPassword(): string
+    {
+        return '';
+    }
+
     public function isAutomatic(): bool
     {
         return $this->created_by !== null
