@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The notice for an ended remembered sign-in says it was ended for security reasons.
+
+### Removed
+
+- The `pin_logins.remember` column, unused since 9.17.
+
 ## [9.17.0] - 2026-11-26
 
 _Stable release based on [9.17.0-rc.1]._
