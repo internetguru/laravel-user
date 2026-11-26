@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- `UserTests::register()` checks in each application that a remember-me cookie restores the signed-in user once the session has ended, and that an outdated one leaves a guest.
+
 ## [9.19.0] - 2026-11-26
 
 _Stable release based on [9.19.0-rc.1]._

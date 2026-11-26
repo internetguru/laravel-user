@@ -3,6 +3,7 @@
 namespace InternetGuru\LaravelUser\Testing;
 
 use App\Models\User;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Support\Facades\Notification;
 use InternetGuru\LaravelUser\Models\PinLogin;
 use InternetGuru\LaravelUser\Notifications\PinLoginNotification;
@@ -34,6 +35,26 @@ class UserTests
 
             it('sends a signed-in user away from the login', function () {
                 $this->actingAs(User::factory()->create())->get(route('login'))->assertRedirect();
+            });
+
+            it('restores a remembered sign-in once the session has ended', function () {
+                $user = UserTests::rememberedUser();
+
+                $this->withCookie(auth()->guard()->getRecallerName(), UserTests::recaller($user, $user->getRememberToken()))
+                    ->get(route('login'))
+                    ->assertRedirect();
+
+                $this->assertAuthenticatedAs($user);
+            });
+
+            it('keeps a visitor whose remembered sign-in has ended a guest', function () {
+                $user = UserTests::rememberedUser();
+
+                $this->withCookie(auth()->guard()->getRecallerName(), UserTests::recaller($user, str_repeat('b', 60)))
+                    ->get(route('login'))
+                    ->assertOk();
+
+                $this->assertGuest();
             });
 
             if ($demo) {
@@ -167,6 +188,23 @@ class UserTests
     /**
      * The lowest role, which a manager may see and edit; an application may swap the enum for one without CUSTOMER.
      */
+    public static function rememberedUser(): User
+    {
+        $user = User::factory()->create();
+        $user->setRememberToken(str_repeat('a', 60));
+        $user->save();
+
+        return $user;
+    }
+
+    public static function recaller(User $user, string $token): string
+    {
+        $guard = auth()->guard();
+        assert($guard instanceof SessionGuard);
+
+        return $user->getAuthIdentifier() . '|' . $token . '|' . $guard->hashPasswordForCookie($user->getAuthPassword());
+    }
+
     public static function lowestRole(): mixed
     {
         return collect(User::roles()::cases())->sortBy(fn ($role) => $role->level())->first();
