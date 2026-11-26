@@ -484,7 +484,7 @@ $this->call(\InternetGuru\LaravelUser\Database\Seeders\IgUserSeeder::class);
 
 | Tag | Destination | Description |
 |---|---|---|
-| `ig-user:migrations` | `database/migrations/` | Database migrations, only to change them; `migrate` runs the package's own |
+| `ig-user:migrations` | `database/migrations/` | Do not publish: `migrate` runs the package's own, and a copy replaces the package migration of the same name |
 | `ig-user:translations` | `lang/vendor/ig-user/` | Language files — cs, en, da |
 | `ig-user:views` | `resources/views/vendor/ig-user/` | Blade views |
 | `ig-user:policies` | `app/Policies/` | UserPolicy |

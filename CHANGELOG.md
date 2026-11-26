@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- The migration adding the sign-in PIN empties `token_auths` first, so it no longer fails on an application with stored sign-in tokens.
+
 ## [9.14.0] - 2026-11-26
 
 _Stable release based on [9.14.0-rc.1]._
