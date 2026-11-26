@@ -45,10 +45,7 @@ class LaravelUserServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        // publish config, migrations, lang, views, policies
-        $this->publishes([
-            __DIR__ . '/../database/migrations' => database_path('migrations'),
-        ], 'ig-user:migrations');
+        // publish config, lang, views, policies
         $this->publishes([
             __DIR__ . '/../lang' => base_path('lang/vendor/ig-user'),
         ], 'ig-user:translations');
