@@ -99,9 +99,6 @@ class LaravelUserServiceProvider extends ServiceProvider
             // Submit buttons and checkboxes, posted as strings by the browser.
             'register' => 'flag',
             'register_check' => 'flag',
-            // Still posted by sign-in pages loaded before remember-me became the default
-            'remember' => 'flag',
-            'remember_check' => 'flag',
             'resend' => 'flag',
             ...$types,
         ]);
