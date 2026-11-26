@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Removed
+
+- The `ig-user:migrations` publish tag: `migrate` runs the package's own migrations, and a published copy would replace the package migration of the same name. Delete any copies in `database/migrations`.
+
 ## [9.15.0] - 2026-11-26
 
 _Stable release based on [9.15.0-rc.1]._
