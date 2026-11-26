@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.19.0] - 2026-11-26
+
+_Stable release based on [9.19.0-rc.1]._
+
+## [9.19.0-rc.1] - 2026-11-26
+
+### Changed
+
+- The sign-out notice ends with its sign-in link, without a period after it.
+
+### Removed
+
+- The `remember` and `remember_check` sanitize types; a sign-in page loaded before 9.17 and submitted after the update logs them as unmapped input.
+
 ## [9.18.0] - 2026-11-26
 
 _Stable release based on [9.18.0-rc.1]._
@@ -1842,6 +1856,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[9.19.0]: https://github.com/internetguru/laravel-user/compare/v9.18.0...v9.19.0
+[9.19.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.18.0
 [9.18.0]: https://github.com/internetguru/laravel-user/compare/v9.17.0...v9.18.0
 [9.18.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.17.0
 [9.17.0]: https://github.com/internetguru/laravel-user/compare/v9.16.0...v9.17.0
