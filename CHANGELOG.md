@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [9.18.0] - 2026-11-26
+
+_Stable release based on [9.18.0-rc.1]._
+
+## [9.18.0-rc.1] - 2026-11-26
+
+### Changed
+
+- The notice for an ended remembered sign-in says it was ended for security reasons.
+
+### Removed
+
+- The `pin_logins.remember` column, unused since 9.17.
+
 ## [9.17.0] - 2026-11-26
 
 _Stable release based on [9.17.0-rc.1]._
@@ -1828,6 +1842,8 @@ _Stable release based on [0.1.0-rc.1]._
 
 - New changelog file.
 
+[9.18.0]: https://github.com/internetguru/laravel-user/compare/v9.17.0...v9.18.0
+[9.18.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.17.0
 [9.17.0]: https://github.com/internetguru/laravel-user/compare/v9.16.0...v9.17.0
 [9.17.0-rc.1]: https://github.com/internetguru/laravel-user/releases/tag/v9.16.0
 [9.16.0]: https://github.com/internetguru/laravel-user/compare/v9.15.0...v9.16.0
