@@ -23,6 +23,6 @@ return [
     'pin_login.email' => 'Your email',
     'pin_login.submit' => 'Send verification code',
     'pin_login.title' => 'Enter your email',
-    'signed-out' => 'You have been signed out on this device. <a href=":url">Sign in again</a>.',
+    'signed-out' => 'For security reasons, you have been signed out on this device. <a href=":url">Sign in again</a>.',
 
 ];
