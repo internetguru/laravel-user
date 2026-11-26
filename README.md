@@ -348,6 +348,17 @@ wiring below the notice degrades to plain text. To enable it:
     import 'ig::user-js';
     ```
 
+    The entry loads the guide on every page. An application that offers it on a few pages only imports the parts
+    instead, and the guide when it is needed, so the other pages load neither the library nor its stylesheet:
+
+    ```js
+    import mergeSearch from 'ig::user-js/merge-search';
+
+    if (document.querySelector('[data-add-to-homescreen]')) {
+        import('ig::user-js/add-to-homescreen');
+    }
+    ```
+
 The library also expects the site to be a valid PWA: a web manifest linked from the
 layout and a square `<link rel="apple-touch-icon">` of at least 40x40 pixels, which the
 guide illustrates itself with. It falls back to `/apple-touch-icon.png` when the page

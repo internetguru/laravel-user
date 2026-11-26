@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The add-to-homescreen guide is a dialog with a visible "Zavřít" button and Escape to close, takes the application's type, and drops the arrow that guessed the browser's button and could point the wrong way.
+
 ### Fixed
 
 - A remembered sign-in lasts past the session: Laravel recalls a "remember me" cookie only for a user with a password, so `User::getAuthPassword()` returns an empty string for accounts, which have none.

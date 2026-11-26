@@ -69,7 +69,60 @@ const createInstance = () => window.AddToHomeScreen({
     maxModalDisplayCount: -1,
     displayOptions: { showMobile: true, showDesktop: true },
     allowClose: true,
-    showArrow: true,
+    // The arrow guesses where the browser's button is and points the wrong way with the address bar at the bottom;
+    // the steps say where to tap
+    showArrow: false,
+});
+
+/**
+ * Label of the close button the library leaves out.
+ *
+ * @type {Object<string, string>}
+ */
+const closeLabel = {
+    cs: 'Zavřít',
+    en: 'Close',
+};
+
+/**
+ * Make the freshly rendered guide a dialog: named by its title, its icon described by the app's name, closed by a
+ * visible button or Escape, with the focus on the button so a keyboard reaches it at once.
+ *
+ * @param {object} instance
+ * @param {string|undefined} locale
+ * @return {void}
+ */
+const completeDialog = (instance, locale) => {
+    const modal = document.querySelector('.adhs-container .adhs-modal');
+    if (! modal || modal.querySelector('.adhs-close')) {
+        return;
+    }
+
+    const title = modal.querySelector('h1');
+    if (title) {
+        title.id ||= 'adhs-dialog-title';
+        modal.setAttribute('aria-labelledby', title.id);
+    }
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.querySelectorAll('img[alt="logo"]').forEach(image => {
+        image.alt = instance.appName ?? document.title;
+    });
+
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'adhs-close';
+    close.textContent = closeLabel[locale ?? 'en'] ?? closeLabel.en;
+    close.addEventListener('click', () => instance.closeModal());
+    modal.append(close);
+    close.focus();
+};
+
+// Escape closes the guide while it is open
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && document.querySelector('.adhs-container.visible')) {
+        window.AddToHomeScreenInstance?.closeModal();
+    }
 });
 
 /**
@@ -95,6 +148,7 @@ const init = () => {
         if (instance.isBrowserIOSChrome()) {
             fixIOSChromeInstruction(locale);
         }
+        completeDialog(instance, locale);
     });
 };
 

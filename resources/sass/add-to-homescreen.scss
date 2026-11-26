@@ -2,6 +2,8 @@
 // Loaded after the library stylesheet from resources/js/add-to-homescreen.js.
 
 .adhs-container {
+    // The guide in the application's own type
+    font-family: inherit;
 
     // The overlay fades its opacity and background colour in while carrying a
     // full-viewport backdrop blur, which forces the blur to be recomputed every
@@ -22,12 +24,19 @@
         vertical-align: baseline;
     }
 
-    // Chrome for iOS lets the user place the address bar at the top or at the bottom,
-    // and exposes no way to tell which. The library assumes the top and pins its arrow
-    // to the upper right corner, where there is nothing to point at in the bottom
-    // layout, so drop the arrow here and keep the wording corner-agnostic instead.
-    &.adhs-ios.adhs-chrome .adhs-bouncing-arrow {
-        display: none;
+    // The close button the package adds, in the modal's own accent
+    .adhs-close {
+        display: block;
+        min-height: 2.75rem;
+        margin: 1rem auto 0;
+        padding: 0.5rem 1.5rem;
+        border: thin solid currentColor;
+        border-radius: 0.75rem;
+        background: none;
+        color: inherit;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
     }
 
     // The library hardcodes its type in pixels, at sizes that overwhelm the modal on a
