@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- The sign-out notice ends with its sign-in link, without a period after it.
+
+### Removed
+
+- The `remember` and `remember_check` sanitize types; a sign-in page loaded before 9.17 and submitted after the update logs them as unmapped input.
+
 ## [9.18.0] - 2026-11-26
 
 _Stable release based on [9.18.0-rc.1]._
