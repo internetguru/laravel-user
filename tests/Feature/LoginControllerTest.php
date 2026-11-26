@@ -4,6 +4,7 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use InternetGuru\LaravelUser\Enums\Role;
 use Tests\TestCase;
 
@@ -17,6 +18,24 @@ class LoginControllerTest extends TestCase
         config(['app.demo' => false]);
         // add machines index route
         $this->app['router']->middleware('auth')->get('/machines', fn () => 'machines')->name('machines.index');
+    }
+
+    public function test_remembered_sign_in_outlasts_the_session()
+    {
+        // As in an application, whose users are the package's
+        config(['auth.providers.users.model' => User::class]);
+        $user = User::factory()->create();
+        auth()->login($user, remember: true);
+        $recaller = $user->getAuthIdentifier().'|'.$user->getRememberToken().'|'.auth()->guard()->hashPasswordForCookie($user->getAuthPassword());
+        // The session is gone, as after the browser or the phone's app closed
+        session()->flush();
+        $this->app['auth']->forgetGuards();
+
+        $guard = auth()->guard();
+        $guard->setRequest(Request::create('/', cookies: [$guard->getRecallerName() => $recaller]));
+
+        $this->assertTrue($user->is($guard->user()));
+        $this->assertTrue($guard->viaRemember());
     }
 
     public function test_show_login_form()

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+
+- A remembered sign-in lasts past the session: Laravel recalls a "remember me" cookie only for a user with a password, so `User::getAuthPassword()` returns an empty string for accounts, which have none.
+
 ## [9.13.0] - 2026-11-23
 
 _Stable release based on [9.13.0-rc.1]._
